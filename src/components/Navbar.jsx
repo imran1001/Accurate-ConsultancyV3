@@ -10,6 +10,12 @@ export default function Navbar() {
 
   const closeMobile = () => setMobileOpen(false);
 
+  // Safe scroll function for the new logo button
+  const handleLogoClick = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    closeMobile();
+  };
+
   return (
     <header
       role="banner"
@@ -24,28 +30,24 @@ export default function Navbar() {
         className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
       >
         <div className="flex items-center justify-between h-20">
-          {/* ── Logo ─────────────────────────────────── */}
-          <a
-            href="#"
-            aria-label="Accurate Consultancy — Home"
-            className="flex items-center group shrink-0"
+          
+          {/* ── Upgraded Logo Button ─────────────────────────────────── */}
+          <button
+            onClick={handleLogoClick}
+            className="flex items-center group focus:outline-none rounded-lg px-2 py-1 -ml-2 transition-all shrink-0"
+            aria-label="Accurate Consultancy Home"
           >
-            {/* Replace your existing logo button with this */}
-<button
-  onClick={() => scrollToSection('hero')}
-  className="flex items-center group focus:outline-none rounded-lg px-2 py-1 -ml-2 transition-all"
-  aria-label="Accurate Consultancy Home"
->
-  <img 
-    src="/logo.png"
-    alt="Accurate Consultancy"
-    className="h-20 md:h-24 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
-    style={{ 
-      filter: 'drop-shadow(0 0 20px rgba(201, 165, 90, 0.8)) drop-shadow(0 0 40px rgba(201, 165, 90, 0.4))',
-      maxWidth: '220px'
-    }}
-  />
-</button>
+            <img 
+              src="/logo.png"
+              alt="Accurate Consultancy"
+              className="h-20 md:h-24 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+              style={{ 
+                filter: 'drop-shadow(0 0 20px rgba(201, 165, 90, 0.8)) drop-shadow(0 0 40px rgba(201, 165, 90, 0.4))',
+                maxWidth: '220px'
+              }}
+              loading="eager"
+            />
+          </button>
 
           {/* ── Desktop Links ─────────────────────────── */}
           <ul
@@ -71,7 +73,7 @@ export default function Navbar() {
           <div className="hidden md:block">
             <a
               href="#consultation"
-              className="btn-primary text-sm"
+              className="btn-primary text-sm flex items-center gap-2"
             >
               <Globe size={15} />
               Book Consultation
@@ -120,7 +122,7 @@ export default function Navbar() {
             <a
               href="#consultation"
               onClick={closeMobile}
-              className="btn-primary w-full"
+              className="btn-primary w-full flex justify-center items-center gap-2"
             >
               Book Consultation
             </a>
