@@ -30,17 +30,22 @@ export default function Navbar() {
             aria-label="Accurate Consultancy — Home"
             className="flex items-center group shrink-0"
           >
-            <img
-              src="/logo.png"
-              alt="Accurate Consultancy"
-              width={200}
-              height={71}
-              className="h-11 w-auto object-contain
-                         group-hover:scale-105 transition-transform duration-300
-                         drop-shadow-[0_1px_6px_rgba(217,119,6,0.35)]"
-              loading="eager"
-            />
-          </a>
+            {/* Replace your existing logo button with this */}
+<button
+  onClick={() => scrollToSection('hero')}
+  className="flex items-center group focus:outline-none rounded-lg px-2 py-1 -ml-2 transition-all"
+  aria-label="Accurate Consultancy Home"
+>
+  <img 
+    src="/logo.png"
+    alt="Accurate Consultancy"
+    className="h-20 md:h-24 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+    style={{ 
+      filter: 'drop-shadow(0 0 20px rgba(201, 165, 90, 0.8)) drop-shadow(0 0 40px rgba(201, 165, 90, 0.4))',
+      maxWidth: '220px'
+    }}
+  />
+</button>
 
           {/* ── Desktop Links ─────────────────────────── */}
           <ul
