@@ -1,8 +1,7 @@
 import React from 'react';
 import { MessageCircle, ChevronRight, Globe, Award, CheckCircle, Users, Star } from 'lucide-react';
-import ScrollAnimationWrapper from './ScrollAnimationWrapper';
 
-const Hero = () => {
+export default function Hero() {
   const scrollToSection = (id) => {
     const element = document.getElementById(id);
     if (element) {
@@ -16,8 +15,8 @@ const Hero = () => {
   const trustBadges = [
     { icon: Award, label: '15+ Years', sublabel: 'Experience' },
     { icon: CheckCircle, label: '98%', sublabel: 'Success Rate' },
-    { icon: Users, label: '5,000+', sublabel: 'Happy Clients' },
-    { icon: Globe, label: '50+', sublabel: 'Countries' }
+    { icon: Users, label: '5,000+', sublabel: 'Approved Cases' },
+    { icon: Globe, label: '50+', sublabel: 'Global Corridors' }
   ];
 
   return (
@@ -183,6 +182,4 @@ const Hero = () => {
       `}</style>
     </section>
   );
-};
-
-export default Hero;
+}
