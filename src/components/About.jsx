@@ -1,5 +1,5 @@
 import React from 'react';
-import { Award, Globe, Users, CheckCircle, Linkedin, Mail, Phone, Star, Shield, TrendingUp } from 'lucide-react';
+import { Award, Globe, Users, CheckCircle, Mail, Phone, Star, Shield, TrendingUp } from 'lucide-react';
 
 const About = () => {
   const expertise = [
@@ -14,10 +14,10 @@ const About = () => {
   ];
 
   const achievements = [
-    { icon: Award,      value: '15+',    label: 'Years Experience'    },
-    { icon: Users,      value: '5,000+', label: 'Cases Handled'       },
-    { icon: Globe,      value: '50+',    label: 'Countries Covered'   },
-    { icon: TrendingUp, value: '98%',    label: 'Success Rate'        },
+    { icon: Award,      value: '15+',    label: 'Years Experience' },
+    { icon: Users,      value: '5,000+', label: 'Cases Handled'    },
+    { icon: Globe,      value: '50+',    label: 'Countries'        },
+    { icon: TrendingUp, value: '98%',    label: 'Success Rate'     },
   ];
 
   return (
@@ -26,7 +26,7 @@ const About = () => {
       className="py-24 px-4 sm:px-6 lg:px-8 relative overflow-hidden"
       style={{ background: 'linear-gradient(135deg, #f8fafc 0%, #f0f4ff 50%, #fef9ec 100%)' }}
     >
-      {/* Background Decorations */}
+      {/* Background decorations */}
       <div
         className="absolute top-0 right-0 w-96 h-96 rounded-full blur-3xl opacity-20 pointer-events-none"
         style={{ background: 'radial-gradient(circle, #c9a55a, transparent)' }}
@@ -64,44 +64,32 @@ const About = () => {
         >
           <div className="grid lg:grid-cols-2">
 
-            {/* LEFT — Photo + Info */}
+            {/* LEFT: Photo + Info */}
             <div
               className="relative p-10 flex flex-col items-center justify-center text-white text-center"
               style={{ background: 'linear-gradient(135deg, #010610 0%, #0a1628 50%, #1a1060 100%)' }}
             >
-              {/* Gold orb behind photo */}
+              {/* Glow behind photo */}
               <div
                 className="absolute top-10 left-1/2 -translate-x-1/2 w-64 h-64 rounded-full blur-3xl opacity-20 pointer-events-none"
                 style={{ background: 'radial-gradient(circle, #c9a55a, transparent)' }}
               />
 
-              {/* Photo */}
-              <div className="relative mb-6">
-                {/* Gold ring */}
+              {/* Photo with gold border */}
+              <div className="relative mb-6" style={{ width: '200px', height: '200px' }}>
                 <div
-                  className="absolute inset-0 rounded-full"
+                  className="w-full h-full rounded-full overflow-hidden"
                   style={{
-                    background: 'linear-gradient(135deg, #c9a55a, #f0c040, #c9a55a)',
-                    padding: '3px',
-                    borderRadius: '50%'
-                  }}
-                />
-                <div
-                  className="relative rounded-full overflow-hidden"
-                  style={{
-                    width: '200px',
-                    height: '200px',
-                    border: '4px solid transparent',
-                    background: 'linear-gradient(#0a1628, #0a1628) padding-box, linear-gradient(135deg, #c9a55a, #f0c040) border-box',
-                    boxShadow: '0 0 40px rgba(201,165,90,0.4)'
+                    border: '4px solid #c9a55a',
+                    boxShadow: '0 0 40px rgba(201,165,90,0.5), 0 0 80px rgba(201,165,90,0.2)'
                   }}
                 >
                   <img
                     src="/photo.png"
                     alt="Muhammad Imran Malik - Managing Director"
                     style={{
-                      width: '200px',
-                      height: '200px',
+                      width: '100%',
+                      height: '100%',
                       objectFit: 'cover',
                       objectPosition: 'center top',
                       display: 'block'
@@ -110,13 +98,15 @@ const About = () => {
                 </div>
               </div>
 
-              {/* Name & Title */}
+              {/* Name */}
               <div className="relative z-10">
-                <h3 className="text-2xl md:text-3xl font-black text-white mb-1">
+                <h3 className="text-2xl md:text-3xl font-black text-white mb-2">
                   Muhammad Imran Malik
                 </h3>
+
+                {/* Title Badge */}
                 <div
-                  className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full mb-4"
+                  className="inline-flex items-center space-x-2 px-5 py-2 rounded-full mb-4"
                   style={{
                     background: 'linear-gradient(135deg, #c9a55a, #f0c040)',
                     color: '#0a1628'
@@ -125,27 +115,35 @@ const About = () => {
                   <Shield size={14} />
                   <span className="font-bold text-sm">Managing Director</span>
                 </div>
-                <p className="text-sm font-medium mb-6" style={{ color: 'rgba(255,255,255,0.6)' }}>
+
+                {/* Company */}
+                <p
+                  className="text-sm font-medium mb-5"
+                  style={{ color: 'rgba(255,255,255,0.55)' }}
+                >
                   Accurate Consultancy · Lahore, Pakistan
                 </p>
 
-                {/* Star Rating */}
+                {/* Stars */}
                 <div className="flex items-center justify-center space-x-1 mb-6">
-                  {[1,2,3,4,5].map(i => (
+                  {[1, 2, 3, 4, 5].map(i => (
                     <Star key={i} size={18} fill="#c9a55a" style={{ color: '#c9a55a' }} />
                   ))}
-                  <span className="text-sm ml-2 font-semibold" style={{ color: '#c9a55a' }}>
+                  <span
+                    className="text-sm ml-2 font-semibold"
+                    style={{ color: '#c9a55a' }}
+                  >
                     4.9/5 Client Rating
                   </span>
                 </div>
 
                 {/* Contact Buttons */}
-                <div className="flex items-center justify-center space-x-3 flex-wrap gap-2">
+                <div className="flex items-center justify-center flex-wrap gap-2">
                   
                     href="mailto:info@accurate-consultancy.com"
-                    className="flex items-center space-x-2 px-4 py-2.5 rounded-full font-semibold text-sm transition-all hover:scale-105"
+                    className="flex items-center space-x-2 px-4 py-2.5 rounded-full font-semibold text-sm transition-all duration-300 hover:scale-105"
                     style={{
-                      background: 'rgba(255,255,255,0.1)',
+                      background: 'rgba(255,255,255,0.08)',
                       border: '1px solid rgba(255,255,255,0.2)',
                       color: 'white',
                       textDecoration: 'none'
@@ -156,11 +154,12 @@ const About = () => {
                     <Mail size={15} />
                     <span>Email</span>
                   </a>
+
                   
                     href="tel:+923160285386"
-                    className="flex items-center space-x-2 px-4 py-2.5 rounded-full font-semibold text-sm transition-all hover:scale-105"
+                    className="flex items-center space-x-2 px-4 py-2.5 rounded-full font-semibold text-sm transition-all duration-300 hover:scale-105"
                     style={{
-                      background: 'rgba(255,255,255,0.1)',
+                      background: 'rgba(255,255,255,0.08)',
                       border: '1px solid rgba(255,255,255,0.2)',
                       color: 'white',
                       textDecoration: 'none'
@@ -171,11 +170,12 @@ const About = () => {
                     <Phone size={15} />
                     <span>Call</span>
                   </a>
+
                   
                     href="https://wa.me/923160285386"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center space-x-2 px-4 py-2.5 rounded-full font-semibold text-sm transition-all hover:scale-105"
+                    className="flex items-center space-x-2 px-4 py-2.5 rounded-full font-semibold text-sm transition-all duration-300 hover:scale-105"
                     style={{
                       background: '#25D366',
                       color: 'white',
@@ -188,7 +188,7 @@ const About = () => {
               </div>
             </div>
 
-            {/* RIGHT — Bio & Expertise */}
+            {/* RIGHT: Bio + Expertise */}
             <div className="p-10 bg-white flex flex-col justify-center">
 
               {/* Bio */}
@@ -199,28 +199,41 @@ const About = () => {
                 >
                   About Muhammad Imran Malik
                 </h4>
-                <p className="text-gray-600 leading-relaxed mb-4" style={{ fontSize: '15px' }}>
-                  With over <strong style={{ color: '#0a1628' }}>15 years of dedicated experience</strong> in 
-                  visa and immigration consulting, Muhammad Imran Malik has established himself as one of 
-                  Pakistan's most trusted immigration professionals.
+                <p
+                  className="text-gray-600 leading-relaxed mb-4"
+                  style={{ fontSize: '15px' }}
+                >
+                  With over{' '}
+                  <strong style={{ color: '#0a1628' }}>15 years of dedicated experience</strong>{' '}
+                  in visa and immigration consulting, Muhammad Imran Malik has established
+                  himself as one of Pakistan's most trusted immigration professionals.
                 </p>
-                <p className="text-gray-600 leading-relaxed mb-4" style={{ fontSize: '15px' }}>
-                  As the <strong style={{ color: '#0a1628' }}>Managing Director</strong> of Accurate Consultancy, 
-                  he has personally guided over <strong style={{ color: '#0a1628' }}>5,000+ clients</strong> across 
-                  50+ countries — from visit visas to complex investor immigration programs in the USA, UK, 
-                  Canada, and Australia.
+                <p
+                  className="text-gray-600 leading-relaxed mb-4"
+                  style={{ fontSize: '15px' }}
+                >
+                  As the{' '}
+                  <strong style={{ color: '#0a1628' }}>Managing Director</strong> of Accurate
+                  Consultancy, he has personally guided over{' '}
+                  <strong style={{ color: '#0a1628' }}>5,000+ clients</strong> across 50+
+                  countries — from visit visas to complex investor immigration programs in the
+                  USA, UK, Canada, and Australia.
                 </p>
-                <p className="text-gray-600 leading-relaxed" style={{ fontSize: '15px' }}>
-                  His deep regulatory knowledge, ethical approach, and commitment to client success has 
-                  earned Accurate Consultancy a <strong style={{ color: '#c9a55a' }}>98% approval rate</strong> — 
-                  one of the highest in the industry.
+                <p
+                  className="text-gray-600 leading-relaxed"
+                  style={{ fontSize: '15px' }}
+                >
+                  His deep regulatory knowledge, ethical approach, and commitment to client
+                  success has earned Accurate Consultancy a{' '}
+                  <strong style={{ color: '#c9a55a' }}>98% approval rate</strong> — one of the
+                  highest in the industry.
                 </p>
               </div>
 
-              {/* Expertise Grid */}
+              {/* Expertise */}
               <div className="mb-8">
                 <h4
-                  className="text-base font-bold mb-4 uppercase tracking-wide"
+                  className="text-sm font-bold mb-4 uppercase tracking-wider"
                   style={{ color: '#0a1628' }}
                 >
                   Areas of Expertise
@@ -247,7 +260,7 @@ const About = () => {
                 </div>
               </div>
 
-              {/* Stats Row */}
+              {/* Stats Bar */}
               <div
                 className="grid grid-cols-4 gap-3 p-5 rounded-2xl"
                 style={{
@@ -264,7 +277,7 @@ const About = () => {
                     />
                     <div
                       className="font-black text-white"
-                      style={{ fontSize: 'clamp(0.9rem, 1.5vw, 1.2rem)' }}
+                      style={{ fontSize: 'clamp(0.85rem, 1.5vw, 1.1rem)' }}
                     >
                       {a.value}
                     </div>
