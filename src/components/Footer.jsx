@@ -1,5 +1,6 @@
+import React from 'react';
 import {
-  MapPin, Phone, Mail, Globe,
+  MapPin, Phone, Mail, Globe, Clock,
   Facebook, Linkedin, Instagram, Twitter,
   ChevronRight,
 } from 'lucide-react';
@@ -16,7 +17,7 @@ const SOCIAL = [
   { Icon: Twitter,   href: '#', label: 'Twitter'   },
 ];
 
-/* Inline WhatsApp SVG so no extra dependency is needed */
+/* Inline WhatsApp SVG for clean dependencies */
 function WhatsAppIcon({ size = 17 }) {
   return (
     <svg
@@ -32,8 +33,8 @@ function WhatsAppIcon({ size = 17 }) {
 }
 
 const WA_NUMBERS = [
-  { number: '923160285386', display: '+92 316 0285386', label: 'Sales & Visa'  },
-  { number: '923030411114', display: '+92 303 0411114', label: 'Support'       },
+  { number: '923160285386', display: '+92 316 0285386', label: 'Sales & Visa' },
+  { number: '923030411114', display: '+92 303 0411114', label: 'Support'      },
 ];
 
 const WA_MSG = encodeURIComponent(
@@ -46,13 +47,13 @@ export default function Footer() {
   return (
     <footer
       id="contact"
-      className="bg-blue-950 text-white pt-16 pb-8 px-4 sm:px-6 lg:px-8"
+      className="bg-gradient-to-br from-[#020818] to-[#0a1628] text-white pt-16 pb-10"
       aria-label="Site footer"
     >
-      <div className="max-w-7xl mx-auto">
-
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
         {/* ── Main Grid ───────────────────────────── */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-10 mb-14">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
 
           {/* Brand Column */}
           <div className="lg:col-span-2">
@@ -65,15 +66,15 @@ export default function Footer() {
                 src="/logo.png"
                 alt="Accurate Consultancy"
                 width={220}
-                height={78}
-                className="h-12 w-auto object-contain
-                           group-hover:scale-105 transition-transform duration-300
-                           drop-shadow-[0_1px_8px_rgba(217,119,6,0.4)]"
+                height={70}
+                className="h-[70px] w-auto object-contain 
+                           group-hover:scale-105 transition-transform duration-300 
+                           drop-shadow-[0_0_15px_rgba(201,165,90,0.5)] brightness-105"
                 loading="lazy"
               />
             </a>
 
-            <p className="text-blue-200/70 leading-relaxed text-sm max-w-sm mb-6">
+            <p className="text-white/60 leading-relaxed text-base max-w-sm mb-6">
               Your trusted partner in global immigration — delivering premium visa services
               with expertise, integrity, and genuine care for every client.
             </p>
@@ -85,11 +86,12 @@ export default function Footer() {
                   key={label}
                   href={href}
                   aria-label={label}
-                  className="w-10 h-10 bg-blue-900 hover:bg-amber-600 rounded-full
-                             flex items-center justify-center
-                             transition-all duration-300 hover:scale-110"
+                  className="w-10 h-10 rounded-full flex items-center justify-center
+                             bg-white/5 border border-[#c9a55a]/20 text-white/60
+                             transition-all duration-300 
+                             hover:scale-110 hover:bg-[#c9a55a]/20 hover:border-[#c9a55a]/60 hover:text-[#c9a55a]"
                 >
-                  <Icon size={17} aria-hidden="true" />
+                  <Icon size={16} aria-hidden="true" />
                 </a>
               ))}
             </div>
@@ -97,20 +99,20 @@ export default function Footer() {
 
           {/* Quick Links */}
           <nav aria-label="Quick links">
-            <h3 className="text-sm font-bold tracking-[0.2em] uppercase text-amber-400 mb-6">
+            <h3 className="text-sm font-bold tracking-wider uppercase text-[#c9a55a] mb-6">
               Quick Links
             </h3>
-            <ul className="space-y-2.5">
+            <ul className="space-y-3">
               {QUICK_LINKS.map((link) => (
                 <li key={link}>
                   <a
                     href="#"
-                    className="flex items-center gap-1.5 text-blue-200/70 hover:text-amber-400
-                               text-sm transition-colors duration-200 group"
+                    className="flex items-center gap-2 text-white/60 hover:text-[#c9a55a]
+                               text-sm transition-colors duration-300 group"
                   >
                     <ChevronRight
                       size={14}
-                      className="shrink-0 group-hover:translate-x-0.5 transition-transform"
+                      className="shrink-0 group-hover:translate-x-1 transition-transform duration-300"
                       aria-hidden="true"
                     />
                     {link}
@@ -122,43 +124,39 @@ export default function Footer() {
 
           {/* Contact Info */}
           <div>
-            <h3 className="text-sm font-bold tracking-[0.2em] uppercase text-amber-400 mb-6">
+            <h3 className="text-sm font-bold tracking-wider uppercase text-[#c9a55a] mb-6">
               Contact Us
             </h3>
             <address className="not-italic space-y-4">
 
               {/* Phone (tel:) */}
               <div className="flex items-start gap-3">
-                <Phone className="text-amber-400 shrink-0 mt-0.5" size={17} aria-hidden="true" />
-                <div className="text-sm text-blue-200/70 space-y-0.5">
-                  <a href="tel:+923160285386" className="block hover:text-amber-400 transition-colors">
+                <Phone className="text-[#c9a55a] shrink-0 mt-0.5" size={16} aria-hidden="true" />
+                <div className="text-sm text-white/70 space-y-1">
+                  <a href="tel:+923160285386" className="block hover:text-[#c9a55a] transition-colors">
                     +92 316 0285386
                   </a>
-                  <a href="tel:+923030411114" className="block hover:text-amber-400 transition-colors">
+                  <a href="tel:+923030411114" className="block hover:text-[#c9a55a] transition-colors">
                     +92 303 0411114
                   </a>
                 </div>
               </div>
 
-              {/* WhatsApp numbers */}
+              {/* WhatsApp */}
               <div className="flex items-start gap-3">
-                <WhatsAppIcon size={17} />
-                <div className="text-sm space-y-1">
+                <Globe className="text-[#25d366] shrink-0 mt-0.5" size={16} aria-hidden="true" />
+                <div className="text-sm space-y-1 text-white/70">
                   {WA_NUMBERS.map(({ number, display, label }) => (
                     <a
                       key={number}
                       href={`https://wa.me/${number}?text=${WA_MSG}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-1.5 text-[#4ade80] hover:text-[#86efac]
+                      className="flex items-center gap-1.5 hover:text-[#25d366]
                                  transition-colors duration-200 group"
                       aria-label={`WhatsApp ${label}: ${display}`}
                     >
-                      <span>{display}</span>
-                      <span className="text-[10px] bg-[#25D366]/20 text-[#4ade80] px-1.5 py-0.5
-                                       rounded font-semibold tracking-wider">
-                        WA
-                      </span>
+                      <span>WhatsApp · {display}</span>
                     </a>
                   ))}
                 </div>
@@ -166,10 +164,10 @@ export default function Footer() {
 
               {/* Email */}
               <div className="flex items-start gap-3">
-                <Mail className="text-amber-400 shrink-0 mt-0.5" size={17} aria-hidden="true" />
+                <Mail className="text-[#c9a55a] shrink-0 mt-0.5" size={16} aria-hidden="true" />
                 <a
                   href="mailto:info@accurate-consultancy.com"
-                  className="text-sm text-blue-200/70 hover:text-amber-400 transition-colors break-all"
+                  className="text-sm text-white/70 hover:text-[#c9a55a] transition-colors break-all"
                 >
                   info@accurate-consultancy.com
                 </a>
@@ -177,23 +175,25 @@ export default function Footer() {
 
               {/* Location */}
               <div className="flex items-start gap-3">
-                <MapPin className="text-amber-400 shrink-0 mt-0.5" size={17} aria-hidden="true" />
-                <span className="text-sm text-blue-200/70">Lahore, Pakistan</span>
+                <MapPin className="text-[#c9a55a] shrink-0 mt-0.5" size={16} aria-hidden="true" />
+                <span className="text-sm text-white/70">Lahore, Pakistan</span>
               </div>
 
               {/* Hours */}
               <div className="flex items-start gap-3">
-                <Globe className="text-amber-400 shrink-0 mt-0.5" size={17} aria-hidden="true" />
-                <span className="text-sm text-blue-200/70">Mon–Sat: 9:00 AM – 6:00 PM PKT</span>
+                <Clock className="text-[#c9a55a] shrink-0 mt-0.5" size={16} aria-hidden="true" />
+                <span className="text-sm text-white/70">Mon–Sat: 9:00 AM – 6:00 PM PKT</span>
               </div>
             </address>
           </div>
         </div>
 
+        {/* ── Divider ─────────────────────────────── */}
+        <div className="h-px w-full bg-[#c9a55a]/15 mb-8" />
+
         {/* ── Bottom Bar ──────────────────────────── */}
-        <div className="border-t border-blue-900 pt-8 flex flex-col md:flex-row
-                        justify-between items-center gap-4">
-          <p className="text-blue-200/50 text-xs">
+        <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+          <p className="text-white/40 text-sm">
             © {year} Accurate Consultancy. All rights reserved.
           </p>
           <nav aria-label="Legal links" className="flex gap-6">
@@ -201,13 +201,14 @@ export default function Footer() {
               <a
                 key={item}
                 href="#"
-                className="text-blue-200/50 hover:text-amber-400 text-xs transition-colors"
+                className="text-white/40 hover:text-[#c9a55a] text-xs transition-colors"
               >
                 {item}
               </a>
             ))}
           </nav>
         </div>
+        
       </div>
     </footer>
   );
