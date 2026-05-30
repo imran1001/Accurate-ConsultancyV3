@@ -1,221 +1,91 @@
-import React from 'react';
-import { Award, Globe, Users, CheckCircle, Mail, Phone, Star, Shield, TrendingUp } from 'lucide-react';
+$content = @'
+import React from "react";
+import { Award, Globe, Users, CheckCircle, Mail, Phone, Shield, TrendingUp } from "lucide-react";
 
-const expertise = [
-  'Visit and Tourist Visa Processing',
-  'Skilled Worker Immigration',
-  'Business and Investor Visas',
-  'Study Abroad Consulting',
-  'Express Entry and PR Pathways',
-  'Corporate Travel Management',
-  'UK and European Immigration',
-  'Canada and Australia PR',
+var expertise = [
+  "Visit and Tourist Visa Processing",
+  "Skilled Worker Immigration",
+  "Business and Investor Visas",
+  "Study Abroad Consulting",
+  "Express Entry and PR Pathways",
+  "Corporate Travel Management",
+  "UK and European Immigration",
+  "Canada and Australia PR"
 ];
 
-const achievements = [
-  { icon: Award,      value: '15+',    label: 'Years Experience' },
-  { icon: Users,      value: '5000+',  label: 'Cases Handled'    },
-  { icon: Globe,      value: '50+',    label: 'Countries'        },
-  { icon: TrendingUp, value: '98%',    label: 'Success Rate'     },
+var achievements = [
+  { label: "15+",   sub: "Years Experience" },
+  { label: "5000+", sub: "Cases Handled"    },
+  { label: "50+",   sub: "Countries"        },
+  { label: "98%",   sub: "Success Rate"     }
 ];
 
 function About() {
-  return (
-    <section
-      id="about"
-      className="py-24 px-4 sm:px-6 lg:px-8 relative overflow-hidden"
-      style={{ background: 'linear-gradient(135deg, #f8fafc 0%, #f0f4ff 50%, #fef9ec 100%)' }}
-    >
-      <div className="max-w-7xl mx-auto relative z-10">
-
-        <div className="text-center mb-16">
-          <span
-            className="font-bold text-xs tracking-widest uppercase"
-            style={{ color: '#c9a55a' }}
-          >
-            Meet the Expert
-          </span>
-          <h2
-            className="text-4xl md:text-5xl font-bold mt-3 mb-4"
-            style={{ color: '#0a1628' }}
-          >
-            Leadership and Expertise
-          </h2>
-          <p className="text-gray-500 text-lg max-w-2xl mx-auto">
-            Decades of experience guiding thousands of clients to their global destinations
-          </p>
-        </div>
-
-        <div
-          className="rounded-3xl overflow-hidden shadow-2xl"
-          style={{ border: '1px solid rgba(201,165,90,0.2)' }}
-        >
-          <div className="grid lg:grid-cols-2">
-
-            <div
-              className="relative p-10 flex flex-col items-center justify-center text-white text-center"
-              style={{ background: 'linear-gradient(135deg, #010610 0%, #0a1628 50%, #1a1060 100%)' }}
-            >
-              <div
-                className="mb-6 rounded-full overflow-hidden"
-                style={{
-                  width: '200px',
-                  height: '200px',
-                  border: '4px solid #c9a55a',
-                  boxShadow: '0 0 40px rgba(201,165,90,0.5)'
-                }}
-              >
-                <img
-                  src="/photo.png"
-                  alt="Muhammad Imran Malik"
-                  style={{
-                    width: '200px',
-                    height: '200px',
-                    objectFit: 'cover',
-                    objectPosition: 'center top',
-                    display: 'block'
-                  }}
-                />
-              </div>
-
-              <div className="relative z-10">
-                <h3 className="text-2xl md:text-3xl font-black text-white mb-2">
-                  Muhammad Imran Malik
-                </h3>
-
-                <div
-                  className="inline-flex items-center space-x-2 px-5 py-2 rounded-full mb-4"
-                  style={{ background: 'linear-gradient(135deg, #c9a55a, #f0c040)', color: '#0a1628' }}
-                >
-                  <Shield size={14} />
-                  <span className="font-bold text-sm">Managing Director</span>
-                </div>
-
-                <p className="text-sm font-medium mb-5" style={{ color: 'rgba(255,255,255,0.55)' }}>
-                  Accurate Consultancy, Lahore, Pakistan
-                </p>
-
-                <div className="flex items-center justify-center space-x-1 mb-6">
-                  <Star size={16} fill="#c9a55a" style={{ color: '#c9a55a' }} />
-                  <Star size={16} fill="#c9a55a" style={{ color: '#c9a55a' }} />
-                  <Star size={16} fill="#c9a55a" style={{ color: '#c9a55a' }} />
-                  <Star size={16} fill="#c9a55a" style={{ color: '#c9a55a' }} />
-                  <Star size={16} fill="#c9a55a" style={{ color: '#c9a55a' }} />
-                  <span className="text-sm ml-2 font-semibold" style={{ color: '#c9a55a' }}>
-                    4.9/5 Client Rating
-                  </span>
-                </div>
-
-                <div className="flex items-center justify-center flex-wrap gap-3">
-                  
-                    href="mailto:info@accurate-consultancy.com"
-                    className="flex items-center space-x-2 px-4 py-2 rounded-full font-semibold text-sm text-white"
-                    style={{ background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)', textDecoration: 'none' }}
-                  >
-                    <Mail size={14} />
-                    <span>Email</span>
-                  </a>
-                  
-                    href="tel:+923160285386"
-                    className="flex items-center space-x-2 px-4 py-2 rounded-full font-semibold text-sm text-white"
-                    style={{ background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)', textDecoration: 'none' }}
-                  >
-                    <Phone size={14} />
-                    <span>Call</span>
-                  </a>
-                  
-                    href="https://wa.me/923160285386"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center space-x-2 px-4 py-2 rounded-full font-semibold text-sm text-white"
-                    style={{ background: '#25D366', textDecoration: 'none' }}
-                  >
-                    <span>WhatsApp</span>
-                  </a>
-                </div>
-              </div>
-            </div>
-
-            <div className="p-10 bg-white flex flex-col justify-center">
-              <div className="mb-8">
-                <h4 className="text-xl font-bold mb-4" style={{ color: '#0a1628' }}>
-                  About Muhammad Imran Malik
-                </h4>
-                <p className="text-gray-600 leading-relaxed mb-4" style={{ fontSize: '15px' }}>
-                  With over 15 years of dedicated experience in visa and immigration consulting,
-                  Muhammad Imran Malik has established himself as one of Pakistan's most trusted
-                  immigration professionals.
-                </p>
-                <p className="text-gray-600 leading-relaxed mb-4" style={{ fontSize: '15px' }}>
-                  As the Managing Director of Accurate Consultancy, he has personally guided
-                  over 5,000 clients across 50+ countries, from visit visas to complex investor
-                  immigration programs in the USA, UK, Canada, and Australia.
-                </p>
-                <p className="text-gray-600 leading-relaxed" style={{ fontSize: '15px' }}>
-                  His deep regulatory knowledge, ethical approach, and commitment to client
-                  success has earned Accurate Consultancy a 98% approval rate, one of the
-                  highest in the industry.
-                </p>
-              </div>
-
-              <div className="mb-8">
-                <h4
-                  className="text-sm font-bold mb-4 uppercase tracking-wider"
-                  style={{ color: '#0a1628' }}
-                >
-                  Areas of Expertise
-                </h4>
-                <div className="grid grid-cols-2 gap-2">
-                  {expertise.map(function(item, i) {
-                    return (
-                      <div
-                        key={i}
-                        className="flex items-center space-x-2 py-2 px-3 rounded-xl"
-                        style={{ background: '#f8fafc', border: '1px solid #f0f0f0' }}
-                      >
-                        <CheckCircle size={13} style={{ color: '#c9a55a', flexShrink: 0 }} />
-                        <span className="text-xs font-semibold" style={{ color: '#374151' }}>
-                          {item}
-                        </span>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-
-              <div
-                className="grid grid-cols-4 gap-3 p-5 rounded-2xl"
-                style={{
-                  background: 'linear-gradient(135deg, #0a1628, #1a1060)',
-                  border: '1px solid rgba(201,165,90,0.2)'
-                }}
-              >
-                {achievements.map(function(a, i) {
-                  return (
-                    <div key={i} className="text-center">
-                      <a.icon size={18} className="mx-auto mb-1" style={{ color: '#c9a55a' }} />
-                      <div
-                        className="font-black text-white text-base"
-                      >
-                        {a.value}
-                      </div>
-                      <div
-                        className="text-xs leading-tight mt-1"
-                        style={{ color: 'rgba(255,255,255,0.5)' }}
-                      >
-                        {a.label}
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </div>
-    </section>
+  return React.createElement("section", {
+    id: "about",
+    style: { background: "linear-gradient(135deg, #f8fafc 0%, #f0f4ff 50%, #fef9ec 100%)", padding: "6rem 1rem", position: "relative", overflow: "hidden" }
+  },
+    React.createElement("div", { style: { maxWidth: "1280px", margin: "0 auto" } },
+      React.createElement("div", { style: { textAlign: "center", marginBottom: "4rem" } },
+        React.createElement("span", { style: { color: "#c9a55a", fontWeight: "700", fontSize: "12px", letterSpacing: "0.3em", textTransform: "uppercase" } }, "Meet the Expert"),
+        React.createElement("h2", { style: { color: "#0a1628", fontSize: "clamp(2rem, 5vw, 3rem)", fontWeight: "800", marginTop: "0.75rem", marginBottom: "1rem" } }, "Leadership and Expertise"),
+        React.createElement("p", { style: { color: "#6b7280", fontSize: "1.125rem", maxWidth: "42rem", margin: "0 auto" } }, "Decades of experience guiding thousands of clients to their global destinations")
+      ),
+      React.createElement("div", { style: { borderRadius: "1.5rem", overflow: "hidden", boxShadow: "0 25px 50px rgba(0,0,0,0.15)", border: "1px solid rgba(201,165,90,0.2)" } },
+        React.createElement("div", { style: { display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr)" } },
+          React.createElement("div", { style: { background: "linear-gradient(135deg, #010610 0%, #0a1628 50%, #1a1060 100%)", padding: "2.5rem", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", color: "white" } },
+            React.createElement("div", { style: { width: "200px", height: "200px", borderRadius: "50%", overflow: "hidden", border: "4px solid #c9a55a", boxShadow: "0 0 40px rgba(201,165,90,0.5)", marginBottom: "1.5rem" } },
+              React.createElement("img", { src: "/photo.png", alt: "Muhammad Imran Malik", style: { width: "200px", height: "200px", objectFit: "cover", objectPosition: "center top", display: "block" } })
+            ),
+            React.createElement("h3", { style: { fontSize: "1.75rem", fontWeight: "900", color: "white", marginBottom: "0.5rem" } }, "Muhammad Imran Malik"),
+            React.createElement("div", { style: { display: "inline-flex", alignItems: "center", gap: "6px", padding: "8px 20px", borderRadius: "9999px", background: "linear-gradient(135deg, #c9a55a, #f0c040)", color: "#0a1628", fontWeight: "700", fontSize: "14px", marginBottom: "1rem" } },
+              React.createElement(Shield, { size: 14 }),
+              "Managing Director"
+            ),
+            React.createElement("p", { style: { fontSize: "14px", color: "rgba(255,255,255,0.55)", marginBottom: "1.5rem" } }, "Accurate Consultancy, Lahore, Pakistan"),
+            React.createElement("p", { style: { color: "#c9a55a", fontWeight: "600", fontSize: "14px", marginBottom: "1.5rem" } }, "4.9/5 Client Rating"),
+            React.createElement("div", { style: { display: "flex", flexWrap: "wrap", gap: "8px", justifyContent: "center" } },
+              React.createElement("a", { href: "mailto:info@accurate-consultancy.com", style: { display: "inline-flex", alignItems: "center", gap: "6px", padding: "8px 16px", borderRadius: "9999px", background: "rgba(255,255,255,0.1)", border: "1px solid rgba(255,255,255,0.2)", color: "white", textDecoration: "none", fontSize: "13px", fontWeight: "600" } },
+                React.createElement(Mail, { size: 13 }), "Email"
+              ),
+              React.createElement("a", { href: "tel:+923160285386", style: { display: "inline-flex", alignItems: "center", gap: "6px", padding: "8px 16px", borderRadius: "9999px", background: "rgba(255,255,255,0.1)", border: "1px solid rgba(255,255,255,0.2)", color: "white", textDecoration: "none", fontSize: "13px", fontWeight: "600" } },
+                React.createElement(Phone, { size: 13 }), "Call"
+              ),
+              React.createElement("a", { href: "https://wa.me/923160285386", target: "_blank", rel: "noopener noreferrer", style: { display: "inline-flex", alignItems: "center", gap: "6px", padding: "8px 16px", borderRadius: "9999px", background: "#25D366", color: "white", textDecoration: "none", fontSize: "13px", fontWeight: "600" } },
+                "WhatsApp"
+              )
+            )
+          ),
+          React.createElement("div", { style: { background: "white", padding: "2.5rem", display: "flex", flexDirection: "column", justifyContent: "center" } },
+            React.createElement("h4", { style: { color: "#0a1628", fontSize: "1.25rem", fontWeight: "700", marginBottom: "1rem" } }, "About Muhammad Imran Malik"),
+            React.createElement("p", { style: { color: "#4b5563", lineHeight: "1.8", marginBottom: "1rem", fontSize: "15px" } }, "With over 15 years of dedicated experience in visa and immigration consulting, Muhammad Imran Malik has established himself as one of Pakistan's most trusted immigration professionals."),
+            React.createElement("p", { style: { color: "#4b5563", lineHeight: "1.8", marginBottom: "1rem", fontSize: "15px" } }, "As the Managing Director of Accurate Consultancy, he has personally guided over 5,000 clients across 50+ countries, from visit visas to complex investor immigration programs in the USA, UK, Canada, and Australia."),
+            React.createElement("p", { style: { color: "#4b5563", lineHeight: "1.8", marginBottom: "2rem", fontSize: "15px" } }, "His deep regulatory knowledge, ethical approach, and commitment to client success has earned Accurate Consultancy a 98% approval rate, one of the highest in the industry."),
+            React.createElement("h4", { style: { color: "#0a1628", fontSize: "13px", fontWeight: "700", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "1rem" } }, "Areas of Expertise"),
+            React.createElement("div", { style: { display: "grid", gridTemplateColumns: "1fr 1fr", gap: "8px", marginBottom: "2rem" } },
+              expertise.map(function(item, i) {
+                return React.createElement("div", { key: i, style: { display: "flex", alignItems: "center", gap: "8px", padding: "8px 12px", borderRadius: "12px", background: "#f8fafc", border: "1px solid #f0f0f0" } },
+                  React.createElement(CheckCircle, { size: 13, style: { color: "#c9a55a", flexShrink: 0 } }),
+                  React.createElement("span", { style: { fontSize: "12px", fontWeight: "600", color: "#374151" } }, item)
+                );
+              })
+            ),
+            React.createElement("div", { style: { display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "12px", padding: "20px", borderRadius: "16px", background: "linear-gradient(135deg, #0a1628, #1a1060)", border: "1px solid rgba(201,165,90,0.2)" } },
+              achievements.map(function(a, i) {
+                return React.createElement("div", { key: i, style: { textAlign: "center" } },
+                  React.createElement("div", { style: { color: "white", fontWeight: "900", fontSize: "1.1rem" } }, a.label),
+                  React.createElement("div", { style: { color: "rgba(255,255,255,0.5)", fontSize: "11px", marginTop: "4px", lineHeight: "1.3" } }, a.sub)
+                );
+              })
+            )
+          )
+        )
+      )
+    )
   );
 }
 
 export default About;
+'@
+Set-Content -Path "src\components\About.jsx" -Value $content -Encoding UTF8
+Write-Host "File created successfully!"
