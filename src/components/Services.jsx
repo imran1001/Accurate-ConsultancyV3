@@ -1,375 +1,250 @@
-import { useState }                          from 'react';
-import {
-  Plane, Briefcase, GraduationCap,
-  Users, Building2, Map,
-  ChevronRight,
-} from 'lucide-react';
-import { useIntersectionObserver }           from '@hooks/useIntersectionObserver';
-import ServiceModal                          from '@components/ServiceModal';
+import React, { useState } from 'react';
+import { Plane, Briefcase, GraduationCap, Users, Building2, Compass, ChevronRight, X } from 'lucide-react';
 
-/* ─────────────────────────────────────────────────────────────
-   SERVICE DATA
-   Each entry carries:
-     icon        — Lucide component
-     title       — card heading
-     description — short card copy
-     accent      — Tailwind gradient classes for icon bg + modal header
-     delay       — staggered animation class
-     details     — array of { heading, points[] } shown in the modal
-   ───────────────────────────────────────────────────────────── */
-const SERVICES = [
+const serviceData = [
   {
-    icon:        Plane,
-    title:       'Visit Visa',
-    description: 'Tourism, family visits, and short-term travel visas processed efficiently with expert guidance from document preparation to embassy liaison.',
-    accent:      'from-blue-900 to-blue-700',
-    delay:       'delay-100',
-    details: [
-      {
-        heading: 'Visa Sub-Types We Handle',
-        points: [
-          'B1/B2 Tourist & Business Visa (USA)',
-          'Standard Visitor Visa (UK)',
-          'Schengen Short-Stay Visa (Europe)',
-          'UAE Tourist & Visit Visa',
-          'Canada Temporary Resident Visa (TRV)',
-          'Australia Visitor Visa (subclass 600)',
-        ],
-      },
-      {
-        heading: 'Our Process',
-        points: [
-          'Step 1 — Free eligibility assessment and document checklist',
-          'Step 2 — Application form completion and document preparation',
-          'Step 3 — Biometric appointment scheduling and guidance',
-          'Step 4 — Embassy / consulate submission and tracking',
-          'Step 5 — Visa collection and travel briefing',
-        ],
-      },
-      {
-        heading: 'Why Clients Choose Us',
-        points: [
-          'Dedicated case officer assigned from day one',
-          'Real-time application status updates via WhatsApp',
-          'Cover letter and itinerary drafting included',
-          'Post-rejection appeal support available',
-        ],
-      },
-    ],
+    icon: Plane,
+    title: 'Visit Visa',
+    short: 'Tourism, family visits, and short-term travel visas processed efficiently with expert guidance.',
+    color: '#3b82f6',
+    bg: 'from-blue-900 to-blue-800',
+    details: {
+      overview: 'Our visit visa service covers tourism, family reunification, and short-term travel. We handle everything from document preparation to embassy liaison.',
+      benefits: ['Fast-track processing', 'Embassy coordination', 'Interview preparation', 'Multiple destination expertise'],
+      timeline: '7–15 business days',
+      requirements: 'Valid passport, financial proof, travel itinerary, invitation letter'
+    }
   },
   {
-    icon:        Briefcase,
-    title:       'Work Visa',
-    description: 'Employment-based visas, corporate transfers, and skilled worker programs opening doors to global career opportunities across every sector.',
-    accent:      'from-amber-700 to-amber-500',
-    delay:       'delay-200',
-    details: [
-      {
-        heading: 'Work Visa Categories',
-        points: [
-          'H-1B Specialty Occupation Visa (USA)',
-          'UK Skilled Worker Visa (points-based)',
-          'UAE Employment / Residence Visa',
-          'Canada LMIA Work Permit',
-          'Germany Work Visa & EU Blue Card',
-          'Australia Temporary Skill Shortage (TSS) Visa',
-        ],
-      },
-      {
-        heading: 'Corporate & Intra-Company Transfers',
-        points: [
-          'L-1A / L-1B Intra-Company Transfer (USA)',
-          'ICT (Intra-Company Transfer) Visa — UK',
-          'Multinational Company (MNC) Visa — Canada',
-          'End-to-end employer sponsorship coordination',
-        ],
-      },
-      {
-        heading: 'Value-Added Services',
-        points: [
-          'Job offer letter and employment contract review',
-          'Credential recognition and skills assessment support',
-          'Dependent / family member visa processing',
-          'Work permit renewal and extension management',
-        ],
-      },
-    ],
+    icon: Briefcase,
+    title: 'Work Visa',
+    short: 'Employment-based visas, corporate transfers, and skilled worker programs for global careers.',
+    color: '#f59e0b',
+    bg: 'from-amber-700 to-amber-600',
+    details: {
+      overview: 'We specialize in work permits across USA, UK, Canada, Australia, and UAE — handling every step from employer sponsorship to visa approval.',
+      benefits: ['Employer sponsorship support', 'Skills assessment', 'Job market guidance', 'Relocation assistance'],
+      timeline: '2–6 months',
+      requirements: 'Job offer, educational credentials, work experience, professional certifications'
+    }
   },
   {
-    icon:        GraduationCap,
-    title:       'Study Abroad',
-    description: 'Student visas, university placements, and education pathway consulting for top institutions in the UK, Canada, Australia, and beyond.',
-    accent:      'from-blue-800 to-indigo-700',
-    delay:       'delay-300',
-    details: [
-      {
-        heading: 'Top Destination Student Visas',
-        points: [
-          'F-1 Student Visa (USA) — universities & colleges',
-          'UK Student Visa (formerly Tier 4)',
-          'Canada Study Permit — DLI-approved institutions',
-          'Australia Student Visa (subclass 500)',
-          'Germany Student Visa — public & private universities',
-          'New Zealand Student Visa',
-        ],
-      },
-      {
-        heading: 'University Placement Support',
-        points: [
-          'Course and institution shortlisting based on profile',
-          'IELTS / TOEFL / Duolingo English Test preparation guidance',
-          'Statement of Purpose (SOP) and personal statement drafting',
-          'Scholarship search and application assistance',
-          'Pre-departure orientation and accommodation guidance',
-        ],
-      },
-      {
-        heading: 'Post-Study Pathways',
-        points: [
-          'Post-Study Work Visa (UK Graduate Route)',
-          'Post-Graduation Work Permit (PGWP) — Canada',
-          'Temporary Graduate Visa (subclass 485) — Australia',
-          'Skilled immigration pathway planning after graduation',
-        ],
-      },
-    ],
+    icon: GraduationCap,
+    title: 'Study Abroad',
+    short: 'Student visas, university placements, and education consulting for top global institutions.',
+    color: '#8b5cf6',
+    bg: 'from-purple-900 to-purple-800',
+    details: {
+      overview: 'Complete study visa consultancy from university selection to enrollment — for top institutions in the UK, Canada, Australia, and USA.',
+      benefits: ['University shortlisting', 'Application strategy', 'Scholarship identification', 'Admission coordination'],
+      timeline: '3–4 months',
+      requirements: 'Academic transcripts, IELTS/TOEFL, financial proof, university admission letter'
+    }
   },
   {
-    icon:        Users,
-    title:       'Skilled Immigration',
-    description: 'Express Entry, points-based systems, and permanent residency programs for qualified professionals seeking a new home abroad.',
-    accent:      'from-amber-600 to-yellow-500',
-    delay:       'delay-400',
-    details: [
-      {
-        heading: 'Points-Based & Express Entry Programs',
-        points: [
-          'Canada Express Entry — Federal Skilled Worker (FSW)',
-          'Canada Provincial Nominee Program (PNP)',
-          'Australia SkillSelect — Skilled Independent (189)',
-          'Australia State / Territory Nominated (190 & 491)',
-          'New Zealand Skilled Migrant Category Resident Visa',
-          'UK Points-Based System — Skilled Worker Route',
-        ],
-      },
-      {
-        heading: 'Permanent Residency Pathways',
-        points: [
-          'Comprehensive Ranking System (CRS) score optimisation',
-          'Skills assessment bodies (WES, VETASSESS, Engineers Australia)',
-          'IELTS / PTE / OET language test preparation advice',
-          'PR application filing and government portal management',
-          'Citizenship pathway planning after PR grant',
-        ],
-      },
-      {
-        heading: 'Green List & In-Demand Occupations',
-        points: [
-          'Occupation-specific eligibility checks for all programs',
-          'Green List / Priority Occupations (NZ, AU, UK)',
-          'Labour Market Impact Assessment (LMIA) guidance — Canada',
-          'Job search strategy for employer-sponsored pathways',
-        ],
-      },
-    ],
+    icon: Users,
+    title: 'Skilled Immigration',
+    short: 'Express Entry, points-based pathways, and PR programs for qualified professionals worldwide.',
+    color: '#10b981',
+    bg: 'from-emerald-800 to-emerald-700',
+    details: {
+      overview: 'Permanent residency pathways through Express Entry, points-based systems, and provincial nominee programs in Canada, Australia, and New Zealand.',
+      benefits: ['Points optimization', 'EOI preparation', 'Provincial sponsorship', 'Settlement support'],
+      timeline: '4–8 months',
+      requirements: 'Work experience, education, English proficiency, skills assessment certificate'
+    }
   },
   {
-    icon:        Building2,
-    title:       'Business Immigration',
-    description: 'Investor visas, entrepreneur programs, and corporate immigration strategies for business expansion and international mobility.',
-    accent:      'from-blue-950 to-indigo-900',
-    delay:       'delay-500',
-    details: [
-      {
-        heading: 'Investor & Entrepreneur Visas',
-        points: [
-          'EB-5 Immigrant Investor Program (USA)',
-          'UK Innovator Founder Visa',
-          'Canada Start-Up Visa Program',
-          'Australia Business Innovation & Investment (subclass 888)',
-          'New Zealand Investor Visa (Investor Plus & Investor)',
-          'UAE Golden Visa — Investor & Entrepreneur Track',
-        ],
-      },
-      {
-        heading: 'Corporate Mobility Solutions',
-        points: [
-          'Multi-employee work permit batch processing',
-          'Corporate retainer packages for SMEs and MNCs',
-          'Business visitor and conference visa facilitation',
-          'Global Talent / Exceptional Talent Visa endorsements',
-        ],
-      },
-      {
-        heading: 'Business Setup Support',
-        points: [
-          'UAE Free Zone & Mainland company setup advice',
-          'Business plan preparation for visa endorsement',
-          'Director / shareholder residence visa coordination',
-          'Compliance and renewal calendar management',
-        ],
-      },
-    ],
+    icon: Building2,
+    title: 'Business Immigration',
+    short: 'Investor visas, entrepreneur programs, and corporate immigration for global business expansion.',
+    color: '#f97316',
+    bg: 'from-orange-800 to-orange-700',
+    details: {
+      overview: 'Tailored solutions for entrepreneurs and investors — business visas, startup programs, and investment-based immigration across major jurisdictions.',
+      benefits: ['Business plan review', 'Investment structuring', 'Source of funds documentation', 'Business registration support'],
+      timeline: '3–6 months',
+      requirements: 'Business plan, financial statements, investment proof, personal background'
+    }
   },
   {
-    icon:        Map,
-    title:       'Travel Management',
-    description: 'Comprehensive travel planning, itinerary management, and corporate travel solutions for seamless global mobility.',
-    accent:      'from-teal-700 to-emerald-600',
-    delay:       'delay-600',
-    details: [
-      {
-        heading: 'Corporate Travel Services',
-        points: [
-          'End-to-end business trip planning and coordination',
-          'Multi-destination itinerary design and optimisation',
-          'Group and delegation travel management',
-          'Corporate travel policy setup and compliance',
-          'Emergency travel support and rebooking assistance',
-        ],
-      },
-      {
-        heading: 'Pre-Travel Documentation',
-        points: [
-          'Travel insurance sourcing and advisory',
-          'Transit visa and stopover visa guidance',
-          'Airport transfer and hotel accommodation coordination',
-          'Currency and forex advisory for destination countries',
-        ],
-      },
-      {
-        heading: 'Integrated Mobility Packages',
-        points: [
-          'Visa + flight + accommodation bundled packages',
-          'Umrah, Hajj, and religious travel planning',
-          'Educational tour and student group travel',
-          'VIP and executive travel concierge service',
-        ],
-      },
-    ],
-  },
+    icon: Compass,
+    title: 'Travel Management',
+    short: 'Comprehensive travel coordination, corporate logistics, and relocation management worldwide.',
+    color: '#ec4899',
+    bg: 'from-pink-900 to-pink-800',
+    details: {
+      overview: 'End-to-end travel and relocation management — from visa coordination and flight bookings to accommodation and settlement support.',
+      benefits: ['Coordinated visa processing', 'Flight arrangements', 'Travel insurance guidance', 'Settlement orientation'],
+      timeline: 'Flexible based on schedule',
+      requirements: 'Immigration status confirmation, travel dates, accommodation preferences'
+    }
+  }
 ];
 
-/* ─────────────────────────────────────────────────────────────
-   SERVICE CARD
-   ───────────────────────────────────────────────────────────── */
-function ServiceCard({ service, visible, onOpen }) {
-  const { icon: Icon, title, description, accent, delay } = service;
-
+const ServiceModal = ({ service, onClose }) => {
+  if (!service) return null;
   return (
-    <article
-      className={`group bg-white rounded-2xl p-8 shadow-md hover:shadow-2xl
-                  border border-gray-100 hover:border-amber-400/60 cursor-pointer
-                  transition-all duration-500 hover:-translate-y-2
-                  ${visible ? `animate-fade-up ${delay}` : 'opacity-0'}`}
-      onClick={() => onOpen(service)}
-      /* Keyboard: treat Enter / Space as click */
-      onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onOpen(service); } }}
-      role="button"
-      tabIndex={0}
-      aria-label={`Learn more about ${title}`}
-    >
-      {/* Icon bubble */}
-      <div
-        className={`w-14 h-14 bg-gradient-to-br ${accent} rounded-xl
-                    flex items-center justify-center mb-6 shadow-lg
-                    group-hover:scale-110 group-hover:rotate-3
-                    transition-all duration-300`}
-        aria-hidden="true"
-      >
-        <Icon className="text-white" size={28} />
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4"
+      style={{ background: 'rgba(0,0,0,0.7)', backdropFilter: 'blur(8px)' }}>
+      <div className="bg-white rounded-3xl shadow-2xl max-w-xl w-full max-h-[90vh] overflow-y-auto">
+        <div className={`bg-gradient-to-r ${service.bg} p-8 text-white rounded-t-3xl`}>
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-4">
+              <div className="w-14 h-14 rounded-xl flex items-center justify-center"
+                style={{ background: 'rgba(255,255,255,0.2)' }}>
+                <service.icon size={28} />
+              </div>
+              <div>
+                <h2 className="text-2xl font-bold">{service.title}</h2>
+                <p className="text-white/70 text-sm mt-1">Immigration Solution</p>
+              </div>
+            </div>
+            <button onClick={onClose} className="p-2 rounded-full hover:bg-white/20 transition-colors">
+              <X size={22} />
+            </button>
+          </div>
+        </div>
+        <div className="p-8 space-y-6">
+          <div>
+            <h3 className="text-lg font-bold text-blue-950 mb-2">Overview</h3>
+            <p className="text-gray-600 leading-relaxed">{service.details.overview}</p>
+          </div>
+          <div>
+            <h3 className="text-lg font-bold text-blue-950 mb-3">Key Benefits</h3>
+            <div className="space-y-2">
+              {service.details.benefits.map((b, i) => (
+                <div key={i} className="flex items-center space-x-3 bg-blue-50 p-3 rounded-xl">
+                  <div className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0"
+                    style={{ background: service.color }}>
+                    <span className="text-white text-xs font-bold">✓</span>
+                  </div>
+                  <span className="text-gray-800 font-medium text-sm">{b}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="grid grid-cols-2 gap-4">
+            <div className="bg-amber-50 p-4 rounded-xl border border-amber-200">
+              <p className="text-xs text-amber-600 font-bold uppercase tracking-wide mb-1">Timeline</p>
+              <p className="text-gray-800 font-semibold text-sm">{service.details.timeline}</p>
+            </div>
+            <div className="bg-blue-50 p-4 rounded-xl border border-blue-200">
+              <p className="text-xs text-blue-600 font-bold uppercase tracking-wide mb-1">Requirements</p>
+              <p className="text-gray-700 text-xs">{service.details.requirements}</p>
+            </div>
+          </div>
+          <div className="flex gap-3 pt-2">
+            <button onClick={onClose}
+              className="flex-1 py-3 rounded-full font-bold text-gray-700 bg-gray-100 hover:bg-gray-200 transition-colors">
+              Close
+            </button>
+            <a href="#consultation" onClick={onClose}
+              className="flex-1 py-3 rounded-full font-bold text-center transition-all hover:scale-105"
+              style={{ background: 'linear-gradient(135deg, #c9a55a, #f0c040)', color: '#0a1628' }}>
+              Book Consultation
+            </a>
+          </div>
+        </div>
       </div>
-
-      {/* Text */}
-      <h3 className="text-xl font-bold text-blue-950 mb-3 font-display">{title}</h3>
-      <p className="text-gray-500 leading-relaxed text-sm">{description}</p>
-
-      {/* Learn More affordance */}
-      <div
-        className="mt-6 flex items-center gap-1 text-amber-600 font-semibold text-sm
-                   group-hover:gap-2 transition-all duration-200"
-        aria-hidden="true"
-      >
-        <span>Learn More</span>
-        <ChevronRight
-          size={16}
-          className="transform group-hover:translate-x-1 transition-transform duration-200"
-        />
-      </div>
-    </article>
+    </div>
   );
-}
+};
 
-/* ─────────────────────────────────────────────────────────────
-   SERVICES SECTION
-   ───────────────────────────────────────────────────────────── */
-export default function Services() {
-  const [ref, visible]     = useIntersectionObserver();
-  const [activeService, setActiveService] = useState(null); // null = closed
+const Services = () => {
+  const [selectedService, setSelectedService] = useState(null);
 
   return (
-    <section
-      id="services"
-      aria-labelledby="services-heading"
-      className="py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-slate-50 to-white"
-    >
-      <div className="max-w-7xl mx-auto" ref={ref}>
+    <section id="services" className="py-24 px-4 sm:px-6 lg:px-8 bg-white">
+      <div className="max-w-7xl mx-auto">
 
-        {/* ── Heading ──────────────────────────────── */}
+        {/* Header */}
         <div className="text-center mb-16">
-          <span className="inline-block text-xs font-bold tracking-[0.3em] uppercase
-                           text-amber-600 mb-4">
-            What We Offer
-          </span>
-          <h2
-            id="services-heading"
-            className={`section-heading mb-4 ${visible ? 'animate-fade-up' : 'opacity-0'}`}
-          >
+          <span className="text-amber-600 font-bold text-xs tracking-[0.3em] uppercase">What We Offer</span>
+          <h2 className="text-4xl md:text-5xl font-bold mt-3 mb-4" style={{ color: '#0a1628' }}>
             Core Immigration Services
           </h2>
-          <p className={`section-sub ${visible ? 'animate-fade-up delay-200' : 'opacity-0'}`}>
+          <p className="text-gray-500 text-lg max-w-2xl mx-auto">
             Comprehensive visa solutions tailored to your unique goals and circumstances.
             Click any card for full details.
           </p>
         </div>
 
-        {/* ── 6-Card Grid (perfect 3×2 on desktop) ── */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {SERVICES.map((service, i) => (
-            <ServiceCard
-              key={i}
-              service={service}
-              visible={visible}
-              onOpen={setActiveService}
-            />
+        {/* Grid */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {serviceData.map((service, index) => (
+            <div
+              key={index}
+              onClick={() => setSelectedService(service)}
+              className="group bg-white rounded-2xl p-8 cursor-pointer transition-all duration-400 flex flex-col h-full"
+              style={{
+                border: '1px solid #e5e7eb',
+                boxShadow: '0 2px 15px rgba(0,0,0,0.05)'
+              }}
+              onMouseEnter={e => {
+                e.currentTarget.style.borderColor = '#c9a55a';
+                e.currentTarget.style.boxShadow = '0 20px 60px rgba(201,165,90,0.15)';
+                e.currentTarget.style.transform = 'translateY(-6px)';
+              }}
+              onMouseLeave={e => {
+                e.currentTarget.style.borderColor = '#e5e7eb';
+                e.currentTarget.style.boxShadow = '0 2px 15px rgba(0,0,0,0.05)';
+                e.currentTarget.style.transform = 'translateY(0)';
+              }}
+            >
+              {/* Icon */}
+              <div className={`w-14 h-14 bg-gradient-to-br ${service.bg} rounded-2xl flex items-center justify-center mb-5 shadow-lg group-hover:scale-110 transition-transform duration-300`}>
+                <service.icon className="text-white" size={26} />
+              </div>
+
+              {/* Content */}
+              <h3 className="text-xl font-bold mb-3 transition-colors duration-300"
+                style={{ color: '#0a1628' }}>
+                {service.title}
+              </h3>
+              <p className="text-gray-500 leading-relaxed text-sm flex-grow mb-6">
+                {service.short}
+              </p>
+
+              {/* Learn More */}
+              <div className="flex items-center font-semibold text-sm space-x-1 mt-auto"
+                style={{ color: '#c9a55a' }}>
+                <span>View Details</span>
+                <ChevronRight size={16} />
+              </div>
+            </div>
           ))}
         </div>
 
-        {/* ── Bottom CTA strip ─────────────────────── */}
-        <div
-          className={`mt-12 flex flex-col sm:flex-row items-center justify-between
-                      gap-6 bg-gradient-to-r from-blue-950 to-indigo-950
-                      rounded-2xl px-8 py-7 shadow-navy
-                      ${visible ? 'animate-fade-up delay-[700ms]' : 'opacity-0'}`}
-        >
-          <div>
-            <p className="text-amber-400 font-display text-3xl font-bold">50+ Countries</p>
-            <p className="text-blue-200/70 text-sm mt-1">
-              Don't see your destination? We handle applications worldwide.
-            </p>
-          </div>
-          <a href="#consultation" className="btn-primary shrink-0">
-            Ask Our Experts
-            <ChevronRight size={16} aria-hidden="true" />
+        {/* Bottom CTA Banner */}
+        <div className="mt-16 rounded-3xl p-10 text-center text-white relative overflow-hidden"
+          style={{ background: 'linear-gradient(135deg, #020818, #0a1628, #1a1060)' }}>
+          <div className="absolute top-0 right-0 w-64 h-64 rounded-full blur-3xl opacity-20"
+            style={{ background: 'radial-gradient(circle, #c9a55a, transparent)' }} />
+          <h3 className="text-2xl md:text-3xl font-bold mb-3 relative z-10">
+            50+ Countries Covered
+          </h3>
+          <p className="text-gray-300 mb-6 relative z-10">
+            Don't see your destination? We handle applications worldwide.
+          </p>
+          <a href="#consultation"
+            className="inline-flex items-center space-x-2 px-8 py-3 rounded-full font-bold transition-all hover:scale-105"
+            style={{ background: 'linear-gradient(135deg, #c9a55a, #f0c040)', color: '#0a1628' }}>
+            <span>Ask Our Experts</span>
+            <ChevronRight size={18} />
           </a>
         </div>
       </div>
 
-      {/* ── Modal ─────────────────────────────────── */}
-      <ServiceModal
-        service={activeService}
-        onClose={() => setActiveService(null)}
-      />
+      {/* Modal */}
+      {selectedService && (
+        <ServiceModal
+          service={selectedService}
+          onClose={() => setSelectedService(null)}
+        />
+      )}
     </section>
   );
-}
+};
+
+export default Services;
