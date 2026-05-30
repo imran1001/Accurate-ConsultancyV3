@@ -1,652 +1,288 @@
-import React, { useEffect, useRef, useState } from 'react';
-import {
-  Award, Globe, Users, CheckCircle,
-  Mail, Phone, Star, Shield, TrendingUp,
-  MessageCircle, MapPin, ArrowRight
-} from 'lucide-react';
+import React from 'react';
+import { Award, Globe, Users, CheckCircle, Linkedin, Mail, Phone, Star, Shield, TrendingUp } from 'lucide-react';
 
-/* ─────────────────────────────────────────────
-   ACCURATE CONSULTANCY — About / Leadership Section
-   Drop this file into your components folder and
-   import it wherever your about section lives.
-   Requires: lucide-react (already in your project)
-   Font: add to index.html <head>:
-   <link href="https://fonts.googleapis.com/css2?
-     family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600
-     &family=DM+Sans:wght@300;400;500&display=swap"
-     rel="stylesheet">
-───────────────────────────────────────────── */
+const About = () => {
+  const expertise = [
+    'Visit & Tourist Visa Processing',
+    'Skilled Worker Immigration',
+    'Business & Investor Visas',
+    'Study Abroad Consulting',
+    'Express Entry & PR Pathways',
+    'Corporate Travel Management',
+    'UK & European Immigration',
+    'Canada & Australia PR',
+  ];
 
-const NAVY   = '#0A1828';
-const NAVY2  = '#0F2244';
-const GOLD   = '#D4AF37';
-const GOLD_L = '#DFC76A';
-const GOLD_D = '#C9A84C';
-const WHITE  = '#FFFFFF';
-const OFF    = '#F5F0E8';
-const WARM   = '#EAE5DB';
-const MUTED  = '#6B6560';
-
-const expertise = [
-  'Visit & Tourist Visa Processing',
-  'Skilled Worker Immigration',
-  'Business & Investor Visas',
-  'Study Abroad Consulting',
-  'Express Entry & PR Pathways',
-  'Corporate Mobility Management',
-  'UK, Schengen & European Visas',
-  'Canada & Australia PR',
-  'UAE Golden & Green Visa',
-  'New Zealand AEWV Pathway',
-  'Germany Ausbildung Visa',
-  'Investor Program Advisory',
-];
-
-const achievements = [
-  { Icon: Award,      value: '19+',    label: 'Years Experience'  },
-  { Icon: Users,      value: '5,000+', label: 'Cases Handled'     },
-  { Icon: Globe,      value: '50+',    label: 'Countries Covered' },
-  { Icon: TrendingUp, value: '98%',    label: 'Success Rate'      },
-];
-
-const languages = [
-  { flag: '🇬🇧', name: 'English',  level: 'Native'  },
-  { flag: '🇦🇪', name: 'Arabic',   level: 'Fluent'  },
-  { flag: '🇵🇰', name: 'Urdu',     level: 'Native'  },
-  { flag: '🇮🇳', name: 'Hindi',    level: 'Fluent'  },
-];
-
-/* ── Tiny hook: fires once when element enters viewport ── */
-function useInView(options = {}) {
-  const ref = useRef(null);
-  const [inView, setInView] = useState(false);
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const obs = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) { setInView(true); obs.unobserve(el); }
-    }, { threshold: 0.12, ...options });
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, []);
-  return [ref, inView];
-}
-
-/* ── Animated counter ── */
-function Counter({ target, suffix = '' }) {
-  const [count, setCount] = useState(0);
-  const [ref, inView] = useInView();
-  useEffect(() => {
-    if (!inView) return;
-    const num = parseFloat(target.replace(/[^0-9.]/g, ''));
-    const isDecimal = target.includes('.');
-    const duration = 1400;
-    const steps = 60;
-    const increment = num / steps;
-    let current = 0;
-    const timer = setInterval(() => {
-      current = Math.min(current + increment, num);
-      setCount(isDecimal ? current.toFixed(1) : Math.floor(current));
-      if (current >= num) clearInterval(timer);
-    }, duration / steps);
-    return () => clearInterval(timer);
-  }, [inView, target]);
-
-  const prefix = target.match(/^[^0-9]*/)?.[0] || '';
-  const suf    = target.match(/[^0-9.]+$/)?.[0] || suffix;
-  return <span ref={ref}>{prefix}{count}{suf}</span>;
-}
-
-/* ═══════════════════════════════════════════
-   MAIN COMPONENT
-═══════════════════════════════════════════ */
-export default function About() {
-  const [sectionRef, sectionInView] = useInView();
+  const achievements = [
+    { icon: Award,      value: '15+',    label: 'Years Experience'    },
+    { icon: Users,      value: '5,000+', label: 'Cases Handled'       },
+    { icon: Globe,      value: '50+',    label: 'Countries Covered'   },
+    { icon: TrendingUp, value: '98%',    label: 'Success Rate'        },
+  ];
 
   return (
-    <>
-      {/* Google Fonts — Cormorant + DM Sans */}
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap');
+    <section
+      id="about"
+      className="py-24 px-4 sm:px-6 lg:px-8 relative overflow-hidden"
+      style={{ background: 'linear-gradient(135deg, #f8fafc 0%, #f0f4ff 50%, #fef9ec 100%)' }}
+    >
+      {/* Background Decorations */}
+      <div
+        className="absolute top-0 right-0 w-96 h-96 rounded-full blur-3xl opacity-20 pointer-events-none"
+        style={{ background: 'radial-gradient(circle, #c9a55a, transparent)' }}
+      />
+      <div
+        className="absolute bottom-0 left-0 w-80 h-80 rounded-full blur-3xl opacity-15 pointer-events-none"
+        style={{ background: 'radial-gradient(circle, #3b4fca, transparent)' }}
+      />
 
-        .ac-about * { box-sizing: border-box; }
+      <div className="max-w-7xl mx-auto relative z-10">
 
-        .ac-fade-up {
-          opacity: 0;
-          transform: translateY(28px);
-          transition: opacity 0.75s ease, transform 0.75s ease;
-        }
-        .ac-fade-up.ac-visible { opacity: 1; transform: translateY(0); }
-        .ac-fade-left {
-          opacity: 0;
-          transform: translateX(28px);
-          transition: opacity 0.75s ease, transform 0.75s ease;
-        }
-        .ac-fade-left.ac-visible { opacity: 1; transform: translateX(0); }
-
-        .ac-d1 { transition-delay: 0.05s; }
-        .ac-d2 { transition-delay: 0.15s; }
-        .ac-d3 { transition-delay: 0.25s; }
-        .ac-d4 { transition-delay: 0.35s; }
-        .ac-d5 { transition-delay: 0.45s; }
-        .ac-d6 { transition-delay: 0.55s; }
-
-        .ac-expertise-tag {
-          display: flex;
-          align-items: center;
-          gap: 8px;
-          padding: 9px 14px;
-          border-radius: 6px;
-          border: 1px solid #E8E3D8;
-          background: #FAFAF8;
-          transition: border-color 0.2s, background 0.2s;
-          cursor: default;
-        }
-        .ac-expertise-tag:hover {
-          border-color: rgba(212,175,55,0.4);
-          background: #FBF8EF;
-        }
-
-        .ac-lang-pill {
-          display: flex;
-          align-items: center;
-          gap: 8px;
-          padding: 7px 16px;
-          border-radius: 100px;
-          border: 1px solid rgba(212,175,55,0.2);
-          background: rgba(212,175,55,0.05);
-          transition: border-color 0.2s;
-        }
-        .ac-lang-pill:hover { border-color: rgba(212,175,55,0.45); }
-
-        .ac-contact-btn {
-          display: inline-flex;
-          align-items: center;
-          gap: 7px;
-          padding: 10px 20px;
-          border-radius: 5px;
-          font-size: 13px;
-          font-weight: 500;
-          text-decoration: none;
-          transition: opacity 0.2s, transform 0.15s;
-          font-family: 'DM Sans', sans-serif;
-          letter-spacing: 0.02em;
-        }
-        .ac-contact-btn:hover { opacity: 0.88; transform: translateY(-1px); }
-
-        .ac-stat-cell {
-          padding: 20px 18px;
-          background: rgba(10,24,40,0.85);
-          text-align: center;
-          flex: 1;
-          transition: background 0.2s;
-        }
-        .ac-stat-cell:hover { background: rgba(15,34,68,0.9); }
-
-        .ac-photo-ring {
-          position: relative;
-          display: inline-block;
-        }
-        .ac-photo-ring::before {
-          content: '';
-          position: absolute;
-          inset: -4px;
-          border-radius: 50%;
-          background: linear-gradient(135deg, ${GOLD}, ${GOLD_L}, ${GOLD_D});
-          z-index: 0;
-        }
-        .ac-photo-inner {
-          position: relative;
-          z-index: 1;
-          width: 200px;
-          height: 200px;
-          border-radius: 50%;
-          overflow: hidden;
-          border: 4px solid ${NAVY};
-          box-shadow: 0 0 50px rgba(212,175,55,0.35);
-        }
-        .ac-photo-inner img {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-          object-position: center top;
-          display: block;
-        }
-        .ac-photo-placeholder {
-          width: 100%;
-          height: 100%;
-          background: linear-gradient(135deg, ${NAVY2}, #1E3F7A);
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-        }
-
-        /* Corner accents on card */
-        .ac-card-corners {
-          position: relative;
-        }
-        .ac-card-corners::before,
-        .ac-card-corners::after {
-          content: '';
-          position: absolute;
-          width: 20px;
-          height: 20px;
-          border-color: ${GOLD};
-          border-style: solid;
-          z-index: 2;
-          pointer-events: none;
-        }
-        .ac-card-corners::before {
-          top: -6px; left: -6px;
-          border-width: 2px 0 0 2px;
-        }
-        .ac-card-corners::after {
-          bottom: -6px; right: -6px;
-          border-width: 0 2px 2px 0;
-        }
-
-        @media (max-width: 1024px) {
-          .ac-main-grid { grid-template-columns: 1fr !important; }
-          .ac-left-panel { padding: 56px 32px !important; }
-          .ac-right-panel { padding: 48px 32px !important; }
-          .ac-stats-row { grid-template-columns: repeat(2,1fr) !important; }
-        }
-        @media (max-width: 640px) {
-          .ac-about { padding: 64px 16px !important; }
-          .ac-expertise-grid { grid-template-columns: 1fr !important; }
-          .ac-stats-row { grid-template-columns: repeat(2,1fr) !important; }
-          .ac-contact-btns { flex-direction: column !important; }
-        }
-      `}</style>
-
-      <section
-        id="about"
-        className="ac-about"
-        ref={sectionRef}
-        style={{
-          padding: '96px 40px',
-          background: `linear-gradient(160deg, ${OFF} 0%, #EFEAE0 60%, ${WARM} 100%)`,
-          fontFamily: "'DM Sans', sans-serif",
-          position: 'relative',
-          overflow: 'hidden',
-        }}
-      >
-        {/* ── Decorative BG blobs ── */}
-        <div style={{
-          position:'absolute', top:'-80px', right:'-80px',
-          width:'500px', height:'500px', borderRadius:'50%',
-          background:'radial-gradient(circle, rgba(212,175,55,0.08), transparent 70%)',
-          pointerEvents:'none',
-        }}/>
-        <div style={{
-          position:'absolute', bottom:'-60px', left:'-60px',
-          width:'400px', height:'400px', borderRadius:'50%',
-          background:'radial-gradient(circle, rgba(10,24,40,0.06), transparent 70%)',
-          pointerEvents:'none',
-        }}/>
-        {/* Subtle grid texture */}
-        <svg style={{position:'absolute',inset:0,width:'100%',height:'100%',opacity:0.025,pointerEvents:'none'}}
-          xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <pattern id="abgrid" width="60" height="60" patternUnits="userSpaceOnUse">
-              <path d="M 60 0 L 0 0 0 60" fill="none" stroke={NAVY} strokeWidth="0.8"/>
-            </pattern>
-          </defs>
-          <rect width="100%" height="100%" fill="url(#abgrid)"/>
-        </svg>
-
-        <div style={{ maxWidth:'1200px', margin:'0 auto', position:'relative', zIndex:1 }}>
-
-          {/* ── Section Header ── */}
-          <div className={`ac-fade-up ${sectionInView ? 'ac-visible' : ''}`}
-            style={{ textAlign:'center', marginBottom:'64px' }}>
-            <div style={{
-              display:'inline-flex', alignItems:'center', gap:'10px',
-              fontSize:'11px', fontWeight:500, textTransform:'uppercase',
-              letterSpacing:'0.14em', color:GOLD_D, marginBottom:'16px',
-            }}>
-              <span style={{display:'block',width:'28px',height:'1px',background:GOLD}}/>
-              Meet the Expert
-              <span style={{display:'block',width:'28px',height:'1px',background:GOLD}}/>
-            </div>
-            <h2 style={{
-              fontFamily:"'Cormorant Garamond', serif",
-              fontSize:'clamp(2.4rem, 5vw, 3.6rem)',
-              fontWeight:700, lineHeight:1.08,
-              letterSpacing:'-0.025em', color:NAVY,
-              margin:'0 0 16px',
-            }}>
-              Leadership &amp; <em style={{fontStyle:'italic',color:GOLD_D}}>Expertise</em>
-            </h2>
-            <p style={{ fontSize:'16px', color:MUTED, fontWeight:300, lineHeight:1.75, maxWidth:'520px', margin:'0 auto' }}>
-              Nearly two decades of guiding individuals, families, and corporations to their global destinations — with precision and zero margin for error.
-            </p>
-          </div>
-
-          {/* ── MAIN CARD ── */}
-          <div
-            className={`ac-card-corners ac-fade-up ac-d1 ${sectionInView ? 'ac-visible' : ''}`}
-            style={{
-              borderRadius:'12px',
-              overflow:'hidden',
-              boxShadow:'0 24px 80px rgba(10,24,40,0.14)',
-              border:'1px solid rgba(212,175,55,0.18)',
-            }}
+        {/* Section Header */}
+        <div className="text-center mb-16">
+          <span
+            className="font-bold text-xs tracking-[0.3em] uppercase"
+            style={{ color: '#c9a55a' }}
           >
-            <div className="ac-main-grid" style={{ display:'grid', gridTemplateColumns:'420px 1fr' }}>
+            Meet the Expert
+          </span>
+          <h2
+            className="text-4xl md:text-5xl font-bold mt-3 mb-4"
+            style={{ color: '#0a1628' }}
+          >
+            Leadership & Expertise
+          </h2>
+          <p className="text-gray-500 text-lg max-w-2xl mx-auto">
+            Decades of experience guiding thousands of clients to their global destinations
+          </p>
+        </div>
 
-              {/* ══ LEFT PANEL ══ */}
+        {/* Main Card */}
+        <div
+          className="rounded-3xl overflow-hidden shadow-2xl"
+          style={{ border: '1px solid rgba(201,165,90,0.2)' }}
+        >
+          <div className="grid lg:grid-cols-2">
+
+            {/* LEFT — Photo + Info */}
+            <div
+              className="relative p-10 flex flex-col items-center justify-center text-white text-center"
+              style={{ background: 'linear-gradient(135deg, #010610 0%, #0a1628 50%, #1a1060 100%)' }}
+            >
+              {/* Gold orb behind photo */}
               <div
-                className="ac-left-panel"
-                style={{
-                  background:`linear-gradient(170deg, ${NAVY} 0%, #081220 60%, #0F2244 100%)`,
-                  padding:'64px 48px',
-                  display:'flex', flexDirection:'column',
-                  alignItems:'center', justifyContent:'center',
-                  textAlign:'center', position:'relative', overflow:'hidden',
-                }}
-              >
-                {/* BG glow */}
-                <div style={{
-                  position:'absolute', top:'20%', left:'50%', transform:'translateX(-50%)',
-                  width:'280px', height:'280px', borderRadius:'50%',
-                  background:`radial-gradient(circle, rgba(212,175,55,0.12), transparent 70%)`,
-                  pointerEvents:'none',
-                }}/>
-                {/* Gold vertical accent line */}
-                <div style={{
-                  position:'absolute', left:0, top:'15%', bottom:'15%',
-                  width:'3px',
-                  background:`linear-gradient(180deg, transparent, ${GOLD} 30%, ${GOLD} 70%, transparent)`,
-                  opacity:0.4,
-                }}/>
+                className="absolute top-10 left-1/2 -translate-x-1/2 w-64 h-64 rounded-full blur-3xl opacity-20 pointer-events-none"
+                style={{ background: 'radial-gradient(circle, #c9a55a, transparent)' }}
+              />
 
-                {/* Photo */}
-                <div className="ac-photo-ring" style={{ marginBottom:'28px' }}>
-                  <div className="ac-photo-inner">
-                    {/*
-                      PUT photo.png in your project's /public folder.
-                      The optimised face-cropped version is included in the
-                      download alongside this file — just drop it in /public.
-                    */}
-                    <img
-                      src="/photo.png"
-                      alt="Muhammad Imran Malik — Senior Manager, Visa & Immigration"
-                      style={{
-                        width:'100%', height:'100%',
-                        objectFit:'cover',
-                        objectPosition:'center 10%',
-                        display:'block',
-                      }}
-                      onError={e => {
-                        e.target.style.display='none';
-                        e.target.nextSibling.style.display='flex';
-                      }}
-                    />
-                    {/* Fallback initials if photo missing */}
-                    <div className="ac-photo-placeholder" style={{ display:'none' }}>
-                      <span style={{
-                        fontFamily:"'Cormorant Garamond', serif",
-                        fontSize:'3.5rem', fontWeight:700, color:GOLD,
-                      }}>IM</span>
-                    </div>
-                  </div>
+              {/* Photo */}
+              <div className="relative mb-6">
+                {/* Gold ring */}
+                <div
+                  className="absolute inset-0 rounded-full"
+                  style={{
+                    background: 'linear-gradient(135deg, #c9a55a, #f0c040, #c9a55a)',
+                    padding: '3px',
+                    borderRadius: '50%'
+                  }}
+                />
+                <div
+                  className="relative rounded-full overflow-hidden"
+                  style={{
+                    width: '200px',
+                    height: '200px',
+                    border: '4px solid transparent',
+                    background: 'linear-gradient(#0a1628, #0a1628) padding-box, linear-gradient(135deg, #c9a55a, #f0c040) border-box',
+                    boxShadow: '0 0 40px rgba(201,165,90,0.4)'
+                  }}
+                >
+                  <img
+                    src="/photo.png"
+                    alt="Muhammad Imran Malik - Managing Director"
+                    style={{
+                      width: '200px',
+                      height: '200px',
+                      objectFit: 'cover',
+                      objectPosition: 'center top',
+                      display: 'block'
+                    }}
+                  />
                 </div>
+              </div>
 
-                {/* Name */}
-                <h3 style={{
-                  fontFamily:"'Cormorant Garamond', serif",
-                  fontSize:'clamp(1.6rem, 3vw, 2.2rem)',
-                  fontWeight:700, color:WHITE, lineHeight:1.15,
-                  margin:'0 0 10px', letterSpacing:'-0.01em',
-                }}>
+              {/* Name & Title */}
+              <div className="relative z-10">
+                <h3 className="text-2xl md:text-3xl font-black text-white mb-1">
                   Muhammad Imran Malik
                 </h3>
-
-                {/* Title badge */}
-                <div style={{
-                  display:'inline-flex', alignItems:'center', gap:'7px',
-                  background:`linear-gradient(135deg, ${GOLD}, ${GOLD_L})`,
-                  color:NAVY, padding:'7px 18px', borderRadius:'100px',
-                  fontSize:'12px', fontWeight:600, letterSpacing:'0.04em',
-                  marginBottom:'10px',
-                }}>
-                  <Shield size={13}/>
-                  Senior Manager, Visa &amp; Immigration
+                <div
+                  className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full mb-4"
+                  style={{
+                    background: 'linear-gradient(135deg, #c9a55a, #f0c040)',
+                    color: '#0a1628'
+                  }}
+                >
+                  <Shield size={14} />
+                  <span className="font-bold text-sm">Managing Director</span>
                 </div>
-
-                {/* Location */}
-                <div style={{
-                  display:'flex', alignItems:'center', gap:'5px',
-                  fontSize:'12px', color:'rgba(255,255,255,0.45)',
-                  marginBottom:'20px',
-                }}>
-                  <MapPin size={12} style={{color:GOLD_L}}/>
+                <p className="text-sm font-medium mb-6" style={{ color: 'rgba(255,255,255,0.6)' }}>
                   Accurate Consultancy · Lahore, Pakistan
-                </div>
+                </p>
 
-                {/* Stars */}
-                <div style={{
-                  display:'flex', alignItems:'center', justifyContent:'center',
-                  gap:'3px', marginBottom:'28px',
-                }}>
-                  {[1,2,3,4,5].map(i=>(
-                    <Star key={i} size={16} fill={GOLD} style={{color:GOLD}}/>
+                {/* Star Rating */}
+                <div className="flex items-center justify-center space-x-1 mb-6">
+                  {[1,2,3,4,5].map(i => (
+                    <Star key={i} size={18} fill="#c9a55a" style={{ color: '#c9a55a' }} />
                   ))}
-                  <span style={{ fontSize:'12px', color:GOLD_L, marginLeft:'8px', fontWeight:500 }}>
-                    4.9 / 5 Client Rating
+                  <span className="text-sm ml-2 font-semibold" style={{ color: '#c9a55a' }}>
+                    4.9/5 Client Rating
                   </span>
                 </div>
 
-                {/* Languages */}
-                <div style={{ width:'100%', marginBottom:'28px' }}>
-                  <div style={{
-                    fontSize:'10px', textTransform:'uppercase', letterSpacing:'0.12em',
-                    color:'rgba(255,255,255,0.35)', marginBottom:'12px', fontWeight:500,
-                  }}>
-                    Languages
-                  </div>
-                  <div style={{ display:'flex', flexWrap:'wrap', gap:'8px', justifyContent:'center' }}>
-                    {languages.map((l,i)=>(
-                      <div key={i} className="ac-lang-pill">
-                        <span style={{fontSize:'15px'}}>{l.flag}</span>
-                        <span style={{fontSize:'12px', color:'rgba(255,255,255,0.75)'}}>{l.name}</span>
-                        <span style={{fontSize:'10px', color:GOLD_L, letterSpacing:'0.04em'}}>{l.level}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Contact buttons */}
-                <div className="ac-contact-btns" style={{ display:'flex', gap:'10px', flexWrap:'wrap', justifyContent:'center' }}>
-                  <a
+                {/* Contact Buttons */}
+                <div className="flex items-center justify-center space-x-3 flex-wrap gap-2">
+                  
                     href="mailto:info@accurate-consultancy.com"
-                    className="ac-contact-btn"
-                    style={{ background:'rgba(255,255,255,0.08)', border:'1px solid rgba(255,255,255,0.15)', color:WHITE }}
+                    className="flex items-center space-x-2 px-4 py-2.5 rounded-full font-semibold text-sm transition-all hover:scale-105"
+                    style={{
+                      background: 'rgba(255,255,255,0.1)',
+                      border: '1px solid rgba(255,255,255,0.2)',
+                      color: 'white',
+                      textDecoration: 'none'
+                    }}
+                    onMouseEnter={e => e.currentTarget.style.borderColor = 'rgba(201,165,90,0.6)'}
+                    onMouseLeave={e => e.currentTarget.style.borderColor = 'rgba(255,255,255,0.2)'}
                   >
-                    <Mail size={14}/> Email
+                    <Mail size={15} />
+                    <span>Email</span>
                   </a>
-                  <a
+                  
                     href="tel:+923160285386"
-                    className="ac-contact-btn"
-                    style={{ background:'rgba(255,255,255,0.08)', border:'1px solid rgba(255,255,255,0.15)', color:WHITE }}
+                    className="flex items-center space-x-2 px-4 py-2.5 rounded-full font-semibold text-sm transition-all hover:scale-105"
+                    style={{
+                      background: 'rgba(255,255,255,0.1)',
+                      border: '1px solid rgba(255,255,255,0.2)',
+                      color: 'white',
+                      textDecoration: 'none'
+                    }}
+                    onMouseEnter={e => e.currentTarget.style.borderColor = 'rgba(201,165,90,0.6)'}
+                    onMouseLeave={e => e.currentTarget.style.borderColor = 'rgba(255,255,255,0.2)'}
                   >
-                    <Phone size={14}/> Call
+                    <Phone size={15} />
+                    <span>Call</span>
                   </a>
-                  <a
-                    href="https://wa.me/923160285386?text=Hello!%20I%20found%20your%20website%20and%20would%20like%20to%20enquire%20about%20visa%20services."
+                  
+                    href="https://wa.me/923160285386"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="ac-contact-btn"
-                    style={{ background:'#25D366', color:WHITE, border:'none' }}
+                    className="flex items-center space-x-2 px-4 py-2.5 rounded-full font-semibold text-sm transition-all hover:scale-105"
+                    style={{
+                      background: '#25D366',
+                      color: 'white',
+                      textDecoration: 'none'
+                    }}
                   >
-                    <MessageCircle size={14}/> WhatsApp
+                    <span>WhatsApp</span>
                   </a>
                 </div>
               </div>
+            </div>
 
-              {/* ══ RIGHT PANEL ══ */}
-              <div
-                className="ac-right-panel"
-                style={{
-                  background:WHITE,
-                  padding:'56px 48px',
-                  display:'flex', flexDirection:'column', justifyContent:'center',
-                }}
-              >
-                {/* Bio */}
-                <div style={{ marginBottom:'36px' }}>
-                  <div style={{
-                    fontSize:'11px', fontWeight:500, textTransform:'uppercase',
-                    letterSpacing:'0.14em', color:GOLD_D,
-                    display:'flex', alignItems:'center', gap:'10px',
-                    marginBottom:'14px',
-                  }}>
-                    <span style={{display:'block',width:'24px',height:'1px',background:GOLD}}/>
-                    Senior Leadership
-                  </div>
-                  <h4 style={{
-                    fontFamily:"'Cormorant Garamond', serif",
-                    fontSize:'clamp(1.5rem, 2.5vw, 2rem)',
-                    fontWeight:600, color:NAVY,
-                    lineHeight:1.2, letterSpacing:'-0.01em',
-                    margin:'0 0 20px',
-                  }}>
-                    About Muhammad Imran Malik
-                  </h4>
+            {/* RIGHT — Bio & Expertise */}
+            <div className="p-10 bg-white flex flex-col justify-center">
 
-                  <p style={{ fontSize:'15px', color:MUTED, lineHeight:1.85, marginBottom:'16px', fontWeight:300 }}>
-                    With <strong style={{color:NAVY,fontWeight:500}}>nearly two decades of specialised experience</strong> spanning UAE and Pakistan immigration corridors, Muhammad Imran Malik is among the most accomplished immigration professionals in the region. His career has been defined not by the volume of applications processed, but by the outcomes secured for clients where precision was not optional.
-                  </p>
-                  <p style={{ fontSize:'15px', color:MUTED, lineHeight:1.85, marginBottom:'16px', fontWeight:300 }}>
-                    Holding an <strong style={{color:NAVY,fontWeight:500}}>MBA from PUCIT</strong> and affiliated with <strong style={{color:NAVY,fontWeight:500}}>Ravian Group LLC (USA)</strong>, Imran oversees the firm's full service portfolio — from UAE employment and residency visas, to UK and Schengen business categories, to Australia's skilled migration frameworks and New Zealand's Accredited Employer Work Visa pathway.
-                  </p>
-                  <p style={{ fontSize:'15px', color:MUTED, lineHeight:1.85, fontWeight:300 }}>
-                    His practice has earned Accurate Consultancy a <strong style={{color:GOLD_D,fontWeight:500}}>98% application approval rate</strong> — built on one principle: every client's case is unique, and every detail matters.
-                  </p>
-                </div>
-
-                {/* Expertise Grid */}
-                <div style={{ marginBottom:'36px' }}>
-                  <div style={{
-                    fontSize:'11px', fontWeight:500, textTransform:'uppercase',
-                    letterSpacing:'0.12em', color:'#9A958E', marginBottom:'14px',
-                  }}>
-                    Areas of Expertise
-                  </div>
-                  <div
-                    className="ac-expertise-grid"
-                    style={{ display:'grid', gridTemplateColumns:'repeat(2, 1fr)', gap:'8px' }}
-                  >
-                    {expertise.map((item, i) => (
-                      <div key={i} className="ac-expertise-tag">
-                        <CheckCircle size={13} style={{ color:GOLD, flexShrink:0 }}/>
-                        <span style={{ fontSize:'12px', fontWeight:500, color:'#374151' }}>{item}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Stats bar */}
-                <div style={{
-                  display:'grid',
-                  gridTemplateColumns:'repeat(4,1fr)',
-                  gap:'1px',
-                  background:'rgba(212,175,55,0.15)',
-                  border:'1px solid rgba(212,175,55,0.2)',
-                  borderRadius:'8px',
-                  overflow:'hidden',
-                }}
-                  className="ac-stats-row"
-                  role="list"
-                  aria-label="Key statistics"
+              {/* Bio */}
+              <div className="mb-8">
+                <h4
+                  className="text-xl font-bold mb-4"
+                  style={{ color: '#0a1628' }}
                 >
-                  {achievements.map(({ Icon, value, label }, i) => (
-                    <div key={i} className="ac-stat-cell" role="listitem">
-                      <Icon size={16} style={{ color:GOLD, margin:'0 auto 6px' }}/>
-                      <div style={{
-                        fontFamily:"'Cormorant Garamond', serif",
-                        fontSize:'clamp(1.3rem, 2vw, 1.8rem)',
-                        fontWeight:700, color:WHITE,
-                        lineHeight:1, letterSpacing:'-0.02em',
-                        marginBottom:'4px',
-                      }}>
-                        <Counter target={value}/>
-                      </div>
-                      <div style={{
-                        fontSize:'10px', color:'rgba(255,255,255,0.45)',
-                        textTransform:'uppercase', letterSpacing:'0.09em', lineHeight:1.4,
-                      }}>
-                        {label}
-                      </div>
+                  About Muhammad Imran Malik
+                </h4>
+                <p className="text-gray-600 leading-relaxed mb-4" style={{ fontSize: '15px' }}>
+                  With over <strong style={{ color: '#0a1628' }}>15 years of dedicated experience</strong> in 
+                  visa and immigration consulting, Muhammad Imran Malik has established himself as one of 
+                  Pakistan's most trusted immigration professionals.
+                </p>
+                <p className="text-gray-600 leading-relaxed mb-4" style={{ fontSize: '15px' }}>
+                  As the <strong style={{ color: '#0a1628' }}>Managing Director</strong> of Accurate Consultancy, 
+                  he has personally guided over <strong style={{ color: '#0a1628' }}>5,000+ clients</strong> across 
+                  50+ countries — from visit visas to complex investor immigration programs in the USA, UK, 
+                  Canada, and Australia.
+                </p>
+                <p className="text-gray-600 leading-relaxed" style={{ fontSize: '15px' }}>
+                  His deep regulatory knowledge, ethical approach, and commitment to client success has 
+                  earned Accurate Consultancy a <strong style={{ color: '#c9a55a' }}>98% approval rate</strong> — 
+                  one of the highest in the industry.
+                </p>
+              </div>
+
+              {/* Expertise Grid */}
+              <div className="mb-8">
+                <h4
+                  className="text-base font-bold mb-4 uppercase tracking-wide"
+                  style={{ color: '#0a1628' }}
+                >
+                  Areas of Expertise
+                </h4>
+                <div className="grid grid-cols-2 gap-2">
+                  {expertise.map((item, i) => (
+                    <div
+                      key={i}
+                      className="flex items-center space-x-2 py-2 px-3 rounded-xl"
+                      style={{ background: '#f8fafc', border: '1px solid #f0f0f0' }}
+                    >
+                      <CheckCircle
+                        size={14}
+                        style={{ color: '#c9a55a', flexShrink: 0 }}
+                      />
+                      <span
+                        className="text-xs font-semibold"
+                        style={{ color: '#374151' }}
+                      >
+                        {item}
+                      </span>
                     </div>
                   ))}
                 </div>
-
-                {/* CTA link */}
-                <div style={{ marginTop:'28px' }}>
-                  <a
-                    href="#consultation"
-                    style={{
-                      display:'inline-flex', alignItems:'center', gap:'8px',
-                      fontSize:'14px', fontWeight:500,
-                      color:NAVY, textDecoration:'none',
-                      padding:'12px 24px',
-                      background:`linear-gradient(135deg, ${GOLD}, ${GOLD_L})`,
-                      borderRadius:'5px',
-                      letterSpacing:'0.02em',
-                      transition:'opacity 0.2s, transform 0.15s',
-                      fontFamily:"'DM Sans', sans-serif",
-                    }}
-                    onMouseEnter={e=>{ e.currentTarget.style.opacity='0.88'; e.currentTarget.style.transform='translateY(-1px)'; }}
-                    onMouseLeave={e=>{ e.currentTarget.style.opacity='1'; e.currentTarget.style.transform='translateY(0)'; }}
-                  >
-                    Request a Consultation
-                    <ArrowRight size={15}/>
-                  </a>
-                </div>
               </div>
 
-            </div>{/* end main-grid */}
-          </div>{/* end main card */}
-
-          {/* ── Bottom credential strip ── */}
-          <div
-            className={`ac-fade-up ac-d4 ${sectionInView ? 'ac-visible' : ''}`}
-            style={{
-              marginTop:'32px',
-              display:'flex', alignItems:'center',
-              justifyContent:'center', flexWrap:'wrap', gap:'12px',
-            }}
-          >
-            {[
-              'SECP Registered',
-              'Ravian Group LLC Affiliate',
-              'ICEF Certification Roadmap',
-              'ApplyBoard Partner',
-              'Unity International Partner',
-              '19 Years Verified Experience',
-            ].map((tag,i)=>(
-              <div key={i} style={{
-                display:'flex', alignItems:'center', gap:'6px',
-                padding:'7px 16px',
-                background:'rgba(255,255,255,0.7)',
-                border:'1px solid rgba(212,175,55,0.25)',
-                borderRadius:'100px',
-                fontSize:'12px', fontWeight:500, color:NAVY,
-                backdropFilter:'blur(8px)',
-              }}>
-                <div style={{
-                  width:'6px', height:'6px', borderRadius:'50%', background:GOLD, flexShrink:0,
-                }}/>
-                {tag}
+              {/* Stats Row */}
+              <div
+                className="grid grid-cols-4 gap-3 p-5 rounded-2xl"
+                style={{
+                  background: 'linear-gradient(135deg, #0a1628, #1a1060)',
+                  border: '1px solid rgba(201,165,90,0.2)'
+                }}
+              >
+                {achievements.map((a, i) => (
+                  <div key={i} className="text-center">
+                    <a.icon
+                      size={18}
+                      className="mx-auto mb-1"
+                      style={{ color: '#c9a55a' }}
+                    />
+                    <div
+                      className="font-black text-white"
+                      style={{ fontSize: 'clamp(0.9rem, 1.5vw, 1.2rem)' }}
+                    >
+                      {a.value}
+                    </div>
+                    <div
+                      className="text-xs leading-tight mt-0.5"
+                      style={{ color: 'rgba(255,255,255,0.5)' }}
+                    >
+                      {a.label}
+                    </div>
+                  </div>
+                ))}
               </div>
-            ))}
+            </div>
           </div>
-
         </div>
-      </section>
-    </>
+      </div>
+    </section>
   );
-}
+};
+
+export default About;
