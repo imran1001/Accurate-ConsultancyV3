@@ -1,9 +1,25 @@
 import React, { useState } from 'react';
-import { Send, CheckCircle, Lock, Phone, Mail, User, Globe, MessageSquare, ChevronDown } from 'lucide-react';
+import { 
+  Send, 
+  CheckCircle, 
+  Lock, 
+  Phone, 
+  Mail, 
+  User, 
+  Globe, 
+  MessageSquare, 
+  ChevronDown,
+  MapPin 
+} from 'lucide-react';
 
 const ConsultationForm = () => {
   const [formData, setFormData] = useState({
-    fullName: '', email: '', phone: '', visaType: '', country: '', message: ''
+    fullName: '', 
+    email: '', 
+    phone: '', 
+    visaType: '', 
+    country: '', 
+    message: ''
   });
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -15,6 +31,8 @@ const ConsultationForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setLoading(true);
+    
+    // Simulate async API call
     setTimeout(() => {
       setLoading(false);
       setSubmitted(true);
@@ -22,20 +40,27 @@ const ConsultationForm = () => {
   };
 
   return (
-    <section id="consultation" className="py-24 px-4 sm:px-6 lg:px-8 relative overflow-hidden"
-      style={{ background: 'linear-gradient(135deg, #f8fafc 0%, #f0f4ff 100%)' }}>
-
+    <section 
+      id="consultation" 
+      className="py-24 px-4 sm:px-6 lg:px-8 relative overflow-hidden"
+      style={{ background: 'linear-gradient(135deg, #f8fafc 0%, #f0f4ff 100%)' }}
+    >
       {/* Background decoration */}
-      <div className="absolute top-0 left-0 w-96 h-96 rounded-full blur-3xl opacity-10"
-        style={{ background: 'radial-gradient(circle, #c9a55a, transparent)' }} />
-      <div className="absolute bottom-0 right-0 w-96 h-96 rounded-full blur-3xl opacity-10"
-        style={{ background: 'radial-gradient(circle, #3b4fca, transparent)' }} />
+      <div 
+        className="absolute top-0 left-0 w-96 h-96 rounded-full blur-3xl opacity-10"
+        style={{ background: 'radial-gradient(circle, #c9a55a, transparent)' }} 
+      />
+      <div 
+        className="absolute bottom-0 right-0 w-96 h-96 rounded-full blur-3xl opacity-10"
+        style={{ background: 'radial-gradient(circle, #3b4fca, transparent)' }} 
+      />
 
       <div className="max-w-4xl mx-auto relative z-10">
-
         {/* Header */}
         <div className="text-center mb-12">
-          <span className="text-amber-600 font-bold text-xs tracking-[0.3em] uppercase">Get Started</span>
+          <span className="text-amber-600 font-bold text-xs tracking-[0.3em] uppercase">
+            Get Started
+          </span>
           <h2 className="text-4xl md:text-5xl font-bold mt-3 mb-4" style={{ color: '#0a1628' }}>
             Book a Free Consultation
           </h2>
@@ -45,15 +70,20 @@ const ConsultationForm = () => {
         </div>
 
         {/* Form Card */}
-        <div className="rounded-3xl overflow-hidden shadow-2xl"
-          style={{ border: '1px solid rgba(201,165,90,0.2)' }}>
-
+        <div 
+          className="rounded-3xl overflow-hidden shadow-2xl"
+          style={{ border: '1px solid rgba(201,165,90,0.2)' }}
+        >
           {/* Card Top Banner */}
-          <div className="py-5 px-8 flex items-center justify-between"
-            style={{ background: 'linear-gradient(135deg, #020818, #0a1628)' }}>
+          <div 
+            className="py-5 px-8 flex items-center justify-between"
+            style={{ background: 'linear-gradient(135deg, #020818, #0a1628)' }}
+          >
             <div className="flex items-center space-x-3">
-              <div className="w-8 h-8 rounded-full flex items-center justify-center"
-                style={{ background: 'rgba(201,165,90,0.2)', border: '1px solid rgba(201,165,90,0.4)' }}>
+              <div 
+                className="w-8 h-8 rounded-full flex items-center justify-center"
+                style={{ background: 'rgba(201,165,90,0.2)', border: '1px solid rgba(201,165,90,0.4)' }}
+              >
                 <Lock size={14} style={{ color: '#c9a55a' }} />
               </div>
               <span className="text-sm font-medium" style={{ color: 'rgba(255,255,255,0.8)' }}>
@@ -70,12 +100,14 @@ const ConsultationForm = () => {
           <div className="p-8 md:p-10 bg-white">
             {submitted ? (
               <div className="text-center py-16">
-                <div className="inline-flex items-center justify-center w-20 h-20 rounded-full mb-6"
-                  style={{ background: 'linear-gradient(135deg, #c9a55a, #f0c040)' }}>
+                <div 
+                  className="inline-flex items-center justify-center w-20 h-20 rounded-full mb-6"
+                  style={{ background: 'linear-gradient(135deg, #c9a55a, #f0c040)' }}
+                >
                   <CheckCircle size={36} style={{ color: '#0a1628' }} />
                 </div>
                 <h3 className="text-3xl font-bold mb-3" style={{ color: '#0a1628' }}>
-                  Thank You, {formData.fullName.split(' ')[0]}!
+                  Thank You, {formData.fullName.split(' ')[0] || 'there'}!
                 </h3>
                 <p className="text-gray-500 text-lg mb-2">
                   Your consultation request has been received.
@@ -102,10 +134,7 @@ const ConsultationForm = () => {
                         required
                         placeholder="e.g. Ahmad Hassan"
                         className="w-full pl-11 pr-4 py-3.5 rounded-xl outline-none transition-all"
-                        style={{
-                          border: '2px solid #e5e7eb',
-                          fontSize: '15px'
-                        }}
+                        style={{ border: '2px solid #e5e7eb', fontSize: '15px' }}
                         onFocus={e => e.target.style.borderColor = '#c9a55a'}
                         onBlur={e => e.target.style.borderColor = '#e5e7eb'}
                       />
@@ -242,8 +271,8 @@ const ConsultationForm = () => {
                   type="submit"
                   disabled={loading}
                   className="w-full py-4 rounded-full font-bold text-lg flex items-center justify-center space-x-3 transition-all duration-300 hover:scale-105 disabled:opacity-70 disabled:cursor-not-allowed"
-                  style={{
-                    background: loading ? '#9ca3af' : 'linear-gradient(135deg, #c9a55a, #f0c040)',
+                  style={{ 
+                    background: loading ? '#9ca3af' : 'linear-gradient(135deg, #c9a55a, #f0c040)', 
                     color: '#0a1628',
                     boxShadow: loading ? 'none' : '0 10px 30px rgba(201,165,90,0.4)'
                   }}
