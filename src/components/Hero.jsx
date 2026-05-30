@@ -1,7 +1,7 @@
 import React from 'react';
 import { MessageCircle, ChevronRight, Globe, Award, CheckCircle, Users, Star } from 'lucide-react';
 
-export default function Hero() {
+const Hero = () => {
   const scrollToSection = (id) => {
     const element = document.getElementById(id);
     if (element) {
@@ -14,9 +14,9 @@ export default function Hero() {
 
   const trustBadges = [
     { icon: Award,        label: '15+ Years',  sublabel: 'Experience'     },
-    { icon: CheckCircle,  label: '98%',        sublabel: 'Success Rate'   },
-    { icon: Users,        label: '5,000+',     sublabel: 'Approved Cases' },
-    { icon: Globe,        label: '50+',        sublabel: 'Global Corridors'}
+    { icon: CheckCircle,  label: '98%',         sublabel: 'Success Rate'   },
+    { icon: Users,        label: '5,000+',      sublabel: 'Approved Cases' },
+    { icon: Globe,        label: '50+',         sublabel: 'Global Corridors'}
   ];
 
   const stars = Array.from({ length: 90 }, (_, i) => ({
@@ -40,10 +40,8 @@ export default function Hero() {
         {stars.map(s => (
           <div key={s.id} className="absolute rounded-full bg-white"
             style={{
-              width: `${s.size}px`, 
-              height: `${s.size}px`,
-              top: `${s.top}%`, 
-              left: `${s.left}%`,
+              width: s.size, height: s.size,
+              top: `${s.top}%`, left: `${s.left}%`,
               opacity: s.opacity,
               animation: `twinkle ${s.duration}s ease-in-out infinite`,
               animationDelay: `${s.delay}s`
@@ -112,4 +110,87 @@ export default function Hero() {
         {/* CTA Buttons */}
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
           <button onClick={() => scrollToSection('consultation')}
-            className="w-full sm:w-auto flex items-center
+            className="w-full sm:w-auto flex items-center justify-center space-x-2 px-8 py-4 rounded-full font-bold text-lg transition-all duration-300 hover:scale-105"
+            style={{
+              background: 'linear-gradient(135deg, #c9a55a, #f0c040, #c9a55a)',
+              color: '#0a1628',
+              boxShadow: '0 0 40px rgba(201,165,90,0.5), 0 8px 25px rgba(201,165,90,0.3)'
+            }}
+            onMouseEnter={e => e.currentTarget.style.boxShadow = '0 0 60px rgba(201,165,90,0.7), 0 12px 35px rgba(201,165,90,0.4)'}
+            onMouseLeave={e => e.currentTarget.style.boxShadow = '0 0 40px rgba(201,165,90,0.5), 0 8px 25px rgba(201,165,90,0.3)'}
+          >
+            <MessageCircle size={20} />
+            <span>Start Your Journey</span>
+          </button>
+
+          <button onClick={() => scrollToSection('services')}
+            className="w-full sm:w-auto flex items-center justify-center space-x-2 px-8 py-4 rounded-full font-bold text-lg text-white transition-all duration-300 hover:scale-105"
+            style={{
+              border: '2px solid rgba(255,255,255,0.25)',
+              background: 'rgba(255,255,255,0.05)',
+              backdropFilter: 'blur(10px)'
+            }}
+            onMouseEnter={e => {
+              e.currentTarget.style.borderColor = 'rgba(201,165,90,0.6)';
+              e.currentTarget.style.background = 'rgba(201,165,90,0.1)';
+            }}
+            onMouseLeave={e => {
+              e.currentTarget.style.borderColor = 'rgba(255,255,255,0.25)';
+              e.currentTarget.style.background = 'rgba(255,255,255,0.05)';
+            }}
+          >
+            <span>Explore Services</span>
+            <ChevronRight size={20} />
+          </button>
+        </div>
+
+        {/* Trust Badges */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
+          {trustBadges.map((badge, i) => (
+            <div key={i}
+              className="rounded-2xl p-5 text-center group cursor-default transition-all duration-300"
+              style={{
+                background: 'rgba(255,255,255,0.04)',
+                border: '1px solid rgba(201,165,90,0.15)',
+                backdropFilter: 'blur(12px)'
+              }}
+              onMouseEnter={e => {
+                e.currentTarget.style.background = 'rgba(201,165,90,0.08)';
+                e.currentTarget.style.borderColor = 'rgba(201,165,90,0.4)';
+                e.currentTarget.style.transform = 'translateY(-4px)';
+              }}
+              onMouseLeave={e => {
+                e.currentTarget.style.background = 'rgba(255,255,255,0.04)';
+                e.currentTarget.style.borderColor = 'rgba(201,165,90,0.15)';
+                e.currentTarget.style.transform = 'translateY(0)';
+              }}
+            >
+              <badge.icon size={30} className="mx-auto mb-3"
+                style={{ color: '#c9a55a', filter: 'drop-shadow(0 0 6px rgba(201,165,90,0.5))' }} />
+              <div className="text-2xl md:text-3xl font-black text-white mb-1">{badge.label}</div>
+              <div className="text-xs uppercase tracking-wider" style={{ color: 'rgba(255,255,255,0.5)' }}>
+                {badge.sublabel}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Wave divider */}
+      <div className="absolute bottom-0 left-0 right-0 leading-none">
+        <svg viewBox="0 0 1440 70" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+          <path d="M0,40 C240,80 480,0 720,40 C960,80 1200,10 1440,40 L1440,70 L0,70 Z" fill="white"/>
+        </svg>
+      </div>
+
+      <style>{`
+        @keyframes twinkle {
+          0%, 100% { opacity: 0.08; transform: scale(1); }
+          50% { opacity: 0.9; transform: scale(1.8); }
+        }
+      `}</style>
+    </section>
+  );
+};
+
+export default Hero;
