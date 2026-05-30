@@ -19,6 +19,10 @@ const WhatsAppIcon = ({ size = 32, color = 'white' }) => (
 const WhatsAppWidget = () => {
   const [open, setOpen] = useState(false);
 
+  const buildUrl = (number) => {
+    return 'https://wa.me/' + number + '?text=' + WA_MESSAGE;
+  };
+
   return (
     <div
       className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3"
@@ -28,13 +32,14 @@ const WhatsAppWidget = () => {
       {open && (
         <div
           className="w-72 bg-white rounded-2xl shadow-2xl overflow-hidden"
-          style={{ border: '1px solid #f0f0f0', animation: 'fadeInUp 0.25s ease-out' }}
+          style={{ border: '1px solid #f0f0f0' }}
           role="dialog"
-          aria-label="Choose a WhatsApp number"
         >
           {/* Panel Header */}
-          <div className="px-5 py-4 flex items-center justify-between"
-            style={{ background: '#25D366' }}>
+          <div
+            className="px-5 py-4 flex items-center justify-between"
+            style={{ background: '#25D366' }}
+          >
             <div className="flex items-center gap-3">
               <WhatsAppIcon size={28} color="white" />
               <div>
@@ -48,7 +53,7 @@ const WhatsAppWidget = () => {
             </div>
             <button
               onClick={() => setOpen(false)}
-              aria-label="Close WhatsApp panel"
+              aria-label="Close"
               className="w-7 h-7 rounded-full flex items-center justify-center transition-colors"
               style={{ background: 'rgba(255,255,255,0.2)' }}
               onMouseEnter={e => e.currentTarget.style.background = 'rgba(255,255,255,0.4)'}
@@ -60,37 +65,43 @@ const WhatsAppWidget = () => {
 
           {/* Number Options */}
           <div className="p-4 space-y-2">
-            <p className="text-xs font-semibold uppercase tracking-wider mb-3"
-              style={{ color: '#9ca3af' }}>
+            <p
+              className="text-xs font-semibold uppercase tracking-wider mb-3"
+              style={{ color: '#9ca3af' }}
+            >
               Choose a number to chat
             </p>
-            {WA_NUMBERS.map(({ label, number, display }) => (
-              
-                key={number}
-                href={`https://wa.me/${number}?text=${WA_MESSAGE}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-3 p-3 rounded-xl transition-all duration-200"
-                style={{ border: '1px solid #f0f0f0' }}
-                onMouseEnter={e => {
-                  e.currentTarget.style.borderColor = 'rgba(37,211,102,0.4)';
-                  e.currentTarget.style.background = '#f0fdf4';
-                }}
-                onMouseLeave={e => {
-                  e.currentTarget.style.borderColor = '#f0f0f0';
-                  e.currentTarget.style.background = 'transparent';
-                }}
-              >
-                <div className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0"
-                  style={{ background: 'rgba(37,211,102,0.1)' }}>
-                  <WhatsAppIcon size={20} color="#25D366" />
-                </div>
-                <div>
-                  <p className="text-xs" style={{ color: '#9ca3af' }}>{label}</p>
-                  <p className="text-sm font-bold" style={{ color: '#0a1628' }}>{display}</p>
-                </div>
-              </a>
-            ))}
+            {WA_NUMBERS.map(function(item) {
+              return (
+                
+                  key={item.number}
+                  href={buildUrl(item.number)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-3 p-3 rounded-xl transition-all duration-200"
+                  style={{ border: '1px solid #f0f0f0', display: 'flex', textDecoration: 'none' }}
+                  onMouseEnter={e => {
+                    e.currentTarget.style.borderColor = 'rgba(37,211,102,0.4)';
+                    e.currentTarget.style.background = '#f0fdf4';
+                  }}
+                  onMouseLeave={e => {
+                    e.currentTarget.style.borderColor = '#f0f0f0';
+                    e.currentTarget.style.background = 'transparent';
+                  }}
+                >
+                  <div
+                    className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0"
+                    style={{ background: 'rgba(37,211,102,0.1)' }}
+                  >
+                    <WhatsAppIcon size={20} color="#25D366" />
+                  </div>
+                  <div>
+                    <p className="text-xs" style={{ color: '#9ca3af' }}>{item.label}</p>
+                    <p className="text-sm font-bold" style={{ color: '#0a1628' }}>{item.display}</p>
+                  </div>
+                </a>
+              );
+            })}
           </div>
 
           {/* Footer */}
@@ -102,7 +113,7 @@ const WhatsAppWidget = () => {
 
       {/* Floating Button */}
       <div className="relative">
-        {/* Pulse ring (only when closed) */}
+        {/* Pulse ring when closed */}
         {!open && (
           <span
             aria-hidden="true"
@@ -112,12 +123,12 @@ const WhatsAppWidget = () => {
         )}
 
         <button
-          onClick={() => setOpen(v => !v)}
+          onClick={() => setOpen(function(v) { return !v; })}
           aria-label={open ? 'Close WhatsApp chat' : 'Chat with us on WhatsApp'}
           aria-expanded={open}
           className="relative w-16 h-16 rounded-full flex items-center justify-center shadow-2xl transition-all duration-300 hover:scale-110 active:scale-95"
           style={{
-            background: open ? '#1da851' : '#25D366',
+            background: '#25D366',
             boxShadow: '0 6px 25px rgba(37,211,102,0.5)'
           }}
           onMouseEnter={e => e.currentTarget.style.boxShadow = '0 10px 35px rgba(37,211,102,0.7)'}
@@ -129,14 +140,6 @@ const WhatsAppWidget = () => {
           }
         </button>
       </div>
-
-      {/* Fade in animation */}
-      <style>{`
-        @keyframes fadeInUp {
-          from { opacity: 0; transform: translateY(15px); }
-          to   { opacity: 1; transform: translateY(0);    }
-        }
-      `}</style>
     </div>
   );
 };
