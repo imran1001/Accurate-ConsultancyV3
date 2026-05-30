@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Send, CheckCircle, Lock, Phone, Mail, User, Globe, MessageSquare, ChevronDown } from 'lucide-react';
+import { Send, CheckCircle, Lock, Phone, Mail, User, Globe, MessageSquare, ChevronDown, MapPin } from 'lucide-react';
 
 const ConsultationForm = () => {
   const [formData, setFormData] = useState({
@@ -102,10 +102,7 @@ const ConsultationForm = () => {
                         required
                         placeholder="e.g. Ahmad Hassan"
                         className="w-full pl-11 pr-4 py-3.5 rounded-xl outline-none transition-all"
-                        style={{
-                          border: '2px solid #e5e7eb',
-                          fontSize: '15px'
-                        }}
+                        style={{ border: '2px solid #e5e7eb', fontSize: '15px' }}
                         onFocus={e => e.target.style.borderColor = '#c9a55a'}
                         onBlur={e => e.target.style.borderColor = '#e5e7eb'}
                       />
@@ -168,105 +165,3 @@ const ConsultationForm = () => {
                         name="visaType"
                         value={formData.visaType}
                         onChange={handleChange}
-                        required
-                        className="w-full pl-11 pr-10 py-3.5 rounded-xl outline-none appearance-none transition-all bg-white"
-                        style={{ border: '2px solid #e5e7eb', fontSize: '15px' }}
-                        onFocus={e => e.target.style.borderColor = '#c9a55a'}
-                        onBlur={e => e.target.style.borderColor = '#e5e7eb'}
-                      >
-                        <option value="">Select a category</option>
-                        <option value="visit">Visit Visa</option>
-                        <option value="work">Work Visa</option>
-                        <option value="study">Study Abroad</option>
-                        <option value="skilled">Skilled Immigration</option>
-                        <option value="business">Business Immigration</option>
-                        <option value="travel">Travel Management</option>
-                      </select>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Row 3 - Country */}
-                <div>
-                  <label className="block text-sm font-bold mb-2" style={{ color: '#0a1628' }}>
-                    Destination Country *
-                  </label>
-                  <div className="relative">
-                    <MapPin size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
-                    <ChevronDown size={18} className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" />
-                    <select
-                      name="country"
-                      value={formData.country}
-                      onChange={handleChange}
-                      required
-                      className="w-full pl-11 pr-10 py-3.5 rounded-xl outline-none appearance-none transition-all bg-white"
-                      style={{ border: '2px solid #e5e7eb', fontSize: '15px' }}
-                      onFocus={e => e.target.style.borderColor = '#c9a55a'}
-                      onBlur={e => e.target.style.borderColor = '#e5e7eb'}
-                    >
-                      <option value="">Select your destination</option>
-                      <option value="usa">🇺🇸 United States</option>
-                      <option value="uk">🇬🇧 United Kingdom</option>
-                      <option value="canada">🇨🇦 Canada</option>
-                      <option value="australia">🇦🇺 Australia</option>
-                      <option value="newzealand">🇳🇿 New Zealand</option>
-                      <option value="uae">🇦🇪 United Arab Emirates</option>
-                      <option value="europe">🇪🇺 Europe (Schengen)</option>
-                    </select>
-                  </div>
-                </div>
-
-                {/* Row 4 - Message */}
-                <div>
-                  <label className="block text-sm font-bold mb-2" style={{ color: '#0a1628' }}>
-                    Tell Us About Your Goals
-                  </label>
-                  <div className="relative">
-                    <MessageSquare size={18} className="absolute left-4 top-4 text-gray-400" />
-                    <textarea
-                      name="message"
-                      value={formData.message}
-                      onChange={handleChange}
-                      rows="4"
-                      placeholder="Briefly describe your immigration goals, timeline, or any specific questions..."
-                      className="w-full pl-11 pr-4 py-3.5 rounded-xl outline-none transition-all resize-none"
-                      style={{ border: '2px solid #e5e7eb', fontSize: '15px' }}
-                      onFocus={e => e.target.style.borderColor = '#c9a55a'}
-                      onBlur={e => e.target.style.borderColor = '#e5e7eb'}
-                    />
-                  </div>
-                </div>
-
-                {/* Submit Button */}
-                <button
-                  type="submit"
-                  disabled={loading}
-                  className="w-full py-4 rounded-full font-bold text-lg flex items-center justify-center space-x-3 transition-all duration-300 hover:scale-105 disabled:opacity-70 disabled:cursor-not-allowed"
-                  style={{
-                    background: loading ? '#9ca3af' : 'linear-gradient(135deg, #c9a55a, #f0c040)',
-                    color: '#0a1628',
-                    boxShadow: loading ? 'none' : '0 10px 30px rgba(201,165,90,0.4)'
-                  }}
-                >
-                  {loading ? (
-                    <>
-                      <div className="w-5 h-5 border-2 border-current border-t-transparent rounded-full animate-spin" />
-                      <span>Submitting...</span>
-                    </>
-                  ) : (
-                    <>
-                      <Send size={20} />
-                      <span>Submit Consultation Request</span>
-                    </>
-                  )}
-                </button>
-              </form>
-            )}
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-};
-
-export default ConsultationForm;
