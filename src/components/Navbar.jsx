@@ -1,134 +1,150 @@
-import { useState } from 'react';
-import { Menu, X, Globe, ChevronRight } from 'lucide-react';
-import { useScrollEffect } from '@hooks/useScrollEffect';
+import React, { useState, useEffect } from 'react';
+import { Menu, X, ChevronRight, Globe } from 'lucide-react';
 
-const NAV_LINKS = ['Services', 'Destinations', 'About', 'Contact'];
+const Navbar = () => {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
-export default function Navbar() {
-  const [mobileOpen, setMobileOpen] = useState(false);
-  const scrolled = useScrollEffect(40);
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
-  const closeMobile = () => setMobileOpen(false);
-
-  // Safe scroll function for the new logo button
-  const handleLogoClick = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    closeMobile();
+  const scrollToSection = (id) => {
+    const element = document.getElementById(id);
+    if (element) {
+      const offset = 96;
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - offset;
+      window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+      setMobileMenuOpen(false);
+    }
   };
 
+  const navLinks = [
+    { name: 'Services', id: 'services' },
+    { name: 'Destinations', id: 'destinations' },
+    { name: 'About', id: 'about' },
+    { name: 'Contact', id: 'consultation' }
+  ];
+
   return (
-    <header
-      role="banner"
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        scrolled || mobileOpen
-          ? 'bg-blue-950 shadow-xl border-b border-amber-600/20'
-          : 'bg-blue-950/90 backdrop-blur-md border-b border-amber-600/10'
-      }`}
-    >
-      <nav
-        aria-label="Main navigation"
-        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
-      >
-        <div className="flex items-center justify-between h-20">
-          
-          {/* ── Upgraded Logo Button ─────────────────────────────────── */}
+    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+      scrolled
+        ? 'shadow-2xl'
+        : ''
+    }`}
+    style={{
+      background: scrolled
+        ? 'rgba(2, 8, 24, 0.98)'
+        : 'rgba(2, 8, 24, 0.95)',
+      backdropFilter: 'blur(20px)',
+      borderBottom: '1px solid rgba(201, 165, 90, 0.15)'
+    }}>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between items-center h-24">
+
+          {/* Logo - Large & Prominent */}
           <button
-            onClick={handleLogoClick}
-            className="flex items-center group focus:outline-none rounded-lg px-2 py-1 -ml-2 transition-all shrink-0"
+            onClick={() => scrollToSection('hero')}
+            className="flex items-center group focus:outline-none"
             aria-label="Accurate Consultancy Home"
           >
-            <img 
+            <img
               src="/logo.png"
               alt="Accurate Consultancy"
-              className="h-20 md:h-24 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
-              style={{ 
-                filter: 'drop-shadow(0 0 20px rgba(201, 165, 90, 0.8)) drop-shadow(0 0 40px rgba(201, 165, 90, 0.4))',
-                maxWidth: '220px'
+              className="w-auto object-contain transition-all duration-300 group-hover:scale-105"
+              style={{
+                height: 'clamp(56px, 6vw, 80px)',
+                filter: 'drop-shadow(0 0 12px rgba(201, 165, 90, 0.6)) brightness(1.05)',
               }}
-              loading="eager"
             />
           </button>
 
-          {/* ── Desktop Links ─────────────────────────── */}
-          <ul
-            role="list"
-            className="hidden lg:flex items-center gap-8"
-          >
-            {NAV_LINKS.map((item) => (
-              <li key={item}>
-                <a
-                  href={`#${item.toLowerCase()}`}
-                  className="relative text-gray-300 hover:text-amber-400 text-sm font-medium
-                             tracking-wide transition-colors duration-300 group"
-                >
-                  {item}
-                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-amber-400
-                                   transition-all duration-300 group-hover:w-full" />
-                </a>
-              </li>
+          {/* Desktop Navigation */}
+          <div className="hidden lg:flex items-center space-x-10">
+            {navLinks.map((item) => (
+              <button
+                key={item.id}
+                onClick={() => scrollToSection(item.id)}
+                className="group relative font-semibold text-sm tracking-widest uppercase transition-colors duration-300 py-2"
+                style={{ color: 'rgba(255,255,255,0.8)' }}
+                onMouseEnter={e => e.target.style.color = '#c9a55a'}
+                onMouseLeave={e => e.target.style.color = 'rgba(255,255,255,0.8)'}
+              >
+                {item.name}
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 group-hover:w-full transition-all duration-300"
+                  style={{ background: 'linear-gradient(90deg, #c9a55a, #f0c040)' }}
+                />
+              </button>
             ))}
-          </ul>
-
-          {/* ── Desktop CTA ───────────────────────────── */}
-          <div className="hidden md:block">
-            <a
-              href="#consultation"
-              className="btn-primary text-sm flex items-center gap-2"
-            >
-              <Globe size={15} />
-              Book Consultation
-              <ChevronRight size={15} />
-            </a>
           </div>
 
-          {/* ── Mobile Toggle ─────────────────────────── */}
+          {/* CTA Button */}
+          <div className="hidden md:flex items-center">
+            <button
+              onClick={() => scrollToSection('consultation')}
+              className="group relative font-bold text-sm px-6 py-3 rounded-full uppercase tracking-wider transition-all duration-300 hover:scale-105 flex items-center space-x-2 overflow-hidden"
+              style={{
+                background: 'linear-gradient(135deg, #c9a55a, #f0c040)',
+                color: '#0a1628',
+                boxShadow: '0 0 20px rgba(201, 165, 90, 0.4)'
+              }}
+            >
+              <Globe size={16} />
+              <span>Book Consultation</span>
+              <ChevronRight size={14} className="group-hover:translate-x-1 transition-transform duration-300" />
+            </button>
+          </div>
+
+          {/* Mobile Menu Button */}
           <button
-            aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
-            aria-expanded={mobileOpen}
-            aria-controls="mobile-menu"
-            onClick={() => setMobileOpen((v) => !v)}
-            className="lg:hidden text-white p-2 rounded-lg hover:bg-blue-900
-                       transition-colors duration-200 focus-visible:ring-2
-                       focus-visible:ring-amber-400"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="lg:hidden p-2.5 rounded-xl transition-all duration-300"
+            style={{
+              color: 'white',
+              background: mobileMenuOpen ? 'rgba(201,165,90,0.2)' : 'transparent',
+              border: '1px solid rgba(201,165,90,0.3)'
+            }}
           >
-            {mobileOpen ? <X size={24} /> : <Menu size={24} />}
+            {mobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
           </button>
         </div>
+      </div>
 
-        {/* ── Mobile Menu ───────────────────────────── */}
-        <div
-          id="mobile-menu"
-          aria-hidden={!mobileOpen}
-          className={`lg:hidden overflow-hidden transition-all duration-300 ease-in-out ${
-            mobileOpen ? 'max-h-96 pb-6' : 'max-h-0'
-          }`}
-        >
-          <ul role="list" className="flex flex-col gap-1 pt-2">
-            {NAV_LINKS.map((item) => (
-              <li key={item}>
-                <a
-                  href={`#${item.toLowerCase()}`}
-                  onClick={closeMobile}
-                  className="block px-3 py-2.5 text-gray-300 hover:text-amber-400
-                             hover:bg-blue-900/50 rounded-lg font-medium text-sm
-                             tracking-wide transition-all duration-200"
-                >
-                  {item}
-                </a>
-              </li>
-            ))}
-          </ul>
-          <div className="mt-4 px-3">
-            <a
-              href="#consultation"
-              onClick={closeMobile}
-              className="btn-primary w-full flex justify-center items-center gap-2"
+      {/* Mobile Menu */}
+      <div className={`lg:hidden overflow-hidden transition-all duration-300 ${
+        mobileMenuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+      }`}
+      style={{ background: 'rgba(2,8,24,0.98)', borderTop: '1px solid rgba(201,165,90,0.15)' }}>
+        <div className="px-4 py-6 space-y-2">
+          {navLinks.map((item) => (
+            <button
+              key={item.id}
+              onClick={() => scrollToSection(item.id)}
+              className="block w-full text-left py-3 px-4 rounded-lg font-medium uppercase tracking-wide transition-all duration-300"
+              style={{ color: 'rgba(255,255,255,0.8)' }}
+              onMouseEnter={e => { e.target.style.color = '#c9a55a'; e.target.style.background = 'rgba(201,165,90,0.1)'; }}
+              onMouseLeave={e => { e.target.style.color = 'rgba(255,255,255,0.8)'; e.target.style.background = 'transparent'; }}
             >
-              Book Consultation
-            </a>
-          </div>
+              {item.name}
+            </button>
+          ))}
+          <button
+            onClick={() => scrollToSection('consultation')}
+            className="block w-full py-3 px-6 rounded-full font-bold text-center uppercase tracking-wide mt-4"
+            style={{
+              background: 'linear-gradient(135deg, #c9a55a, #f0c040)',
+              color: '#0a1628'
+            }}
+          >
+            Book Consultation
+          </button>
         </div>
-      </nav>
-    </header>
+      </div>
+    </nav>
   );
-}
+};
+
+export default Navbar;
