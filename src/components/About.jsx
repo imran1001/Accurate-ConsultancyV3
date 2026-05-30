@@ -144,4 +144,144 @@ const About = () => {
                     className="flex items-center space-x-2 px-4 py-2.5 rounded-full font-semibold text-sm transition-all hover:scale-105"
                     style={{
                       background: 'rgba(255,255,255,0.1)',
-                      border: '1px solid rgba
+                      border: '1px solid rgba(255,255,255,0.2)',
+                      color: 'white',
+                      textDecoration: 'none'
+                    }}
+                    onMouseEnter={(e) => (e.currentTarget.style.borderColor = 'rgba(201,165,90,0.6)')}
+                    onMouseLeave={(e) => (e.currentTarget.style.borderColor = 'rgba(255,255,255,0.2)')}
+                  >
+                    <Mail size={15} />
+                    <span>Email</span>
+                  </a>
+                  
+                  <a
+                    href="tel:+923160285386"
+                    className="flex items-center space-x-2 px-4 py-2.5 rounded-full font-semibold text-sm transition-all hover:scale-105"
+                    style={{
+                      background: 'rgba(255,255,255,0.1)',
+                      border: '1px solid rgba(255,255,255,0.2)',
+                      color: 'white',
+                      textDecoration: 'none'
+                    }}
+                    onMouseEnter={(e) => (e.currentTarget.style.borderColor = 'rgba(201,165,90,0.6)')}
+                    onMouseLeave={(e) => (e.currentTarget.style.borderColor = 'rgba(255,255,255,0.2)')}
+                  >
+                    <Phone size={15} />
+                    <span>Call</span>
+                  </a>
+                  
+                  <a
+                    href="https://wa.me/923160285386"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center space-x-2 px-4 py-2.5 rounded-full font-semibold text-sm transition-all hover:scale-105"
+                    style={{
+                      background: '#25D366',
+                      color: 'white',
+                      textDecoration: 'none'
+                    }}
+                  >
+                    <span>WhatsApp</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            {/* RIGHT — Bio & Expertise */}
+            <div className="p-10 bg-white flex flex-col justify-center">
+              {/* Bio */}
+              <div className="mb-8">
+                <h4
+                  className="text-xl font-bold mb-4"
+                  style={{ color: '#0a1628' }}
+                >
+                  About Muhammad Imran Malik
+                </h4>
+                <p className="text-gray-600 leading-relaxed mb-4" style={{ fontSize: '15px' }}>
+                  With over <strong style={{ color: '#0a1628' }}>15 years of dedicated experience</strong> in 
+                  visa and immigration consulting, Muhammad Imran Malik has established himself as one of 
+                  Pakistan's most trusted immigration professionals.
+                </p>
+                <p className="text-gray-600 leading-relaxed mb-4" style={{ fontSize: '15px' }}>
+                  As the <strong style={{ color: '#0a1628' }}>Managing Director</strong> of Accurate Consultancy, 
+                  he has personally guided over <strong style={{ color: '#0a1628' }}>5,000+ clients</strong> across 
+                  50+ countries — from visit visas to complex investor immigration programs in the USA, UK, 
+                  Canada, and Australia.
+                </p>
+                <p className="text-gray-600 leading-relaxed" style={{ fontSize: '15px' }}>
+                  His deep regulatory knowledge, ethical approach, and commitment to client success has 
+                  earned Accurate Consultancy a <strong style={{ color: '#c9a55a' }}>98% approval rate</strong> — 
+                  one of the highest in the industry.
+                </p>
+              </div>
+
+              {/* Expertise Grid */}
+              <div className="mb-8">
+                <h4
+                  className="text-base font-bold mb-4 uppercase tracking-wide"
+                  style={{ color: '#0a1628' }}
+                >
+                  Areas of Expertise
+                </h4>
+                <div className="grid grid-cols-2 gap-2">
+                  {expertise.map((item, i) => (
+                    <div
+                      key={i}
+                      className="flex items-center space-x-2 py-2 px-3 rounded-xl"
+                      style={{ background: '#f8fafc', border: '1px solid #f0f0f0' }}
+                    >
+                      <CheckCircle
+                        size={14}
+                        style={{ color: '#c9a55a', flexShrink: 0 }}
+                      />
+                      <span
+                        className="text-xs font-semibold"
+                        style={{ color: '#374151' }}
+                      >
+                        {item}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Stats Row */}
+              <div
+                className="grid grid-cols-4 gap-3 p-5 rounded-2xl"
+                style={{
+                  background: 'linear-gradient(135deg, #0a1628, #1a1060)',
+                  border: '1px solid rgba(201,165,90,0.2)'
+                }}
+              >
+                {achievements.map((a, i) => (
+                  <div key={i} className="text-center">
+                    <a.icon
+                      size={18}
+                      className="mx-auto mb-1"
+                      style={{ color: '#c9a55a' }}
+                    />
+                    <div
+                      className="font-black text-white"
+                      style={{ fontSize: 'clamp(0.9rem, 1.5vw, 1.2rem)' }}
+                    >
+                      {a.value}
+                    </div>
+                    <div
+                      className="text-xs leading-tight mt-0.5"
+                      style={{ color: 'rgba(255,255,255,0.5)' }}
+                    >
+                      {a.label}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default About;
