@@ -42,7 +42,7 @@ const destinations = {
     flag: '🇪🇺',
     tagline: 'Schengen access across 27 nations',
     color: '#3b82f6',
-    highlights: ['Schengen Visa', 'Skilled Migration', 'Jobseekar Visa', 'Student Exchange']
+    highlights: ['Schengen Visa', 'Skilled Migration', 'Jobseeker Visa', 'Student Exchange']
   },
   newzealand: {
     name: 'New Zealand',
