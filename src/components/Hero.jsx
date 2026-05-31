@@ -2,7 +2,7 @@ import React from 'react';
 import { MessageCircle, ChevronRight, Globe, Award, CheckCircle, Users, Star } from 'lucide-react';
 
 const trustBadges = [
-  { icon: Award,       label: '15+ Years',  sublabel: 'Experience'      },
+  { icon: Award,       label: '19+ Years',  sublabel: 'Experience'      },
   { icon: CheckCircle, label: '98%',         sublabel: 'Success Rate'    },
   { icon: Users,       label: '5,000+',      sublabel: 'Approved Cases'  },
   { icon: Globe,       label: '50+',         sublabel: 'Global Corridors'}
