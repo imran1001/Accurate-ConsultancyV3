@@ -7,28 +7,28 @@ const destinations = {
     flag: '🇺🇸',
     tagline: 'Land of opportunity awaits you',
     color: '#3b82f6',
-    highlights: ['EB-5 Investor Program', 'H-1B Work Visa', 'F-1 Student Visa', 'B1/B2 Tourist Visa']
+    highlights: ['E-2 Treaty Investor Program', 'EB-2 NIW', 'F-1 Student Visa', 'B1/B2 Tourist Visa']
   },
   uk: {
     name: 'United Kingdom',
     flag: '🇬🇧',
     tagline: 'Gateway to Europe and beyond',
     color: '#ef4444',
-    highlights: ['Skilled Worker Visa', 'Student Route Visa', 'Innovator Founder', 'Global Talent Visa']
+    highlights: ['Skilled Worker Visa', 'Student Route Visa', 'Innovator Founder', 'Standard Visitor Visa']
   },
   canada: {
     name: 'Canada',
     flag: '🇨🇦',
     tagline: 'World\'s most welcoming nation',
     color: '#ef4444',
-    highlights: ['Express Entry', 'Provincial Nominee', 'Study Permit', 'Startup Visa']
+    highlights: ['Skilled Migration', 'C11 Work Permit', 'Study Permit', 'Startup Visa']
   },
   australia: {
     name: 'Australia',
     flag: '🇦🇺',
     tagline: 'Sunshine, opportunity, and growth',
     color: '#f59e0b',
-    highlights: ['Skilled Migration', 'Business Innovation', 'Student Visa', 'Working Holiday']
+    highlights: ['Skilled Migration', 'Business Innovation', 'Student Visa', 'Visitor Visa (subclass 600']
   },
   uae: {
     name: 'United Arab Emirates',
@@ -42,7 +42,7 @@ const destinations = {
     flag: '🇪🇺',
     tagline: 'Schengen access across 27 nations',
     color: '#3b82f6',
-    highlights: ['Schengen Visa', 'Golden Visa Programs', 'EU Blue Card', 'Student Exchange']
+    highlights: ['Schengen Visa', 'Skilled Migration', 'Jobseekar Visa', 'Student Exchange']
   },
   newzealand: {
     name: 'New Zealand',
