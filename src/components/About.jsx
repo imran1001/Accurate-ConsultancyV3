@@ -13,7 +13,7 @@ const expertise = [
 ];
 
 const achievements = [
-  { icon: Award, value: '15+', label: 'Years Experience' },
+  { icon: Award, value: '19+', label: 'Years Experience' },
   { icon: Users, value: '5,000+', label: 'Cases Handled' },
   { icon: Globe, value: '50+', label: 'Countries Covered' },
   { icon: TrendingUp, value: '98%', label: 'Success Rate' }
@@ -201,9 +201,9 @@ const About = () => {
                   About Muhammad Imran Malik
                 </h4>
                 <p className="text-gray-600 leading-relaxed mb-4" style={{ fontSize: '15px' }}>
-                  With over <strong style={{ color: '#0a1628' }}>15 years of dedicated experience</strong> in 
-                  visa and immigration consulting, Muhammad Imran Malik has established himself as one of 
-                  Pakistan's most trusted immigration professionals.
+                  With over <strong style={{ color: '#0a1628' }}>19+ years of dedicated experience</strong> in 
+                  visa and immigration consulting across the <strong style={{ color: '#0a1628' }}>UAE and Pakistan</strong>, Muhammad Imran Malik has established himself as one of 
+                  the region's most trusted immigration professionals.
                 </p>
                 <p className="text-gray-600 leading-relaxed mb-4" style={{ fontSize: '15px' }}>
                   As the <strong style={{ color: '#0a1628' }}>Managing Director</strong> of Accurate Consultancy, 
