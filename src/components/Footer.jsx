@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  MapPin, Phone, Mail, Globe, Clock,
+  MapPin, Phone, Mail, Clock,
   Facebook, Linkedin, Instagram, Twitter,
   ChevronRight,
 } from 'lucide-react';
@@ -16,30 +16,6 @@ const SOCIAL = [
   { Icon: Instagram, href: '#', label: 'Instagram' },
   { Icon: Twitter,   href: '#', label: 'Twitter'   },
 ];
-
-/* Inline WhatsApp SVG for clean dependencies */
-function WhatsAppIcon({ size = 17 }) {
-  return (
-    <svg
-      viewBox="0 0 32 32"
-      fill="currentColor"
-      width={size}
-      height={size}
-      aria-hidden="true"
-    >
-      <path d="M16.002 3C9.375 3 4 8.373 4 15c0 2.387.68 4.614 1.856 6.502L4 29l7.686-1.822A12.938 12.938 0 0016.002 28C22.629 28 28 22.627 28 16S22.629 3 16.002 3zm0 23.5c-2.118 0-4.1-.593-5.789-1.623l-.415-.248-4.558 1.08 1.117-4.43-.27-.44A10.46 10.46 0 015.5 16c0-5.79 4.712-10.5 10.502-10.5S26.5 10.21 26.5 16 21.79 26.5 16.002 26.5zm5.77-7.87c-.316-.158-1.87-.921-2.159-1.027-.29-.106-.5-.158-.71.158-.21.316-.814 1.027-.998 1.237-.184.21-.368.237-.684.079-.316-.158-1.334-.491-2.54-1.567-.938-.836-1.571-1.869-1.755-2.185-.184-.316-.02-.487.138-.644.143-.142.316-.37.474-.554.158-.184.21-.316.316-.527.105-.21.053-.395-.026-.554-.079-.158-.71-1.713-.973-2.345-.256-.615-.516-.532-.71-.542l-.605-.01c-.21 0-.553.079-.843.395-.29.316-1.105 1.08-1.105 2.634s1.131 3.054 1.289 3.264c.158.21 2.226 3.395 5.392 4.762.754.325 1.342.519 1.8.664.757.24 1.447.206 1.991.125.607-.09 1.87-.765 2.133-1.503.263-.738.263-1.37.184-1.503-.079-.132-.29-.21-.605-.368z" />
-    </svg>
-  );
-}
-
-const WA_NUMBERS = [
-  { number: '923160285386', display: '+92 316 0285386', label: 'Sales & Visa' },
-  { number: '923030411114', display: '+92 303 0411114', label: 'Support'      },
-];
-
-const WA_MSG = encodeURIComponent(
-  'Hello! I found your website and would like to enquire about your visa and immigration services.'
-);
 
 export default function Footer() {
   const year = new Date().getFullYear();
@@ -139,26 +115,6 @@ export default function Footer() {
                   <a href="tel:+923030411114" className="block hover:text-[#c9a55a] transition-colors">
                     +92 303 0411114
                   </a>
-                </div>
-              </div>
-
-              {/* WhatsApp */}
-              <div className="flex items-start gap-3">
-                <Globe className="text-[#25d366] shrink-0 mt-0.5" size={16} aria-hidden="true" />
-                <div className="text-sm space-y-1 text-white/70">
-                  {WA_NUMBERS.map(({ number, display, label }) => (
-                    <a
-                      key={number}
-                      href={`https://wa.me/${number}?text=${WA_MSG}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-1.5 hover:text-[#25d366]
-                                 transition-colors duration-200 group"
-                      aria-label={`WhatsApp ${label}: ${display}`}
-                    >
-                      <span>WhatsApp · {display}</span>
-                    </a>
-                  ))}
                 </div>
               </div>
 
