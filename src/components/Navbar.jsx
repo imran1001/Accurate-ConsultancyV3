@@ -47,7 +47,7 @@ const Navbar = () => {
             aria-label="Go to homepage"
           >
             <img
-              src="/logo.png"
+              src="/logo.webp"
               alt="Accurate Consultancy"
               width="180"
               height="70"
