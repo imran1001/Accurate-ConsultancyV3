@@ -43,7 +43,7 @@ const Navbar = () => {
           <button onClick={() => scrollToSection('hero')}
             className="flex items-center group focus:outline-none"
             aria-label="Home">
-            <img src="/logo.png" alt="Accurate Consultancy"
+            <img src="/logo.webp" alt="Accurate Consultancy"
               className="transition-all duration-300 group-hover:scale-105"
               style={{
                 height: 'clamp(52px, 5.5vw, 76px)',
