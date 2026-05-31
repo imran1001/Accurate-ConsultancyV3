@@ -63,7 +63,7 @@ export default function Footer() {
               className="inline-block mb-6 group"
             >
               <img
-                src="/logo.png"
+                src="/logo.webp"
                 alt="Accurate Consultancy"
                 width={220}
                 height={70}
