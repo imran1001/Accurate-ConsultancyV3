@@ -6,7 +6,7 @@ const WhyChooseUs = () => {
     {
       icon: Award,
       title: 'Unmatched Expertise',
-      description: '15+ years of proven success with thousands of approved visa applications across multiple jurisdictions and immigration categories.'
+      description: '19+ years of proven success with thousands of approved visa applications across multiple jurisdictions and immigration categories.'
     },
     {
       icon: FileCheck,
