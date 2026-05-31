@@ -28,7 +28,7 @@ const destinations = {
     flag: '🇦🇺',
     tagline: 'Sunshine, opportunity, and growth',
     color: '#f59e0b',
-    highlights: ['Skilled Migration', 'Business Innovation', 'Student Visa', 'Visitor Visa (subclass 600']
+    highlights: ['Skilled Migration', 'Business Innovation', 'Student Visa', 'Visitor Visa (subclass 600)']
   },
   uae: {
     name: 'United Arab Emirates',
