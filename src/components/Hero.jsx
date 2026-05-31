@@ -61,7 +61,7 @@ const Hero = () => {
 
         {/* Logo */}
         <div className="flex justify-center mb-8">
-          <img src="/logo.png" alt="Accurate Consultancy"
+          <img src="/logo.webp" alt="Accurate Consultancy"
             style={{
               height: 'clamp(70px, 10vw, 130px)',
               width: 'auto',
