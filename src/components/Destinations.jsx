@@ -7,7 +7,7 @@ const destinations = {
     flag: '🇺🇸',
     tagline: 'Land of opportunity awaits you',
     color: '#3b82f6',
-    highlights: ['E-2 Treaty Investor Program', 'EB-2 NIW', 'F-1 Student Visa', 'B1/B2 Tourist Visa']
+    highlights: ['E-2 Treaty Investor Program', 'L1-A Executive Transfer', 'F-1 Student Visa', 'B1/B2 Tourist Visa']
   },
   uk: {
     name: 'United Kingdom',
