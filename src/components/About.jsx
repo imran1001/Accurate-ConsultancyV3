@@ -139,7 +139,7 @@ const About = () => {
                 {/* Contact Buttons */}
                 <div className="flex items-center justify-center space-x-3 flex-wrap gap-2">
                   <a
-                    href="mailto:info@accurate-consultancy.com"
+                    href="mailto:imran@accurate-consultancy.com"
                     aria-label="Send email to Accurate Consultancy"
                     className="flex items-center space-x-2 px-4 py-2.5 rounded-full font-semibold text-sm transition-all hover:scale-105"
                     style={{
