@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import React from 'react';
 import { MessageCircle, ChevronRight, Globe, Award, CheckCircle, Users, Star } from 'lucide-react';
 
 const trustBadges = [
@@ -8,20 +7,6 @@ const trustBadges = [
   { icon: Users,       label: '5,000+',      sublabel: 'Approved Cases'  },
   { icon: Globe,       label: '50+',         sublabel: 'Global Corridors'}
 ];
-
-// ✨ Reusable entrance animation variants
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.1, delayChildren: 0.2 }
-  }
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: 'easeOut' } }
-};
 
 const Hero = () => {
   const scrollToSection = (id) => {
@@ -41,11 +26,11 @@ const Hero = () => {
       }}
     >
       {/* ===== ANIMATED ROTATING GLOBE WITH ORBITING STARS ===== */}
-      <motion.div
+      <div
         className="absolute -right-40 top-1/2 -translate-y-1/2 w-96 h-96 pointer-events-none hidden lg:block"
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 1, ease: 'easeOut' }}
+        style={{
+          animation: 'globeFadeIn 1s ease-out forwards'
+        }}
       >
         {/* Outer Orbit Container */}
         <div
@@ -56,7 +41,7 @@ const Hero = () => {
         >
           {/* 5 Orbiting Stars */}
           {[0, 72, 144, 216, 288].map((angle, i) => (
-            <motion.div
+            <div
               key={i}
               className="absolute w-3 h-3 rounded-full"
               style={{
@@ -65,13 +50,12 @@ const Hero = () => {
                 top: '8%',
                 transform: `rotate(${angle}deg) translateX(-50%)`,
                 boxShadow: '0 0 15px rgba(201,165,90,0.8)',
+                animation: 'fadeInScale 0.5s ease-out forwards',
+                animationDelay: `${i * 0.1}s`
               }}
-              initial={{ opacity: 0, scale: 0 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: i * 0.1, duration: 0.5 }}
             >
               {/* Glow Halo */}
-              <motion.div
+              <div
                 className="absolute inset-0 rounded-full"
                 style={{
                   background: 'radial-gradient(circle, rgba(201,165,90,0.4), transparent)',
@@ -79,15 +63,15 @@ const Hero = () => {
                   height: '20px',
                   top: '-8.5px',
                   left: '-8.5px',
+                  animation: 'haloScale 2s infinite ease-in-out',
+                  animationDelay: `${i * 0.2}s`
                 }}
-                animate={{ scale: [1, 1.3, 1] }}
-                transition={{ duration: 2, repeat: Infinity, delay: i * 0.2 }}
               />
-            </motion.div>
+            </div>
           ))}
 
           {/* Center Globe */}
-          <motion.div
+          <div
             className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-40 h-40 rounded-full"
             style={{
               background: 'radial-gradient(circle at 35% 35%, rgba(201,165,90,0.5), rgba(59,79,202,0.3), rgba(10,22,40,0.8))',
@@ -95,9 +79,6 @@ const Hero = () => {
               boxShadow: '0 0 80px rgba(201,165,90,0.5), inset -20px -20px 40px rgba(59,79,202,0.3)',
               animation: 'rotateSelf 25s linear infinite reverse',
             }}
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8 }}
           >
             {/* Globe Grid Pattern */}
             <svg
@@ -149,25 +130,18 @@ const Hero = () => {
                 background: 'linear-gradient(180deg, transparent, rgba(201,165,90,0.6), transparent)',
               }}
             />
-          </motion.div>
-
-          {/* Outer Glow Ring */}
-          <motion.div
-            className="absolute inset-0 rounded-full"
-            style={{
-              border: '1px solid rgba(201,165,90,0.2)',
-            }}
-            animate={{
-              boxShadow: [
-                '0 0 100px rgba(201,165,90,0.4), inset 0 0 60px rgba(201,165,90,0.1)',
-                '0 0 120px rgba(201,165,90,0.6), inset 0 0 80px rgba(201,165,90,0.2)',
-                '0 0 100px rgba(201,165,90,0.4), inset 0 0 60px rgba(201,165,90,0.1)',
-              ]
-            }}
-            transition={{ duration: 4, repeat: Infinity }}
-          />
+          </div>
         </div>
-      </motion.div>
+
+        {/* Outer Glow Ring */}
+        <div
+          className="absolute inset-0 rounded-full"
+          style={{
+            border: '1px solid rgba(201,165,90,0.2)',
+            animation: 'glowRingPulse 4s infinite ease-in-out'
+          }}
+        />
+      </div>
 
       {/* Left Glow Orb */}
       <div
@@ -179,57 +153,47 @@ const Hero = () => {
       <div className="max-w-6xl mx-auto relative z-10 w-full text-center">
 
         {/* Logo with Float Animation */}
-        <motion.div
-          className="flex justify-center mb-8"
-          variants={itemVariants}
-          initial="hidden"
-          animate="visible"
-        >
-          <motion.img
+        <div className="flex justify-center mb-8 animate-fade-in-up">
+          <img
             src="/logo.webp"
             alt="Accurate Consultancy"
             width="220"
             height="120"
-            animate={{ y: [0, -8, 0] }}
-            transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
             style={{
               height: 'clamp(70px, 10vw, 130px)',
               width: 'auto',
-              filter: 'drop-shadow(0 0 25px rgba(201,165,90,0.8)) drop-shadow(0 0 50px rgba(201,165,90,0.4)) brightness(1.1)'
+              filter: 'drop-shadow(0 0 25px rgba(201,165,90,0.8)) drop-shadow(0 0 50px rgba(201,165,90,0.4)) brightness(1.1)',
+              animation: 'logoFloat 4s ease-in-out infinite'
             }}
           />
-        </motion.div>
+        </div>
 
         {/* Badge with Rotating Star */}
-        <motion.div
-          className="inline-flex items-center space-x-2 px-5 py-2 rounded-full mb-8"
+        <div
+          className="inline-flex items-center space-x-2 px-5 py-2 rounded-full mb-8 animate-fade-in-up delay-100"
           style={{
             background: 'rgba(201,165,90,0.08)',
             border: '1px solid rgba(201,165,90,0.35)',
             backdropFilter: 'blur(10px)'
           }}
-          variants={itemVariants}
-          initial="hidden"
-          animate="visible"
-          transition={{ delay: 0.15 }}
         >
           <Globe size={15} style={{ color: '#c9a55a' }} />
           <span className="text-xs font-bold tracking-widest uppercase" style={{ color: '#c9a55a' }}>
             Your Global Mobility Partner
           </span>
-          <motion.div animate={{ rotate: 360 }} transition={{ duration: 3, repeat: Infinity, ease: 'linear' }}>
+          <div style={{ animation: 'starRotate 3s linear infinite' }}>
             <Star size={12} fill="#c9a55a" style={{ color: '#c9a55a' }} />
-          </motion.div>
-        </motion.div>
+          </div>
+        </div>
 
         {/* Headline */}
-        <motion.div variants={itemVariants} initial="hidden" animate="visible" transition={{ delay: 0.2 }}>
+        <div className="animate-fade-in-up delay-200">
           <h1
             className="font-black text-white leading-tight mb-6"
             style={{ fontSize: 'clamp(2.4rem, 6.5vw, 5.2rem)', letterSpacing: '-0.02em' }}
           >
             Navigate Your Journey to
-            <motion.span
+            <span
               className="block mt-1"
               style={{
                 background: 'linear-gradient(90deg, #b8872a 0%, #f0d060 40%, #e8b830 70%, #c9a55a 100%)',
@@ -237,111 +201,99 @@ const Hero = () => {
                 WebkitTextFillColor: 'transparent',
                 backgroundClip: 'text',
                 backgroundSize: '200% 100%',
+                animation: 'textShimmer 3s linear infinite'
               }}
-              animate={{ backgroundPosition: ['200% center', '-200% center'] }}
-              transition={{ duration: 3, repeat: Infinity, ease: 'linear' }}
             >
               Global Success
-            </motion.span>
+            </span>
           </h1>
-        </motion.div>
+        </div>
 
         {/* Subtitle */}
-        <motion.p
-          className="text-gray-300 leading-relaxed mx-auto mb-10"
+        <p
+          className="text-gray-300 leading-relaxed mx-auto mb-10 animate-fade-in-up delay-300"
           style={{ fontSize: 'clamp(1rem, 2.2vw, 1.25rem)', maxWidth: '640px', lineHeight: 1.8 }}
-          variants={itemVariants}
-          initial="hidden"
-          animate="visible"
-          transition={{ delay: 0.25 }}
         >
           Premium visa and immigration consultancy delivering seamless pathways
           to your dream destination with expert guidance every step of the way.
-        </motion.p>
+        </p>
 
         {/* CTA Buttons */}
-        <motion.div
-          className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16"
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-          transition={{ delay: 0.3 }}
-        >
-          <motion.button
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16 animate-fade-in-up delay-400">
+          <button
             onClick={() => scrollToSection('consultation')}
             aria-label="Start your immigration journey"
-            className="w-full sm:w-auto flex items-center justify-center space-x-2 px-8 py-4 rounded-full font-bold text-lg"
+            className="w-full sm:w-auto flex items-center justify-center space-x-2 px-8 py-4 rounded-full font-bold text-lg transition-all duration-300 hover:scale-105"
             style={{
               background: 'linear-gradient(135deg, #c9a55a, #f0c040, #c9a55a)',
               color: '#0a1628',
               boxShadow: '0 0 40px rgba(201,165,90,0.5)'
             }}
-            whileHover={{ scale: 1.05, boxShadow: '0 0 60px rgba(201,165,90,0.7)' }}
-            whileTap={{ scale: 0.98 }}
+            onMouseEnter={e => { e.currentTarget.style.boxShadow = '0 0 60px rgba(201,165,90,0.7)'; }}
+            onMouseLeave={e => { e.currentTarget.style.boxShadow = '0 0 40px rgba(201,165,90,0.5)'; }}
           >
             <MessageCircle size={20} />
             <span>Start Your Journey</span>
-          </motion.button>
+          </button>
 
-          <motion.button
+          <button
             onClick={() => scrollToSection('services')}
             aria-label="Explore our immigration services"
-            className="w-full sm:w-auto flex items-center justify-center space-x-2 px-8 py-4 rounded-full font-bold text-lg text-white"
+            className="w-full sm:w-auto flex items-center justify-center space-x-2 px-8 py-4 rounded-full font-bold text-lg text-white transition-all duration-300 hover:scale-105"
             style={{
               border: '2px solid rgba(255,255,255,0.25)',
               background: 'rgba(255,255,255,0.05)',
               backdropFilter: 'blur(10px)'
             }}
-            whileHover={{
-              scale: 1.05,
-              borderColor: 'rgba(201,165,90,0.6)',
-              background: 'rgba(201,165,90,0.1)'
+            onMouseEnter={e => {
+              e.currentTarget.style.borderColor = 'rgba(201,165,90,0.6)';
+              e.currentTarget.style.background = 'rgba(201,165,90,0.1)';
             }}
-            whileTap={{ scale: 0.98 }}
+            onMouseLeave={e => {
+              e.currentTarget.style.borderColor = 'rgba(255,255,255,0.25)';
+              e.currentTarget.style.background = 'rgba(255,255,255,0.05)';
+            }}
           >
             <span>Explore Services</span>
             <ChevronRight size={20} />
-          </motion.button>
-        </motion.div>
+          </button>
+        </div>
 
         {/* Trust Badges Grid */}
-        <motion.div
-          className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto"
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-          transition={{ delay: 0.4 }}
-        >
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto animate-fade-in-up delay-500">
           {trustBadges.map((badge, i) => (
-            <motion.div
+            <div
               key={i}
-              className="rounded-2xl p-5 text-center"
+              className="rounded-2xl p-5 text-center transition-all duration-300 hover:-translate-y-1"
               style={{
                 background: 'rgba(255,255,255,0.04)',
                 border: '1px solid rgba(201,165,90,0.15)',
                 backdropFilter: 'blur(12px)'
               }}
-              variants={itemVariants}
-              whileHover={{
-                background: 'rgba(201,165,90,0.08)',
-                borderColor: 'rgba(201,165,90,0.4)',
-                y: -4
+              onMouseEnter={e => {
+                e.currentTarget.style.background = 'rgba(201,165,90,0.08)';
+                e.currentTarget.style.borderColor = 'rgba(201,165,90,0.4)';
               }}
-              transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+              onMouseLeave={e => {
+                e.currentTarget.style.background = 'rgba(255,255,255,0.04)';
+                e.currentTarget.style.borderColor = 'rgba(201,165,90,0.15)';
+              }}
             >
-              <motion.div
-                animate={{ scale: [1, 1.15, 1] }}
-                transition={{ duration: 2, repeat: Infinity, delay: i * 0.2 }}
+              <div
+                style={{
+                  animation: 'badgeIconPulse 2s infinite ease-in-out',
+                  animationDelay: `${i * 0.2}s`
+                }}
               >
                 <badge.icon size={30} className="mx-auto mb-3" style={{ color: '#c9a55a' }} />
-              </motion.div>
+              </div>
               <div className="text-2xl md:text-3xl font-black text-white mb-1">{badge.label}</div>
               <div className="text-xs uppercase tracking-wider" style={{ color: 'rgba(255,255,255,0.5)' }}>
                 {badge.sublabel}
               </div>
-            </motion.div>
+            </div>
           ))}
-        </motion.div>
+        </div>
       </div>
 
       {/* Wave Divider */}
@@ -353,6 +305,26 @@ const Hero = () => {
 
       {/* ===== CSS ANIMATIONS ===== */}
       <style>{`
+        .animate-fade-in-up {
+          opacity: 0;
+          animation: fadeInUp 0.6s ease-out forwards;
+        }
+        .delay-100 { animation-delay: 0.1s; }
+        .delay-200 { animation-delay: 0.2s; }
+        .delay-300 { animation-delay: 0.3s; }
+        .delay-400 { animation-delay: 0.4s; }
+        .delay-500 { animation-delay: 0.5s; }
+
+        @keyframes fadeInUp {
+          from { opacity: 0; transform: translateY(20px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes globeFadeIn {
+          from { opacity: 0; transform: translateY(-50%) scale(0.8); }
+          to { opacity: 1; transform: translateY(-50%) scale(1); }
+        }
+
         @keyframes rotateOrbit {
           from { transform: rotate(0deg); }
           to { transform: rotate(360deg); }
@@ -363,7 +335,36 @@ const Hero = () => {
           to { transform: rotateZ(360deg) rotateX(20deg) rotateY(30deg); }
         }
 
-        /* Smooth scrolling */
+        @keyframes haloScale {
+          0%, 100% { transform: scale(1); opacity: 0.6; }
+          50% { transform: scale(1.3); opacity: 1; }
+        }
+
+        @keyframes textShimmer {
+          0% { background-position: 200% center; }
+          100% { background-position: -200% center; }
+        }
+
+        @keyframes logoFloat {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-8px); }
+        }
+
+        @keyframes starRotate {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
+        }
+
+        @keyframes badgeIconPulse {
+          0%, 100% { transform: scale(1); }
+          50% { transform: scale(1.15); }
+        }
+
+        @keyframes glowRingPulse {
+          0%, 100% { box-shadow: 0 0 100px rgba(201,165,90,0.4), inset 0 0 60px rgba(201,165,90,0.1); }
+          50% { box-shadow: 0 0 120px rgba(201,165,90,0.6), inset 0 0 80px rgba(201,165,90,0.2); }
+        }
+
         html { scroll-behavior: smooth; }
       `}</style>
     </section>
