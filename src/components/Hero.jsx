@@ -8,6 +8,36 @@ const trustBadges = [
   { icon: Globe,       label: '50+',         sublabel: 'Global Corridors'}
 ];
 
+// Seamless, simplified vector path representing world continents
+const ContinentsMap = () => (
+  <svg
+    className="w-full h-full opacity-60"
+    viewBox="0 0 200 100"
+    preserveAspectRatio="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <g fill="#c9a55a">
+      {/* North America */}
+      <path d="M10,15 L35,12 L45,25 L40,40 L30,42 L25,35 L12,30 Z" />
+      {/* Central & South America */}
+      <path d="M30,42 L33,50 L38,62 L34,85 L28,75 L25,58 L24,48 Z" />
+      {/* Greenland */}
+      <path d="M35,2 L48,5 L42,12 L32,8 Z" />
+      {/* Eurasia / Europe / Asia */}
+      <path d="M68,15 L95,10 L135,12 L145,25 L138,48 L115,50 L100,42 L85,38 L72,28 Z" />
+      {/* United Kingdom & Ireland */}
+      <path d="M64,16 A2,2 0 1,1 64,12 A2,2 0 1,1 64,16" />
+      {/* Africa */}
+      <path d="M72,36 L92,38 L100,52 L94,72 L85,78 L78,65 L70,50 Z" />
+      {/* Australia */}
+      <path d="M125,65 L142,68 L145,78 L130,82 L122,75 Z" />
+      {/* Major Island Groups / Maritime SE Asia */}
+      <path d="M112,52 L118,55 L114,60 Z" />
+      <path d="M124,54 L130,58 L126,62 Z" />
+    </g>
+  </svg>
+);
+
 const Hero = () => {
   const scrollToSection = (id) => {
     const element = document.getElementById(id);
@@ -27,7 +57,7 @@ const Hero = () => {
     >
       {/* ===== ANIMATED ROTATING GLOBE WITH ORBITING STARS ===== */}
       <div
-        className="absolute -right-40 top-1/2 -translate-y-1/2 w-96 h-96 pointer-events-none hidden lg:block"
+        className="absolute -right-36 top-1/2 -translate-y-1/2 w-96 h-96 pointer-events-none hidden lg:block"
         style={{
           animation: 'globeFadeIn 1s ease-out forwards'
         }}
@@ -70,74 +100,69 @@ const Hero = () => {
             </div>
           ))}
 
-          {/* Center Globe */}
+          {/* Center Globe Sphere */}
           <div
-            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-40 h-40 rounded-full"
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 rounded-full overflow-hidden"
             style={{
-              background: 'radial-gradient(circle at 35% 35%, rgba(201,165,90,0.5), rgba(59,79,202,0.3), rgba(10,22,40,0.8))',
-              border: '2px solid rgba(201,165,90,0.4)',
-              boxShadow: '0 0 80px rgba(201,165,90,0.5), inset -20px -20px 40px rgba(59,79,202,0.3)',
-              animation: 'rotateSelf 25s linear infinite reverse',
+              background: 'radial-gradient(circle at 30% 30%, #0f2347 0%, #050d1a 70%, #010408 100%)',
+              border: '2px solid rgba(201,165,90,0.35)',
+              boxShadow: '0 0 60px rgba(201,165,90,0.3), inset -15px -15px 40px rgba(0,0,0,0.8), inset 15px 15px 30px rgba(201,165,90,0.2)',
             }}
           >
-            {/* Globe Grid Pattern */}
+            {/* Infinite Map Tracking Layer (Two identical maps side-by-side for seamless infinite loop) */}
+            <div 
+              className="absolute inset-y-0 flex flex-row items-center"
+              style={{
+                width: '200%',
+                animation: 'panGlobalMap 25s linear infinite'
+              }}
+            >
+              <div className="w-1/2 h-full"><ContinentsMap /></div>
+              <div className="w-1/2 h-full"><ContinentsMap /></div>
+            </div>
+
+            {/* Globe Grid Grid Overlay (Stays fixed to create standard spherical dimensional depth) */}
             <svg
-              className="absolute inset-0 w-full h-full"
+              className="absolute inset-0 w-full h-full mix-blend-screen pointer-events-none"
               viewBox="0 0 100 100"
               xmlns="http://www.w3.org/2000/svg"
               preserveAspectRatio="xMidYMid meet"
             >
-              {/* Latitude Lines */}
-              {[15, 30, 45, 60, 75].map((y) => (
+              {/* Latitudes */}
+              {[20, 40, 60, 80].map((y) => (
                 <line
                   key={`lat-${y}`}
-                  x1="0"
-                  y1={y}
-                  x2="100"
-                  y2={y}
-                  stroke="rgba(201,165,90,0.25)"
-                  strokeWidth="0.6"
+                  x1="0" y1={y} x2="100" y2={y}
+                  stroke="rgba(201,165,90,0.15)" strokeWidth="0.4"
                 />
               ))}
-              {/* Longitude Lines */}
-              {[15, 30, 45, 60, 75].map((x) => (
-                <line
-                  key={`lon-${x}`}
-                  x1={x}
-                  y1="0"
-                  x2={x}
-                  y2="100"
-                  stroke="rgba(201,165,90,0.25)"
-                  strokeWidth="0.6"
-                />
-              ))}
-              {/* Equator Highlight */}
+              {/* Curved Longitude Approximations for 3D depth */}
+              <path d="M50,0 Q30,50 50,100" fill="none" stroke="rgba(201,165,90,0.15)" strokeWidth="0.4" />
+              <path d="M50,0 Q70,50 50,100" fill="none" stroke="rgba(201,165,90,0.15)" strokeWidth="0.4" />
+              <path d="M50,0 Q15,50 50,100" fill="none" stroke="rgba(201,165,90,0.08)" strokeWidth="0.4" />
+              <path d="M50,0 Q85,50 50,100" fill="none" stroke="rgba(201,165,90,0.08)" strokeWidth="0.4" />
+              {/* Equator */}
               <line
-                x1="0"
-                y1="50"
-                x2="100"
-                y2="50"
-                stroke="rgba(201,165,90,0.4)"
-                strokeWidth="1"
-                strokeDasharray="3,2"
+                x1="0" y1="50" x2="100" y2="50"
+                stroke="rgba(201,165,90,0.3)" strokeWidth="0.8" strokeDasharray="2,2"
               />
             </svg>
 
-            {/* Prime Meridian */}
-            <div
-              className="absolute top-0 left-1/2 -translate-x-1/2 w-0.5 h-full rounded-full"
+            {/* Spherical Shading Overlay for 3D realism */}
+            <div 
+              className="absolute inset-0 rounded-full pointer-events-none"
               style={{
-                background: 'linear-gradient(180deg, transparent, rgba(201,165,90,0.6), transparent)',
+                background: 'radial-gradient(circle at 30% 30%, transparent 40%, rgba(5,13,26,0.4) 70%, rgba(1,4,8,0.88) 100%)'
               }}
             />
           </div>
         </div>
 
-        {/* Outer Glow Ring */}
+        {/* Outer Atmospheric Glow Ring */}
         <div
           className="absolute inset-0 rounded-full"
           style={{
-            border: '1px solid rgba(201,165,90,0.2)',
+            border: '1px solid rgba(201,165,90,0.15)',
             animation: 'glowRingPulse 4s infinite ease-in-out'
           }}
         />
@@ -330,9 +355,9 @@ const Hero = () => {
           to { transform: rotate(360deg); }
         }
 
-        @keyframes rotateSelf {
-          from { transform: rotateZ(0deg) rotateX(20deg) rotateY(30deg); }
-          to { transform: rotateZ(360deg) rotateX(20deg) rotateY(30deg); }
+        @keyframes panGlobalMap {
+          0% { transform: translateX(0%); }
+          100% { transform: translateX(-50%); }
         }
 
         @keyframes haloScale {
@@ -361,8 +386,8 @@ const Hero = () => {
         }
 
         @keyframes glowRingPulse {
-          0%, 100% { box-shadow: 0 0 100px rgba(201,165,90,0.4), inset 0 0 60px rgba(201,165,90,0.1); }
-          50% { box-shadow: 0 0 120px rgba(201,165,90,0.6), inset 0 0 80px rgba(201,165,90,0.2); }
+          0%, 100% { box-shadow: 0 0 100px rgba(201,165,90,0.3), inset 0 0 60px rgba(201,165,90,0.1); }
+          50% { box-shadow: 0 0 120px rgba(201,165,90,0.5), inset 0 0 80px rgba(201,165,90,0.2); }
         }
 
         html { scroll-behavior: smooth; }
