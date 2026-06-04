@@ -8,32 +8,45 @@ const trustBadges = [
   { icon: Globe,       label: '50+',         sublabel: 'Global Corridors'}
 ];
 
-// Seamless, simplified vector path representing world continents
-const ContinentsMap = () => (
+// High-fidelity dotted/particle style continent mesh matching the premium reference image style
+const DottedContinentsMap = () => (
   <svg
-    className="w-full h-full opacity-65"
-    viewBox="0 0 200 100"
+    className="w-full h-full opacity-75"
+    viewBox="0 0 240 120"
     preserveAspectRatio="none"
     xmlns="http://www.w3.org/2000/svg"
   >
-    <g fill="#c9a55a">
-      {/* North America */}
-      <path d="M10,15 L35,12 L45,25 L40,40 L30,42 L25,35 L12,30 Z" />
-      {/* Central & South America */}
-      <path d="M30,42 L33,50 L38,62 L34,85 L28,75 L25,58 L24,48 Z" />
-      {/* Greenland */}
-      <path d="M35,2 L48,5 L42,12 L32,8 Z" />
-      {/* Eurasia / Europe / Asia */}
-      <path d="M68,15 L95,10 L135,12 L145,25 L138,48 L115,50 L100,42 L85,38 L72,28 Z" />
-      {/* United Kingdom & Ireland */}
-      <path d="M64,16 A2,2 0 1,1 64,12 A2,2 0 1,1 64,16" />
-      {/* Africa */}
-      <path d="M72,36 L92,38 L100,52 L94,72 L85,78 L78,65 L70,50 Z" />
-      {/* Australia */}
-      <path d="M125,65 L142,68 L145,78 L130,82 L122,75 Z" />
-      {/* Major Island Groups */}
-      <path d="M112,52 L118,55 L114,60 Z" />
-      <path d="M124,54 L130,58 L126,62 Z" />
+    <g fill="#c9a55a" opacity="0.85">
+      {/* North America Dotted Mesh Mapping */}
+      <circle cx="25" cy="20" r="1.5" /><circle cx="35" cy="18" r="1.5" /><circle cx="45" cy="22" r="1.5" />
+      <circle cx="20" cy="28" r="1.5" /><circle cx="30" cy="26" r="1.5" /><circle cx="40" cy="30" r="1.5" />
+      <circle cx="50" cy="34" r="1.5" /><circle cx="35" cy="38" r="1.5" /><circle cx="45" cy="42" r="1.5" />
+      
+      {/* South America Dotted Mesh Mapping */}
+      <circle cx="48" cy="55" r="1.5" /><circle cx="56" cy="58" r="1.5" /><circle cx="52" cy="68" r="1.5" />
+      <circle cx="58" cy="74" r="1.5" /><circle cx="62" cy="84" r="1.5" /><circle cx="60" cy="94" r="1.5" />
+      <circle cx="58" cy="104" r="1.5" />
+
+      {/* Europe & United Kingdom Mesh Mapping */}
+      <circle cx="98" cy="22" r="1.5" /><circle cx="104" cy="18" r="1.5" /><circle cx="112" cy="20" r="1.5" />
+      <circle cx="94" cy="28" r="1.5" /><circle cx="102" cy="28" r="1.5" /><circle cx="110" cy="30" r="1.5" />
+      
+      {/* Africa Mesh Mapping */}
+      <circle cx="102" cy="48" r="1.5" /><circle cx="112" cy="46" r="1.5" /><circle cx="122" cy="50" r="1.5" />
+      <circle cx="106" cy="58" r="1.5" /><circle cx="116" cy="60" r="1.5" /><circle cx="124" cy="64" r="1.5" />
+      <circle cx="112" cy="72" r="1.5" /><circle cx="118" cy="78" r="1.5" /><circle cx="120" cy="88" r="1.5" />
+
+      {/* Asia & Middle East Mesh Mapping */}
+      <circle cx="128" cy="24" r="1.5" /><circle cx="138" cy="20" r="1.5" /><circle cx="148" cy="18" r="1.5" />
+      <circle cx="158" cy="16" r="1.5" /><circle cx="168" cy="22" r="1.5" /><circle cx="178" cy="20" r="1.5" />
+      <circle cx="134" cy="34" r="1.5" /><circle cx="144" cy="32" r="1.5" /><circle cx="154" cy="30" r="1.5" />
+      <circle cx="164" cy="32" r="1.5" /><circle cx="174" cy="34" r="1.5" /><circle cx="184" cy="30" r="1.5" />
+      <circle cx="140" cy="44" r="1.5" /><circle cx="150" cy="42" r="1.5" /><circle cx="160" cy="44" r="1.5" />
+      <circle cx="170" cy="46" r="1.5" /><circle cx="180" cy="42" r="1.5" /><circle cx="190" cy="48" r="1.5" />
+
+      {/* Australia Mesh Mapping */}
+      <circle cx="180" cy="78" r="1.5" /><circle cx="190" cy="76" r="1.5" /><circle cx="200" cy="80" r="1.5" />
+      <circle cx="184" cy="88" r="1.5" /><circle cx="194" cy="86" r="1.5" /><circle cx="190" cy="94" r="1.5" />
     </g>
   </svg>
 );
@@ -47,6 +60,15 @@ const Hero = () => {
     }
   };
 
+  // High-resolution premium country flag configuration matching requested channels
+  const countryFlags = [
+    { code: 'us', name: 'USA', top: '10%', left: '15%', delay: '0s' },
+    { code: 'gb', name: 'UK', top: '22%', left: '75%', delay: '1.2s' },
+    { code: 'ca', name: 'Canada', top: '70%', left: '12%', delay: '2.4s' },
+    { code: 'au', name: 'Australia', top: '80%', left: '68%', delay: '3.6s' },
+    { code: 'fr', name: 'France', top: '48%', left: '85%', delay: '4.8s' }
+  ];
+
   return (
     <section
       id="hero"
@@ -55,237 +77,244 @@ const Hero = () => {
         background: 'linear-gradient(135deg, #010610 0%, #0a1628 35%, #0d1d3a 65%, #160d50 100%)'
       }}
     >
-      {/* ===== BIGGER ANIMATED ROTATING GLOBE WITH ORBITING STARS ===== */}
+      {/* ===== MASSIVE HIGH-TECH PARTICLE GLOBE FROM EBRYX REFERENCE ===== */}
       <div
-        className="absolute -right-44 top-1/2 -translate-y-1/2 w-[440px] h-[440px] pointer-events-none hidden lg:block"
+        className="absolute -right-32 bottom-4 lg:top-1/2 lg:-translate-y-1/2 w-[580px] h-[580px] pointer-events-none hidden lg:block"
         style={{
-          animation: 'globeFadeIn 1s ease-out forwards'
+          animation: 'globeFadeIn 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards'
         }}
       >
-        {/* Outer Orbit Container */}
-        <div
-          className="absolute inset-0"
-          style={{
-            animation: 'rotateOrbit 40s linear infinite',
-          }}
-        >
-          {/* 5 Orbiting Stars */}
-          {[0, 72, 144, 216, 288].map((angle, i) => (
+        {/* Deep Field Atmospheric Glow Core */}
+        <div className="absolute inset-10 rounded-full bg-radial from-blue-600/20 via-indigo-900/10 to-transparent blur-3xl" />
+
+        {/* Outer Orbit Rotation System carrying the flags */}
+        <div className="absolute inset-0 select-none">
+          {countryFlags.map((flag, idx) => (
             <div
-              key={i}
-              className="absolute w-3 h-3 rounded-full"
+              key={idx}
+              className="absolute z-30 flex flex-col items-center justify-center group"
               style={{
-                background: 'linear-gradient(135deg, #c9a55a, #f0c040)',
-                left: '50%',
-                top: '6%',
-                transform: `rotate(${angle}deg) translateX(-50%)`,
-                boxShadow: '0 0 15px rgba(201,165,90,0.8)',
-                animation: 'fadeInScale 0.5s ease-out forwards',
-                animationDelay: `${i * 0.1}s`
+                top: flag.top,
+                left: flag.left,
+                animation: 'floatingOrbitBadge 6s ease-in-out infinite',
+                animationDelay: flag.delay
               }}
             >
-              {/* Glow Halo */}
-              <div
-                className="absolute inset-0 rounded-full"
-                style={{
-                  background: 'radial-gradient(circle, rgba(201,165,90,0.4), transparent)',
-                  width: '20px',
-                  height: '20px',
-                  top: '-8.5px',
-                  left: '-8.5px',
-                  animation: 'haloScale 2s infinite ease-in-out',
-                  animationDelay: `${i * 0.2}s`
-                }}
-              />
+              {/* Premium Flag Circular Token Container */}
+              <div 
+                className="w-14 h-14 rounded-full p-0.5 bg-gradient-to-b from-[#c9a55a] via-[#f0c040] to-[#0a1628] shadow-[0_0_25px_rgba(201,165,90,0.4)] transition-all duration-300 group-hover:scale-110 group-hover:shadow-[0_0_35px_rgba(201,165,90,0.7)]"
+                style={{ backdropFilter: 'blur(8px)' }}
+              >
+                <div className="w-full h-full rounded-full overflow-hidden bg-[#0a1628] flex items-center justify-center">
+                  <img 
+                    src={`https://flagcdn.com/w160/${flag.code}.png`}
+                    alt={flag.name}
+                    className="w-full h-full object-cover scale-105"
+                  />
+                </div>
+              </div>
+              {/* Subtle Elegant Mini Label text */}
+              <span className="mt-1.5 text-[10px] font-bold tracking-widest text-white/80 bg-[#0a1628]/90 px-2 py-0.5 rounded-md border border-[#c9a55a]/30 uppercase">
+                {flag.name}
+              </span>
             </div>
           ))}
 
-          {/* Center Globe Sphere (Upscaled to w-80 h-80) */}
+          {/* Center High-Tech Particle Mesh Globe Sphere */}
           <div
-            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 rounded-full overflow-hidden"
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[420px] h-[420px] rounded-full overflow-hidden"
             style={{
-              background: 'radial-gradient(circle at 30% 30%, #0f2347 0%, #050d1a 70%, #010408 100%)',
-              border: '2px solid rgba(201,165,90,0.35)',
-              boxShadow: '0 0 70px rgba(201,165,90,0.35), inset -20px -20px 50px rgba(0,0,0,0.9), inset 20px 20px 40px rgba(201,165,90,0.25)',
+              background: 'radial-gradient(circle at 35% 35%, #0d2247 0%, #040c1a 65%, #010308 100%)',
+              border: '2px solid rgba(201,165,90,0.3)',
+              boxShadow: '0 0 90px rgba(59,130,246,0.25), 0 0 50px rgba(201,165,90,0.2), inset -30px -30px 60px rgba(0,0,0,0.95), inset 20px 20px 50px rgba(201,165,90,0.15)',
             }}
           >
-            {/* Infinite Map Tracking Layer */}
+            {/* Infinite Horizontal Panning Dotted Continent Matrices */}
             <div 
-              className="absolute inset-y-0 flex flex-row items-center"
+              className="absolute inset-y-0 flex flex-row items-center mix-blend-screen"
               style={{
                 width: '200%',
-                animation: 'panGlobalMap 30s linear infinite'
+                animation: 'panGlobalMap 35s linear infinite'
               }}
             >
-              <div className="w-1/2 h-full"><ContinentsMap /></div>
-              <div className="w-1/2 h-full"><ContinentsMap /></div>
+              <div className="w-1/2 h-full"><DottedContinentsMap /></div>
+              <div className="w-1/2 h-full"><DottedContinentsMap /></div>
             </div>
 
-            {/* Globe Grid Overlay */}
+            {/* Matrix Digital Lat/Long Coordinates Ring Elements Overlay */}
             <svg
-              className="absolute inset-0 w-full h-full mix-blend-screen pointer-events-none"
+              className="absolute inset-0 w-full h-full mix-blend-screen opacity-40 pointer-events-none"
               viewBox="0 0 100 100"
               xmlns="http://www.w3.org/2000/svg"
               preserveAspectRatio="none"
             >
-              {/* Latitudes */}
-              {[20, 40, 60, 80].map((y) => (
+              {/* Spherical Latitudes */}
+              {[15, 30, 45, 60, 75].map((y) => (
                 <line
                   key={`lat-${y}`}
                   x1="0" y1={y} x2="100" y2={y}
-                  stroke="rgba(201,165,90,0.15)" strokeWidth="0.4"
+                  stroke="rgba(201,165,90,0.2)" strokeWidth="0.3"
                 />
               ))}
-              {/* Longitudes */}
-              <path d="M50,0 Q25,50 50,100" fill="none" stroke="rgba(201,165,90,0.15)" strokeWidth="0.4" />
-              <path d="M50,0 Q75,50 50,100" fill="none" stroke="rgba(201,165,90,0.15)" strokeWidth="0.4" />
-              <path d="M50,0 Q5,50 50,100" fill="none" stroke="rgba(201,165,90,0.08)" strokeWidth="0.4" />
-              <path d="M50,0 Q95,50 50,100" fill="none" stroke="rgba(201,165,90,0.08)" strokeWidth="0.4" />
-              {/* Equator */}
+              {/* Complex Dimensional Longitudinal Vector Paths */}
+              <path d="M50,0 Q10,50 50,100" fill="none" stroke="rgba(201,165,90,0.2)" strokeWidth="0.3" />
+              <path d="M50,0 Q30,50 50,100" fill="none" stroke="rgba(201,165,90,0.2)" strokeWidth="0.3" />
+              <path d="M50,0 Q70,50 50,100" fill="none" stroke="rgba(201,165,90,0.2)" strokeWidth="0.3" />
+              <path d="M50,0 Q90,50 50,100" fill="none" stroke="rgba(201,165,90,0.2)" strokeWidth="0.3" />
+              
+              {/* Main Equator Marker Line */}
               <line
                 x1="0" y1="50" x2="100" y2="50"
-                stroke="rgba(201,165,90,0.3)" strokeWidth="0.8" strokeDasharray="2,2"
+                stroke="rgba(201,165,90,0.4)" strokeWidth="0.6" strokeDasharray="1,2"
               />
             </svg>
 
-            {/* Spherical Shading Overlay */}
+            {/* Perfect Deep-Shadow Sphere Realism Volumetric Layer */}
             <div 
               className="absolute inset-0 rounded-full pointer-events-none"
               style={{
-                background: 'radial-gradient(circle at 30% 30%, transparent 40%, rgba(5,13,26,0.3) 70%, rgba(1,4,8,0.9) 100%)'
+                background: 'radial-gradient(circle at 30% 30%, transparent 35%, rgba(4,12,26,0.2) 60%, rgba(1,3,8,0.95) 100%)'
               }}
             />
           </div>
         </div>
 
-        {/* Outer Atmospheric Glow Ring */}
+        {/* External High-Tech Floating Aura Ring Frame */}
         <div
-          className="absolute inset-0 rounded-full"
+          className="absolute inset-4 rounded-full pointer-events-none"
           style={{
-            border: '1px solid rgba(201,165,90,0.15)',
-            animation: 'glowRingPulse 4s infinite ease-in-out'
+            border: '1px dashed rgba(201,165,90,0.15)',
+            animation: 'rotateOrbit 60s linear infinite'
           }}
         />
       </div>
 
-      {/* Left Glow Orb */}
+      {/* Left Ambient Radial Soft Blur Backdrop */}
       <div
         className="absolute top-10 left-10 w-80 h-80 rounded-full blur-3xl pointer-events-none"
-        style={{ background: 'radial-gradient(circle, rgba(201,165,90,0.15), transparent)' }}
+        style={{ background: 'radial-gradient(circle, rgba(201,165,90,0.12), transparent)' }}
       />
 
       {/* ===== CONTENT CONTAINER ===== */}
-      <div className="max-w-6xl mx-auto relative z-10 w-full text-center">
+      <div className="max-w-6xl mx-auto relative z-10 w-full text-center lg:text-left lg:grid lg:grid-cols-12 lg:gap-8 items-center">
+        
+        {/* Left Side Branding copy stack */}
+        <div className="lg:col-span-7 flex flex-col items-center lg:items-start text-center lg:text-left">
+          {/* Logo with Float Animation */}
+          <div className="flex justify-center lg:justify-start mb-8 animate-fade-in-up">
+            <img
+              src="/logo.webp"
+              alt="Accurate Consultancy"
+              width="220"
+              height="120"
+              style={{
+                height: 'clamp(70px, 10vw, 130px)',
+                width: 'auto',
+                filter: 'drop-shadow(0 0 25px rgba(201,165,90,0.8)) drop-shadow(0 0 50px rgba(201,165,90,0.4)) brightness(1.1)',
+                animation: 'logoFloat 4s ease-in-out infinite'
+              }}
+            />
+          </div>
 
-        {/* Logo with Float Animation */}
-        <div className="flex justify-center mb-8 animate-fade-in-up">
-          <img
-            src="/logo.webp"
-            alt="Accurate Consultancy"
-            width="220"
-            height="120"
+          {/* Badge with Rotating Star */}
+          <div
+            className="inline-flex items-center space-x-2 px-5 py-2 rounded-full mb-8 animate-fade-in-up delay-100"
             style={{
-              height: 'clamp(70px, 10vw, 130px)',
-              width: 'auto',
-              filter: 'drop-shadow(0 0 25px rgba(201,165,90,0.8)) drop-shadow(0 0 50px rgba(201,165,90,0.4)) brightness(1.1)',
-              animation: 'logoFloat 4s ease-in-out infinite'
+              background: 'rgba(201,165,90,0.08)',
+              border: '1px solid rgba(201,165,90,0.35)',
+              backdropFilter: 'blur(10px)'
             }}
-          />
-        </div>
+          >
+            <Globe size={15} style={{ color: '#c9a55a' }} />
+            <span className="text-xs font-bold tracking-widest uppercase" style={{ color: '#c9a55a' }}>
+              Your Global Mobility Partner
+            </span>
+            <div style={{ animation: 'starRotate 3s linear infinite' }}>
+              <Star size={12} fill="#c9a55a" style={{ color: '#c9a55a' }} />
+            </div>
+          </div>
 
-        {/* Badge with Rotating Star */}
-        <div
-          className="inline-flex items-center space-x-2 px-5 py-2 rounded-full mb-8 animate-fade-in-up delay-100"
-          style={{
-            background: 'rgba(201,165,90,0.08)',
-            border: '1px solid rgba(201,165,90,0.35)',
-            backdropFilter: 'blur(10px)'
-          }}
-        >
-          <Globe size={15} style={{ color: '#c9a55a' }} />
-          <span className="text-xs font-bold tracking-widest uppercase" style={{ color: '#c9a55a' }}>
-            Your Global Mobility Partner
-          </span>
-          <div style={{ animation: 'starRotate 3s linear infinite' }}>
-            <Star size={12} fill="#c9a55a" style={{ color: '#c9a55a' }} />
+          {/* Headline */}
+          <div className="animate-fade-in-up delay-200">
+            <h1
+              className="font-black text-white leading-tight mb-6"
+              style={{ fontSize: 'clamp(2.4rem, 5.5vw, 4.8rem)', letterSpacing: '-0.02em' }}
+            >
+              Navigate Your Journey to
+              <span
+                className="block mt-1"
+                style={{
+                  background: 'linear-gradient(90deg, #b8872a 0%, #f0d060 40%, #e8b830 70%, #c9a55a 100%)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  backgroundClip: 'text',
+                  backgroundSize: '200% 100%',
+                  animation: 'textShimmer 3s linear infinite'
+                }}
+              >
+                Global Success
+              </span>
+            </h1>
+          </div>
+
+          {/* Subtitle */}
+          <p
+            className="text-gray-300 leading-relaxed mb-10 animate-fade-in-up delay-300"
+            style={{ fontSize: 'clamp(1rem, 2vw, 1.2rem)', maxWidth: '600px', lineHeight: 1.8 }}
+          >
+            Premium visa and immigration consultancy delivering seamless pathways
+            to your dream destination with expert guidance every step of the way.
+          </p>
+
+          {/* CTA Buttons */}
+          <div className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto mb-16 animate-fade-in-up delay-400">
+            <button
+              onClick={() => scrollToSection('consultation')}
+              aria-label="Start your immigration journey"
+              className="w-full sm:w-auto flex items-center justify-center space-x-2 px-8 py-4 rounded-full font-bold text-lg transition-all duration-300 hover:scale-105"
+              style={{
+                background: 'linear-gradient(135deg, #c9a55a, #f0c040, #c9a55a)',
+                color: '#0a1628',
+                boxShadow: '0 0 40px rgba(201,165,90,0.5)'
+              }}
+              onMouseEnter={e => { e.currentTarget.style.boxShadow = '0 0 60px rgba(201,165,90,0.7)'; }}
+              onMouseLeave={e => { e.currentTarget.style.boxShadow = '0 0 40px rgba(201,165,90,0.5)'; }}
+            >
+              <MessageCircle size={20} />
+              <span>Start Your Journey</span>
+            </button>
+
+            <button
+              onClick={() => scrollToSection('services')}
+              aria-label="Explore our immigration services"
+              className="w-full sm:w-auto flex items-center justify-center space-x-2 px-8 py-4 rounded-full font-bold text-lg text-white transition-all duration-300 hover:scale-105"
+              style={{
+                border: '2px solid rgba(255,255,255,0.25)',
+                background: 'rgba(255,255,255,0.05)',
+                backdropFilter: 'blur(10px)'
+              }}
+              onMouseEnter={e => {
+                e.currentTarget.style.borderColor = 'rgba(201,165,90,0.6)';
+                e.currentTarget.style.background = 'rgba(201,165,90,0.1)';
+              }}
+              onMouseLeave={e => {
+                e.currentTarget.style.borderColor = 'rgba(255,255,255,0.25)';
+                e.currentTarget.style.background = 'rgba(255,255,255,0.05)';
+              }}
+            >
+              <span>Explore Services</span>
+              <ChevronRight size={20} />
+            </button>
           </div>
         </div>
 
-        {/* Headline */}
-        <div className="animate-fade-in-up delay-200">
-          <h1
-            className="font-black text-white leading-tight mb-6"
-            style={{ fontSize: 'clamp(2.4rem, 6.5vw, 5.2rem)', letterSpacing: '-0.02em' }}
-          >
-            Navigate Your Journey to
-            <span
-              className="block mt-1"
-              style={{
-                background: 'linear-gradient(90deg, #b8872a 0%, #f0d060 40%, #e8b830 70%, #c9a55a 100%)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                backgroundClip: 'text',
-                backgroundSize: '200% 100%',
-                animation: 'textShimmer 3s linear infinite'
-              }}
-            >
-              Global Success
-            </span>
-          </h1>
-        </div>
+        {/* Right spacing filler placeholder row for desktop viewport grid columns alignment */}
+        <div className="lg:col-span-5 h-[300px] lg:h-auto pointer-events-none" />
+      </div>
 
-        {/* Subtitle */}
-        <p
-          className="text-gray-300 leading-relaxed mx-auto mb-10 animate-fade-in-up delay-300"
-          style={{ fontSize: 'clamp(1rem, 2.2vw, 1.25rem)', maxWidth: '640px', lineHeight: 1.8 }}
-        >
-          Premium visa and immigration consultancy delivering seamless pathways
-          to your dream destination with expert guidance every step of the way.
-        </p>
-
-        {/* CTA Buttons */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16 animate-fade-in-up delay-400">
-          <button
-            onClick={() => scrollToSection('consultation')}
-            aria-label="Start your immigration journey"
-            className="w-full sm:w-auto flex items-center justify-center space-x-2 px-8 py-4 rounded-full font-bold text-lg transition-all duration-300 hover:scale-105"
-            style={{
-              background: 'linear-gradient(135deg, #c9a55a, #f0c040, #c9a55a)',
-              color: '#0a1628',
-              boxShadow: '0 0 40px rgba(201,165,90,0.5)'
-            }}
-            onMouseEnter={e => { e.currentTarget.style.boxShadow = '0 0 60px rgba(201,165,90,0.7)'; }}
-            onMouseLeave={e => { e.currentTarget.style.boxShadow = '0 0 40px rgba(201,165,90,0.5)'; }}
-          >
-            <MessageCircle size={20} />
-            <span>Start Your Journey</span>
-          </button>
-
-          <button
-            onClick={() => scrollToSection('services')}
-            aria-label="Explore our immigration services"
-            className="w-full sm:w-auto flex items-center justify-center space-x-2 px-8 py-4 rounded-full font-bold text-lg text-white transition-all duration-300 hover:scale-105"
-            style={{
-              border: '2px solid rgba(255,255,255,0.25)',
-              background: 'rgba(255,255,255,0.05)',
-              backdropFilter: 'blur(10px)'
-            }}
-            onMouseEnter={e => {
-              e.currentTarget.style.borderColor = 'rgba(201,165,90,0.6)';
-              e.currentTarget.style.background = 'rgba(201,165,90,0.1)';
-            }}
-            onMouseLeave={e => {
-              e.currentTarget.style.borderColor = 'rgba(255,255,255,0.25)';
-              e.currentTarget.style.background = 'rgba(255,255,255,0.05)';
-            }}
-          >
-            <span>Explore Services</span>
-            <ChevronRight size={20} />
-          </button>
-        </div>
-
-        {/* Trust Badges Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto animate-fade-in-up delay-500">
+      {/* Trust Badges Grid Horizontal Row Footer Layout Context */}
+      <div className="max-w-6xl mx-auto relative z-20 w-full px-4 sm:px-6 lg:px-8 mt-4 animate-fade-in-up delay-500">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto lg:mx-0">
           {trustBadges.map((badge, i) => (
             <div
               key={i}
@@ -321,14 +350,14 @@ const Hero = () => {
         </div>
       </div>
 
-      {/* Wave Divider */}
-      <div className="absolute bottom-0 left-0 right-0 leading-none">
+      {/* Wave Section Divider */}
+      <div className="absolute bottom-0 left-0 right-0 leading-none z-10">
         <svg viewBox="0 0 1440 70" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
           <path d="M0,40 C240,80 480,0 720,40 C960,80 1200,10 1440,40 L1440,70 L0,70 Z" fill="white" />
         </svg>
       </div>
 
-      {/* ===== CSS ANIMATIONS ===== */}
+      {/* ===== CSS FRAMEWORK KEYFRAMES ANIMATIONS ===== */}
       <style>{`
         .animate-fade-in-up {
           opacity: 0;
@@ -346,8 +375,8 @@ const Hero = () => {
         }
 
         @keyframes globeFadeIn {
-          from { opacity: 0; transform: translateY(-50%) scale(0.8); }
-          to { opacity: 1; transform: translateY(-50%) scale(1); }
+          from { opacity: 0; transform: translate(40px, -50%) scale(0.9); }
+          to { opacity: 1; transform: translate(0, -50%) scale(1); }
         }
 
         @keyframes rotateOrbit {
@@ -356,13 +385,13 @@ const Hero = () => {
         }
 
         @keyframes panGlobalMap {
-          0% { transform: translateX(0%); }
-          100% { transform: translateX(-50%); }
+          0% { background-position: 0% center; transform: translateX(0%); }
+          100% { background-position: -200% center; transform: translateX(-50%); }
         }
 
-        @keyframes haloScale {
-          0%, 100% { transform: scale(1); opacity: 0.6; }
-          50% { transform: scale(1.3); opacity: 1; }
+        @keyframes floatingOrbitBadge {
+          0%, 100% { transform: translateY(0px) scale(1); }
+          50% { transform: translateY(-12px) scale(1.04); }
         }
 
         @keyframes textShimmer {
@@ -383,11 +412,6 @@ const Hero = () => {
         @keyframes badgeIconPulse {
           0%, 100% { transform: scale(1); }
           50% { transform: scale(1.15); }
-        }
-
-        @keyframes glowRingPulse {
-          0%, 100% { box-shadow: 0 0 100px rgba(201,165,90,0.35), inset 0 0 60px rgba(201,165,90,0.15); }
-          50% { box-shadow: 0 0 130px rgba(201,165,90,0.55), inset 0 0 80px rgba(201,165,90,0.25); }
         }
 
         html { scroll-behavior: smooth; }
