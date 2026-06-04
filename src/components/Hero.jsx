@@ -11,7 +11,7 @@ const trustBadges = [
 // Seamless, simplified vector path representing world continents
 const ContinentsMap = () => (
   <svg
-    className="w-full h-full opacity-60"
+    className="w-full h-full opacity-65"
     viewBox="0 0 200 100"
     preserveAspectRatio="none"
     xmlns="http://www.w3.org/2000/svg"
@@ -31,7 +31,7 @@ const ContinentsMap = () => (
       <path d="M72,36 L92,38 L100,52 L94,72 L85,78 L78,65 L70,50 Z" />
       {/* Australia */}
       <path d="M125,65 L142,68 L145,78 L130,82 L122,75 Z" />
-      {/* Major Island Groups / Maritime SE Asia */}
+      {/* Major Island Groups */}
       <path d="M112,52 L118,55 L114,60 Z" />
       <path d="M124,54 L130,58 L126,62 Z" />
     </g>
@@ -55,9 +55,9 @@ const Hero = () => {
         background: 'linear-gradient(135deg, #010610 0%, #0a1628 35%, #0d1d3a 65%, #160d50 100%)'
       }}
     >
-      {/* ===== ANIMATED ROTATING GLOBE WITH ORBITING STARS ===== */}
+      {/* ===== BIGGER ANIMATED ROTATING GLOBE WITH ORBITING STARS ===== */}
       <div
-        className="absolute -right-36 top-1/2 -translate-y-1/2 w-96 h-96 pointer-events-none hidden lg:block"
+        className="absolute -right-44 top-1/2 -translate-y-1/2 w-[440px] h-[440px] pointer-events-none hidden lg:block"
         style={{
           animation: 'globeFadeIn 1s ease-out forwards'
         }}
@@ -77,7 +77,7 @@ const Hero = () => {
               style={{
                 background: 'linear-gradient(135deg, #c9a55a, #f0c040)',
                 left: '50%',
-                top: '8%',
+                top: '6%',
                 transform: `rotate(${angle}deg) translateX(-50%)`,
                 boxShadow: '0 0 15px rgba(201,165,90,0.8)',
                 animation: 'fadeInScale 0.5s ease-out forwards',
@@ -100,33 +100,33 @@ const Hero = () => {
             </div>
           ))}
 
-          {/* Center Globe Sphere */}
+          {/* Center Globe Sphere (Upscaled to w-80 h-80) */}
           <div
-            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 rounded-full overflow-hidden"
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 rounded-full overflow-hidden"
             style={{
               background: 'radial-gradient(circle at 30% 30%, #0f2347 0%, #050d1a 70%, #010408 100%)',
               border: '2px solid rgba(201,165,90,0.35)',
-              boxShadow: '0 0 60px rgba(201,165,90,0.3), inset -15px -15px 40px rgba(0,0,0,0.8), inset 15px 15px 30px rgba(201,165,90,0.2)',
+              boxShadow: '0 0 70px rgba(201,165,90,0.35), inset -20px -20px 50px rgba(0,0,0,0.9), inset 20px 20px 40px rgba(201,165,90,0.25)',
             }}
           >
-            {/* Infinite Map Tracking Layer (Two identical maps side-by-side for seamless infinite loop) */}
+            {/* Infinite Map Tracking Layer */}
             <div 
               className="absolute inset-y-0 flex flex-row items-center"
               style={{
                 width: '200%',
-                animation: 'panGlobalMap 25s linear infinite'
+                animation: 'panGlobalMap 30s linear infinite'
               }}
             >
               <div className="w-1/2 h-full"><ContinentsMap /></div>
               <div className="w-1/2 h-full"><ContinentsMap /></div>
             </div>
 
-            {/* Globe Grid Grid Overlay (Stays fixed to create standard spherical dimensional depth) */}
+            {/* Globe Grid Overlay */}
             <svg
               className="absolute inset-0 w-full h-full mix-blend-screen pointer-events-none"
               viewBox="0 0 100 100"
               xmlns="http://www.w3.org/2000/svg"
-              preserveAspectRatio="xMidYMid meet"
+              preserveAspectRatio="none"
             >
               {/* Latitudes */}
               {[20, 40, 60, 80].map((y) => (
@@ -136,11 +136,11 @@ const Hero = () => {
                   stroke="rgba(201,165,90,0.15)" strokeWidth="0.4"
                 />
               ))}
-              {/* Curved Longitude Approximations for 3D depth */}
-              <path d="M50,0 Q30,50 50,100" fill="none" stroke="rgba(201,165,90,0.15)" strokeWidth="0.4" />
-              <path d="M50,0 Q70,50 50,100" fill="none" stroke="rgba(201,165,90,0.15)" strokeWidth="0.4" />
-              <path d="M50,0 Q15,50 50,100" fill="none" stroke="rgba(201,165,90,0.08)" strokeWidth="0.4" />
-              <path d="M50,0 Q85,50 50,100" fill="none" stroke="rgba(201,165,90,0.08)" strokeWidth="0.4" />
+              {/* Longitudes */}
+              <path d="M50,0 Q25,50 50,100" fill="none" stroke="rgba(201,165,90,0.15)" strokeWidth="0.4" />
+              <path d="M50,0 Q75,50 50,100" fill="none" stroke="rgba(201,165,90,0.15)" strokeWidth="0.4" />
+              <path d="M50,0 Q5,50 50,100" fill="none" stroke="rgba(201,165,90,0.08)" strokeWidth="0.4" />
+              <path d="M50,0 Q95,50 50,100" fill="none" stroke="rgba(201,165,90,0.08)" strokeWidth="0.4" />
               {/* Equator */}
               <line
                 x1="0" y1="50" x2="100" y2="50"
@@ -148,11 +148,11 @@ const Hero = () => {
               />
             </svg>
 
-            {/* Spherical Shading Overlay for 3D realism */}
+            {/* Spherical Shading Overlay */}
             <div 
               className="absolute inset-0 rounded-full pointer-events-none"
               style={{
-                background: 'radial-gradient(circle at 30% 30%, transparent 40%, rgba(5,13,26,0.4) 70%, rgba(1,4,8,0.88) 100%)'
+                background: 'radial-gradient(circle at 30% 30%, transparent 40%, rgba(5,13,26,0.3) 70%, rgba(1,4,8,0.9) 100%)'
               }}
             />
           </div>
@@ -386,8 +386,8 @@ const Hero = () => {
         }
 
         @keyframes glowRingPulse {
-          0%, 100% { box-shadow: 0 0 100px rgba(201,165,90,0.3), inset 0 0 60px rgba(201,165,90,0.1); }
-          50% { box-shadow: 0 0 120px rgba(201,165,90,0.5), inset 0 0 80px rgba(201,165,90,0.2); }
+          0%, 100% { box-shadow: 0 0 100px rgba(201,165,90,0.35), inset 0 0 60px rgba(201,165,90,0.15); }
+          50% { box-shadow: 0 0 130px rgba(201,165,90,0.55), inset 0 0 80px rgba(201,165,90,0.25); }
         }
 
         html { scroll-behavior: smooth; }
