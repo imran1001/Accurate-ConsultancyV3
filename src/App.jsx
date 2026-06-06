@@ -1,28 +1,24 @@
 import React from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
-import Services from './components/Services';
-import Destinations from './components/Destinations';
-import About from './components/About';
-import WhyChooseUs from './components/WhyChooseUs';
-import ConsultationForm from './components/ConsultationForm';
+// 1. IMPORT YOUR NEW FILES HERE
+import FAQ from './components/FAQ'; 
+import Testimonials from './components/Testimonials'; // double check if your file name matches exactly
+import Consultation from './components/Consultation'; 
 import Footer from './components/Footer';
-import WhatsAppWidget from './components/WhatsAppWidget';
 
 function App() {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-white">
       <Navbar />
-      <main>
-        <Hero />
-        <Services />
-        <Destinations />
-        <About />
-        <WhyChooseUs />
-        <ConsultationForm />
-      </main>
+      <Hero />
+      
+      {/* 2. PLACE THE TAGS HERE TO SHOW THEM ON THE SCREEN */}
+      <Testimonials />
+      <FAQ />
+      
+      <Consultation />
       <Footer />
-      <WhatsAppWidget />
     </div>
   );
 }
