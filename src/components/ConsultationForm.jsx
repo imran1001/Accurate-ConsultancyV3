@@ -7,6 +7,7 @@ const ConsultationForm = () => {
   });
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [currentStep, setCurrentStep] = useState(1);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -18,8 +19,13 @@ const ConsultationForm = () => {
     setTimeout(() => {
       setLoading(false);
       setSubmitted(true);
+      setCurrentStep(1);
+      setFormData({ fullName: '', email: '', phone: '', visaType: '', country: '', message: '' });
     }, 1500);
   };
+
+  const filledFields = [formData.fullName, formData.email, formData.phone, formData.visaType, formData.country].filter(Boolean).length;
+  const progressPercentage = (filledFields / 5) * 100;
 
   const inputStyle = {
     border: '2px solid #e5e7eb',
@@ -28,12 +34,19 @@ const ConsultationForm = () => {
     width: '100%',
     borderRadius: '12px',
     outline: 'none',
-    transition: 'border-color 0.2s',
+    transition: 'border-color 0.2s, box-shadow 0.2s',
     background: 'white'
   };
 
-  const focusStyle = (e) => e.target.style.borderColor = '#c9a55a';
-  const blurStyle  = (e) => e.target.style.borderColor = '#e5e7eb';
+  const focusStyle = (e) => {
+    e.target.style.borderColor = '#c9a55a';
+    e.target.style.boxShadow = '0 0 0 3px rgba(201,165,90,0.1)';
+  };
+
+  const blurStyle = (e) => {
+    e.target.style.borderColor = '#e5e7eb';
+    e.target.style.boxShadow = 'none';
+  };
 
   return (
     <section
@@ -50,7 +63,7 @@ const ConsultationForm = () => {
       <div className="max-w-4xl mx-auto relative z-10">
 
         {/* Header */}
-        <div className="text-center mb-12">
+        <div className="text-center mb-12 animate-fadeInUp">
           <span className="font-bold text-xs tracking-[0.3em] uppercase" style={{ color: '#c9a55a' }}>
             Get Started
           </span>
@@ -63,7 +76,7 @@ const ConsultationForm = () => {
         </div>
 
         {/* Card */}
-        <div className="rounded-3xl overflow-hidden shadow-2xl"
+        <div className="rounded-3xl overflow-hidden shadow-2xl animate-scaleIn"
           style={{ border: '1px solid rgba(201,165,90,0.2)' }}>
 
           {/* Top Banner */}
@@ -87,8 +100,8 @@ const ConsultationForm = () => {
           {/* Form Body */}
           <div className="p-8 md:p-12 bg-white">
             {submitted ? (
-              <div className="text-center py-12">
-                <div className="inline-flex items-center justify-center w-20 h-20 rounded-full mb-6"
+              <div className="text-center py-12 animate-slideInLeft">
+                <div className="inline-flex items-center justify-center w-20 h-20 rounded-full mb-6 animate-scaleIn"
                   style={{ background: 'linear-gradient(135deg, #c9a55a, #f0c040)' }}>
                   <CheckCircle size={36} style={{ color: '#0a1628' }} />
                 </div>
@@ -96,16 +109,46 @@ const ConsultationForm = () => {
                   Thank You, {formData.fullName.split(' ')[0] || 'there'}!
                 </h3>
                 <p className="text-gray-500 text-lg mb-2">Your consultation request has been received.</p>
-                <p className="text-gray-400">
-                  Our team will contact you within <strong style={{ color: '#c9a55a' }}>24 hours</strong> via email or WhatsApp.
+                <p className="text-gray-400 mb-6">
+                  Our team will contact you within <strong style={{ color: '#c9a55a' }}>2 hours</strong> via WhatsApp or email.
                 </p>
+                <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 text-left">
+                  <p className="text-sm text-blue-900 font-semibold mb-2">What happens next:</p>
+                  <ul className="text-xs text-blue-800 space-y-1">
+                    <li>✓ Initial consultation call scheduled</li>
+                    <li>✓ Personalized visa assessment provided</li>
+                    <li>✓ Documentation checklist sent</li>
+                    <li>✓ Next steps explained in detail</li>
+                  </ul>
+                </div>
               </div>
             ) : (
               <form onSubmit={handleSubmit}>
+                {/* Progress Bar */}
+                <div className="mb-8 animate-fadeInUp">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-xs font-bold uppercase tracking-wide" style={{ color: '#c9a55a' }}>
+                      Form Progress
+                    </span>
+                    <span className="text-xs font-semibold" style={{ color: '#0a1628' }}>
+                      {Math.round(progressPercentage)}%
+                    </span>
+                  </div>
+                  <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
+                    <div
+                      className="h-full transition-all duration-300"
+                      style={{
+                        background: 'linear-gradient(90deg, #c9a55a, #f0c040)',
+                        width: `${progressPercentage}%`
+                      }}
+                    />
+                  </div>
+                </div>
+
                 <div className="grid md:grid-cols-2 gap-6 mb-6">
 
                   {/* Full Name */}
-                  <div>
+                  <div className="animate-fadeInUp delay-100">
                     <label htmlFor="fullName" className="block text-sm font-bold mb-2" style={{ color: '#0a1628' }}>
                       Full Name *
                     </label>
@@ -128,7 +171,7 @@ const ConsultationForm = () => {
                   </div>
 
                   {/* Email */}
-                  <div>
+                  <div className="animate-fadeInUp delay-150">
                     <label htmlFor="email" className="block text-sm font-bold mb-2" style={{ color: '#0a1628' }}>
                       Email Address *
                     </label>
@@ -151,7 +194,7 @@ const ConsultationForm = () => {
                   </div>
 
                   {/* Phone */}
-                  <div>
+                  <div className="animate-fadeInUp delay-200">
                     <label htmlFor="phone" className="block text-sm font-bold mb-2" style={{ color: '#0a1628' }}>
                       Phone / WhatsApp *
                     </label>
@@ -174,7 +217,7 @@ const ConsultationForm = () => {
                   </div>
 
                   {/* Visa Type */}
-                  <div>
+                  <div className="animate-fadeInUp delay-300">
                     <label htmlFor="visaType" className="block text-sm font-bold mb-2" style={{ color: '#0a1628' }}>
                       Visa Category *
                     </label>
@@ -206,7 +249,7 @@ const ConsultationForm = () => {
                 </div>
 
                 {/* Country */}
-                <div className="mb-6">
+                <div className="mb-6 animate-fadeInUp delay-400">
                   <label htmlFor="country" className="block text-sm font-bold mb-2" style={{ color: '#0a1628' }}>
                     Destination Country *
                   </label>
@@ -238,7 +281,7 @@ const ConsultationForm = () => {
                 </div>
 
                 {/* Message */}
-                <div className="mb-8">
+                <div className="mb-8 animate-fadeInUp delay-500">
                   <label htmlFor="message" className="block text-sm font-bold mb-2" style={{ color: '#0a1628' }}>
                     Tell Us About Your Goals
                   </label>
@@ -263,7 +306,7 @@ const ConsultationForm = () => {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full flex items-center justify-center space-x-3 py-4 rounded-full font-bold text-lg transition-all duration-300"
+                  className="w-full flex items-center justify-center space-x-3 py-4 rounded-full font-bold text-lg transition-all duration-300 animate-slideInRight"
                   style={{
                     background: loading ? '#9ca3af' : 'linear-gradient(135deg, #c9a55a, #f0c040)',
                     color: '#0a1628',
