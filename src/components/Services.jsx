@@ -92,17 +92,16 @@ const ServiceModal = ({ service, onClose }) => {
   if (!service) return null;
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 animate-fadeIn"
       style={{ background: 'rgba(0,0,0,0.75)', backdropFilter: 'blur(8px)' }}
       onClick={(e) => e.target === e.currentTarget && onClose()}
     >
-      <div className="bg-white rounded-3xl shadow-2xl max-w-lg w-full max-h-[90vh] overflow-y-auto">
+      <div className="bg-white rounded-3xl shadow-2xl max-w-lg w-full max-h-[90vh] overflow-y-auto animate-scaleIn">
         {/* Modal Header */}
         <div className={`bg-gradient-to-r ${service.bg} p-7 text-white rounded-t-3xl`}>
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
-              <div className="w-13 h-13 w-12 h-12 rounded-xl flex items-center justify-center"
-                style={{ background: 'rgba(255,255,255,0.2)' }}>
+              <div className="w-12 h-12 rounded-xl flex items-center justify-center" style={{ background: 'rgba(255,255,255,0.2)' }}>
                 <service.icon size={26} />
               </div>
               <div>
@@ -110,8 +109,7 @@ const ServiceModal = ({ service, onClose }) => {
                 <p className="text-white/70 text-sm mt-0.5">Premium Immigration Solution</p>
               </div>
             </div>
-            <button onClick={onClose}
-              className="p-2 rounded-full transition-colors hover:bg-white/20">
+            <button onClick={onClose} className="p-2 rounded-full transition-colors hover:bg-white/20">
               <X size={20} />
             </button>
           </div>
@@ -126,9 +124,8 @@ const ServiceModal = ({ service, onClose }) => {
             <h3 className="font-bold text-blue-950 mb-3 text-base">Key Benefits</h3>
             <div className="grid gap-2">
               {service.details.benefits.map((b, i) => (
-                <div key={i} className="flex items-center space-x-3 p-3 rounded-xl bg-blue-50">
-                  <div className="w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0"
-                    style={{ background: service.color }}>
+                <div key={i} className="flex items-center space-x-3 p-3 rounded-xl bg-blue-50 animate-fadeInUp" style={{ animationDelay: `${i * 0.1}s` }}>
+                  <div className="w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0" style={{ background: service.color }}>
                     <span className="text-white text-xs font-bold">✓</span>
                   </div>
                   <span className="text-gray-800 text-sm font-medium">{b}</span>
@@ -138,7 +135,7 @@ const ServiceModal = ({ service, onClose }) => {
           </div>
 
           {/* Timeline & Requirements */}
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 gap-4 animate-slideInLeft">
             <div className="p-4 rounded-xl bg-amber-50 border border-amber-200">
               <div className="flex items-center space-x-2 mb-2">
                 <Clock size={14} style={{ color: '#c9a55a' }} />
@@ -157,13 +154,10 @@ const ServiceModal = ({ service, onClose }) => {
 
           {/* CTA */}
           <div className="flex gap-3">
-            <button onClick={onClose}
-              className="flex-1 py-3 rounded-full font-bold text-sm bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors">
+            <button onClick={onClose} className="flex-1 py-3 rounded-full font-bold text-sm bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors">
               Close
             </button>
-            <a href="#consultation" onClick={onClose}
-              className="flex-1 py-3 rounded-full font-bold text-sm text-center transition-all hover:scale-105"
-              style={{ background: 'linear-gradient(135deg, #c9a55a, #f0c040)', color: '#0a1628' }}>
+            <a href="#consultation" onClick={onClose} className="btn-primary flex-1 justify-center">
               Book Free Consultation
             </a>
           </div>
@@ -181,7 +175,7 @@ const Services = () => {
       <div className="max-w-7xl mx-auto">
 
         {/* Header */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-16 animate-fadeInUp">
           <span className="font-bold text-xs tracking-[0.3em] uppercase" style={{ color: '#c9a55a' }}>
             What We Offer
           </span>
@@ -193,18 +187,22 @@ const Services = () => {
           </p>
         </div>
 
-        {/* 3x2 Grid */}
+        {/* 3x2 Grid with Staggered Animation */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
           {serviceData.map((service, index) => (
             <div
               key={index}
               onClick={() => setSelected(service)}
-              className="relative bg-white rounded-2xl p-8 cursor-pointer flex flex-col h-full transition-all duration-300"
-              style={{ border: '1.5px solid #f0f0f0', boxShadow: '0 4px 20px rgba(0,0,0,0.05)' }}
+              className="relative bg-white rounded-2xl p-8 cursor-pointer flex flex-col h-full transition-all duration-300 animate-fadeInUp hover:scale-105"
+              style={{ 
+                border: '1.5px solid #f0f0f0', 
+                boxShadow: '0 4px 20px rgba(0,0,0,0.05)',
+                animationDelay: `${index * 0.1}s`
+              }}
               onMouseEnter={e => {
                 e.currentTarget.style.borderColor = '#c9a55a';
                 e.currentTarget.style.boxShadow = '0 20px 50px rgba(201,165,90,0.12)';
-                e.currentTarget.style.transform = 'translateY(-6px)';
+                e.currentTarget.style.transform = 'translateY(-8px)';
               }}
               onMouseLeave={e => {
                 e.currentTarget.style.borderColor = '#f0f0f0';
@@ -213,13 +211,13 @@ const Services = () => {
               }}
             >
               {/* Tag */}
-              <div className="absolute top-5 right-5 px-2.5 py-1 rounded-full text-xs font-bold"
+              <div className="absolute top-5 right-5 px-2.5 py-1 rounded-full text-xs font-bold animate-scaleIn"
                 style={{ background: 'rgba(201,165,90,0.1)', color: '#c9a55a', border: '1px solid rgba(201,165,90,0.3)' }}>
                 {service.tag}
               </div>
 
-              {/* Icon */}
-              <div className={`w-14 h-14 bg-gradient-to-br ${service.bg} rounded-2xl flex items-center justify-center mb-5 shadow-lg`}>
+              {/* Icon with Rotation */}
+              <div className={`w-14 h-14 bg-gradient-to-br ${service.bg} rounded-2xl flex items-center justify-center mb-5 shadow-lg hover:animate-rotate transition-all`}>
                 <service.icon className="text-white" size={26} />
               </div>
 
@@ -232,17 +230,17 @@ const Services = () => {
               </p>
 
               {/* Link */}
-              <div className="flex items-center space-x-1 font-bold text-sm mt-auto pt-4"
+              <div className="flex items-center space-x-1 font-bold text-sm mt-auto pt-4 group"
                 style={{ color: '#c9a55a', borderTop: '1px solid #f5f5f5' }}>
                 <span>View Details</span>
-                <ChevronRight size={16} />
+                <ChevronRight size={16} className="group-hover:translate-x-1 transition-transform" />
               </div>
             </div>
           ))}
         </div>
 
         {/* CTA Banner */}
-        <div className="rounded-3xl p-10 md:p-12 text-center text-white relative overflow-hidden"
+        <div className="rounded-3xl p-10 md:p-12 text-center text-white relative overflow-hidden animate-fadeInUp"
           style={{ background: 'linear-gradient(135deg, #010610 0%, #0a1628 50%, #1a1060 100%)' }}>
           <div className="absolute top-0 right-0 w-72 h-72 rounded-full blur-3xl opacity-20"
             style={{ background: 'radial-gradient(circle, #c9a55a, transparent)' }} />
@@ -250,8 +248,8 @@ const Services = () => {
             <h3 className="text-2xl md:text-3xl font-bold mb-2">50+ Countries Covered</h3>
             <p className="text-gray-400 mb-6 text-base">Don't see your destination? We handle applications worldwide.</p>
             <a href="#consultation"
-              className="inline-flex items-center space-x-2 px-8 py-3.5 rounded-full font-bold transition-all hover:scale-105"
-              style={{ background: 'linear-gradient(135deg, #c9a55a, #f0c040)', color: '#0a1628', boxShadow: '0 8px 25px rgba(201,165,90,0.4)' }}>
+              className="btn-primary"
+              style={{ background: 'linear-gradient(135deg, #c9a55a, #f0c040)', color: '#0a1628' }}>
               <span>Ask Our Experts</span>
               <ChevronRight size={18} />
             </a>
