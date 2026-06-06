@@ -132,7 +132,7 @@ const About = () => {
 
                 {/* Contact Buttons */}
                 <div className="flex items-center justify-center space-x-3 flex-wrap gap-2 animate-slideInLeft delay-500">
-                  
+                  <a
                     href="mailto:imran@accurate-consultancy.com"
                     aria-label="Send email"
                     className="flex items-center space-x-2 px-4 py-2.5 rounded-full font-semibold text-sm transition-all hover:scale-110 hover:shadow-lg"
@@ -149,7 +149,7 @@ const About = () => {
                     <span>Email</span>
                   </a>
                   
-                  
+                  <a
                     href="tel:+923160285386"
                     aria-label="Call"
                     className="flex items-center space-x-2 px-4 py-2.5 rounded-full font-semibold text-sm transition-all hover:scale-110 hover:shadow-lg"
@@ -166,7 +166,7 @@ const About = () => {
                     <span>Call</span>
                   </a>
                   
-                  
+                  <a
                     href="https://wa.me/923160285386"
                     target="_blank"
                     rel="noopener noreferrer"
