@@ -55,15 +55,21 @@ const destinations = {
 
 const Destinations = () => {
   const [active, setActive] = useState('usa');
+  const [transitionKey, setTransitionKey] = useState(0);
   const dest = destinations[active];
+
+  const handleTabChange = (key) => {
+    setActive(key);
+    setTransitionKey(prev => prev + 1);
+  };
 
   return (
     <section id="destinations" className="py-24 px-4 sm:px-6 lg:px-8"
       style={{ background: 'linear-gradient(180deg, #f0f4ff 0%, #f8fafc 100%)' }}>
       <div className="max-w-7xl mx-auto">
 
-        {/* Header */}
-        <div className="text-center mb-14">
+        {/* Header with Animation */}
+        <div className="text-center mb-14 animate-fadeInUp">
           <span className="text-amber-600 font-bold text-xs tracking-[0.3em] uppercase">Where We Work</span>
           <h2 className="text-4xl md:text-5xl font-bold mt-3 mb-4" style={{ color: '#0a1628' }}>
             Featured Destinations
@@ -73,23 +79,26 @@ const Destinations = () => {
           </p>
         </div>
 
-        {/* Country Tabs */}
-        <div className="flex flex-wrap justify-center gap-3 mb-10">
-          {Object.entries(destinations).map(([key, d]) => (
+        {/* Country Tabs with Animation */}
+        <div className="flex flex-wrap justify-center gap-3 mb-10 animate-slideInLeft">
+          {Object.entries(destinations).map(([key, d], index) => (
             <button
               key={key}
-              onClick={() => setActive(key)}
-              className="flex items-center space-x-2 px-5 py-3 rounded-full font-semibold text-sm transition-all duration-300"
-              style={active === key ? {
-                background: 'linear-gradient(135deg, #c9a55a, #f0c040)',
-                color: '#0a1628',
-                boxShadow: '0 8px 25px rgba(201,165,90,0.4)',
-                transform: 'scale(1.05)'
-              } : {
-                background: 'white',
-                color: '#374151',
-                border: '1px solid #e5e7eb',
-                boxShadow: '0 2px 8px rgba(0,0,0,0.06)'
+              onClick={() => handleTabChange(key)}
+              className="flex items-center space-x-2 px-5 py-3 rounded-full font-semibold text-sm transition-all duration-300 hover:scale-105 animate-fadeInUp"
+              style={{
+                animationDelay: `${index * 0.05}s`,
+                ...(active === key ? {
+                  background: 'linear-gradient(135deg, #c9a55a, #f0c040)',
+                  color: '#0a1628',
+                  boxShadow: '0 8px 25px rgba(201,165,90,0.4)',
+                  transform: 'scale(1.05)'
+                } : {
+                  background: 'white',
+                  color: '#374151',
+                  border: '1px solid #e5e7eb',
+                  boxShadow: '0 2px 8px rgba(0,0,0,0.06)'
+                })
               }}
             >
               <span className="text-xl">{d.flag}</span>
@@ -98,8 +107,8 @@ const Destinations = () => {
           ))}
         </div>
 
-        {/* Active Destination Card */}
-        <div className="rounded-3xl overflow-hidden shadow-2xl"
+        {/* Active Destination Card with Smooth Transition */}
+        <div key={transitionKey} className="rounded-3xl overflow-hidden shadow-2xl animate-scaleIn"
           style={{ border: '1px solid rgba(201,165,90,0.2)' }}>
 
           {/* Card Header */}
@@ -109,7 +118,7 @@ const Destinations = () => {
               style={{ background: `radial-gradient(circle, ${dest.color}, transparent)` }} />
             <div className="relative z-10 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               <div className="flex items-center space-x-5">
-                <div className="text-6xl md:text-7xl">{dest.flag}</div>
+                <div className="text-6xl md:text-7xl animate-float">{dest.flag}</div>
                 <div>
                   <h3 className="text-3xl md:text-4xl font-bold">{dest.name}</h3>
                   <div className="flex items-center space-x-2 mt-2">
@@ -127,7 +136,7 @@ const Destinations = () => {
             </div>
           </div>
 
-          {/* Highlights Grid */}
+          {/* Highlights Grid with Staggered Animation */}
           <div className="p-8 md:p-10 bg-white">
             <h4 className="text-sm font-bold uppercase tracking-wider text-gray-400 mb-6">
               Key Immigration Programs
@@ -135,15 +144,22 @@ const Destinations = () => {
             <div className="grid sm:grid-cols-2 gap-4 mb-8">
               {dest.highlights.map((h, i) => (
                 <div key={i}
-                  className="flex items-center space-x-4 p-4 rounded-2xl transition-all duration-300 cursor-default group"
+                  className="flex items-center space-x-4 p-4 rounded-2xl transition-all duration-300 cursor-default group animate-fadeInUp hover:scale-105"
                   style={{
                     background: 'linear-gradient(135deg, #f0f4ff, #fef9ec)',
-                    border: '1px solid rgba(201,165,90,0.15)'
+                    border: '1px solid rgba(201,165,90,0.15)',
+                    animationDelay: `${i * 0.08}s`
                   }}
-                  onMouseEnter={e => e.currentTarget.style.borderColor = 'rgba(201,165,90,0.5)'}
-                  onMouseLeave={e => e.currentTarget.style.borderColor = 'rgba(201,165,90,0.15)'}
+                  onMouseEnter={e => {
+                    e.currentTarget.style.borderColor = 'rgba(201,165,90,0.5)';
+                    e.currentTarget.style.boxShadow = '0 10px 25px rgba(201,165,90,0.15)';
+                  }}
+                  onMouseLeave={e => {
+                    e.currentTarget.style.borderColor = 'rgba(201,165,90,0.15)';
+                    e.currentTarget.style.boxShadow = 'none';
+                  }}
                 >
-                  <div className="w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300"
+                  <div className="w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300 animate-scaleIn"
                     style={{ background: 'linear-gradient(135deg, #c9a55a, #f0c040)' }}>
                     <CheckCircle size={18} style={{ color: '#0a1628' }} />
                   </div>
@@ -153,7 +169,7 @@ const Destinations = () => {
             </div>
 
             {/* CTA */}
-            <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-4"
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-4 animate-slideInRight"
               style={{ borderTop: '1px solid #f3f4f6' }}>
               <p className="text-gray-500 text-sm">
                 Get personalized advice for <strong>{dest.name}</strong> immigration
