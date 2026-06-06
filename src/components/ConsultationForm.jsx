@@ -1,52 +1,20 @@
 import React, { useState } from 'react';
-import { Send, CheckCircle, Lock, Phone, Mail, User, Globe, MessageSquare, ChevronDown, MapPin, AlertCircle } from 'lucide-react';
+import { useForm, ValidationError } from '@formspree/react';
+import { Send, CheckCircle, Lock, Phone, Mail, User, Globe, MessageSquare, ChevronDown, MapPin } from 'lucide-react';
 
 const ConsultationForm = () => {
+  const [state, handleSubmit] = useForm('xwvjvaag');
   const [formData, setFormData] = useState({
     fullName: '', email: '', phone: '', visaType: '', country: '', message: ''
   });
-  const [submitted, setSubmitted] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
-    setError('');
   };
 
-  const handleSubmit = async (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
-    setError('');
-
-    try {
-      const formBody = new FormData();
-      formBody.append('Full Name', formData.fullName);
-      formBody.append('Email', formData.email);
-      formBody.append('Phone / WhatsApp', formData.phone);
-      formBody.append('Visa Category', formData.visaType);
-      formBody.append('Destination Country', formData.country);
-      formBody.append('Goals', formData.message);
-
-      const response = await fetch('https://formspree.io/f/xyzdefgh', {
-        method: 'POST',
-        body: formBody,
-        headers: {
-          'Accept': 'application/json'
-        }
-      });
-
-      if (response.ok) {
-        setSubmitted(true);
-        setFormData({ fullName: '', email: '', phone: '', visaType: '', country: '', message: '' });
-      } else {
-        setError('Failed to submit. Please try again or contact us directly.');
-      }
-    } catch (err) {
-      setError('Network error. Please check your connection and try again.');
-    } finally {
-      setLoading(false);
-    }
+    await handleSubmit(e);
   };
 
   const filledFields = [formData.fullName, formData.email, formData.phone, formData.visaType, formData.country].filter(Boolean).length;
@@ -124,7 +92,7 @@ const ConsultationForm = () => {
 
           {/* Form Body */}
           <div className="p-8 md:p-12 bg-white">
-            {submitted ? (
+            {state.succeeded ? (
               <div className="text-center py-12 animate-slideInLeft">
                 <div className="inline-flex items-center justify-center w-20 h-20 rounded-full mb-6 animate-scaleIn"
                   style={{ background: 'linear-gradient(135deg, #c9a55a, #f0c040)' }}>
@@ -137,7 +105,7 @@ const ConsultationForm = () => {
                 <p className="text-gray-400 mb-6">
                   Our team will contact you within <strong style={{ color: '#c9a55a' }}>2 hours</strong> via WhatsApp or email.
                 </p>
-                <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 text-left">
+                <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 text-left mb-6">
                   <p className="text-sm text-blue-900 font-semibold mb-2">What happens next:</p>
                   <ul className="text-xs text-blue-800 space-y-1">
                     <li>✓ Initial consultation call scheduled</li>
@@ -146,33 +114,9 @@ const ConsultationForm = () => {
                     <li>✓ Next steps explained in detail</li>
                   </ul>
                 </div>
-                <button
-                  onClick={() => {
-                    setSubmitted(false);
-                    setFormData({ fullName: '', email: '', phone: '', visaType: '', country: '', message: '' });
-                  }}
-                  className="mt-6 px-6 py-2 rounded-full font-semibold text-sm"
-                  style={{
-                    background: 'linear-gradient(135deg, #c9a55a, #f0c040)',
-                    color: '#0a1628',
-                    border: 'none',
-                    cursor: 'pointer'
-                  }}
-                >
-                  Submit Another Request
-                </button>
               </div>
             ) : (
-              <form onSubmit={handleSubmit}>
-                {/* Error Alert */}
-                {error && (
-                  <div className="mb-6 p-4 rounded-xl flex items-center space-x-3 animate-slideInLeft"
-                    style={{ background: '#fee2e2', border: '1px solid #fecaca' }}>
-                    <AlertCircle size={18} style={{ color: '#dc2626' }} />
-                    <span style={{ color: '#991b1b', fontSize: '14px' }}>{error}</span>
-                  </div>
-                )}
-
+              <form onSubmit={onSubmit}>
                 {/* Progress Bar */}
                 <div className="mb-8 animate-fadeInUp">
                   <div className="flex items-center justify-between mb-2">
@@ -239,6 +183,7 @@ const ConsultationForm = () => {
                         onFocus={focusStyle}
                         onBlur={blurStyle}
                       />
+                      <ValidationError field="email" errors={state.errors} />
                     </div>
                   </div>
 
@@ -379,17 +324,17 @@ const ConsultationForm = () => {
                 {/* Submit Button */}
                 <button
                   type="submit"
-                  disabled={loading}
+                  disabled={state.submitting}
                   className="w-full flex items-center justify-center space-x-3 py-4 rounded-full font-bold text-lg transition-all duration-300 animate-slideInRight"
                   style={{
-                    background: loading ? '#9ca3af' : 'linear-gradient(135deg, #c9a55a, #f0c040)',
+                    background: state.submitting ? '#9ca3af' : 'linear-gradient(135deg, #c9a55a, #f0c040)',
                     color: '#0a1628',
-                    boxShadow: loading ? 'none' : '0 10px 30px rgba(201,165,90,0.4)',
-                    cursor: loading ? 'not-allowed' : 'pointer',
+                    boxShadow: state.submitting ? 'none' : '0 10px 30px rgba(201,165,90,0.4)',
+                    cursor: state.submitting ? 'not-allowed' : 'pointer',
                     border: 'none'
                   }}
                   onMouseEnter={e => {
-                    if (!loading) {
+                    if (!state.submitting) {
                       e.currentTarget.style.transform = 'scale(1.02)';
                       e.currentTarget.style.boxShadow = '0 15px 40px rgba(201,165,90,0.6)';
                     }
@@ -399,7 +344,7 @@ const ConsultationForm = () => {
                     e.currentTarget.style.boxShadow = '0 10px 30px rgba(201,165,90,0.4)';
                   }}
                 >
-                  {loading ? (
+                  {state.submitting ? (
                     <>
                       <div className="w-5 h-5 border-2 border-current border-t-transparent rounded-full animate-spin" />
                       <span>Submitting...</span>
@@ -411,6 +356,16 @@ const ConsultationForm = () => {
                     </>
                   )}
                 </button>
+
+                {/* General Form Error */}
+                {state.errors.length > 0 && (
+                  <div className="mt-4 p-4 rounded-xl flex items-center space-x-3"
+                    style={{ background: '#fee2e2', border: '1px solid #fecaca' }}>
+                    <span style={{ color: '#991b1b', fontSize: '14px' }}>
+                      Something went wrong. Please try again.
+                    </span>
+                  </div>
+                )}
               </form>
             )}
           </div>
