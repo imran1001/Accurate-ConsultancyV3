@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Send, CheckCircle, Lock, Phone, Mail, User, Globe, MessageSquare, ChevronDown, MapPin } from 'lucide-react';
+import { Send, CheckCircle, Lock, Phone, Mail, User, Globe, MessageSquare, ChevronDown, MapPin, AlertCircle } from 'lucide-react';
 
 const ConsultationForm = () => {
   const [formData, setFormData] = useState({
@@ -7,21 +7,46 @@ const ConsultationForm = () => {
   });
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [currentStep, setCurrentStep] = useState(1);
+  const [error, setError] = useState('');
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+    setError('');
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    setTimeout(() => {
+    setError('');
+
+    try {
+      const formBody = new FormData();
+      formBody.append('Full Name', formData.fullName);
+      formBody.append('Email', formData.email);
+      formBody.append('Phone / WhatsApp', formData.phone);
+      formBody.append('Visa Category', formData.visaType);
+      formBody.append('Destination Country', formData.country);
+      formBody.append('Goals', formData.message);
+
+      const response = await fetch('https://formspree.io/f/xyzdefgh', {
+        method: 'POST',
+        body: formBody,
+        headers: {
+          'Accept': 'application/json'
+        }
+      });
+
+      if (response.ok) {
+        setSubmitted(true);
+        setFormData({ fullName: '', email: '', phone: '', visaType: '', country: '', message: '' });
+      } else {
+        setError('Failed to submit. Please try again or contact us directly.');
+      }
+    } catch (err) {
+      setError('Network error. Please check your connection and try again.');
+    } finally {
       setLoading(false);
-      setSubmitted(true);
-      setCurrentStep(1);
-      setFormData({ fullName: '', email: '', phone: '', visaType: '', country: '', message: '' });
-    }, 1500);
+    }
   };
 
   const filledFields = [formData.fullName, formData.email, formData.phone, formData.visaType, formData.country].filter(Boolean).length;
@@ -106,7 +131,7 @@ const ConsultationForm = () => {
                   <CheckCircle size={36} style={{ color: '#0a1628' }} />
                 </div>
                 <h3 className="text-3xl font-bold mb-3" style={{ color: '#0a1628' }}>
-                  Thank You, {formData.fullName.split(' ')[0] || 'there'}!
+                  Thank You, {formData.fullName.split(' ')[0]}!
                 </h3>
                 <p className="text-gray-500 text-lg mb-2">Your consultation request has been received.</p>
                 <p className="text-gray-400 mb-6">
@@ -121,9 +146,33 @@ const ConsultationForm = () => {
                     <li>✓ Next steps explained in detail</li>
                   </ul>
                 </div>
+                <button
+                  onClick={() => {
+                    setSubmitted(false);
+                    setFormData({ fullName: '', email: '', phone: '', visaType: '', country: '', message: '' });
+                  }}
+                  className="mt-6 px-6 py-2 rounded-full font-semibold text-sm"
+                  style={{
+                    background: 'linear-gradient(135deg, #c9a55a, #f0c040)',
+                    color: '#0a1628',
+                    border: 'none',
+                    cursor: 'pointer'
+                  }}
+                >
+                  Submit Another Request
+                </button>
               </div>
             ) : (
               <form onSubmit={handleSubmit}>
+                {/* Error Alert */}
+                {error && (
+                  <div className="mb-6 p-4 rounded-xl flex items-center space-x-3 animate-slideInLeft"
+                    style={{ background: '#fee2e2', border: '1px solid #fecaca' }}>
+                    <AlertCircle size={18} style={{ color: '#dc2626' }} />
+                    <span style={{ color: '#991b1b', fontSize: '14px' }}>{error}</span>
+                  </div>
+                )}
+
                 {/* Progress Bar */}
                 <div className="mb-8 animate-fadeInUp">
                   <div className="flex items-center justify-between mb-2">
@@ -216,7 +265,7 @@ const ConsultationForm = () => {
                     </div>
                   </div>
 
-                  {/* Visa Type */}
+                  {/* Visa Type - ENHANCED */}
                   <div className="animate-fadeInUp delay-300">
                     <label htmlFor="visaType" className="block text-sm font-bold mb-2" style={{ color: '#0a1628' }}>
                       Visa Category *
@@ -237,12 +286,36 @@ const ConsultationForm = () => {
                         onBlur={blurStyle}
                       >
                         <option value="">Select a category</option>
-                        <option value="visit">Visit Visa</option>
-                        <option value="work">Work Visa</option>
-                        <option value="study">Study Abroad</option>
-                        <option value="skilled">Skilled Immigration</option>
-                        <option value="business">Business Immigration</option>
-                        <option value="travel">Travel Management</option>
+                        <optgroup label="Visit & Tourism">
+                          <option value="Tourist Visa">Tourist Visa</option>
+                          <option value="Family Visit">Family Visit Visa</option>
+                          <option value="Business Visit">Business Visit (B1/B2)</option>
+                        </optgroup>
+                        <optgroup label="Work & Employment">
+                          <option value="Skilled Worker">Skilled Worker Visa</option>
+                          <option value="Executive Transfer (L-1)">Executive Transfer (L-1)</option>
+                          <option value="Investor (E-2)">Investor (E-2 Treaty)</option>
+                          <option value="EB-5 Investment">EB-5 Investment</option>
+                        </optgroup>
+                        <optgroup label="Study & Education">
+                          <option value="Student Visa">Student Visa (F-1/Student Visa)</option>
+                          <option value="University Placement">University Placement & Counseling</option>
+                        </optgroup>
+                        <optgroup label="Skilled Immigration">
+                          <option value="Express Entry">Express Entry (Canada)</option>
+                          <option value="Points-Based Immigration">Points-Based Immigration</option>
+                          <option value="Skilled Nomination">State Skilled Nomination</option>
+                        </optgroup>
+                        <optgroup label="Business & Investment">
+                          <option value="Investor Program">Investor Program</option>
+                          <option value="Entrepreneur Visa">Entrepreneur Visa</option>
+                          <option value="Golden Visa">Golden Visa / Residency</option>
+                        </optgroup>
+                        <optgroup label="Specialty Programs">
+                          <option value="Post-Refusal Appeal">Post-Refusal / Appeal</option>
+                          <option value="Corporate Travel">Corporate Travel Management</option>
+                          <option value="Family Sponsorship">Family Sponsorship</option>
+                        </optgroup>
                       </select>
                     </div>
                   </div>
@@ -269,13 +342,14 @@ const ConsultationForm = () => {
                       onBlur={blurStyle}
                     >
                       <option value="">Select your destination</option>
-                      <option value="usa">United States</option>
-                      <option value="uk">United Kingdom</option>
-                      <option value="canada">Canada</option>
-                      <option value="australia">Australia</option>
-                      <option value="newzealand">New Zealand</option>
-                      <option value="uae">United Arab Emirates</option>
-                      <option value="europe">Europe (Schengen)</option>
+                      <option value="United States">🇺🇸 United States</option>
+                      <option value="United Kingdom">🇬🇧 United Kingdom</option>
+                      <option value="Canada">🇨🇦 Canada</option>
+                      <option value="Australia">🇦🇺 Australia</option>
+                      <option value="New Zealand">🇳🇿 New Zealand</option>
+                      <option value="United Arab Emirates">🇦🇪 United Arab Emirates</option>
+                      <option value="Europe (Schengen)">🇪🇺 Europe (Schengen)</option>
+                      <option value="Other">Other Destination</option>
                     </select>
                   </div>
                 </div>
@@ -311,8 +385,8 @@ const ConsultationForm = () => {
                     background: loading ? '#9ca3af' : 'linear-gradient(135deg, #c9a55a, #f0c040)',
                     color: '#0a1628',
                     boxShadow: loading ? 'none' : '0 10px 30px rgba(201,165,90,0.4)',
-                    transform: loading ? 'none' : undefined,
-                    cursor: loading ? 'not-allowed' : 'pointer'
+                    cursor: loading ? 'not-allowed' : 'pointer',
+                    border: 'none'
                   }}
                   onMouseEnter={e => {
                     if (!loading) {
