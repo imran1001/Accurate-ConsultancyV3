@@ -13,7 +13,8 @@ const useCounter = (end, duration = 2000, start = 0) => {
       const elapsed = currentTime - startTime;
       const progress = Math.min(elapsed / duration, 1);
       const value = Math.floor(progress * (end - start) + start);
-      setCount(value);
+      const setCountSafe = setCount;
+      setCountSafe(value);
 
       if (progress < 1) {
         requestAnimationFrame(animate);
@@ -55,6 +56,7 @@ const Hero = () => {
 
   return (
     <section
+      id="home"
       className="relative min-h-screen pt-32 pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden flex items-center"
       style={{
         background: 'linear-gradient(135deg, #010610 0%, #0a1628 50%, #160d50 100%)'
@@ -126,7 +128,7 @@ const Hero = () => {
 
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row items-center gap-4 mb-12 animate-slideInLeft delay-300">
-              
+              <a
                 href="#consultation"
                 className="inline-flex items-center space-x-2 px-8 py-4 rounded-full font-bold text-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl cursor-pointer group"
                 style={{
@@ -139,6 +141,7 @@ const Hero = () => {
                 <span>Get Started Today</span>
               </a>
               
+              <a
                 href="#services"
                 className="inline-flex items-center space-x-2 px-8 py-4 rounded-full font-bold text-lg transition-all duration-300 hover:scale-105 cursor-pointer"
                 style={{
