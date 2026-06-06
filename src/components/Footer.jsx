@@ -1,219 +1,179 @@
 import React from 'react';
-import {
-  MapPin, Phone, Mail, Clock,
-  Facebook, Linkedin, Instagram, Twitter,
-  ChevronRight,
-} from 'lucide-react';
+import { Mail, Phone, MapPin, Shield, Award, Globe, Lock } from 'lucide-react';
+import NewsletterSignup from './NewsletterSignup';
 
-const QUICK_LINKS = [
-  'About Us', 'Services', 'Destinations',
-  'Success Stories', 'Blog', 'Contact',
-];
-
-const SOCIAL = [
-  { Icon: Facebook,  href: '#', label: 'Facebook'  },
-  { Icon: Linkedin,  href: '#', label: 'LinkedIn'  },
-  { Icon: Instagram, href: '#', label: 'Instagram' },
-  { Icon: Twitter,   href: '#', label: 'Twitter'   },
-];
-
-export default function Footer() {
-  const year = new Date().getFullYear();
-
+const Footer = () => {
   return (
-    <footer
-      id="contact"
-      className="bg-gradient-to-br from-[#020818] to-[#0a1628] text-white pt-16 pb-10"
-      aria-label="Site footer"
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <footer className="relative"
+      style={{ background: 'linear-gradient(135deg, #010610, #0a1628, #1a1060)' }}>
 
-        {/* ── Main Grid ───────────────────────────── */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10 mb-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
 
-          {/* Brand Column */}
-          <div className="flex flex-col justify-start">
-            <a
-              href="#"
-              aria-label="Accurate Consultancy — Home"
-              className="inline-block mb-6 group"
-            >
-              <img
-                src="/logo.webp"
-                alt="Accurate Consultancy"
-                width={220}
-                height={70}
-                className="h-[70px] w-auto object-contain
-                           group-hover:scale-105 transition-transform duration-300
-                           drop-shadow-[0_0_15px_rgba(201,165,90,0.5)] brightness-105"
-                loading="lazy"
-              />
-            </a>
+        {/* SECTION 1: Trust Badges */}
+        <div className="grid md:grid-cols-4 gap-4 mb-16 pb-8"
+          style={{ borderBottom: '1px solid rgba(201,165,90,0.2)' }}>
+          {[
+            { icon: Award, label: 'DTS Licensed', color: '#c9a55a' },
+            { icon: Globe, label: 'Global Path Compliant', color: '#3b82f6' },
+            { icon: Shield, label: 'FBR Registered', color: '#10b981' },
+            { icon: Lock, label: '100% Data Privacy', color: '#f59e0b' }
+          ].map((badge, i) => (
+            <div key={i}
+              className="flex flex-col items-center text-center p-4 rounded-xl animate-fadeInUp hover:scale-105 transition-transform"
+              style={{
+                background: 'rgba(201,165,90,0.05)',
+                border: '1px solid rgba(201,165,90,0.15)',
+                animationDelay: `${i * 0.1}s`
+              }}>
+              <badge.icon size={24} style={{ color: badge.color, marginBottom: '8px' }} />
+              <p className="text-xs font-bold" style={{ color: badge.color }}>
+                {badge.label}
+              </p>
+            </div>
+          ))}
+        </div>
 
-            <p className="text-white/60 leading-relaxed text-sm max-w-xs mb-6">
-              Your trusted partner in global immigration — delivering premium visa services
-              with expertise, integrity, and genuine care for every client.
+        {/* SECTION 2: Main Content (Logo + Newsletter + Links) */}
+        <div className="grid md:grid-cols-3 gap-12 mb-12">
+
+          {/* LEFT: Brand Info */}
+          <div className="animate-fadeInUp">
+            <img src="/logo.webp" alt="Accurate Consultancy" className="h-10 mb-4" />
+            <p className="text-sm leading-relaxed mb-6" style={{ color: 'rgba(255,255,255,0.6)' }}>
+              Your trusted partner in global immigration — delivering premium visa services with expertise, integrity, and genuine care for every client.
             </p>
 
-            {/* Social Links */}
-            <div className="flex gap-3">
-              {SOCIAL.map(({ Icon, href, label }) => (
-                <a
-                  key={label}
-                  href={href}
-                  aria-label={label}
-                  className="w-10 h-10 rounded-full flex items-center justify-center
-                             bg-white/5 border border-[#c9a55a]/20 text-white/60
-                             transition-all duration-300
-                             hover:scale-110 hover:bg-[#c9a55a]/20 hover:border-[#c9a55a]/60 hover:text-[#c9a55a]"
-                >
-                  <Icon size={16} aria-hidden="true" />
-                </a>
-              ))}
+            {/* Social Icons Placeholder */}
+            <div className="flex items-center space-x-3">
+              <a href="https://wa.me/923160285386" target="_blank" rel="noopener noreferrer"
+                className="w-10 h-10 rounded-full flex items-center justify-center transition-all hover:scale-110"
+                style={{ background: '#25D366' }}
+                aria-label="WhatsApp"
+                title="WhatsApp">
+                <span style={{ fontSize: '18px' }}>💬</span>
+              </a>
+              <a href="mailto:info@accurate-consultancy.com"
+                className="w-10 h-10 rounded-full flex items-center justify-center transition-all hover:scale-110"
+                style={{ background: 'rgba(201,165,90,0.2)', border: '1px solid rgba(201,165,90,0.4)' }}
+                aria-label="Email"
+                title="Email">
+                <Mail size={16} style={{ color: '#c9a55a' }} />
+              </a>
+              <a href="tel:+923160285386"
+                className="w-10 h-10 rounded-full flex items-center justify-center transition-all hover:scale-110"
+                style={{ background: 'rgba(201,165,90,0.2)', border: '1px solid rgba(201,165,90,0.4)' }}
+                aria-label="Call"
+                title="Call">
+                <Phone size={16} style={{ color: '#c9a55a' }} />
+              </a>
+              {/* LinkedIn & Instagram - Add URLs when ready */}
+              <p className="text-xs ml-2" style={{ color: 'rgba(255,255,255,0.4)' }}>
+                More coming soon
+              </p>
             </div>
           </div>
 
-          {/* Quick Links */}
-          <nav aria-label="Quick links" className="lg:pl-8">
-            <h3 className="text-sm font-bold tracking-wider uppercase text-[#c9a55a] mb-6">
-              Quick Links
-            </h3>
-            <ul className="space-y-3">
-              {QUICK_LINKS.map((link) => (
-                <li key={link}>
-                  <a
-                    href="#"
-                    className="flex items-center gap-2 text-white/60 hover:text-[#c9a55a]
-                               text-sm transition-colors duration-300 group"
-                  >
-                    <ChevronRight
-                      size={14}
-                      className="shrink-0 group-hover:translate-x-1 transition-transform duration-300"
-                      aria-hidden="true"
-                    />
-                    {link}
+          {/* CENTER: Newsletter */}
+          <div className="animate-fadeInUp delay-100">
+            <NewsletterSignup />
+          </div>
+
+          {/* RIGHT: Quick Links */}
+          <div className="animate-fadeInUp delay-200">
+            <h4 className="font-bold mb-4" style={{ color: 'white' }}>Quick Links</h4>
+            <ul className="space-y-3 text-sm">
+              {[
+                { label: 'About Us', href: '#about' },
+                { label: 'Services', href: '#services' },
+                { label: 'Destinations', href: '#destinations' },
+                { label: 'Testimonials', href: '#testimonials' },
+                { label: 'Contact', href: '#consultation' }
+              ].map((link, i) => (
+                <li key={i}>
+                  <a href={link.href}
+                    className="transition-all hover:translate-x-1 hover:text-white inline-flex items-center"
+                    style={{ color: 'rgba(255,255,255,0.6)' }}>
+                    {link.label}
                   </a>
                 </li>
               ))}
             </ul>
-          </nav>
+          </div>
+        </div>
 
-          {/* Contact Info */}
-          <div>
-            <h3 className="text-sm font-bold tracking-wider uppercase text-[#c9a55a] mb-6">
-              Contact Info
-            </h3>
-            <address className="not-italic space-y-4">
+        {/* SECTION 3: Contact Info */}
+        <div className="grid md:grid-cols-2 gap-8 mb-12 pb-8"
+          style={{ borderBottom: '1px solid rgba(201,165,90,0.2)' }}>
 
-              {/* Phone */}
-              <div className="flex items-start gap-3">
-                <span
-                  className="shrink-0 mt-0.5 w-7 h-7 rounded-md flex items-center justify-center
-                             bg-[#c9a55a]/10 border border-[#c9a55a]/20 text-[#c9a55a]/70"
-                >
-                  <Phone size={13} aria-hidden="true" />
-                </span>
-                <div className="text-sm text-white/70 space-y-1">
-                  <a href="tel:+923160285386" className="block hover:text-[#c9a55a] transition-colors">
+          <div className="animate-fadeInUp">
+            <div className="flex items-start space-x-3 mb-4">
+              <MapPin size={18} style={{ color: '#c9a55a', marginTop: '2px' }} />
+              <div>
+                <h4 className="font-bold" style={{ color: 'white' }}>Office Location</h4>
+                <p className="text-sm mt-1" style={{ color: 'rgba(255,255,255,0.6)' }}>
+                  Lahore, Pakistan<br />
+                  <span style={{ fontSize: '12px' }}>Mon–Sat: 9:00 AM – 6:00 PM PKT</span>
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="animate-fadeInUp delay-100">
+            <div className="space-y-3">
+              <div className="flex items-center space-x-3">
+                <Phone size={16} style={{ color: '#c9a55a' }} />
+                <div>
+                  <a href="tel:+923160285386" className="text-sm font-semibold hover:text-white transition-colors"
+                    style={{ color: 'rgba(255,255,255,0.8)' }}>
                     +92 316 0285386
                   </a>
-                  <a href="tel:+923030411114" className="block hover:text-[#c9a55a] transition-colors">
+                </div>
+              </div>
+              <div className="flex items-center space-x-3">
+                <Phone size={16} style={{ color: '#c9a55a' }} />
+                <div>
+                  <a href="tel:+923030411114" className="text-sm font-semibold hover:text-white transition-colors"
+                    style={{ color: 'rgba(255,255,255,0.8)' }}>
                     +92 303 0411114
                   </a>
                 </div>
               </div>
-
-              {/* General Email */}
-              <div className="flex items-start gap-3">
-                <span
-                  className="shrink-0 mt-0.5 w-7 h-7 rounded-md flex items-center justify-center
-                             bg-[#c9a55a]/10 border border-[#c9a55a]/20 text-[#c9a55a]/70"
-                >
-                  <Mail size={13} aria-hidden="true" />
-                </span>
-                <div className="min-w-0">
-                  <p className="text-xs font-semibold text-white/40 uppercase tracking-wide leading-none mb-0.5">
-                    General Inquiries
-                  </p>
-                  <a
-                    href="mailto:info@accurate-consultancy.com"
-                    className="text-sm text-white/70 hover:text-[#c9a55a] transition-colors break-all"
-                  >
+              <div className="flex items-center space-x-3">
+                <Mail size={16} style={{ color: '#c9a55a' }} />
+                <div>
+                  <a href="mailto:info@accurate-consultancy.com" className="text-sm font-semibold hover:text-white transition-colors"
+                    style={{ color: 'rgba(255,255,255,0.8)' }}>
                     info@accurate-consultancy.com
                   </a>
                 </div>
               </div>
-
-              {/* Founder email */}
-              <div className="flex items-start gap-3">
-                <span
-                  className="shrink-0 mt-0.5 w-7 h-7 rounded-md flex items-center justify-center
-                             bg-[#c9a55a]/10 border border-[#c9a55a]/20 text-[#c9a55a]/70"
-                >
-                  <Mail size={13} aria-hidden="true" />
-                </span>
-                <div className="min-w-0">
-                  <p className="text-xs font-semibold text-white/40 uppercase tracking-wide leading-none mb-0.5">
-                    Founder & MD
-                  </p>
-                  <a
-                    href="mailto:imran@accurate-consultancy.com"
-                    className="text-sm text-white/70 hover:text-[#c9a55a] transition-colors break-all"
-                  >
+              <div className="flex items-center space-x-3">
+                <Mail size={16} style={{ color: '#c9a55a' }} />
+                <div>
+                  <a href="mailto:imran@accurate-consultancy.com" className="text-sm font-semibold hover:text-white transition-colors"
+                    style={{ color: 'rgba(255,255,255,0.8)' }}>
                     imran@accurate-consultancy.com
                   </a>
                 </div>
               </div>
-
-              {/* Location */}
-              <div className="flex items-start gap-3">
-                <span
-                  className="shrink-0 mt-0.5 w-7 h-7 rounded-md flex items-center justify-center
-                             bg-[#c9a55a]/10 border border-[#c9a55a]/20 text-[#c9a55a]/70"
-                >
-                  <MapPin size={13} aria-hidden="true" />
-                </span>
-                <span className="text-sm text-white/70">Lahore, Pakistan</span>
-              </div>
-
-              {/* Hours */}
-              <div className="flex items-start gap-3">
-                <span
-                  className="shrink-0 mt-0.5 w-7 h-7 rounded-md flex items-center justify-center
-                             bg-[#c9a55a]/10 border border-[#c9a55a]/20 text-[#c9a55a]/70"
-                >
-                  <Clock size={13} aria-hidden="true" />
-                </span>
-                <span className="text-sm text-white/70">Mon–Sat: 9:00 AM – 6:00 PM PKT</span>
-              </div>
-
-            </address>
+            </div>
           </div>
-
         </div>
 
-        {/* ── Divider ─────────────────────────────── */}
-        <div className="h-px w-full bg-[#c9a55a]/15 mb-8" />
-
-        {/* ── Bottom Bar ──────────────────────────── */}
-        <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-white/40 text-sm">
-            © {year} Accurate Consultancy. All rights reserved.
-          </p>
-          <nav aria-label="Legal links" className="flex gap-6">
-            {['Privacy Policy', 'Terms of Service', 'Cookie Policy'].map((item) => (
-              <a
-                key={item}
-                href="#"
-                className="text-white/40 hover:text-[#c9a55a] text-xs transition-colors"
-              >
-                {item}
-              </a>
-            ))}
-          </nav>
+        {/* SECTION 4: Bottom (Copyright + Policies) */}
+        <div className="text-center text-xs" style={{ color: 'rgba(255,255,255,0.4)' }}>
+          <p className="mb-3">© 2026 Accurate Consultancy. All rights reserved.</p>
+          <div className="flex items-center justify-center space-x-4 flex-wrap">
+            <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
+            <span>•</span>
+            <a href="#" className="hover:text-white transition-colors">Terms of Service</a>
+            <span>•</span>
+            <a href="#" className="hover:text-white transition-colors">Cookie Policy</a>
+          </div>
         </div>
-
       </div>
     </footer>
   );
-}
+};
+
+export default Footer;
