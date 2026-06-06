@@ -58,13 +58,22 @@ const ContinentsMap = () => (
   </svg>
 );
 
-// Flag Orbit Configuration
+// Expanded Flag Orbit Configuration
 const orbitFlags = [
-  { flag: '🇺🇸', radius: 190, duration: 16, delay: 0 },
-  { flag: '🇬🇧', radius: 230, duration: 20, delay: -5 },
-  { flag: '🇨🇦', radius: 200, duration: 18, delay: -9 },
-  { flag: '🇦🇺', radius: 250, duration: 24, delay: -14 },
-  { flag: '🇪🇺', radius: 210, duration: 22, delay: -18 },
+  { flag: '🇺🇸', radius: 190, duration: 20, delay: 0 },
+  { flag: '🇬🇧', radius: 230, duration: 25, delay: -5 },
+  { flag: '🇨🇦', radius: 200, duration: 22, delay: -10 },
+  { flag: '🇦🇺', radius: 250, duration: 28, delay: -15 },
+  { flag: '🇪🇺', radius: 210, duration: 24, delay: -2 },
+  { flag: '🇩🇪', radius: 180, duration: 18, delay: -8 },
+  { flag: '🇫🇷', radius: 220, duration: 26, delay: -12 },
+  { flag: '🇪🇸', radius: 240, duration: 30, delay: -4 },
+  { flag: '🇹🇷', radius: 195, duration: 21, delay: -18 },
+  { flag: '🇮🇪', radius: 260, duration: 32, delay: -7 },
+  { flag: '🇵🇰', radius: 175, duration: 19, delay: -20 },
+  { flag: '🇦🇪', radius: 215, duration: 23, delay: -14 },
+  { flag: '🇸🇦', radius: 235, duration: 27, delay: -9 },
+  { flag: '🇨🇳', radius: 205, duration: 25, delay: -17 },
 ];
 
 const Hero = () => {
@@ -261,13 +270,13 @@ const Hero = () => {
             {orbitFlags.map((item, i) => (
               <div
                 key={i}
-                className="absolute top-1/2 left-1/2 w-12 h-12 -ml-6 -mt-6 flex items-center justify-center bg-[#0a1628]/80 backdrop-blur-md rounded-full border border-[rgba(201,165,90,0.5)] z-20 hover:scale-125 transition-transform cursor-pointer"
+                className="absolute top-1/2 left-1/2 w-10 h-10 -ml-5 -mt-5 flex items-center justify-center bg-[#0a1628]/80 backdrop-blur-md rounded-full border border-[rgba(201,165,90,0.5)] z-20 hover:scale-125 transition-transform cursor-pointer"
                 style={{
-                  boxShadow: '0 0 20px rgba(201,165,90,0.3), inset 0 0 10px rgba(255,255,255,0.1)',
+                  boxShadow: '0 0 15px rgba(201,165,90,0.3), inset 0 0 10px rgba(255,255,255,0.1)',
                   animation: `orbitFlag${i} ${item.duration}s linear infinite ${item.delay}s`,
                 }}
               >
-                <span className="text-2xl leading-none drop-shadow-md">{item.flag}</span>
+                <span className="text-xl leading-none drop-shadow-md">{item.flag}</span>
               </div>
             ))}
           </div>
