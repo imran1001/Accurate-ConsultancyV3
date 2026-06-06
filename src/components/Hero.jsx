@@ -13,6 +13,7 @@ const useCounter = (end, duration = 2000, start = 0) => {
       const elapsed = currentTime - startTime;
       const progress = Math.min(elapsed / duration, 1);
       const value = Math.floor(progress * (end - start) + start);
+      
       setCount(value);
 
       if (progress < 1) {
@@ -27,28 +28,21 @@ const useCounter = (end, duration = 2000, start = 0) => {
   return count;
 };
 
-// Country data with flags and names
-const countriesData = [
-  { flag: '🇺🇸', name: 'United States', angle: 0 },
-  { flag: '🇬🇧', name: 'United Kingdom', angle: 51.4 },
-  { flag: '🇨🇦', name: 'Canada', angle: 102.8 },
-  { flag: '🇦🇺', name: 'Australia', angle: 154.2 },
-  { flag: '🇨🇳', name: 'China', angle: 205.6 },
-  { flag: '🇮🇳', name: 'India', angle: 257 },
-  { flag: '🇦🇪', name: 'UAE', angle: 308.4 },
-];
-
-// Continent Map Component
+// Upgraded Continents Map with glowing target nodes
 const ContinentsMap = () => (
-  <svg viewBox="0 0 960 600" className="w-full h-full" style={{ opacity: 0.8 }}>
+  <svg viewBox="0 0 960 600" className="w-full h-full" style={{ opacity: 0.9 }}>
     <defs>
       <style>{`
-        .continent { fill: rgba(201,165,90,0.3); stroke: rgba(201,165,90,0.6); stroke-width: 1; }
-        .water { fill: rgba(10,22,40,0.2); }
+        .continent { fill: rgba(201,165,90,0.15); stroke: rgba(201,165,90,0.5); stroke-width: 1.5; }
+        .glow-node { fill: #f0c040; filter: drop-shadow(0 0 6px #c9a55a); animation: pulseNode 2s infinite alternate; }
+        @keyframes pulseNode {
+          0% { opacity: 0.5; transform: scale(0.9); }
+          100% { opacity: 1; transform: scale(1.2); }
+        }
       `}</style>
     </defs>
-    <rect className="water" width="960" height="600" />
     <g className="continent">
+      {/* Abstracted Continent Paths */}
       <path d="M 100,150 L 150,120 L 180,140 L 160,180 Z" />
       <path d="M 200,200 L 280,180 L 300,250 L 240,270 Z" />
       <path d="M 350,100 L 420,90 L 450,160 L 380,180 Z" />
@@ -56,8 +50,31 @@ const ContinentsMap = () => (
       <path d="M 700,350 L 800,340 L 820,420 L 740,440 Z" />
       <path d="M 150,400 L 200,380 L 220,450 L 170,470 Z" />
     </g>
+    {/* Floating Golden Immigration Hubs */}
+    <rect x="250" y="220" width="8" height="8" className="glow-node" style={{ animationDelay: '0s' }} />
+    <rect x="620" y="250" width="12" height="12" className="glow-node" style={{ animationDelay: '0.5s' }} />
+    <rect x="400" y="150" width="6" height="6" className="glow-node" style={{ animationDelay: '1s' }} />
+    <rect x="750" y="380" width="10" height="10" className="glow-node" style={{ animationDelay: '1.5s' }} />
   </svg>
 );
+
+// Expanded Flag Orbit Configuration with Tooltip Data
+const orbitFlags = [
+  { flag: '🇺🇸', name: 'United States', radius: 190, duration: 20, delay: 0 },
+  { flag: '🇬🇧', name: 'United Kingdom', radius: 230, duration: 25, delay: -5 },
+  { flag: '🇨🇦', name: 'Canada', radius: 200, duration: 22, delay: -10 },
+  { flag: '🇦🇺', name: 'Australia', radius: 250, duration: 28, delay: -15 },
+  { flag: '🇪🇺', name: 'Europe', radius: 210, duration: 24, delay: -2 },
+  { flag: '🇩🇪', name: 'Germany', radius: 180, duration: 18, delay: -8 },
+  { flag: '🇫🇷', name: 'France', radius: 220, duration: 26, delay: -12 },
+  { flag: '🇪🇸', name: 'Spain', radius: 240, duration: 30, delay: -4 },
+  { flag: '🇹🇷', name: 'Turkey', radius: 195, duration: 21, delay: -18 },
+  { flag: '🇮🇪', name: 'Ireland', radius: 260, duration: 32, delay: -7 },
+  { flag: '🇵🇰', name: 'Pakistan', radius: 175, duration: 19, delay: -20 },
+  { flag: '🇦🇪', name: 'UAE', radius: 215, duration: 23, delay: -14 },
+  { flag: '🇸🇦', name: 'Saudi Arabia', radius: 235, duration: 27, delay: -9 },
+  { flag: '🇨🇳', name: 'China', radius: 205, duration: 25, delay: -17 },
+];
 
 const Hero = () => {
   const yearsCount = useCounter(19, 2000);
@@ -68,6 +85,7 @@ const Hero = () => {
 
   return (
     <section
+      id="home"
       className="relative min-h-screen pt-32 pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden flex items-center"
       style={{
         background: 'linear-gradient(135deg, #010610 0%, #0a1628 50%, #160d50 100%)'
@@ -91,9 +109,9 @@ const Hero = () => {
 
       <div className="max-w-7xl mx-auto w-full relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* LEFT CONTENT */}
+          
+          {/* LEFT CONTENT (Text & CTA) */}
           <div>
-            {/* Logo Badge Animation */}
             <div
               className="inline-flex items-center space-x-3 mb-8 px-4 py-2 rounded-full animate-fadeInUp"
               style={{
@@ -102,19 +120,12 @@ const Hero = () => {
                 backdropFilter: 'blur(10px)'
               }}
             >
-              <img 
-                src="/logo.webp" 
-                alt="Accurate Consultancy logo" 
-                className="w-6 h-6"
-                width={24}
-                height={24}
-              />
+              <img src="/logo.webp" alt="Accurate Consultancy" className="w-6 h-6" />
               <span className="text-xs font-bold text-white uppercase tracking-wider">
                 Est. 2006
               </span>
             </div>
 
-            {/* Main Heading */}
             <h1
               className="text-5xl md:text-7xl font-black leading-tight mb-6 animate-fadeInUp delay-100"
               style={{ color: 'white' }}
@@ -135,30 +146,29 @@ const Hero = () => {
               </span>
             </h1>
 
-            {/* Subtitle */}
             <p
               className="text-lg md:text-xl leading-relaxed mb-8 animate-fadeInUp delay-200"
               style={{ color: 'rgba(255,255,255,0.75)' }}
             >
-              Premium visa and immigration consultancy delivering seamless pathways to your dream destination with expert guidance every step of the way.
+              <strong className="text-white font-semibold tracking-wide">Travel - Visa & Immigration - Business consultancy.</strong><br/>
+              Delivering seamless pathways to your dream destinations with expert corporate guidance every step of the way.
             </p>
 
-            {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row items-center gap-4 mb-12 animate-slideInLeft delay-300">
-              
+              <a
                 href="#consultation"
-                className="inline-flex items-center space-x-2 px-8 py-4 rounded-full font-bold text-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl cursor-pointer group"
+                className="inline-flex items-center space-x-2 px-8 py-4 rounded-full font-bold text-lg transition-all duration-300 hover:scale-105 hover:shadow-[0_0_20px_rgba(201,165,90,0.4)] cursor-pointer group"
                 style={{
                   background: 'linear-gradient(135deg, #c9a55a, #f0c040)',
                   color: '#0a1628',
                   textDecoration: 'none'
                 }}
-                aria-label="Get started with consultation booking"
               >
                 <Play size={18} />
                 <span>Get Started Today</span>
               </a>
               
+              <a
                 href="#services"
                 className="inline-flex items-center space-x-2 px-8 py-4 rounded-full font-bold text-lg transition-all duration-300 hover:scale-105 cursor-pointer"
                 style={{
@@ -175,14 +185,13 @@ const Hero = () => {
                   e.currentTarget.style.borderColor = 'rgba(201,165,90,0.4)';
                   e.currentTarget.style.background = 'rgba(255,255,255,0.1)';
                 }}
-                aria-label="Explore our services"
               >
                 <span>Explore Services</span>
                 <ArrowRight size={18} />
               </a>
             </div>
 
-            {/* ANIMATED STATS - WITH COUNTERS */}
+            {/* ANIMATED STATS */}
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
               {[
                 { icon: '📅', value: yearsCount, label: 'Years\nExperience', suffix: '+' },
@@ -192,14 +201,13 @@ const Hero = () => {
               ].map((stat, i) => (
                 <div
                   key={i}
-                  className="p-4 rounded-2xl text-center animate-fadeInUp hover:scale-110 transition-transform duration-300"
+                  className="p-4 rounded-2xl text-center animate-fadeInUp hover:scale-105 transition-transform duration-300"
                   style={{
                     background: 'linear-gradient(135deg, rgba(201,165,90,0.15), rgba(240,192,64,0.05))',
                     border: '1px solid rgba(201,165,90,0.2)',
                     backdropFilter: 'blur(10px)',
                     animationDelay: `${i * 0.1}s`
                   }}
-                  aria-label={`${stat.label.replace('\n', ' ')}: ${stat.value}${stat.suffix}`}
                 >
                   <div className="text-3xl mb-2">{stat.icon}</div>
                   <div
@@ -209,7 +217,7 @@ const Hero = () => {
                     {stat.value}{stat.suffix}
                   </div>
                   <div
-                    className="text-xs leading-tight mt-2 whitespace-pre-line"
+                    className="text-xs leading-tight mt-2 whitespace-pre-line uppercase font-bold tracking-wider"
                     style={{ color: 'rgba(255,255,255,0.5)' }}
                   >
                     {stat.label}
@@ -219,250 +227,133 @@ const Hero = () => {
             </div>
           </div>
 
-          {/* RIGHT CONTENT - ENHANCED GLOBE WITH FLAGS */}
-          <div className="hidden lg:flex items-center justify-center relative h-96">
-            {/* Animated Halo - Multiple Rings */}
-            <div
-              className="absolute inset-0 rounded-full border-2 animate-glow"
-              style={{
-                borderColor: 'rgba(201,165,90,0.3)',
-                animation: 'haloScale 4s ease-in-out infinite'
-              }}
+          {/* RIGHT CONTENT - BEAUTIFUL GLOBE & FLAGS */}
+          <div className="hidden lg:flex items-center justify-center relative h-[500px] w-full">
+            
+            {/* Elliptical Orbit Path Tracks */}
+            <div 
+              className="absolute w-[110%] h-[260px] border border-dashed rounded-[100%] -rotate-12 pointer-events-none" 
+              style={{ borderColor: 'rgba(201,165,90,0.3)' }} 
             />
-            <div
-              className="absolute inset-12 rounded-full border-2"
-              style={{
-                borderColor: 'rgba(201,165,90,0.2)',
-                animation: 'haloScale 5s ease-in-out infinite reverse'
-              }}
+            <div 
+              className="absolute w-[90%] h-[320px] border rounded-[100%] rotate-12 pointer-events-none" 
+              style={{ borderColor: 'rgba(255,255,255,0.1)' }} 
             />
 
-            {/* Globe Container */}
+            {/* Deep Space Globe Container */}
             <div
-              className="relative w-64 h-64 rounded-full overflow-hidden animate-globeFadeIn"
+              className="relative w-[320px] h-[320px] rounded-full overflow-hidden animate-globeFadeIn z-10"
               style={{
-                background: 'linear-gradient(135deg, #1a1060, #0a1628)',
-                boxShadow: '0 0 60px rgba(201,165,90,0.4), inset 0 0 60px rgba(201,165,90,0.1)',
-                border: '2px solid rgba(201,165,90,0.2)'
+                background: 'radial-gradient(circle at 35% 35%, #1a1060 0%, #010610 80%)',
+                boxShadow: 'inset -25px -25px 50px rgba(0,0,0,0.8), 0 0 60px rgba(201,165,90,0.2), inset 0 0 40px rgba(201,165,90,0.4)',
+                border: '1px solid rgba(201,165,90,0.4)'
               }}
             >
-              <div style={{ animation: 'panGlobalMap 30s linear infinite' }}>
-                <ContinentsMap />
+              {/* Globe Grid Texture */}
+              <div 
+                className="absolute inset-0 opacity-10 pointer-events-none" 
+                style={{
+                  backgroundImage: 'linear-gradient(rgba(201,165,90,1) 1px, transparent 1px), linear-gradient(90deg, rgba(201,165,90,1) 1px, transparent 1px)',
+                  backgroundSize: '30px 30px',
+                }} 
+              />
+              
+              {/* Seamless Infinite Panning Map Container */}
+              <div 
+                className="flex absolute inset-0" 
+                style={{ width: '200%', animation: 'panGlobalMap 40s linear infinite' }}
+              >
+                <div className="w-1/2 h-full"><ContinentsMap /></div>
+                <div className="w-1/2 h-full"><ContinentsMap /></div>
               </div>
             </div>
 
-            {/* ENHANCED FLAGS WITH ALL EFFECTS */}
-            {countriesData.map((country, index) => {
-              // Calculate size variation for depth effect (3D perspective)
-              const sizeVariations = [14, 16, 18, 20, 18, 16, 14];
-              const fontSize = sizeVariations[index] || 16;
-              
-              // Stagger animation delays
-              const animationDelay = `${index * 0.15}s`;
-
-              return (
+            {/* Orbiting Country Flags with Tooltips */}
+            {orbitFlags.map((item, i) => (
+              <div
+                key={i}
+                className="absolute top-1/2 left-1/2 w-10 h-10 -ml-5 -mt-5 flex items-center justify-center bg-[#0a1628]/80 backdrop-blur-md rounded-full border border-[rgba(201,165,90,0.5)] cursor-pointer transition-all duration-200"
+                style={{
+                  boxShadow: hoveredCountry === i 
+                    ? '0 0 25px rgba(240,192,64,0.6), inset 0 0 15px rgba(255,255,255,0.2)' 
+                    : '0 0 15px rgba(201,165,90,0.3), inset 0 0 10px rgba(255,255,255,0.1)',
+                  animation: `orbitFlag${i} ${item.duration}s linear infinite ${item.delay}s`,
+                  animationPlayState: hoveredCountry === i ? 'paused' : 'running',
+                  zIndex: hoveredCountry === i ? 50 : 20,
+                  transform: hoveredCountry === i ? 'scale(1.2)' : 'scale(1)'
+                }}
+                onMouseEnter={() => setHoveredCountry(i)}
+                onMouseLeave={() => setHoveredCountry(null)}
+              >
+                <span className="text-xl leading-none drop-shadow-md">{item.flag}</span>
+                
+                {/* Custom Hover Tooltip */}
                 <div
-                  key={index}
-                  className="absolute w-12 h-12 flex items-center justify-center transition-all duration-300 cursor-pointer group"
+                  className="absolute -top-10 left-1/2 transform -translate-x-1/2 whitespace-nowrap px-3 py-1.5 rounded-lg font-semibold text-sm pointer-events-none transition-all duration-200"
                   style={{
-                    top: '50%',
-                    left: '50%',
-                    transform: `translate(-50%, -50%) rotate(${country.angle}deg) translateX(180px)`,
-                    animation: `rotateOrbit 25s linear infinite`,
-                    animationDelay: `${index * 1}s`
+                    background: 'linear-gradient(135deg, #c9a55a, #f0c040)',
+                    color: '#0a1628',
+                    opacity: hoveredCountry === i ? 1 : 0,
+                    visibility: hoveredCountry === i ? 'visible' : 'hidden',
+                    boxShadow: '0 4px 20px rgba(201,165,90,0.4)',
+                    marginTop: hoveredCountry === i ? '0px' : '5px'
                   }}
-                  onMouseEnter={() => setHoveredCountry(index)}
-                  onMouseLeave={() => setHoveredCountry(null)}
-                  aria-label={`${country.name}`}
-                  title={country.name}
                 >
-                  {/* Flag with multiple effects */}
+                  {item.name}
+                  {/* Tooltip Arrow */}
                   <div
-                    className="relative animate-fadeInUp"
+                    className="absolute top-full left-1/2 transform -translate-x-1/2"
                     style={{
-                      fontSize: `${fontSize}px`,
-                      animationDelay: animationDelay,
-                      // Glow effect
-                      filter: 'drop-shadow(0 0 12px rgba(201,165,90,0.6))',
-                      textShadow: '0 0 16px rgba(201,165,90,0.5)',
-                      // Float animation
-                      animation: `flagFloat 3s ease-in-out infinite, fadeInUp 0.8s ease-out forwards`,
-                      animationDelay: animationDelay,
-                      transition: 'all 0.3s ease'
+                      borderLeft: '6px solid transparent',
+                      borderRight: '6px solid transparent',
+                      borderTop: '6px solid #c9a55a'
                     }}
-                    onMouseEnter={(e) => {
-                      // Enhanced glow on hover
-                      e.currentTarget.style.filter = 'drop-shadow(0 0 24px rgba(201,165,90,0.9)) drop-shadow(0 0 12px rgba(240,192,64,0.6))';
-                      e.currentTarget.style.textShadow = '0 0 24px rgba(201,165,90,0.8)';
-                      e.currentTarget.style.transform = 'scale(1.3)';
-                    }}
-                    onMouseLeave={(e) => {
-                      // Return to normal glow
-                      e.currentTarget.style.filter = 'drop-shadow(0 0 12px rgba(201,165,90,0.6))';
-                      e.currentTarget.style.textShadow = '0 0 16px rgba(201,165,90,0.5)';
-                      e.currentTarget.style.transform = 'scale(1)';
-                    }}
-                  >
-                    {country.flag}
-
-                    {/* Hover Tooltip - Country Name */}
-                    <div
-                      className="absolute -top-10 left-1/2 transform -translate-x-1/2 whitespace-nowrap px-3 py-1.5 rounded-lg font-semibold text-sm z-50 pointer-events-none transition-all duration-200"
-                      style={{
-                        background: 'linear-gradient(135deg, #c9a55a, #f0c040)',
-                        color: '#0a1628',
-                        opacity: hoveredCountry === index ? 1 : 0,
-                        transform: hoveredCountry === index 
-                          ? 'translate(-50%, -16px) scale(1)' 
-                          : 'translate(-50%, -8px) scale(0.8)',
-                        boxShadow: '0 4px 20px rgba(201,165,90,0.4)'
-                      }}
-                    >
-                      {country.name}
-                      {/* Arrow pointing down to flag */}
-                      <div
-                        className="absolute top-full left-1/2 transform -translate-x-1/2"
-                        style={{
-                          width: 0,
-                          height: 0,
-                          borderLeft: '6px solid transparent',
-                          borderRight: '6px solid transparent',
-                          borderTop: '6px solid #c9a55a'
-                        }}
-                      />
-                    </div>
-
-                    {/* Outer glow ring around flag */}
-                    <div
-                      className="absolute inset-0 rounded-full border-2"
-                      style={{
-                        borderColor: 'rgba(201,165,90,0.3)',
-                        animation: 'flagPulse 2s ease-in-out infinite',
-                        animationDelay: animationDelay,
-                        opacity: hoveredCountry === index ? 1 : 0.5,
-                        transition: 'opacity 0.3s ease'
-                      }}
-                    />
-                  </div>
+                  />
                 </div>
-              );
-            })}
-
-            {/* Decorative center dot */}
-            <div
-              className="absolute w-3 h-3 rounded-full"
-              style={{
-                background: 'radial-gradient(circle, #c9a55a, #f0c040)',
-                top: '50%',
-                left: '50%',
-                transform: 'translate(-50%, -50%)',
-                boxShadow: '0 0 20px rgba(201,165,90,0.8), inset 0 0 10px rgba(201,165,90,0.4)'
-              }}
-            />
+              </div>
+            ))}
           </div>
         </div>
       </div>
 
-      {/* CSS Keyframes */}
+      {/* Dynamic CSS Styles */}
       <style>{`
+        /* Dynamic orbital paths to keep flags completely upright while rotating */
+        ${orbitFlags.map((item, i) => `
+          @keyframes orbitFlag${i} {
+            0% { transform: rotate(0deg) translateX(${item.radius}px) rotate(0deg); }
+            100% { transform: rotate(360deg) translateX(${item.radius}px) rotate(-360deg); }
+          }
+        `).join('\n')}
+
+        @keyframes panGlobalMap {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
+
         @keyframes fadeInUp {
-          from {
-            opacity: 0;
-            transform: translateY(30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
+          from { opacity: 0; transform: translateY(30px); }
+          to { opacity: 1; transform: translateY(0); }
         }
 
         @keyframes slideInLeft {
-          from {
-            opacity: 0;
-            transform: translateX(-30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateX(0);
-          }
+          from { opacity: 0; transform: translateX(-30px); }
+          to { opacity: 1; transform: translateX(0); }
         }
 
         @keyframes textShimmer {
-          0%, 100% {
-            backgroundPosition: 200% 0;
-          }
-          50% {
-            backgroundPosition: 0 0;
-          }
-        }
-
-        @keyframes rotateOrbit {
-          from {
-            transform: translate(-50%, -50%) rotate(var(--angle, 0deg)) translateX(180px);
-          }
-          to {
-            transform: translate(-50%, -50%) rotate(calc(var(--angle, 0deg) + 360deg)) translateX(180px);
-          }
-        }
-
-        @keyframes flagFloat {
-          0%, 100% {
-            transform: translateY(0px);
-          }
-          50% {
-            transform: translateY(-12px);
-          }
-        }
-
-        @keyframes flagPulse {
-          0%, 100% {
-            transform: scale(1);
-            opacity: 0.5;
-          }
-          50% {
-            transform: scale(1.2);
-            opacity: 0.8;
-          }
-        }
-
-        @keyframes panGlobalMap {
-          from {
-            transform: translateX(0);
-          }
-          to {
-            transform: translateX(-100px);
-          }
-        }
-
-        @keyframes haloScale {
-          0%, 100% {
-            transform: scale(1);
-            opacity: 0.5;
-          }
-          50% {
-            transform: scale(1.15);
-            opacity: 0.2;
-          }
+          0%, 100% { backgroundPosition: 200% 0; }
+          50% { backgroundPosition: 0 0; }
         }
 
         @keyframes float {
-          0%, 100% {
-            transform: translateY(0px);
-          }
-          50% {
-            transform: translateY(-20px);
-          }
+          0%, 100% { transform: translateY(0px); }
+          50% { transform: translateY(-20px); }
         }
 
         @keyframes globeFadeIn {
-          from {
-            opacity: 0;
-            transform: scale(0.8);
-          }
-          to {
-            opacity: 1;
-            transform: scale(1);
-          }
+          from { opacity: 0; transform: scale(0.8); }
+          to { opacity: 1; transform: scale(1); }
         }
 
         .animate-fadeInUp {
@@ -477,10 +368,6 @@ const Hero = () => {
         .animate-slideInLeft {
           animation: slideInLeft 0.8s ease-out forwards;
           opacity: 0;
-        }
-
-        .animate-glow {
-          animation: haloScale 4s ease-in-out infinite;
         }
       `}</style>
     </section>
