@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
-import { useForm, ValidationError } from '@formspree/react';
 import { Send, CheckCircle, Lock, Phone, Mail, User, Globe, MessageSquare, ChevronDown, MapPin } from 'lucide-react';
 
 const ConsultationForm = () => {
-  const [state, handleSubmit] = useForm('xwvjvaag');
   const [formData, setFormData] = useState({
     fullName: '', email: '', phone: '', visaType: '', country: '', message: ''
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [submitError, setSubmitError] = useState(false);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -14,7 +15,29 @@ const ConsultationForm = () => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    await handleSubmit(e);
+    setIsSubmitting(true);
+    setSubmitError(false);
+
+    try {
+      const response = await fetch('https://formspree.io/f/xwvjvaag', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify(formData)
+      });
+
+      if (response.ok) {
+        setIsSuccess(true);
+      } else {
+        setSubmitError(true);
+      }
+    } catch (error) {
+      setSubmitError(true);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const filledFields = [formData.fullName, formData.email, formData.phone, formData.visaType, formData.country].filter(Boolean).length;
@@ -92,7 +115,7 @@ const ConsultationForm = () => {
 
           {/* Form Body */}
           <div className="p-8 md:p-12 bg-white">
-            {state.succeeded ? (
+            {isSuccess ? (
               <div className="text-center py-12 animate-slideInLeft">
                 <div className="inline-flex items-center justify-center w-20 h-20 rounded-full mb-6 animate-scaleIn"
                   style={{ background: 'linear-gradient(135deg, #c9a55a, #f0c040)' }}>
@@ -183,7 +206,6 @@ const ConsultationForm = () => {
                         onFocus={focusStyle}
                         onBlur={blurStyle}
                       />
-                      <ValidationError field="email" errors={state.errors} />
                     </div>
                   </div>
 
@@ -210,7 +232,7 @@ const ConsultationForm = () => {
                     </div>
                   </div>
 
-                  {/* Visa Type - ENHANCED */}
+                  {/* Visa Type */}
                   <div className="animate-fadeInUp delay-300">
                     <label htmlFor="visaType" className="block text-sm font-bold mb-2" style={{ color: '#0a1628' }}>
                       Visa Category *
@@ -324,17 +346,17 @@ const ConsultationForm = () => {
                 {/* Submit Button */}
                 <button
                   type="submit"
-                  disabled={state.submitting}
+                  disabled={isSubmitting}
                   className="w-full flex items-center justify-center space-x-3 py-4 rounded-full font-bold text-lg transition-all duration-300 animate-slideInRight"
                   style={{
-                    background: state.submitting ? '#9ca3af' : 'linear-gradient(135deg, #c9a55a, #f0c040)',
+                    background: isSubmitting ? '#9ca3af' : 'linear-gradient(135deg, #c9a55a, #f0c040)',
                     color: '#0a1628',
-                    boxShadow: state.submitting ? 'none' : '0 10px 30px rgba(201,165,90,0.4)',
-                    cursor: state.submitting ? 'not-allowed' : 'pointer',
+                    boxShadow: isSubmitting ? 'none' : '0 10px 30px rgba(201,165,90,0.4)',
+                    cursor: isSubmitting ? 'not-allowed' : 'pointer',
                     border: 'none'
                   }}
                   onMouseEnter={e => {
-                    if (!state.submitting) {
+                    if (!isSubmitting) {
                       e.currentTarget.style.transform = 'scale(1.02)';
                       e.currentTarget.style.boxShadow = '0 15px 40px rgba(201,165,90,0.6)';
                     }
@@ -344,7 +366,7 @@ const ConsultationForm = () => {
                     e.currentTarget.style.boxShadow = '0 10px 30px rgba(201,165,90,0.4)';
                   }}
                 >
-                  {state.submitting ? (
+                  {isSubmitting ? (
                     <>
                       <div className="w-5 h-5 border-2 border-current border-t-transparent rounded-full animate-spin" />
                       <span>Submitting...</span>
@@ -358,7 +380,7 @@ const ConsultationForm = () => {
                 </button>
 
                 {/* General Form Error */}
-                {state.errors.length > 0 && (
+                {submitError && (
                   <div className="mt-4 p-4 rounded-xl flex items-center space-x-3"
                     style={{ background: '#fee2e2', border: '1px solid #fecaca' }}>
                     <span style={{ color: '#991b1b', fontSize: '14px' }}>
