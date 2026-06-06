@@ -1,5 +1,4 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -33,56 +32,175 @@ body {
 ::-webkit-scrollbar {
   width: 8px;
 }
+
 ::-webkit-scrollbar-track {
   background: #010610;
 }
+
 ::-webkit-scrollbar-thumb {
   background: linear-gradient(180deg, #c9a55a 0%, #f0c040 50%, #c9a55a 100%);
   border-radius: 10px;
 }
+
 ::-webkit-scrollbar-thumb:hover {
   background: linear-gradient(180deg, #f0c040, #c9a55a);
 }
 
 /* ===========================
-   ANIMATIONS
+   ANIMATIONS - EXPANDED
 =========================== */
-@keyframes twinkle {
-  0%, 100% { opacity: 0.08; transform: scale(1); }
-  50%       { opacity: 0.9;  transform: scale(1.8); }
-}
-
 @keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(30px); }
-  to   { opacity: 1; transform: translateY(0);    }
+  from { 
+    opacity: 0; 
+    transform: translateY(30px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
 }
 
 @keyframes fadeInDown {
-  from { opacity: 0; transform: translateY(-20px); }
-  to   { opacity: 1; transform: translateY(0);     }
+  from { 
+    opacity: 0; 
+    transform: translateY(-20px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
 }
 
-@keyframes pulse-gold {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(201,165,90,0.4); }
-  50%       { box-shadow: 0 0 0 12px rgba(201,165,90,0); }
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideInLeft {
+  from { 
+    opacity: 0; 
+    transform: translateX(-30px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateX(0); 
+  }
+}
+
+@keyframes slideInRight {
+  from { 
+    opacity: 0; 
+    transform: translateX(30px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateX(0); 
+  }
+}
+
+@keyframes scaleIn {
+  from { 
+    opacity: 0; 
+    transform: scale(0.9); 
+  }
+  to { 
+    opacity: 1; 
+    transform: scale(1); 
+  }
+}
+
+@keyframes pulse {
+  0%, 100% { 
+    opacity: 1; 
+  }
+  50% { 
+    opacity: 0.6; 
+  }
 }
 
 @keyframes shimmer {
-  0%   { background-position: -200% center; }
-  100% { background-position: 200% center;  }
+  0% { 
+    background-position: -200% center; 
+  }
+  100% { 
+    background-position: 200% center; 
+  }
 }
 
 @keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50%       { transform: translateY(-8px); }
+  0%, 100% { 
+    transform: translateY(0px); 
+  }
+  50% { 
+    transform: translateY(-8px); 
+  }
+}
+
+@keyframes glow {
+  0%, 100% { 
+    box-shadow: 0 0 20px rgba(201, 165, 90, 0.3); 
+  }
+  50% { 
+    box-shadow: 0 0 40px rgba(201, 165, 90, 0.6); 
+  }
+}
+
+@keyframes rotateIcon {
+  from { 
+    transform: rotate(0deg); 
+  }
+  to { 
+    transform: rotate(360deg); 
+  }
 }
 
 /* ===========================
    UTILITY CLASSES
 =========================== */
-.animate-fadeInUp   { animation: fadeInUp 0.7s ease-out both;   }
-.animate-fadeInDown { animation: fadeInDown 0.7s ease-out both; }
-.animate-float      { animation: float 3s ease-in-out infinite; }
+.animate-fadeInUp { 
+  animation: fadeInUp 0.6s ease-out forwards; 
+}
+
+.animate-fadeInDown { 
+  animation: fadeInDown 0.6s ease-out forwards; 
+}
+
+.animate-fadeIn { 
+  animation: fadeIn 0.5s ease-out forwards; 
+}
+
+.animate-slideInLeft { 
+  animation: slideInLeft 0.6s ease-out forwards; 
+}
+
+.animate-slideInRight { 
+  animation: slideInRight 0.6s ease-out forwards; 
+}
+
+.animate-scaleIn { 
+  animation: scaleIn 0.5s ease-out forwards; 
+}
+
+.animate-float { 
+  animation: float 4s ease-in-out infinite; 
+}
+
+.animate-glow { 
+  animation: glow 3s ease-in-out infinite; 
+}
+
+.animate-rotate { 
+  animation: rotateIcon 20s linear infinite; 
+}
+
+/* Stagger delays */
+.delay-100 { animation-delay: 0.1s; }
+.delay-150 { animation-delay: 0.15s; }
+.delay-200 { animation-delay: 0.2s; }
+.delay-300 { animation-delay: 0.3s; }
+.delay-400 { animation-delay: 0.4s; }
+.delay-500 { animation-delay: 0.5s; }
+.delay-600 { animation-delay: 0.6s; }
 
 .gold-text {
   background: linear-gradient(90deg, #b8872a, #f0d060, #c9a55a);
@@ -107,18 +225,24 @@ body {
   border: 1px solid rgba(201, 165, 90, 0.2);
 }
 
-/* ===========================
-   WHATSAPP WIDGET
-=========================== */
-.whatsapp-pulse {
-  animation: pulse-gold 2s ease-in-out infinite;
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 2rem;
+  border-radius: 9999px;
+  font-weight: bold;
+  font-size: 0.875rem;
+  background: linear-gradient(135deg, #c9a55a, #f0c040);
+  color: #0a1628;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 25px rgba(201, 165, 90, 0.4);
 }
 
-/* ===========================
-   SECTION TRANSITIONS
-=========================== */
-section {
-  position: relative;
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 35px rgba(201, 165, 90, 0.6);
 }
 
 /* ===========================
@@ -136,12 +260,24 @@ select option {
   color: #0a1628;
 }
 
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  border-color: #c9a55a;
+  box-shadow: 0 0 0 3px rgba(201, 165, 90, 0.1);
+}
+
 /* ===========================
    MOBILE TOUCH IMPROVEMENTS
 =========================== */
 @media (max-width: 640px) {
   button, a {
     -webkit-tap-highlight-color: transparent;
+  }
+  
+  input, textarea, select {
+    font-size: 16px;
   }
 }
 
