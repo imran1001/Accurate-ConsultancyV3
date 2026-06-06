@@ -89,7 +89,7 @@ const About = () => {
                 >
                   <img
                     src="/photo.webp"
-                    alt="Muhammad Imran Malik - Managing Director"
+                    alt="Muhammad Imran Malik - FOUNDER & Managing Director"
                     style={{
                       width: '200px',
                       height: '200px',
@@ -114,7 +114,7 @@ const About = () => {
                   }}
                 >
                   <Shield size={14} />
-                  <span className="font-bold text-sm">Managing Director</span>
+                  <span className="font-bold text-sm">Founder & Managing Director</span>
                 </div>
                 <p className="text-sm font-medium mb-5" style={{ color: 'rgba(255,255,255,0.6)' }}>
                   Accurate Consultancy · Lahore, Pakistan
@@ -197,7 +197,7 @@ const About = () => {
                   the region's most trusted immigration professionals.
                 </p>
                 <p className="text-gray-600 leading-relaxed mb-4" style={{ fontSize: '15px' }}>
-                  As the <strong style={{ color: '#0a1628' }}>Managing Director</strong> of Accurate Consultancy, 
+                  As the <strong style={{ color: '#0a1628' }}>Founder & Managing Director</strong> of Accurate Consultancy, 
                   he has personally guided over <strong style={{ color: '#0a1628' }}>5,000+ clients</strong> across 
                   50+ countries — from visit visas to complex investor immigration programs in the USA, UK, 
                   Canada, and Australia.
