@@ -38,17 +38,11 @@ const About = () => {
 
       <div className="max-w-7xl mx-auto relative z-10">
         {/* Section Header */}
-        <div className="text-center mb-16">
-          <span
-            className="font-bold text-xs tracking-[0.3em] uppercase"
-            style={{ color: '#c9a55a' }}
-          >
+        <div className="text-center mb-16 animate-fadeInUp">
+          <span className="font-bold text-xs tracking-[0.3em] uppercase" style={{ color: '#c9a55a' }}>
             Meet the Expert
           </span>
-          <h2
-            className="text-4xl md:text-5xl font-bold mt-3 mb-4"
-            style={{ color: '#0a1628' }}
-          >
+          <h2 className="text-4xl md:text-5xl font-bold mt-3 mb-4" style={{ color: '#0a1628' }}>
             Leadership & Expertise
           </h2>
           <p className="text-gray-500 text-lg max-w-2xl mx-auto">
@@ -58,7 +52,7 @@ const About = () => {
 
         {/* Main Card */}
         <div
-          className="rounded-3xl overflow-hidden shadow-2xl"
+          className="rounded-3xl overflow-hidden shadow-2xl animate-scaleIn"
           style={{ border: '1px solid rgba(201,165,90,0.2)' }}
         >
           <div className="grid lg:grid-cols-2">
@@ -73,10 +67,10 @@ const About = () => {
                 style={{ background: 'radial-gradient(circle, #c9a55a, transparent)' }}
               />
 
-              {/* Photo */}
-              <div className="relative mb-6">
+              {/* Photo with Animation */}
+              <div className="relative mb-6 animate-slideInLeft">
                 <div
-                  className="absolute inset-0 rounded-full"
+                  className="absolute inset-0 rounded-full animate-glow"
                   style={{
                     background: 'linear-gradient(135deg, #c9a55a, #f0c040, #c9a55a)',
                     padding: '3px',
@@ -84,7 +78,7 @@ const About = () => {
                   }}
                 />
                 <div
-                  className="relative rounded-full overflow-hidden"
+                  className="relative rounded-full overflow-hidden hover:scale-110 transition-transform duration-500"
                   style={{
                     width: '200px',
                     height: '200px',
@@ -108,12 +102,12 @@ const About = () => {
               </div>
 
               {/* Name & Title */}
-              <div className="relative z-10">
+              <div className="relative z-10 animate-fadeInUp delay-200">
                 <h3 className="text-2xl md:text-3xl font-black text-white mb-2">
                   Muhammad Imran Malik
                 </h3>
                 <div
-                  className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full mb-4"
+                  className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full mb-4 animate-scaleIn delay-300"
                   style={{
                     background: 'linear-gradient(135deg, #c9a55a, #f0c040)',
                     color: '#0a1628'
@@ -126,10 +120,10 @@ const About = () => {
                   Accurate Consultancy · Lahore, Pakistan
                 </p>
 
-                {/* Star Rating */}
-                <div className="flex items-center justify-center space-x-1 mb-6">
+                {/* Star Rating with Animation */}
+                <div className="flex items-center justify-center space-x-1 mb-6 animate-fadeInUp delay-400">
                   {[1, 2, 3, 4, 5].map((i) => (
-                    <Star key={i} size={18} fill="#c9a55a" style={{ color: '#c9a55a' }} />
+                    <Star key={i} size={18} fill="#c9a55a" style={{ color: '#c9a55a' }} className="animate-float" />
                   ))}
                   <span className="text-sm ml-2 font-semibold" style={{ color: '#c9a55a' }}>
                     4.9/5 Client Rating
@@ -137,11 +131,11 @@ const About = () => {
                 </div>
 
                 {/* Contact Buttons */}
-                <div className="flex items-center justify-center space-x-3 flex-wrap gap-2">
-                  <a
+                <div className="flex items-center justify-center space-x-3 flex-wrap gap-2 animate-slideInLeft delay-500">
+                  
                     href="mailto:imran@accurate-consultancy.com"
-                    aria-label="Send email to Accurate Consultancy"
-                    className="flex items-center space-x-2 px-4 py-2.5 rounded-full font-semibold text-sm transition-all hover:scale-105"
+                    aria-label="Send email"
+                    className="flex items-center space-x-2 px-4 py-2.5 rounded-full font-semibold text-sm transition-all hover:scale-110 hover:shadow-lg"
                     style={{
                       background: 'rgba(255,255,255,0.1)',
                       border: '1px solid rgba(255,255,255,0.2)',
@@ -155,10 +149,10 @@ const About = () => {
                     <span>Email</span>
                   </a>
                   
-                  <a
+                  
                     href="tel:+923160285386"
-                    aria-label="Call Accurate Consultancy"
-                    className="flex items-center space-x-2 px-4 py-2.5 rounded-full font-semibold text-sm transition-all hover:scale-105"
+                    aria-label="Call"
+                    className="flex items-center space-x-2 px-4 py-2.5 rounded-full font-semibold text-sm transition-all hover:scale-110 hover:shadow-lg"
                     style={{
                       background: 'rgba(255,255,255,0.1)',
                       border: '1px solid rgba(255,255,255,0.2)',
@@ -172,12 +166,12 @@ const About = () => {
                     <span>Call</span>
                   </a>
                   
-                  <a
+                  
                     href="https://wa.me/923160285386"
                     target="_blank"
                     rel="noopener noreferrer"
-                    aria-label="Chat on WhatsApp"
-                    className="flex items-center space-x-2 px-4 py-2.5 rounded-full font-semibold text-sm transition-all hover:scale-105"
+                    aria-label="WhatsApp"
+                    className="flex items-center space-x-2 px-4 py-2.5 rounded-full font-semibold text-sm transition-all hover:scale-110 hover:shadow-lg"
                     style={{
                       background: '#25D366',
                       color: 'white',
@@ -191,13 +185,10 @@ const About = () => {
             </div>
 
             {/* RIGHT — Bio & Expertise */}
-            <div className="p-10 bg-white flex flex-col justify-center">
+            <div className="p-10 bg-white flex flex-col justify-center animate-slideInRight">
               {/* Bio */}
-              <div className="mb-8">
-                <h4
-                  className="text-xl font-bold mb-4"
-                  style={{ color: '#0a1628' }}
-                >
+              <div className="mb-8 animate-fadeInUp delay-200">
+                <h4 className="text-xl font-bold mb-4" style={{ color: '#0a1628' }}>
                   About Muhammad Imran Malik
                 </h4>
                 <p className="text-gray-600 leading-relaxed mb-4" style={{ fontSize: '15px' }}>
@@ -219,28 +210,19 @@ const About = () => {
               </div>
 
               {/* Expertise Grid */}
-              <div className="mb-8">
-                <h4
-                  className="text-base font-bold mb-4 uppercase tracking-wide"
-                  style={{ color: '#0a1628' }}
-                >
+              <div className="mb-8 animate-fadeInUp delay-300">
+                <h4 className="text-base font-bold mb-4 uppercase tracking-wide" style={{ color: '#0a1628' }}>
                   Areas of Expertise
                 </h4>
                 <div className="grid grid-cols-2 gap-2">
                   {expertise.map((item, i) => (
                     <div
                       key={i}
-                      className="flex items-center space-x-2 py-2 px-3 rounded-xl"
-                      style={{ background: '#f8fafc', border: '1px solid #f0f0f0' }}
+                      className="flex items-center space-x-2 py-2 px-3 rounded-xl animate-fadeInUp hover:scale-105 transition-transform"
+                      style={{ background: '#f8fafc', border: '1px solid #f0f0f0', animationDelay: `${i * 0.05}s` }}
                     >
-                      <CheckCircle
-                        size={14}
-                        style={{ color: '#c9a55a', flexShrink: 0 }}
-                      />
-                      <span
-                        className="text-xs font-semibold"
-                        style={{ color: '#374151' }}
-                      >
+                      <CheckCircle size={14} style={{ color: '#c9a55a', flexShrink: 0 }} />
+                      <span className="text-xs font-semibold" style={{ color: '#374151' }}>
                         {item}
                       </span>
                     </div>
@@ -250,17 +232,17 @@ const About = () => {
 
               {/* Stats Row */}
               <div
-                className="grid grid-cols-4 gap-3 p-5 rounded-2xl"
+                className="grid grid-cols-4 gap-3 p-5 rounded-2xl animate-slideInLeft delay-400"
                 style={{
                   background: 'linear-gradient(135deg, #0a1628, #1a1060)',
                   border: '1px solid rgba(201,165,90,0.2)'
                 }}
               >
                 {achievements.map((a, i) => (
-                  <div key={i} className="text-center">
+                  <div key={i} className="text-center animate-fadeInUp" style={{ animationDelay: `${i * 0.1}s` }}>
                     <a.icon
                       size={18}
-                      className="mx-auto mb-1"
+                      className="mx-auto mb-1 hover:animate-rotate"
                       style={{ color: '#c9a55a' }}
                     />
                     <div
