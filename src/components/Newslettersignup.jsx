@@ -17,7 +17,7 @@ const NewsletterSignup = () => {
       formBody.append('Email', email);
       formBody.append('Source', 'Newsletter Signup - Footer');
 
-      const response = await fetch('https://formspree.io/f_xyzdefgh', {
+      const response = await fetch('https://formspree.io/f_xwvjvaag', {
         method: 'POST',
         body: formBody,
         headers: { 'Accept': 'application/json' }
