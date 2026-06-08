@@ -53,8 +53,8 @@ const ContinentsMap = () => (
 
 const Hero = () => {
   const yearsCount = useCounter(19, 2000);
-  const successCount = useCounter(98, 2000);
-  const casesCount = useCounter(5000, 2500);
+  const successCount = useCounter(90, 2000);
+  const casesCount = useCounter(2000, 2500);
   const countriesCount = useCounter(countriesData.length, 2000);
   const [hoveredCountry, setHoveredCountry] = useState(null);
 
