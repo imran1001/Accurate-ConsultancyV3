@@ -13,14 +13,17 @@ const NewsletterSignup = () => {
     setError('');
 
     try {
-      const formBody = new FormData();
-      formBody.append('Email', email);
-      formBody.append('Source', 'Newsletter Signup - Footer');
-
-      const response = await fetch('https://formspree.io/f_xwvjvaag', {
+      // Sending data as a clean JSON payload with lowercase keys
+      const response = await fetch('https://formspree.io/f/xwvjvaag', {
         method: 'POST',
-        body: formBody,
-        headers: { 'Accept': 'application/json' }
+        headers: { 
+          'Content-Type': 'application/json',
+          'Accept': 'application/json' 
+        },
+        body: JSON.stringify({
+          email: email,
+          source: 'Newsletter Signup - Footer'
+        })
       });
 
       if (response.ok) {
@@ -83,8 +86,8 @@ const NewsletterSignup = () => {
                 e.target.style.background = 'rgba(255,255,255,0.15)';
               }}
               onBlur={(e) => {
-                e.target.style.borderColor = 'rgba(201,165,90,0.3)';
-                e.target.style.background = 'rgba(255,255,255,0.1)';
+                e.target.style.borderColor = 'rgba(201,165,90,0.3)',
+                e.target.style.background = 'rgba(255,255,255,0.1)'
               }}
             />
           </div>
