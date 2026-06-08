@@ -55,7 +55,10 @@ const Hero = () => {
   const yearsCount = useCounter(19, 2000);
   const successCount = useCounter(90, 2000);
   const casesCount = useCounter(2000, 2500);
-  const countriesCount = useCounter(countriesData.length, 2000);
+  
+  // Changed from countriesData.length (10) to 50 to meet your requirements
+  const countriesCount = useCounter(50, 2000); 
+  
   const [hoveredCountry, setHoveredCountry] = useState(null);
 
   return (
