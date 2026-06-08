@@ -26,7 +26,7 @@ const pillars = [
 
 const stats = [
   { value: '4.9/5', label: 'Client Rating', icon: Star },
-  { value: '98%', label: 'Approval Rate', icon: CheckCircle },
+  { value: '90%', label: 'Approval Rate', icon: CheckCircle },
   { value: '19+', label: 'Years Active', icon: Award }
 ];
 
