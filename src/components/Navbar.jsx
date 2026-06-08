@@ -1,81 +1,466 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
+
+import { Menu, X, ChevronRight, Globe } from 'lucide-react';
+
+
+
+const Navbar = () => {
+
+
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+
+  const [scrolled, setScrolled] = useState(false);
+
+
+
+  useEffect(() => {
+
+
+    const handleScroll = () => setScrolled(window.scrollY > 30);
+
+
+    window.addEventListener('scroll', handleScroll);
+
+
+    return () => window.removeEventListener('scroll', handleScroll);
+
+
+  }, []);
+
+
+
+  const scrollToSection = (id) => {
+
+
+    const el = document.getElementById(id);
+
+
+    if (el) {
+
+
+      const top = el.getBoundingClientRect().top + window.pageYOffset - 96;
+
+
+      window.scrollTo({ top, behavior: 'smooth' });
+
+
+      setMobileMenuOpen(false);
+
+
+    }
+
+
+  };
+
+
+
+  const navLinks = [
+
+
+    { name: 'Services',     id: 'services'     },
+
+
+    { name: 'Destinations', id: 'destinations' },
+
+
+    { name: 'About',        id: 'about'        },
+
+
+    { name: 'Contact',      id: 'consultation' }
+
+
+  ];
+
+
 
   return (
-    <nav className="bg-[#0A192F] text-white w-full sticky top-0 z-50 border-b border-[#D4AF37]/20 shadow-lg backdrop-blur-md bg-opacity-95">
-      <div className="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
-        
-        {/* Brand Identity / Monogram */}
-        <a href="#" className="flex items-center space-x-3 group">
-          <div className="w-10 h-10 bg-gradient-to-br from-[#D4AF37] to-[#AA7C11] rounded flex items-center justify-center shadow-md shadow-black/30">
-            <span className="font-serif font-bold text-xl text-[#0A192F] tracking-wider">AC</span>
-          </div>
-          <div className="flex flex-col">
-            <span className="font-serif text-lg font-semibold tracking-wide text-white group-hover:text-[#D4AF37] transition duration-300">
-              Accurate Consultancy
-            </span>
-            <span className="text-[10px] tracking-widest uppercase text-gray-400">
-              Travel - Visa &amp; Immigration - Business consultancy
-            </span>
-          </div>
-        </a>
 
-        {/* Desktop Navigation Links */}
-        <ul className="hidden md:flex space-x-8 text-xs uppercase tracking-widest font-medium text-gray-300">
-          <li><a href="#hero" className="hover:text-[#D4AF37] transition duration-300 py-2">Home</a></li>
-          <li><a href="#services" className="hover:text-[#D4AF37] transition duration-300 py-2">Services</a></li>
-          <li><a href="#destinations" className="hover:text-[#D4AF37] transition duration-300 py-2">Destinations</a></li>
-          <li><a href="#about" className="hover:text-[#D4AF37] transition duration-300 py-2">About</a></li>
-          <li><a href="#faq" className="hover:text-[#D4AF37] transition duration-300 py-2">FAQ</a></li>
-        </ul>
 
-        {/* Action Button */}
-        <div className="hidden md:block">
-          <a 
-            href="#consultation" 
-            className="border border-[#D4AF37] text-[#D4AF37] hover:bg-[#D4AF37] hover:text-[#0A192F] px-5 py-2.5 rounded text-xs uppercase tracking-widest transition-all duration-300 font-semibold shadow-sm"
+    <nav
+
+
+      className="fixed top-0 left-0 right-0 z-50 transition-all duration-500"
+
+
+      style={{
+
+
+        background: scrolled ? 'rgba(1,6,16,0.97)' : 'rgba(1,6,16,0.85)',
+
+
+        backdropFilter: 'blur(24px)',
+
+
+        borderBottom: scrolled ? '1px solid rgba(201,165,90,0.25)' : '1px solid rgba(201,165,90,0.1)',
+
+
+        boxShadow: scrolled ? '0 8px 40px rgba(0,0,0,0.4)' : 'none'
+
+
+      }}
+
+
+    >
+
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+
+        <div className="flex justify-between items-center h-24">
+
+
+
+          {/* Logo */}
+
+
+          <button
+
+
+            onClick={() => scrollToSection('hero')}
+
+
+            className="flex items-center group focus:outline-none"
+
+
+            aria-label="Go to homepage"
+
+
           >
-            Book Consultation
-          </a>
+
+
+            <img
+
+
+              src="/logo.webp"
+
+
+              alt="Accurate Consultancy"
+
+
+              width="180"
+
+
+              height="70"
+
+
+              className="transition-all duration-300 group-hover:scale-105"
+
+
+              style={{
+
+
+                height: 'clamp(52px, 5.5vw, 76px)',
+
+
+                width: 'auto',
+
+
+                filter: 'drop-shadow(0 0 10px rgba(201,165,90,0.55)) brightness(1.05)'
+
+
+              }}
+
+
+            />
+
+
+          </button>
+
+
+
+          {/* Desktop Nav */}
+
+
+          <div className="hidden lg:flex items-center space-x-10">
+
+
+            {navLinks.map(item => (
+
+
+              <button
+
+
+                key={item.id}
+
+
+                onClick={() => scrollToSection(item.id)}
+
+
+                aria-label={'Go to ' + item.name + ' section'}
+
+
+                className="group relative py-2 text-sm font-semibold uppercase tracking-widest transition-colors duration-300"
+
+
+                style={{ color: 'rgba(255,255,255,0.75)' }}
+
+
+                onMouseEnter={e => { e.currentTarget.style.color = '#c9a55a'; }}
+
+
+                onMouseLeave={e => { e.currentTarget.style.color = 'rgba(255,255,255,0.75)'; }}
+
+
+              >
+
+
+                {item.name}
+
+
+                <span
+
+
+                  className="absolute bottom-0 left-0 w-0 h-0.5 group-hover:w-full transition-all duration-300 rounded-full"
+
+
+                  style={{ background: 'linear-gradient(90deg, #c9a55a, #f0c040)' }}
+
+
+                />
+
+
+              </button>
+
+
+            ))}
+
+
+          </div>
+
+
+
+          {/* CTA Button */}
+
+
+          <div className="hidden md:flex items-center">
+
+
+            <button
+
+
+              onClick={() => scrollToSection('consultation')}
+
+
+              aria-label="Book a consultation"
+
+
+              className="group flex items-center space-x-2 px-7 py-3 rounded-full font-bold text-sm uppercase tracking-wide transition-all duration-300 hover:scale-105"
+
+
+              style={{
+
+
+                background: 'linear-gradient(135deg, #c9a55a, #f0c040)',
+
+
+                color: '#0a1628',
+
+
+                boxShadow: '0 4px 20px rgba(201,165,90,0.35)'
+
+
+              }}
+
+
+              onMouseEnter={e => { e.currentTarget.style.boxShadow = '0 8px 30px rgba(201,165,90,0.6)'; }}
+
+
+              onMouseLeave={e => { e.currentTarget.style.boxShadow = '0 4px 20px rgba(201,165,90,0.35)'; }}
+
+
+            >
+
+
+              <Globe size={16} />
+
+
+              <span>Book Consultation</span>
+
+
+              <ChevronRight size={14} className="group-hover:translate-x-1 transition-transform duration-300" />
+
+
+            </button>
+
+
+          </div>
+
+
+
+          {/* Mobile Toggle */}
+
+
+          <button
+
+
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+
+
+            aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
+
+
+            aria-expanded={mobileMenuOpen}
+
+
+            className="lg:hidden p-2.5 rounded-xl transition-all duration-300"
+
+
+            style={{
+
+
+              color: 'white',
+
+
+              border: '1px solid rgba(201,165,90,0.25)',
+
+
+              background: mobileMenuOpen ? 'rgba(201,165,90,0.15)' : 'transparent'
+
+
+            }}
+
+
+          >
+
+
+            {mobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
+
+
+          </button>
+
+
         </div>
 
-        {/* Mobile Menu Button */}
-        <button 
-          onClick={() => setIsOpen(!isOpen)} 
-          className="md:hidden text-gray-300 hover:text-[#D4AF37] focus:outline-none"
-          aria-label="Toggle Menu"
-        >
-          <svg className="h-6 w-6 fill-current" viewBox="0 0 24 24">
-            {isOpen ? (
-              <path fillRule="evenodd" clipRule="evenodd" d="M18.278 16.864a1 1 0 01-1.414 1.414l-4.829-4.828-4.828 4.828a1 1 0 01-1.414-1.414l4.828-4.829-4.828-4.828a1 1 0 011.414-1.414l4.829 4.828 4.828-4.828a1 1 0 111.414 1.414l-4.828 4.829 4.828 4.828z" />
-            ) : (
-              <path fillRule="evenodd" d="M4 5h16a1 1 0 010 2H4a1 1 0 110-2zm0 6h16a1 1 0 010 2H4a1 1 0 010-2zm0 6h16a1 1 0 010 2H4a1 1 0 010-2z" />
-            )}
-          </svg>
-        </button>
+
       </div>
 
-      {/* Mobile Dropdown Panel */}
-      {isOpen && (
-        <div className="md:hidden bg-[#0F2447] border-t border-[#D4AF37]/10 px-6 py-4 space-y-4 shadow-xl">
-          <ul className="space-y-3 text-xs uppercase tracking-widest text-gray-300">
-            <li><a href="#hero" onClick={() => setIsOpen(false)} className="block hover:text-[#D4AF37] py-1">Home</a></li>
-            <li><a href="#services" onClick={() => setIsOpen(false)} className="block hover:text-[#D4AF37] py-1">Services</a></li>
-            <li><a href="#destinations" onClick={() => setIsOpen(false)} className="block hover:text-[#D4AF37] py-1">Destinations</a></li>
-            <li><a href="#about" onClick={() => setIsOpen(false)} className="block hover:text-[#D4AF37] py-1">About</a></li>
-            <li><a href="#faq" onClick={() => setIsOpen(false)} className="block hover:text-[#D4AF37] py-1">FAQ</a></li>
-          </ul>
-          <a 
-            href="#consultation" 
-            onClick={() => setIsOpen(false)}
-            className="block w-full text-center border border-[#D4AF37] text-[#D4AF37] bg-transparent py-2.5 rounded text-xs uppercase tracking-widest font-semibold"
-          >
-            Book Consultation
-          </a>
+
+
+      {/* Mobile Menu */}
+
+
+      <div
+
+
+        className={`lg:hidden overflow-hidden transition-all duration-300 ${mobileMenuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}
+
+
+        style={{ background: 'rgba(1,6,16,0.98)', borderTop: '1px solid rgba(201,165,90,0.15)' }}
+
+
+      >
+
+
+        <div className="px-4 py-5 space-y-1">
+
+
+          {navLinks.map(item => (
+
+
+            <button
+
+
+              key={item.id}
+
+
+              onClick={() => scrollToSection(item.id)}
+
+
+              aria-label={'Go to ' + item.name}
+
+
+              className="block w-full text-left py-3 px-4 rounded-xl font-semibold text-sm uppercase tracking-wide transition-all duration-300"
+
+
+              style={{ color: 'rgba(255,255,255,0.75)' }}
+
+
+              onMouseEnter={e => {
+
+
+                e.currentTarget.style.color = '#c9a55a';
+
+
+                e.currentTarget.style.background = 'rgba(201,165,90,0.08)';
+
+
+              }}
+
+
+              onMouseLeave={e => {
+
+
+                e.currentTarget.style.color = 'rgba(255,255,255,0.75)';
+
+
+                e.currentTarget.style.background = 'transparent';
+
+
+              }}
+
+
+            >
+
+
+              {item.name}
+
+
+            </button>
+
+
+          ))}
+
+
+          <div className="pt-2">
+
+
+            <button
+
+
+              onClick={() => scrollToSection('consultation')}
+
+
+              aria-label="Book a consultation"
+
+
+              className="w-full py-3.5 px-6 rounded-full font-bold text-sm uppercase tracking-wide"
+
+
+              style={{ background: 'linear-gradient(135deg, #c9a55a, #f0c040)', color: '#0a1628' }}
+
+
+            >
+
+
+              Book Consultation
+
+
+            </button>
+
+
+          </div>
+
+
         </div>
-      )}
+
+
+      </div>
+
+
     </nav>
+
+
   );
-}
+
+
+};
+
+
+
+export default Navbar;
+
+
+
+
