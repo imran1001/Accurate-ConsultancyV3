@@ -198,13 +198,13 @@ const About = () => {
                 </p>
                 <p className="text-gray-600 leading-relaxed mb-4" style={{ fontSize: '15px' }}>
                   As the <strong style={{ color: '#0a1628' }}>Founder & Managing Director</strong> of Accurate Consultancy, 
-                  he has personally guided over <strong style={{ color: '#0a1628' }}>5,000+ clients</strong> across 
+                  he has personally guided over <strong style={{ color: '#0a1628' }}>2,000+ clients</strong> across 
                   50+ countries — from visit visas to complex investor immigration programs in the USA, UK, 
                   Canada, and Australia.
                 </p>
                 <p className="text-gray-600 leading-relaxed" style={{ fontSize: '15px' }}>
                   His deep regulatory knowledge, ethical approach, and commitment to client success has 
-                  earned Accurate Consultancy a <strong style={{ color: '#c9a55a' }}>98% approval rate</strong> — 
+                  earned Accurate Consultancy a <strong style={{ color: '#c9a55a' }}>90% approval rate</strong> — 
                   one of the highest in the industry.
                 </p>
               </div>
