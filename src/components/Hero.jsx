@@ -88,7 +88,7 @@ const Hero = () => {
           </div>
         </div>
 
-        {/* =========== UPGRADED GLOBE SECTION =========== */}
+        {/* =========== GLOBE WITH GOLD WIREFRAME =========== */}
         <div className="lg:col-span-6 flex flex-col items-center justify-center relative min-h-[540px] mt-12 lg:mt-0">
           
           {/* Rotating decorative gold rings */}
@@ -115,81 +115,61 @@ const Hero = () => {
             })}
           </div>
 
-          {/* ===== IMPRESSIVE GLOBE ===== */}
+          {/* ===== SIMPLE BLUE SPHERE + GOLD LINES ===== */}
           <div className="relative w-72 h-72 rounded-full shadow-[0_0_80px_rgba(212,175,55,0.3)] flex items-center justify-center group">
             
-            {/* Outer gold glow ring */}
+            {/* Outer gold glow ring (pulsing) */}
             <div className="absolute -inset-1 rounded-full border-2 border-[#D4AF37]/30 animate-pulse" />
             
-            {/* The rotating globe sphere with gradient and detailed map */}
+            {/* The globe sphere */}
             <div className="relative w-full h-full rounded-full overflow-hidden bg-gradient-to-br from-[#0B1D3A] via-[#1A2D50] to-[#081326]">
               
-              {/* Animated rotation wrapper */}
+              {/* Rotating wireframe wrapper */}
               <div className="absolute inset-0 animate-spin-globe" style={{ animationDuration: '30s' }}>
                 <svg viewBox="0 0 400 400" className="w-full h-full">
                   <defs>
-                    <radialGradient id="globeBase" cx="40%" cy="30%" r="70%">
-                      <stop offset="0%" stopColor="#2A4A7F" stopOpacity="0.9" />
-                      <stop offset="50%" stopColor="#0B1D3A" stopOpacity="0.8" />
-                      <stop offset="100%" stopColor="#081326" stopOpacity="0.9" />
+                    <radialGradient id="blueSphere" cx="45%" cy="35%" r="70%">
+                      <stop offset="0%" stopColor="#2A5A8F" stopOpacity="0.95" />
+                      <stop offset="40%" stopColor="#0F2B5C" stopOpacity="0.9" />
+                      <stop offset="100%" stopColor="#081326" stopOpacity="0.95" />
                     </radialGradient>
-                    <linearGradient id="goldContinent" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" stopColor="#D4AF37" stopOpacity="0.6" />
-                      <stop offset="50%" stopColor="#F3E5AB" stopOpacity="0.8" />
-                      <stop offset="100%" stopColor="#D4AF37" stopOpacity="0.6" />
-                    </linearGradient>
-                    <radialGradient id="glowGlobe" cx="50%" cy="50%" r="50%">
-                      <stop offset="0%" stopColor="#D4AF37" stopOpacity="0.2" />
+                    <radialGradient id="sphereGlow" cx="50%" cy="50%" r="50%">
+                      <stop offset="0%" stopColor="#D4AF37" stopOpacity="0.15" />
                       <stop offset="100%" stopColor="#D4AF37" stopOpacity="0" />
                     </radialGradient>
-                    <filter id="goldGlow">
-                      <feGaussianBlur stdDeviation="2" result="blur" />
-                      <feMerge>
-                        <feMergeNode in="blur" />
-                        <feMergeNode in="SourceGraphic" />
-                      </feMerge>
-                    </filter>
                   </defs>
                   
-                  {/* Sphere background */}
-                  <circle cx="200" cy="200" r="190" fill="url(#globeBase)" />
-                  <circle cx="200" cy="200" r="190" fill="url(#glowGlobe)" />
+                  {/* Blue sphere background */}
+                  <circle cx="200" cy="200" r="190" fill="url(#blueSphere)" />
+                  <circle cx="200" cy="200" r="190" fill="url(#sphereGlow)" />
                   
-                  {/* Latitude/Longitude grid (gold) */}
-                  <g stroke="#D4AF37" strokeWidth="0.7" fill="none" opacity="0.25">
-                    {[40, 80, 120, 160, 200, 240, 280, 320].map(lon => (
-                      <path key={lon} d={`M ${lon},30 A 160,160 0 0,1 ${lon+20},30`} />
-                    ))}
-                    {[30, 60, 90, 120, 150].map(lat => (
-                      <circle key={lat} cx="200" cy="200" r={lat} />
-                    ))}
+                  {/* Gold wireframe – latitude lines (horizontal arcs) */}
+                  <g stroke="#D4AF37" strokeWidth="1.8" fill="none" opacity="0.7">
+                    {/* Equator */}
+                    <ellipse cx="200" cy="200" rx="160" ry="40" />
+                    {/* Latitude lines at ±30°, ±60° */}
+                    <ellipse cx="200" cy="200" rx="138" ry="20" />
+                    <ellipse cx="200" cy="200" rx="138" ry="60" />
+                    <ellipse cx="200" cy="200" rx="80" ry="10" />
+                    <ellipse cx="200" cy="200" rx="80" ry="70" />
+                    {/* Poles (small circles) */}
+                    <circle cx="200" cy="80" r="6" />
+                    <circle cx="200" cy="320" r="6" />
                   </g>
                   
-                  {/* Detailed continents with gold outlines and soft fill */}
-                  <g fill="rgba(212,175,55,0.12)" stroke="url(#goldContinent)" strokeWidth="1.8" filter="url(#goldGlow)">
-                    {/* North America - more detailed */}
-                    <path d="M 60,80 L 100,70 L 130,85 L 140,110 L 125,140 L 110,155 L 95,145 L 85,160 L 75,145 L 60,155 L 50,140 L 40,115 L 35,95 Z" />
-                    {/* South America */}
-                    <path d="M 95,175 L 120,165 L 140,175 L 150,200 L 140,230 L 120,245 L 105,230 L 85,205 L 75,185 Z" />
-                    {/* Europe */}
-                    <path d="M 155,80 L 185,70 L 205,80 L 215,105 L 200,125 L 185,115 L 170,110 L 155,100 Z" />
-                    {/* Africa */}
-                    <path d="M 155,135 L 190,125 L 215,135 L 225,165 L 215,200 L 190,215 L 170,200 L 150,175 L 145,155 Z" />
-                    {/* Asia */}
-                    <path d="M 230,75 L 270,65 L 300,80 L 310,110 L 295,145 L 260,155 L 235,140 L 220,120 L 210,100 Z" />
-                    {/* Australia */}
-                    <path d="M 280,210 L 310,200 L 335,210 L 345,235 L 325,250 L 295,245 L 275,230 Z" />
-                    {/* Additional islands (Japan, UK, etc.) - small */}
-                    <circle cx="330" cy="95" r="8" />
-                    <circle cx="120" cy="60" r="6" />
-                    <circle cx="280" cy="170" r="5" />
+                  {/* Gold wireframe – longitude lines (vertical ellipses) */}
+                  <g stroke="#D4AF37" strokeWidth="1.8" fill="none" opacity="0.7">
+                    <ellipse cx="200" cy="200" rx="40" ry="160" />
+                    <ellipse cx="200" cy="200" rx="80" ry="160" />
+                    <ellipse cx="200" cy="200" rx="120" ry="160" />
+                    <ellipse cx="200" cy="200" rx="160" ry="160" />
                   </g>
                   
-                  {/* Gold ring outline on the globe edge */}
-                  <circle cx="200" cy="200" r="188" fill="none" stroke="#D4AF37" strokeWidth="2" opacity="0.4" />
+                  {/* Outer gold ring around the sphere */}
+                  <circle cx="200" cy="200" r="188" stroke="#D4AF37" strokeWidth="2.5" fill="none" opacity="0.5" />
                   
-                  {/* Shine effect (top-left highlight) */}
-                  <ellipse cx="140" cy="140" rx="60" ry="40" fill="rgba(255,255,255,0.04)" transform="rotate(-30, 140, 140)" />
+                  {/* Subtle shine (top-left highlight) */}
+                  <ellipse cx="150" cy="120" rx="70" ry="40" fill="rgba(255,255,255,0.06)" transform="rotate(-30, 150, 120)" />
                 </svg>
               </div>
               
@@ -223,7 +203,7 @@ const Hero = () => {
             Global Destinations
           </div>
         </div>
-        {/* =========== END UPGRADED GLOBE =========== */}
+        {/* =========== END GLOBE =========== */}
 
       </div>
 
