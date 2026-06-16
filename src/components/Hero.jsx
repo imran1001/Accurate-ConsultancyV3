@@ -44,7 +44,7 @@ const countriesData = [
 const RotatingGlobe = ({ rotation, mousePosition }) => {
   const centerX = 480;
   const centerY = 300;
-  const radius = 320; // Increased from 260
+  const radius = 320;
 
   // Project latitude/longitude to 2D coordinates
   const projectTo2D = (lat, lng, rotX = 0, rotY = 0) => {
@@ -140,10 +140,10 @@ const RotatingGlobe = ({ rotation, mousePosition }) => {
       
       <circle cx={centerX} cy={centerY} r={radius} className="globe-bg" stroke="rgba(201,165,90,0.2)" strokeWidth="2"/>
       
-      {/* Outer glow rings */}
+      {/* Outer glow rings - FIXED: Using array notation */}
       <circle cx={centerX} cy={centerY} r={radius + 30} fill="url(#globeGlow)" opacity="0.6"/>
       <circle cx={centerX} cy={centerY} r={radius + 60} fill="url(#globeGlow)" opacity="0.3">
-        <animate attributeName="r" values={radius + 55;radius + 65;radius + 55} dur="3s" repeatCount="indefinite"/>
+        <animate attributeName="r" values={`${radius + 55};${radius + 65};${radius + 55}`} dur="3s" repeatCount="indefinite"/>
         <animate attributeName="opacity" values="0.3;0.5;0.3" dur="3s" repeatCount="indefinite"/>
       </circle>
 
@@ -261,7 +261,7 @@ const RotatingGlobe = ({ rotation, mousePosition }) => {
               textAnchor="middle"
               fontSize={14 * pos.scale}
               opacity={0.6 + 0.4 * pos.scale}
-              filter="drop-shadow(0 2px 4px rgba(0,0,0,0.3))"
+              style={{ filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.3))' }}
             >
               {country.flag}
             </text>
@@ -390,7 +390,6 @@ const Hero = () => {
   
   const [rotation, setRotation] = useState(0);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [hoveredCountry, setHoveredCountry] = useState(null);
   const heroRef = useRef(null);
 
   // Smooth rotation animation
