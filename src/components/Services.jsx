@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { 
   Plane, Briefcase, GraduationCap, Users, Building2, Compass, 
   ChevronRight, X, Clock, FileText, Sparkles, Star, 
-  Shield, Award, TrendingUp, CheckCircle 
+  Shield, Award, TrendingUp, CheckCircle, Globe
 } from 'lucide-react';
 
 const serviceData = [
