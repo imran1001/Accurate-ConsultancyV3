@@ -1,435 +1,364 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { CheckCircle, ChevronRight, MapPin, Globe, Sparkles, Star, Users, TrendingUp, Clock } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Play, ArrowRight, Globe, MapPin, ChevronRight } from 'lucide-react';
 
-const destinations = {
-  usa: {
-    name: 'United States',
-    flag: '🇺🇸',
-    tagline: 'Land of opportunity awaits you',
-    color: '#3b82f6',
-    gradient: 'from-blue-600 to-blue-400',
-    highlights: ['E-2 Treaty Investor Program', 'L1-A Executive Transfer', 'F-1 Student Visa', 'B1/B2 Tourist Visa'],
-    stats: { visas: '50+', success: '92%', time: '3-6 months' },
-    image: '🗽'
-  },
-  uk: {
-    name: 'United Kingdom',
-    flag: '🇬🇧',
-    tagline: 'Gateway to Europe and beyond',
-    color: '#ef4444',
-    gradient: 'from-red-600 to-red-400',
-    highlights: ['Skilled Worker Visa', 'Student Route Visa', 'Innovator Founder', 'Standard Visitor Visa'],
-    stats: { visas: '40+', success: '88%', time: '2-5 months' },
-    image: '🏰'
-  },
-  canada: {
-    name: 'Canada',
-    flag: '🇨🇦',
-    tagline: "World's most welcoming nation",
-    color: '#ef4444',
-    gradient: 'from-red-600 to-red-400',
-    highlights: ['Skilled Migration', 'C11 Work Permit', 'Study Permit', 'Startup Visa'],
-    stats: { visas: '45+', success: '94%', time: '4-8 months' },
-    image: '🍁'
-  },
-  australia: {
-    name: 'Australia',
-    flag: '🇦🇺',
-    tagline: 'Sunshine, opportunity, and growth',
-    color: '#f59e0b',
-    gradient: 'from-amber-600 to-amber-400',
-    highlights: ['Skilled Migration', 'Business Innovation', 'Student Visa', 'Visitor Visa (subclass 600)'],
-    stats: { visas: '35+', success: '90%', time: '3-7 months' },
-    image: '🦘'
-  },
-  uae: {
-    name: 'United Arab Emirates',
-    flag: '🇦🇪',
-    tagline: 'Business hub of the Middle East',
-    color: '#10b981',
-    gradient: 'from-emerald-600 to-emerald-400',
-    highlights: ['Golden Visa', 'Business Setup', 'Employment Visa', 'Tourist Visa'],
-    stats: { visas: '30+', success: '95%', time: '1-3 months' },
-    image: '🏙️'
-  },
-  europe: {
-    name: 'Europe',
-    flag: '🇪🇺',
-    tagline: 'Schengen access across 27 nations',
-    color: '#3b82f6',
-    gradient: 'from-blue-600 to-blue-400',
-    highlights: ['Schengen Visa', 'Skilled Migration', 'Jobseeker Visa', 'Student Exchange'],
-    stats: { visas: '55+', success: '87%', time: '2-4 months' },
-    image: '🏛️'
-  },
-  newzealand: {
-    name: 'New Zealand',
-    flag: '🇳🇿',
-    tagline: 'Pure nature, pure opportunity',
-    color: '#8b5cf6',
-    gradient: 'from-purple-600 to-purple-400',
-    highlights: ['Skilled Migrant', 'Investor Visa', 'Student Visa', 'Essential Skills'],
-    stats: { visas: '25+', success: '93%', time: '4-9 months' },
-    image: '🌿'
-  }
+// Counter Hook
+const useCounter = (end, duration = 2000, start = 0) => {
+  const [count, setCount] = useState(start);
+  useEffect(() => {
+    let startTime = null;
+    const animate = (currentTime) => {
+      if (!startTime) startTime = currentTime;
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+      const value = Math.floor(easeOutQuart * (end - start) + start);
+      setCount(value);
+      if (progress < 1) requestAnimationFrame(animate);
+    };
+    const frameId = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(frameId);
+  }, [end, duration, start]);
+  return count;
 };
 
-const Destinations = () => {
-  const [active, setActive] = useState('usa');
-  const [isHovered, setIsHovered] = useState(false);
-  const [isVisible, setIsVisible] = useState(false);
-  const sectionRef = useRef(null);
+// Enhanced country data with more destinations
+const countriesData = [
+  { flag: '🇺🇸', name: 'United States', angle: 0, color: '#FF6B6B' },
+  { flag: '🇬🇧', name: 'United Kingdom', angle: 36, color: '#4ECDC4' },
+  { flag: '🇪🇸', name: 'Spain', angle: 72, color: '#FFE66D' },
+  { flag: '🇩🇪', name: 'Germany', angle: 108, color: '#A8E6CF' },
+  { flag: '🇵🇹', name: 'Portugal', angle: 144, color: '#FF8B94' },
+  { flag: '🇨🇦', name: 'Canada', angle: 180, color: '#88D8B0' },
+  { flag: '🇦🇺', name: 'Australia', angle: 216, color: '#FFD93D' },
+  { flag: '🇨🇳', name: 'China', angle: 252, color: '#6BCB77' },
+  { flag: '🇳🇿', name: 'New Zealand', angle: 288, color: '#4D96FF' },
+  { flag: '🇦🇪', name: 'UAE', angle: 324, color: '#FF6B6B' },
+  { flag: '🇸🇬', name: 'Singapore', angle: 18, color: '#FF4757' },
+  { flag: '🇯🇵', name: 'Japan', angle: 54, color: '#2ED573' },
+  { flag: '🇫🇷', name: 'France', angle: 90, color: '#1E90FF' },
+  { flag: '🇮🇹', name: 'Italy', angle: 126, color: '#FF6B81' },
+  { flag: '🇳🇱', name: 'Netherlands', angle: 162, color: '#FFA502' },
+];
 
+const ContinentsMap = () => (
+  <svg viewBox="0 0 960 600" className="w-full h-full" style={{ opacity: 0.6 }}>
+    <defs>
+      <style>
+        {`
+          .continent { 
+            fill: rgba(201,165,90,0.15); 
+            stroke: rgba(201,165,90,0.3); 
+            stroke-width: 1.5;
+            transition: all 0.3s ease;
+          }
+          .continent:hover {
+            fill: rgba(201,165,90,0.25);
+            stroke: rgba(201,165,90,0.5);
+          }
+          .water { 
+            fill: rgba(10,22,40,0.1);
+          }
+          .grid-line {
+            stroke: rgba(201,165,90,0.05);
+            stroke-width: 0.5;
+          }
+        `}
+      </style>
+      <radialGradient id="glow">
+        <stop offset="0%" stopColor="#c9a55a" stopOpacity="0.3"/>
+        <stop offset="100%" stopColor="#c9a55a" stopOpacity="0"/>
+      </radialGradient>
+    </defs>
+    <rect className="water" width="960" height="600" />
+    {/* Grid lines for depth */}
+    <line x1="0" y1="100" x2="960" y2="100" className="grid-line" />
+    <line x1="0" y1="200" x2="960" y2="200" className="grid-line" />
+    <line x1="0" y1="300" x2="960" y2="300" className="grid-line" />
+    <line x1="0" y1="400" x2="960" y2="400" className="grid-line" />
+    <line x1="0" y1="500" x2="960" y2="500" className="grid-line" />
+    <line x1="200" y1="0" x2="200" y2="600" className="grid-line" />
+    <line x1="400" y1="0" x2="400" y2="600" className="grid-line" />
+    <line x1="600" y1="0" x2="600" y2="600" className="grid-line" />
+    <line x1="800" y1="0" x2="800" y2="600" className="grid-line" />
+    {/* Enhanced continents with more detail */}
+    <g className="continent">
+      {/* North America */}
+      <path d="M 120,80 L 200,60 L 280,80 L 300,120 L 280,180 L 240,200 L 200,180 L 180,220 L 160,200 L 120,180 L 100,140 Z" />
+      {/* South America */}
+      <path d="M 220,220 L 260,210 L 300,230 L 320,280 L 300,330 L 260,360 L 240,340 L 220,300 L 200,260 Z" />
+      {/* Europe */}
+      <path d="M 380,100 L 450,80 L 480,120 L 490,180 L 450,200 L 420,180 L 390,160 L 370,140 Z" />
+      {/* Africa */}
+      <path d="M 380,220 L 420,200 L 460,210 L 480,260 L 460,320 L 420,350 L 390,320 L 370,280 Z" />
+      {/* Asia */}
+      <path d="M 500,80 L 580,60 L 650,80 L 680,120 L 650,180 L 600,200 L 550,180 L 520,160 L 500,140 Z" />
+      {/* Australia */}
+      <path d="M 700,340 L 760,320 L 800,340 L 820,380 L 780,400 L 720,380 L 700,360 Z" />
+      {/* Antartica */}
+      <path d="M 100,500 L 400,480 L 700,500 L 800,520 L 600,550 L 300,550 L 100,520 Z" />
+    </g>
+  </svg>
+);
+
+const Hero = () => {
+  const yearsCount = useCounter(19, 2000);
+  const successCount = useCounter(90, 2000);
+  const casesCount = useCounter(2000, 2500);
+  const countriesCount = useCounter(50, 2000);
+  
+  const [hoveredCountry, setHoveredCountry] = useState(null);
+  const [rotation, setRotation] = useState(0);
+
+  // Smooth rotation animation
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    return () => {
-      if (sectionRef.current) {
-        observer.unobserve(sectionRef.current);
-      }
-    };
+    const interval = setInterval(() => {
+      setRotation(prev => (prev + 0.5) % 360);
+    }, 50);
+    return () => clearInterval(interval);
   }, []);
 
-  const handleTabChange = (key) => {
-    setActive(key);
-  };
-
-  const dest = destinations[active];
-
   return (
-    <section 
-      id="destinations" 
-      ref={sectionRef}
-      className="py-24 px-4 sm:px-6 lg:px-8 relative overflow-hidden"
-      style={{ 
-        background: 'linear-gradient(180deg, #f0f4ff 0%, #f8fafc 50%, #fef9ec 100%)' 
-      }}
-    >
-      {/* Background Decorations */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div 
-          className="absolute top-20 right-20 w-96 h-96 rounded-full blur-3xl opacity-20"
-          style={{ 
-            background: 'radial-gradient(circle, #c9a55a, transparent 70%)',
-            animation: 'float 20s ease-in-out infinite'
-          }} 
-        />
-        <div 
-          className="absolute bottom-20 left-20 w-80 h-80 rounded-full blur-3xl opacity-15"
-          style={{ 
-            background: 'radial-gradient(circle, #3b4fca, transparent 70%)',
-            animation: 'float 15s ease-in-out infinite reverse'
-          }} 
-        />
-        <div className="absolute inset-0" style={{
-          backgroundImage: 'radial-gradient(circle, rgba(201,165,90,0.03) 1px, transparent 1px)',
-          backgroundSize: '40px 40px'
-        }} />
-      </div>
+    <section className="relative min-h-screen pt-32 pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden flex items-center" style={{ 
+      background: 'linear-gradient(135deg, #010610 0%, #0a1628 40%, #160d50 70%, #1a0a30 100%)' 
+    }}>
+      {/* Enhanced animated background elements */}
+      <div className="absolute top-10 right-10 w-96 h-96 rounded-full blur-3xl opacity-20 pointer-events-none" style={{ 
+        background: 'radial-gradient(circle, #c9a55a, transparent)',
+        animation: 'float 20s ease-in-out infinite' 
+      }} />
+      <div className="absolute bottom-0 left-20 w-80 h-80 rounded-full blur-3xl opacity-15 pointer-events-none" style={{ 
+        background: 'radial-gradient(circle, #3b4fca, transparent)',
+        animation: 'float 15s ease-in-out infinite reverse' 
+      }} />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full blur-3xl opacity-5 pointer-events-none" style={{ 
+        background: 'radial-gradient(circle, #c9a55a, transparent)',
+        animation: 'pulse 8s ease-in-out infinite' 
+      }} />
+      
+      {/* Grid overlay for depth */}
+      <div className="absolute inset-0 pointer-events-none" style={{
+        backgroundImage: 'radial-gradient(circle, rgba(201,165,90,0.03) 1px, transparent 1px)',
+        backgroundSize: '50px 50px'
+      }} />
 
-      <div className="max-w-7xl mx-auto relative z-10">
-        {/* Enhanced Header */}
-        <div className={`text-center mb-14 transition-all duration-1000 transform ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-4" style={{
-            background: 'rgba(201,165,90,0.1)',
-            border: '1px solid rgba(201,165,90,0.2)'
+      <div className="max-w-7xl mx-auto w-full relative z-10 grid lg:grid-cols-2 gap-16 items-center">
+        {/* Left Column */}
+        <div>
+          <div className="inline-flex items-center space-x-3 mb-8 px-4 py-2 rounded-full animate-fadeInUp" style={{ 
+            background: 'linear-gradient(135deg, rgba(201,165,90,0.2), rgba(240,192,64,0.1))',
+            border: '1px solid rgba(201,165,90,0.3)',
+            backdropFilter: 'blur(10px)',
+            boxShadow: '0 0 30px rgba(201,165,90,0.1)'
           }}>
-            <Globe size={16} style={{ color: '#c9a55a' }} />
-            <span className="font-bold text-xs tracking-[0.3em] uppercase" style={{ color: '#c9a55a' }}>
-              Where We Work
-            </span>
+            <span className="w-2 h-2 rounded-full bg-[#c9a55a] animate-pulse"></span>
+            <span className="text-xs font-bold text-white uppercase tracking-wider">Est. 2006 • Global Leaders</span>
           </div>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mt-3 mb-4" style={{ color: '#0a1628' }}>
-            Featured{' '}
-            <span style={{
-              background: 'linear-gradient(135deg, #c9a55a, #f0c040)',
+
+          <h1 className="text-5xl md:text-6xl lg:text-7xl font-black leading-tight mb-6 animate-fadeInUp delay-100">
+            <span style={{ color: 'white' }}>Navigate Your Journey to </span>
+            <span style={{ 
+              background: 'linear-gradient(90deg, #c9a55a, #f0c040, #ffd700, #f0c040, #c9a55a)',
+              backgroundSize: '300% 100%',
               WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent'
-            }}>
-              Destinations
-            </span>
-          </h2>
-          <p className="text-gray-500 text-lg max-w-2xl mx-auto">
-            Expert guidance for every major immigration destination worldwide
+              WebkitTextFillColor: 'transparent',
+              animation: 'textShimmer 4s ease-in-out infinite'
+            }}>Global Success</span>
+          </h1>
+
+          <p className="text-lg md:text-xl leading-relaxed mb-8 animate-fadeInUp delay-200" style={{ 
+            color: 'rgba(255,255,255,0.8)',
+            maxWidth: '500px'
+          }}>
+            Premium visa and immigration consultancy delivering seamless pathways to your dream destination.
           </p>
+
+          <div className="flex flex-col sm:flex-row items-center gap-4 mb-12 animate-slideInLeft delay-300">
+            <a href="#consultation" className="group flex items-center gap-3 px-8 py-4 rounded-full font-bold text-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl" style={{ 
+              background: 'linear-gradient(135deg, #c9a55a, #f0c040)',
+              color: '#0a1628',
+              textDecoration: 'none',
+              boxShadow: '0 0 40px rgba(201,165,90,0.3)'
+            }}>
+              <Play size={18} className="group-hover:scale-110 transition-transform" />
+              Get Started Today
+              <ChevronRight size={18} className="group-hover:translate-x-1 transition-transform" />
+            </a>
+            <a href="#services" className="flex items-center gap-2 px-6 py-4 rounded-full font-semibold text-white transition-all duration-300 hover:scale-105" style={{ 
+              background: 'rgba(255,255,255,0.05)',
+              border: '1px solid rgba(255,255,255,0.1)',
+              backdropFilter: 'blur(10px)',
+              textDecoration: 'none'
+            }}>
+              Explore Services
+              <ArrowRight size={18} />
+            </a>
+          </div>
+
+          {/* Enhanced Stats with better visibility */}
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+            {[
+              { icon: '🌟', value: yearsCount, label: 'Years Experience', suffix: '+' },
+              { icon: '📈', value: successCount, label: 'Success Rate', suffix: '%' },
+              { icon: '🎯', value: casesCount, label: 'Approved Cases', suffix: '+' },
+              { icon: '🌍', value: countriesCount, label: 'Global Corridors', suffix: '+' }
+            ].map((stat, i) => (
+              <div key={i} className="group p-4 rounded-2xl text-center animate-fadeInUp transition-all duration-300 hover:scale-105 hover:shadow-2xl" style={{ 
+                background: 'linear-gradient(135deg, rgba(201,165,90,0.15), rgba(240,192,64,0.05))',
+                border: '1px solid rgba(201,165,90,0.2)',
+                backdropFilter: 'blur(10px)',
+                animationDelay: `${i * 0.1}s`
+              }}>
+                <div className="text-3xl mb-2 group-hover:scale-110 transition-transform">{stat.icon}</div>
+                <div className="text-2xl font-black" style={{ 
+                  color: '#c9a55a',
+                  textShadow: '0 0 20px rgba(201,165,90,0.2)'
+                }}>
+                  {stat.value}{stat.suffix}
+                </div>
+                <div className="text-xs font-medium uppercase tracking-wider mt-1" style={{ color: 'rgba(255,255,255,0.6)' }}>
+                  {stat.label}
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
 
-        {/* Enhanced Country Tabs */}
-        <div className={`flex flex-wrap justify-center gap-3 mb-10 transition-all duration-1000 delay-200 transform ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
-          {Object.entries(destinations).map(([key, d], index) => {
-            const isActive = active === key;
+        {/* Right Column - Enhanced Globe */}
+        <div className="hidden lg:flex items-center justify-center relative h-[500px]">
+          {/* Outer glow ring */}
+          <div className="absolute w-[400px] h-[400px] rounded-full" style={{
+            background: 'radial-gradient(circle, rgba(201,165,90,0.1), transparent 70%)',
+            animation: 'pulse 4s ease-in-out infinite'
+          }} />
+          
+          {/* Main globe container */}
+          <div className="relative w-80 h-80 rounded-full overflow-hidden" style={{ 
+            background: 'linear-gradient(135deg, #1a1060, #0a1628)',
+            boxShadow: '0 0 80px rgba(201,165,90,0.3), inset 0 0 80px rgba(201,165,90,0.1)',
+            border: '2px solid rgba(201,165,90,0.3)'
+          }}>
+            <div className="absolute inset-0" style={{ 
+              background: 'radial-gradient(circle at 30% 30%, rgba(201,165,90,0.1), transparent 70%)',
+              pointerEvents: 'none'
+            }} />
+            <div style={{ animation: 'panGlobalMap 30s linear infinite' }}>
+              <ContinentsMap />
+            </div>
+            
+            {/* Inner glow overlay */}
+            <div className="absolute inset-0 pointer-events-none" style={{
+              background: 'radial-gradient(circle at center, transparent 30%, rgba(10,22,40,0.5) 100%)'
+            }} />
+          </div>
+
+          {/* Country markers with improved visibility */}
+          {countriesData.map((country, index) => {
+            const angle = (index / countriesData.length) * 360;
             return (
-              <button
-                key={key}
-                onClick={() => handleTabChange(key)}
-                className="group relative flex items-center gap-2 px-5 py-3 rounded-full font-semibold text-sm transition-all duration-300 hover:scale-105"
-                style={{
-                  background: isActive 
-                    ? 'linear-gradient(135deg, #c9a55a, #f0c040)' 
-                    : 'rgba(255,255,255,0.8)',
-                  color: isActive ? '#0a1628' : '#374151',
-                  border: isActive 
-                    ? 'none' 
-                    : '1px solid rgba(201,165,90,0.15)',
-                  boxShadow: isActive 
-                    ? '0 8px 30px rgba(201,165,90,0.4)' 
-                    : '0 2px 8px rgba(0,0,0,0.04)',
-                  transform: isActive ? 'scale(1.05)' : 'scale(1)',
-                  transitionDelay: `${index * 30}ms`
-                }}
-                onMouseEnter={(e) => {
-                  if (!isActive) {
-                    e.currentTarget.style.borderColor = 'rgba(201,165,90,0.4)';
-                    e.currentTarget.style.boxShadow = '0 4px 15px rgba(201,165,90,0.15)';
-                  }
-                }}
-                onMouseLeave={(e) => {
-                  if (!isActive) {
-                    e.currentTarget.style.borderColor = 'rgba(201,165,90,0.15)';
-                    e.currentTarget.style.boxShadow = '0 2px 8px rgba(0,0,0,0.04)';
-                  }
+              <div 
+                key={index} 
+                className="absolute"
+                style={{ 
+                  transform: `rotate(${rotation + angle}deg) translateX(200px)`,
+                  transition: 'transform 0.1s linear'
                 }}
               >
-                <span className="text-xl group-hover:scale-110 transition-transform duration-300">{d.flag}</span>
-                <span>{d.name}</span>
-                {isActive && (
-                  <span className="absolute -top-1 -right-1 w-3 h-3 rounded-full animate-pulse" style={{ background: '#c9a55a' }} />
-                )}
-              </button>
-            );
-          })}
-        </div>
-
-        {/* Enhanced Destination Card */}
-        <div 
-          key={active}
-          className="rounded-3xl overflow-hidden shadow-2xl transition-all duration-700 hover:shadow-[0_20px_80px_rgba(201,165,90,0.2)]"
-          style={{ 
-            border: '1px solid rgba(201,165,90,0.15)',
-            background: 'rgba(255,255,255,0.9)',
-            backdropFilter: 'blur(10px)',
-            transform: isVisible ? 'scale(1)' : 'scale(0.95)',
-            transition: 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)'
-          }}
-        >
-          {/* Card Header with Enhanced Design */}
-          <div 
-            className="p-8 md:p-10 text-white relative overflow-hidden"
-            style={{ 
-              background: `linear-gradient(135deg, #020818 0%, #0a1628 40%, ${dest.color} 100%)`,
-            }}
-          >
-            {/* Animated background elements */}
-            <div className="absolute inset-0 pointer-events-none">
-              <div 
-                className="absolute top-0 right-0 w-96 h-96 rounded-full blur-3xl opacity-20"
-                style={{ 
-                  background: `radial-gradient(circle, ${dest.color}, transparent)`,
-                  animation: 'float 20s ease-in-out infinite'
-                }} 
-              />
-              <div 
-                className="absolute bottom-0 left-0 w-64 h-64 rounded-full blur-3xl opacity-10"
-                style={{ 
-                  background: `radial-gradient(circle, ${dest.color}, transparent)`,
-                  animation: 'float 15s ease-in-out infinite reverse'
-                }} 
-              />
-              {/* Decorative dots */}
-              <div className="absolute top-10 right-20 opacity-10">
-                <div className="grid grid-cols-3 gap-2">
-                  {[...Array(9)].map((_, i) => (
-                    <div key={i} className="w-1.5 h-1.5 rounded-full" style={{ background: dest.color }} />
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-4">
-              <div className="flex items-center gap-5">
-                <div className="relative">
-                  <div 
-                    className="text-7xl md:text-8xl animate-float"
-                    style={{ animationDelay: '0.5s' }}
-                  >
-                    {dest.flag}
-                  </div>
-                  <div 
-                    className="absolute -bottom-2 -right-2 text-2xl animate-pulse"
-                    style={{ animationDuration: '2s' }}
-                  >
-                    {dest.image}
-                  </div>
-                </div>
-                <div>
-                  <h3 className="text-3xl md:text-4xl font-bold tracking-tight">{dest.name}</h3>
-                  <div className="flex items-center gap-2 mt-2">
-                    <MapPin size={16} style={{ color: '#c9a55a' }} />
-                    <p className="text-white/70">{dest.tagline}</p>
-                  </div>
-                </div>
-              </div>
-              <div className="flex items-center gap-6">
-                <div className="text-center">
-                  <div className="text-xs text-white/50 uppercase tracking-wider">Programs</div>
-                  <div className="text-2xl font-bold" style={{ color: '#c9a55a' }}>{dest.highlights.length}+</div>
-                </div>
-                <div className="w-px h-10" style={{ background: 'rgba(255,255,255,0.1)' }} />
-                <div className="text-center">
-                  <div className="text-xs text-white/50 uppercase tracking-wider">Success Rate</div>
-                  <div className="text-2xl font-bold" style={{ color: '#c9a55a' }}>{dest.stats.success}</div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Highlights Grid with Enhanced Design */}
-          <div className="p-8 md:p-10">
-            <div className="flex items-center gap-2 mb-6">
-              <Sparkles size={18} style={{ color: '#c9a55a' }} />
-              <h4 className="text-sm font-bold uppercase tracking-wider" style={{ color: '#0a1628' }}>
-                Key Immigration Programs
-              </h4>
-            </div>
-
-            <div className="grid sm:grid-cols-2 gap-4 mb-8">
-              {dest.highlights.map((h, i) => (
                 <div 
-                  key={i}
-                  className="group relative p-4 rounded-2xl transition-all duration-300 cursor-default overflow-hidden"
-                  style={{
-                    background: 'linear-gradient(135deg, rgba(240,244,255,0.8), rgba(254,249,236,0.8))',
-                    border: '1px solid rgba(201,165,90,0.1)',
-                    transform: isVisible ? 'translateX(0)' : 'translateX(-20px)',
-                    transition: `all 0.5s cubic-bezier(0.4, 0, 0.2, 1) ${i * 0.05}s`
+                  className="relative group"
+                  style={{ 
+                    transform: `rotate(-${rotation + angle}deg)`,
+                    cursor: 'pointer'
                   }}
-                  onMouseEnter={e => {
-                    e.currentTarget.style.borderColor = 'rgba(201,165,90,0.4)';
-                    e.currentTarget.style.boxShadow = '0 10px 30px rgba(201,165,90,0.12)';
-                    e.currentTarget.style.transform = 'scale(1.03)';
-                  }}
-                  onMouseLeave={e => {
-                    e.currentTarget.style.borderColor = 'rgba(201,165,90,0.1)';
-                    e.currentTarget.style.boxShadow = 'none';
-                    e.currentTarget.style.transform = 'scale(1)';
-                  }}
+                  onMouseEnter={() => setHoveredCountry(index)}
+                  onMouseLeave={() => setHoveredCountry(null)}
                 >
-                  <div className="flex items-center gap-3">
-                    <div 
-                      className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 transition-all duration-300 group-hover:scale-110 group-hover:rotate-12"
-                      style={{ 
-                        background: 'linear-gradient(135deg, #c9a55a, #f0c040)',
-                        boxShadow: '0 4px 15px rgba(201,165,90,0.3)'
-                      }}
-                    >
-                      <CheckCircle size={18} style={{ color: '#0a1628' }} />
-                    </div>
-                    <span className="font-semibold text-sm" style={{ color: '#0a1628' }}>{h}</span>
-                  </div>
-                  {/* Hover line */}
-                  <div 
-                    className="absolute bottom-0 left-0 h-0.5 rounded-full transition-all duration-300 group-hover:w-full"
-                    style={{ 
-                      background: 'linear-gradient(90deg, #c9a55a, #f0c040)',
-                      width: '0%'
-                    }} 
-                  />
-                </div>
-              ))}
-            </div>
-
-            {/* Stats Row */}
-            <div className="grid grid-cols-3 gap-4 mb-8 p-4 rounded-2xl" style={{
-              background: 'linear-gradient(135deg, rgba(10,22,40,0.05), rgba(201,165,90,0.05))',
-              border: '1px solid rgba(201,165,90,0.1)'
-            }}>
-              {[
-                { icon: <Users size={16} />, label: 'Visa Types', value: dest.stats.visas },
-                { icon: <TrendingUp size={16} />, label: 'Success Rate', value: dest.stats.success },
-                { icon: <Clock size={16} />, label: 'Processing Time', value: dest.stats.time }
-              ].map((stat, i) => (
-                <div key={i} className="text-center">
-                  <div className="flex items-center justify-center gap-1.5 mb-1" style={{ color: '#c9a55a' }}>
-                    {stat.icon}
-                    <span className="text-xs font-medium uppercase tracking-wider" style={{ color: 'rgba(10,22,40,0.5)' }}>
-                      {stat.label}
+                  <div className="relative">
+                    <div className="absolute inset-0 rounded-full blur-md opacity-50 group-hover:opacity-100 transition-opacity" style={{
+                      background: `radial-gradient(circle, ${country.color}, transparent)`,
+                      transform: 'scale(1.5)'
+                    }} />
+                    <span className="relative text-2xl block group-hover:scale-125 transition-transform duration-300">
+                      {country.flag}
                     </span>
                   </div>
-                  <div className="font-bold" style={{ color: '#0a1628' }}>{stat.value}</div>
+                  
+                  {/* Tooltip with improved visibility */}
+                  {hoveredCountry === index && (
+                    <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-1.5 rounded-lg whitespace-nowrap font-medium text-xs" style={{
+                      background: 'rgba(10,22,40,0.95)',
+                      border: '1px solid rgba(201,165,90,0.3)',
+                      color: '#c9a55a',
+                      backdropFilter: 'blur(10px)',
+                      boxShadow: '0 10px 40px rgba(0,0,0,0.5)',
+                      zIndex: 50
+                    }}>
+                      <div className="flex items-center gap-2">
+                        <span>{country.flag}</span>
+                        <span>{country.name}</span>
+                      </div>
+                      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 w-2 h-2 rotate-45" style={{
+                        background: 'rgba(10,22,40,0.95)',
+                        borderRight: '1px solid rgba(201,165,90,0.3)',
+                        borderBottom: '1px solid rgba(201,165,90,0.3)'
+                      }} />
+                    </div>
+                  )}
                 </div>
-              ))}
-            </div>
-
-            {/* Enhanced CTA */}
-            <div 
-              className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-6"
-              style={{ borderTop: '1px solid rgba(201,165,90,0.1)' }}
-            >
-              <div className="flex items-center gap-2">
-                <Star size={16} style={{ color: '#c9a55a' }} fill="#c9a55a" />
-                <p className="text-sm" style={{ color: 'rgba(10,22,40,0.7)' }}>
-                  Get personalized advice for <strong style={{ color: '#0a1628' }}>{dest.name}</strong> immigration
-                </p>
               </div>
-              <a 
-                href="#consultation"
-                className="group inline-flex items-center gap-2 px-8 py-3.5 rounded-full font-bold transition-all duration-300 hover:scale-105 hover:shadow-2xl"
-                style={{
-                  background: 'linear-gradient(135deg, #0a1628, #1a2a4a)',
-                  color: '#c9a55a',
-                  border: '1px solid rgba(201,165,90,0.2)',
-                  boxShadow: '0 4px 20px rgba(0,0,0,0.2)'
-                }}
-                onMouseEnter={e => {
-                  e.currentTarget.style.borderColor = 'rgba(201,165,90,0.5)';
-                  e.currentTarget.style.boxShadow = '0 8px 30px rgba(201,165,90,0.2)';
-                }}
-                onMouseLeave={e => {
-                  e.currentTarget.style.borderColor = 'rgba(201,165,90,0.2)';
-                  e.currentTarget.style.boxShadow = '0 4px 20px rgba(0,0,0,0.2)';
-                }}
-              >
-                <span>Get Expert Consultation</span>
-                <ChevronRight size={18} className="group-hover:translate-x-1 transition-transform duration-300" />
-              </a>
+            );
+          })}
+
+          {/* Center label */}
+          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+            <div className="text-center">
+              <Globe size={32} className="mx-auto mb-1" style={{ color: 'rgba(201,165,90,0.3)' }} />
+              <div className="text-xs font-medium uppercase tracking-widest" style={{ color: 'rgba(201,165,90,0.4)' }}>
+                Global Network
+              </div>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Animation Styles */}
       <style>{`
+        @keyframes fadeInUp {
+          from { opacity: 0; transform: translateY(30px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes slideInLeft {
+          from { opacity: 0; transform: translateX(-30px); }
+          to { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes textShimmer {
+          0%, 100% { backgroundPosition: 300% 0; }
+          50% { backgroundPosition: 0 0; }
+        }
+        @keyframes panGlobalMap {
+          from { transform: translateX(0); }
+          to { transform: translateX(-150px); }
+        }
         @keyframes float {
           0%, 100% { transform: translateY(0px) rotate(0deg); }
           50% { transform: translateY(-20px) rotate(5deg); }
         }
-        
         @keyframes pulse {
           0%, 100% { transform: scale(1); opacity: 1; }
           50% { transform: scale(1.1); opacity: 0.7; }
         }
-        
-        .animate-float {
-          animation: float 6s ease-in-out infinite;
+        .animate-fadeInUp {
+          animation: fadeInUp 0.8s ease-out forwards;
+          opacity: 0;
         }
-        
-        .animate-pulse {
-          animation: pulse 2s ease-in-out infinite;
+        .delay-100 { animation-delay: 0.1s; }
+        .delay-200 { animation-delay: 0.2s; }
+        .delay-300 { animation-delay: 0.3s; }
+        .animate-slideInLeft {
+          animation: slideInLeft 0.8s ease-out forwards;
+          opacity: 0;
         }
       `}</style>
     </section>
   );
 };
 
-export default Destinations;
+export default Hero;
