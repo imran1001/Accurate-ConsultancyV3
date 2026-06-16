@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Play, ArrowRight, Globe, MapPin, ChevronRight, Sparkles, TrendingUp, Award, Users, Star } from 'lucide-react';
+import { Play, ArrowRight, Globe, MapPin, ChevronRight, Sparkles, TrendingUp, Award, Users, Star, Zap } from 'lucide-react';
 
 // Counter Hook with improved easing
 const useCounter = (end, duration = 2000, start = 0) => {
@@ -40,11 +40,11 @@ const countriesData = [
   { flag: '🇳🇱', name: 'Netherlands', lat: 52.1326, lng: 5.2913, color: '#FFA502', cities: 'Amsterdam' },
 ];
 
-// Professional Rotating Globe Component
+// Enhanced Rotating Globe Component with larger size
 const RotatingGlobe = ({ rotation, mousePosition }) => {
   const centerX = 480;
   const centerY = 300;
-  const radius = 260;
+  const radius = 320; // Increased from 260
 
   // Project latitude/longitude to 2D coordinates
   const projectTo2D = (lat, lng, rotX = 0, rotY = 0) => {
@@ -55,14 +55,12 @@ const RotatingGlobe = ({ rotation, mousePosition }) => {
     const y = radius * Math.cos(phi);
     const z = radius * Math.sin(phi) * Math.sin(theta + rotX);
     
-    // Simple 3D rotation around Y axis
     const cosY = Math.cos(rotY);
     const sinY = Math.sin(rotY);
     const rotatedX = x * cosY + z * sinY;
     const rotatedZ = -x * sinY + z * cosY;
     
-    // Perspective projection
-    const perspective = 600 / (600 + rotatedZ);
+    const perspective = 700 / (700 + rotatedZ);
     return {
       x: centerX + rotatedX * perspective,
       y: centerY + y * perspective * 0.8,
@@ -78,19 +76,19 @@ const RotatingGlobe = ({ rotation, mousePosition }) => {
           {`
             .globe-bg { fill: url(#globeGradient); }
             .grid-line { 
-              stroke: rgba(201,165,90,0.08); 
-              stroke-width: 0.5;
+              stroke: rgba(201,165,90,0.12); 
+              stroke-width: 0.8;
               fill: none;
             }
             .continent { 
-              fill: rgba(201,165,90,0.2); 
-              stroke: rgba(201,165,90,0.3); 
-              stroke-width: 1.2;
+              fill: rgba(201,165,90,0.25); 
+              stroke: rgba(201,165,90,0.35); 
+              stroke-width: 1.5;
               transition: all 0.3s ease;
             }
             .continent-glow {
-              fill: rgba(201,165,90,0.08);
-              stroke: rgba(201,165,90,0.15);
+              fill: rgba(201,165,90,0.1);
+              stroke: rgba(201,165,90,0.2);
               stroke-width: 1;
             }
             .country-dot {
@@ -99,21 +97,37 @@ const RotatingGlobe = ({ rotation, mousePosition }) => {
             }
             .country-dot:hover {
               fill: #f0c040;
-              r: 6;
+              r: 7;
+            }
+            .globe-ring {
+              fill: none;
+              stroke: rgba(201,165,90,0.08);
+              stroke-width: 1;
             }
           `}
         </style>
         <radialGradient id="globeGradient" cx="50%" cy="40%" r="60%">
-          <stop offset="0%" stopColor="#1a2070" stopOpacity="0.9"/>
-          <stop offset="50%" stopColor="#0a1628" stopOpacity="0.95"/>
+          <stop offset="0%" stopColor="#1a2070" stopOpacity="0.85"/>
+          <stop offset="40%" stopColor="#0a1628" stopOpacity="0.95"/>
           <stop offset="100%" stopColor="#050a18" stopOpacity="1"/>
         </radialGradient>
         <radialGradient id="globeGlow" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stopColor="#c9a55a" stopOpacity="0.15"/>
+          <stop offset="0%" stopColor="#c9a55a" stopOpacity="0.2"/>
+          <stop offset="100%" stopColor="#c9a55a" stopOpacity="0"/>
+        </radialGradient>
+        <radialGradient id="globeGlowInner" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stopColor="#c9a55a" stopOpacity="0.05"/>
           <stop offset="100%" stopColor="#c9a55a" stopOpacity="0"/>
         </radialGradient>
         <filter id="glow">
-          <feGaussianBlur stdDeviation="3" result="blur"/>
+          <feGaussianBlur stdDeviation="4" result="blur"/>
+          <feMerge>
+            <feMergeNode in="blur"/>
+            <feMergeNode in="SourceGraphic"/>
+          </feMerge>
+        </filter>
+        <filter id="glowIntense">
+          <feGaussianBlur stdDeviation="8" result="blur"/>
           <feMerge>
             <feMergeNode in="blur"/>
             <feMergeNode in="SourceGraphic"/>
@@ -121,16 +135,22 @@ const RotatingGlobe = ({ rotation, mousePosition }) => {
         </filter>
       </defs>
 
-      {/* Globe Background */}
-      <circle cx={centerX} cy={centerY} r={radius} className="globe-bg" stroke="rgba(201,165,90,0.15)" strokeWidth="1.5"/>
+      {/* Globe Background with shadow */}
+      <ellipse cx={centerX} cy={centerY + radius * 0.8} rx={radius * 0.6} ry={radius * 0.15} fill="rgba(0,0,0,0.3)" filter="url(#glow)" opacity="0.3"/>
       
-      {/* Outer glow */}
-      <circle cx={centerX} cy={centerY} r={radius + 20} fill="url(#globeGlow)" opacity="0.5"/>
+      <circle cx={centerX} cy={centerY} r={radius} className="globe-bg" stroke="rgba(201,165,90,0.2)" strokeWidth="2"/>
+      
+      {/* Outer glow rings */}
+      <circle cx={centerX} cy={centerY} r={radius + 30} fill="url(#globeGlow)" opacity="0.6"/>
+      <circle cx={centerX} cy={centerY} r={radius + 60} fill="url(#globeGlow)" opacity="0.3">
+        <animate attributeName="r" values={radius + 55;radius + 65;radius + 55} dur="3s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0.3;0.5;0.3" dur="3s" repeatCount="indefinite"/>
+      </circle>
 
       {/* Grid Lines - Longitude */}
       {[-80, -60, -40, -20, 0, 20, 40, 60, 80].map((lng) => {
         const points = [];
-        for (let lat = -90; lat <= 90; lat += 5) {
+        for (let lat = -90; lat <= 90; lat += 3) {
           const pos = projectTo2D(lat, lng, 0, rotation);
           points.push(`${pos.x},${pos.y}`);
         }
@@ -139,7 +159,7 @@ const RotatingGlobe = ({ rotation, mousePosition }) => {
             key={`long-${lng}`}
             points={points.join(' ')} 
             className="grid-line"
-            opacity={0.4}
+            opacity={0.5}
           />
         );
       })}
@@ -147,7 +167,7 @@ const RotatingGlobe = ({ rotation, mousePosition }) => {
       {/* Grid Lines - Latitude */}
       {[-60, -30, 0, 30, 60].map((lat) => {
         const points = [];
-        for (let lng = -180; lng <= 180; lng += 5) {
+        for (let lng = -180; lng <= 180; lng += 3) {
           const pos = projectTo2D(lat, lng, 0, rotation);
           points.push(`${pos.x},${pos.y}`);
         }
@@ -156,10 +176,27 @@ const RotatingGlobe = ({ rotation, mousePosition }) => {
             key={`lat-${lat}`}
             points={points.join(' ')} 
             className="grid-line"
-            opacity={0.4}
+            opacity={0.5}
           />
         );
       })}
+
+      {/* Equator highlight */}
+      {(() => {
+        const points = [];
+        for (let lng = -180; lng <= 180; lng += 2) {
+          const pos = projectTo2D(0, lng, 0, rotation);
+          points.push(`${pos.x},${pos.y}`);
+        }
+        return (
+          <polyline 
+            points={points.join(' ')} 
+            stroke="rgba(201,165,90,0.2)"
+            strokeWidth="1.5"
+            fill="none"
+          />
+        );
+      })()}
 
       {/* Continents with proper projection */}
       {continentsData.map((continent, idx) => (
@@ -176,10 +213,10 @@ const RotatingGlobe = ({ rotation, mousePosition }) => {
         </g>
       ))}
 
-      {/* Country Markers */}
+      {/* Country Markers with enhanced visibility */}
       {countriesData.map((country, idx) => {
         const pos = projectTo2D(country.lat, country.lng, 0, rotation);
-        const isVisible = pos.z > -50 && pos.scale > 0.3;
+        const isVisible = pos.z > -80 && pos.scale > 0.25;
         
         if (!isVisible) return null;
         
@@ -189,32 +226,42 @@ const RotatingGlobe = ({ rotation, mousePosition }) => {
             transform={`translate(${pos.x},${pos.y})`}
             style={{ cursor: 'pointer' }}
           >
-            {/* Marker glow */}
+            {/* Enhanced marker glow */}
             <circle 
-              cx="0" cy="0" r="12" 
+              cx="0" cy="0" r="16" 
               fill={country.color}
               opacity="0.15"
-              filter="url(#glow)"
+              filter="url(#glowIntense)"
             >
-              <animate attributeName="r" values="10;16;10" dur="2s" repeatCount="indefinite"/>
+              <animate attributeName="r" values="12;20;12" dur="2.5s" repeatCount="indefinite"/>
+              <animate attributeName="opacity" values="0.15;0.25;0.15" dur="2.5s" repeatCount="indefinite"/>
             </circle>
             
-            {/* Marker dot */}
+            {/* Marker dot with pulse */}
             <circle 
-              cx="0" cy="0" r="4" 
+              cx="0" cy="0" r="5" 
               fill={country.color}
               className="country-dot"
+              filter="url(#glow)"
             >
-              <animate attributeName="r" values="3;5;3" dur="2s" repeatCount="indefinite"/>
+              <animate attributeName="r" values="4;6;4" dur="2.5s" repeatCount="indefinite"/>
             </circle>
+            
+            {/* Inner dot */}
+            <circle 
+              cx="0" cy="0" r="2" 
+              fill="white"
+              opacity="0.8"
+            />
             
             {/* Flag emoji with scale based on depth */}
             <text 
               x="0" 
-              y="-12" 
+              y="-16" 
               textAnchor="middle"
-              fontSize={12 * pos.scale}
-              opacity={0.5 + 0.5 * pos.scale}
+              fontSize={14 * pos.scale}
+              opacity={0.6 + 0.4 * pos.scale}
+              filter="drop-shadow(0 2px 4px rgba(0,0,0,0.3))"
             >
               {country.flag}
             </text>
@@ -224,20 +271,30 @@ const RotatingGlobe = ({ rotation, mousePosition }) => {
 
       {/* Shine effect */}
       <ellipse 
-        cx={centerX - 80} 
-        cy={centerY - 60} 
-        rx="120" 
-        ry="180" 
-        fill="rgba(255,255,255,0.03)"
-        transform={`rotate(-30, ${centerX - 80}, ${centerY - 60})`}
+        cx={centerX - 100} 
+        cy={centerY - 80} 
+        rx="150" 
+        ry="220" 
+        fill="rgba(255,255,255,0.04)"
+        transform={`rotate(-25, ${centerX - 100}, ${centerY - 80})`}
       />
       <ellipse 
-        cx={centerX - 100} 
-        cy={centerY - 100} 
-        rx="60" 
-        ry="100" 
-        fill="rgba(255,255,255,0.02)"
-        transform={`rotate(-30, ${centerX - 100}, ${centerY - 100})`}
+        cx={centerX - 130} 
+        cy={centerY - 120} 
+        rx="70" 
+        ry="120" 
+        fill="rgba(255,255,255,0.03)"
+        transform={`rotate(-25, ${centerX - 130}, ${centerY - 120})`}
+      />
+      
+      {/* Bottom shadow on globe */}
+      <ellipse 
+        cx={centerX} 
+        cy={centerY + radius * 0.6} 
+        rx={radius * 0.7} 
+        ry={radius * 0.15} 
+        fill="rgba(0,0,0,0.2)"
+        filter="url(#glow)"
       />
     </svg>
   );
@@ -292,15 +349,15 @@ const continentsData = [
 ];
 
 // Background Particles Component
-const Particles = ({ count = 40 }) => {
+const Particles = ({ count = 60 }) => {
   const particles = Array.from({ length: count }, (_, i) => ({
     id: i,
     x: Math.random() * 100,
     y: Math.random() * 100,
-    size: Math.random() * 2 + 1,
+    size: Math.random() * 3 + 1,
     speed: Math.random() * 30 + 15,
     delay: Math.random() * 15,
-    opacity: Math.random() * 0.2 + 0.05
+    opacity: Math.random() * 0.3 + 0.05
   }));
 
   return (
@@ -314,7 +371,7 @@ const Particles = ({ count = 40 }) => {
             top: `${p.y}%`,
             width: p.size,
             height: p.size,
-            background: 'rgba(201,165,90,0.4)',
+            background: `radial-gradient(circle, rgba(201,165,90,${p.opacity}), transparent)`,
             animation: `floatParticle ${p.speed}s linear infinite`,
             animationDelay: `${p.delay}s`,
             opacity: p.opacity
@@ -333,12 +390,13 @@ const Hero = () => {
   
   const [rotation, setRotation] = useState(0);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [hoveredCountry, setHoveredCountry] = useState(null);
   const heroRef = useRef(null);
 
   // Smooth rotation animation
   useEffect(() => {
     const interval = setInterval(() => {
-      setRotation(prev => (prev + 0.15) % (2 * Math.PI));
+      setRotation(prev => (prev + 0.12) % (2 * Math.PI));
     }, 50);
     return () => clearInterval(interval);
   }, []);
@@ -367,7 +425,7 @@ const Hero = () => {
   return (
     <section 
       ref={heroRef}
-      className="relative min-h-screen pt-32 pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden flex items-center"
+      className="relative min-h-screen pt-28 pb-16 px-4 sm:px-6 lg:px-8 overflow-hidden flex items-center"
       style={{ 
         background: 'linear-gradient(160deg, #010610 0%, #0a1628 30%, #0f0a30 60%, #1a0a30 100%)',
       }}
@@ -375,51 +433,62 @@ const Hero = () => {
       {/* Animated Background Elements */}
       <div className="absolute inset-0 pointer-events-none">
         <div 
-          className="absolute top-10 right-10 w-96 h-96 rounded-full blur-3xl opacity-20"
+          className="absolute top-10 right-10 w-[500px] h-[500px] rounded-full blur-3xl opacity-15"
           style={{ 
             background: 'radial-gradient(circle, #c9a55a, transparent 70%)',
             animation: 'float 20s ease-in-out infinite' 
           }} 
         />
         <div 
-          className="absolute bottom-0 left-20 w-80 h-80 rounded-full blur-3xl opacity-15"
+          className="absolute bottom-0 left-20 w-[400px] h-[400px] rounded-full blur-3xl opacity-12"
           style={{ 
             background: 'radial-gradient(circle, #3b4fca, transparent 70%)',
             animation: 'float 15s ease-in-out infinite reverse' 
           }} 
         />
         <div 
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full blur-3xl opacity-8"
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[900px] rounded-full blur-3xl opacity-6"
           style={{ 
             background: 'radial-gradient(circle, #c9a55a, transparent 70%)',
             animation: 'pulse 8s ease-in-out infinite' 
           }} 
         />
+        
+        {/* Animated gradient lines */}
+        <div className="absolute top-0 left-0 right-0 h-px" style={{
+          background: 'linear-gradient(90deg, transparent, rgba(201,165,90,0.15), transparent)',
+          animation: 'slideLine 4s ease-in-out infinite'
+        }} />
+        <div className="absolute bottom-0 left-0 right-0 h-px" style={{
+          background: 'linear-gradient(90deg, transparent, rgba(201,165,90,0.15), transparent)',
+          animation: 'slideLine 4s ease-in-out infinite 2s'
+        }} />
       </div>
 
       <Particles />
 
       {/* Grid overlay */}
       <div className="absolute inset-0 pointer-events-none" style={{
-        backgroundImage: 'radial-gradient(circle, rgba(201,165,90,0.03) 1px, transparent 1px)',
+        backgroundImage: 'radial-gradient(circle, rgba(201,165,90,0.02) 1px, transparent 1px)',
         backgroundSize: '40px 40px'
       }} />
 
-      <div className="max-w-7xl mx-auto w-full relative z-10 grid lg:grid-cols-2 gap-16 items-center">
+      <div className="max-w-7xl mx-auto w-full relative z-10 grid lg:grid-cols-2 gap-12 items-center">
         {/* Left Column */}
         <div className="relative">
           {/* Decorative badge */}
           <div className="inline-flex items-center gap-3 mb-8 px-5 py-2.5 rounded-full animate-fadeInUp" style={{ 
-            background: 'linear-gradient(135deg, rgba(201,165,90,0.12), rgba(240,192,64,0.05))',
-            border: '1px solid rgba(201,165,90,0.15)',
+            background: 'linear-gradient(135deg, rgba(201,165,90,0.15), rgba(240,192,64,0.05))',
+            border: '1px solid rgba(201,165,90,0.2)',
             backdropFilter: 'blur(10px)',
+            boxShadow: '0 0 30px rgba(201,165,90,0.05)'
           }}>
-            <span className="relative flex h-2 w-2">
+            <span className="relative flex h-2.5 w-2.5">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#c9a55a] opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-[#c9a55a]"></span>
+              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#c9a55a]"></span>
             </span>
             <span className="text-xs font-bold text-white uppercase tracking-wider">Est. 2006 • Global Leaders</span>
-            <Sparkles size={14} style={{ color: '#c9a55a' }} />
+            <Zap size={14} style={{ color: '#c9a55a' }} />
           </div>
 
           {/* Main heading with 3D tilt effect */}
@@ -468,7 +537,7 @@ const Hero = () => {
                 background: 'linear-gradient(135deg, #c9a55a, #f0c040)',
                 color: '#0a1628',
                 textDecoration: 'none',
-                boxShadow: '0 0 40px rgba(201,165,90,0.15)'
+                boxShadow: '0 0 40px rgba(201,165,90,0.2)'
               }}
             >
               <span className="absolute inset-0 bg-white opacity-0 group-hover:opacity-20 transition-opacity duration-300" />
@@ -496,10 +565,10 @@ const Hero = () => {
             {stats.map((stat, i) => (
               <div 
                 key={i} 
-                className="group relative p-3 rounded-xl text-center animate-fadeInUp transition-all duration-300 hover:scale-105 hover:shadow-xl overflow-hidden"
+                className="group relative p-3.5 rounded-xl text-center animate-fadeInUp transition-all duration-300 hover:scale-105 hover:shadow-xl overflow-hidden"
                 style={{ 
-                  background: 'linear-gradient(135deg, rgba(201,165,90,0.08), rgba(240,192,64,0.02))',
-                  border: '1px solid rgba(201,165,90,0.1)',
+                  background: 'linear-gradient(135deg, rgba(201,165,90,0.1), rgba(240,192,64,0.02))',
+                  border: '1px solid rgba(201,165,90,0.12)',
                   backdropFilter: 'blur(10px)',
                   animationDelay: `${i * 0.1}s`
                 }}
@@ -517,7 +586,7 @@ const Hero = () => {
                   }}>
                     {stat.value}{stat.suffix}
                   </div>
-                  <div className="text-[10px] font-medium uppercase tracking-wider mt-0.5" style={{ color: 'rgba(255,255,255,0.4)' }}>
+                  <div className="text-[10px] font-medium uppercase tracking-wider mt-0.5" style={{ color: 'rgba(255,255,255,0.45)' }}>
                     {stat.label}
                   </div>
                 </div>
@@ -546,38 +615,41 @@ const Hero = () => {
                   </div>
                 ))}
               </div>
-              <span className="text-[10px]" style={{ color: 'rgba(255,255,255,0.4)' }}>
+              <span className="text-[10px]" style={{ color: 'rgba(255,255,255,0.45)' }}>
                 2,000+ Happy Clients
               </span>
             </div>
           </div>
         </div>
 
-        {/* Right Column - Professional Rotating Globe */}
-        <div className="hidden lg:flex items-center justify-center relative h-[550px]">
-          {/* Glow rings */}
-          <div className="absolute w-[450px] h-[450px] rounded-full" style={{
-            background: 'radial-gradient(circle, rgba(201,165,90,0.05), transparent 70%)',
+        {/* Right Column - Enhanced Larger Globe */}
+        <div className="hidden lg:flex items-center justify-center relative h-[600px]">
+          {/* Animated glow rings */}
+          <div className="absolute w-[500px] h-[500px] rounded-full" style={{
+            background: 'radial-gradient(circle, rgba(201,165,90,0.06), transparent 70%)',
             animation: 'pulse 4s ease-in-out infinite'
           }} />
-          <div className="absolute w-[500px] h-[500px] rounded-full border border-white/5" style={{
-            animation: 'rotateRing 25s linear infinite'
+          <div className="absolute w-[580px] h-[580px] rounded-full border border-white/5" style={{
+            animation: 'rotateRing 30s linear infinite'
           }} />
-          <div className="absolute w-[400px] h-[400px] rounded-full border border-white/5" style={{
-            animation: 'rotateRing 18s linear infinite reverse'
+          <div className="absolute w-[460px] h-[460px] rounded-full border border-white/5" style={{
+            animation: 'rotateRing 20s linear infinite reverse'
+          }} />
+          <div className="absolute w-[340px] h-[340px] rounded-full border border-white/5" style={{
+            animation: 'rotateRing 15s linear infinite'
           }} />
           
           {/* Main globe container with 3D effect */}
           <div 
-            className="relative w-[420px] h-[420px] rounded-full overflow-hidden"
+            className="relative w-[480px] h-[480px] rounded-full overflow-hidden"
             style={{ 
               background: 'transparent',
-              boxShadow: '0 0 80px rgba(201,165,90,0.05), inset 0 0 80px rgba(201,165,90,0.02)',
+              boxShadow: '0 0 100px rgba(201,165,90,0.08), inset 0 0 100px rgba(201,165,90,0.03)',
               transform: `perspective(1200px) rotateX(${mousePosition.y * -2}deg) rotateY(${mousePosition.x * 2}deg)`
             }}
           >
             <div className="absolute inset-0 pointer-events-none" style={{
-              background: 'radial-gradient(circle at 30% 30%, rgba(255,255,255,0.03) 0%, transparent 60%)',
+              background: 'radial-gradient(circle at 30% 30%, rgba(255,255,255,0.04) 0%, transparent 60%)',
               borderRadius: '50%'
             }} />
             
@@ -587,7 +659,7 @@ const Hero = () => {
             
             {/* Inner glow overlay */}
             <div className="absolute inset-0 pointer-events-none" style={{
-              background: 'radial-gradient(circle at center, transparent 30%, rgba(5,10,24,0.4) 100%)',
+              background: 'radial-gradient(circle at center, transparent 35%, rgba(5,10,24,0.5) 100%)',
               borderRadius: '50%'
             }} />
           </div>
@@ -596,15 +668,17 @@ const Hero = () => {
           <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
             <div className="text-center">
               <div className="relative">
-                <Globe size={28} className="mx-auto mb-1" style={{ color: 'rgba(201,165,90,0.15)' }} />
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="w-10 h-10 rounded-full border border-dashed" style={{
-                    borderColor: 'rgba(201,165,90,0.05)',
-                    animation: 'spin 25s linear infinite'
-                  }} />
+                <div className="w-16 h-16 mx-auto relative">
+                  <Globe size={36} className="absolute inset-0 m-auto" style={{ color: 'rgba(201,165,90,0.12)' }} />
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="w-12 h-12 rounded-full border border-dashed" style={{
+                      borderColor: 'rgba(201,165,90,0.06)',
+                      animation: 'spin 25s linear infinite'
+                    }} />
+                  </div>
                 </div>
               </div>
-              <div className="text-[10px] font-bold uppercase tracking-[0.3em]" style={{ color: 'rgba(201,165,90,0.2)' }}>
+              <div className="text-[11px] font-bold uppercase tracking-[0.3em] mt-2" style={{ color: 'rgba(201,165,90,0.15)' }}>
                 15+ Countries
               </div>
             </div>
@@ -654,6 +728,11 @@ const Hero = () => {
         @keyframes underlinePulse {
           0%, 100% { transform: scaleX(0.8); opacity: 0.3; }
           50% { transform: scaleX(1); opacity: 1; }
+        }
+        
+        @keyframes slideLine {
+          0%, 100% { transform: translateX(-100%); }
+          50% { transform: translateX(100%); }
         }
         
         @keyframes rotateRing {
