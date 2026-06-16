@@ -46,7 +46,7 @@ const Hero = () => {
 
       <div className="relative max-w-7xl mx-auto w-full px-6 lg:px-8 z-10 grid lg:grid-cols-12 gap-16 items-center">
         
-        {/* Left Typography Column */}
+        {/* Left Typography Column (unchanged) */}
         <div className="lg:col-span-6 flex flex-col justify-center z-20">
           <div className="inline-flex items-center space-x-2 w-max px-4 py-2 rounded-full border border-[#D4AF37]/30 bg-[#D4AF37]/10 backdrop-blur-md mb-8">
             <span className="w-2 h-2 rounded-full bg-[#D4AF37] animate-pulse" />
@@ -88,15 +88,15 @@ const Hero = () => {
           </div>
         </div>
 
-        {/* =========== RIGHT SIDE (Globe with gold-line outline) =========== */}
+        {/* =========== UPGRADED GLOBE SECTION =========== */}
         <div className="lg:col-span-6 flex flex-col items-center justify-center relative min-h-[540px] mt-12 lg:mt-0">
           
-          {/* Rotating decorative rings (gold outlines) */}
+          {/* Rotating decorative gold rings */}
           <div className="absolute w-[500px] h-[500px] rounded-full border border-[#D4AF37]/20 pointer-events-none animate-spin-slow" style={{ animationDuration: '35s' }} />
           <div className="absolute w-[400px] h-[400px] rounded-full border border-[#D4AF37]/10 pointer-events-none animate-spin-slow" style={{ animationDuration: '25s', animationDirection: 'reverse' }} />
           <div className="absolute w-[300px] h-[300px] rounded-full border border-[#D4AF37]/5 pointer-events-none animate-spin-slow" style={{ animationDuration: '18s' }} />
 
-          {/* Orbiting particles (gold dots) */}
+          {/* Orbiting gold particles */}
           <div className="absolute w-[420px] h-[420px] pointer-events-none animate-spin-slow" style={{ animationDuration: '20s' }}>
             {[...Array(12)].map((_, i) => {
               const angle = (i / 12) * 360;
@@ -115,59 +115,88 @@ const Hero = () => {
             })}
           </div>
 
-          {/* Central Globe with gold line outlines */}
-          <div className="relative w-72 h-72 rounded-full bg-gradient-to-br from-[#0B1D3A] via-[#122A54] to-[#081326] shadow-[0_0_80px_rgba(212,175,55,0.25)] border-2 border-[#D4AF37]/40 flex items-center justify-center overflow-hidden group">
+          {/* ===== IMPRESSIVE GLOBE ===== */}
+          <div className="relative w-72 h-72 rounded-full shadow-[0_0_80px_rgba(212,175,55,0.3)] flex items-center justify-center group">
             
-            {/* Custom SVG World Map with gold strokes */}
-            <svg viewBox="0 0 200 200" className="w-full h-full opacity-80 group-hover:opacity-100 transition-opacity duration-700">
-              <defs>
-                <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="#D4AF37" />
-                  <stop offset="50%" stopColor="#F3E5AB" />
-                  <stop offset="100%" stopColor="#D4AF37" />
-                </linearGradient>
-                <radialGradient id="globeGlow2" cx="50%" cy="50%" r="50%">
-                  <stop offset="0%" stopColor="#D4AF37" stopOpacity="0.15" />
-                  <stop offset="100%" stopColor="#D4AF37" stopOpacity="0" />
-                </radialGradient>
-              </defs>
-              
-              {/* Background glow */}
-              <circle cx="100" cy="100" r="95" fill="url(#globeGlow2)" />
-              
-              {/* Latitude / Longitude lines (gold) */}
-              <circle cx="100" cy="100" r="80" fill="none" stroke="url(#goldGrad)" strokeWidth="0.5" opacity="0.3" />
-              <circle cx="100" cy="100" r="50" fill="none" stroke="url(#goldGrad)" strokeWidth="0.5" opacity="0.3" />
-              <circle cx="100" cy="100" r="20" fill="none" stroke="url(#goldGrad)" strokeWidth="0.5" opacity="0.3" />
-              <line x1="20" y1="100" x2="180" y2="100" stroke="url(#goldGrad)" strokeWidth="0.5" opacity="0.3" />
-              <line x1="100" y1="20" x2="100" y2="180" stroke="url(#goldGrad)" strokeWidth="0.5" opacity="0.3" />
-              
-              {/* Simplified continents with gold outlines and subtle fill */}
-              <g fill="rgba(212,175,55,0.08)" stroke="url(#goldGrad)" strokeWidth="1.2">
-                {/* North America */}
-                <path d="M 30,40 L 55,30 L 70,45 L 75,65 L 65,85 L 55,95 L 45,85 L 40,95 L 35,85 L 25,75 L 20,55 Z" />
-                {/* South America */}
-                <path d="M 50,105 L 65,100 L 75,105 L 80,120 L 75,135 L 65,145 L 55,135 L 45,120 L 40,110 Z" />
-                {/* Europe */}
-                <path d="M 80,40 L 100,35 L 110,45 L 115,60 L 105,70 L 95,65 L 85,60 L 75,50 Z" />
-                {/* Africa */}
-                <path d="M 80,75 L 100,70 L 115,75 L 120,95 L 115,115 L 105,125 L 90,120 L 75,105 L 70,90 Z" />
-                {/* Asia */}
-                <path d="M 120,40 L 140,35 L 155,45 L 160,60 L 150,80 L 130,85 L 120,75 L 110,60 L 105,50 Z" />
-                {/* Australia */}
-                <path d="M 140,125 L 155,120 L 170,125 L 175,140 L 165,150 L 145,145 L 135,135 Z" />
-              </g>
-              
-              {/* Gold ring around the globe */}
-              <circle cx="100" cy="100" r="90" fill="none" stroke="url(#goldGrad)" strokeWidth="1.5" opacity="0.5" />
-            </svg>
-
-            {/* Gradient overlay for 3D effect */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-white/5 pointer-events-none" />
+            {/* Outer gold glow ring */}
+            <div className="absolute -inset-1 rounded-full border-2 border-[#D4AF37]/30 animate-pulse" />
             
-            {/* Pulsing golden spots */}
-            <div className="absolute w-20 h-20 rounded-full bg-[#D4AF37]/20 blur-2xl top-10 right-10 animate-pulse" />
-            <div className="absolute w-12 h-12 rounded-full bg-[#D4AF37]/10 blur-xl bottom-10 left-10 animate-pulse" style={{ animationDelay: '1.5s' }} />
+            {/* The rotating globe sphere with gradient and detailed map */}
+            <div className="relative w-full h-full rounded-full overflow-hidden bg-gradient-to-br from-[#0B1D3A] via-[#1A2D50] to-[#081326]">
+              
+              {/* Animated rotation wrapper */}
+              <div className="absolute inset-0 animate-spin-globe" style={{ animationDuration: '30s' }}>
+                <svg viewBox="0 0 400 400" className="w-full h-full">
+                  <defs>
+                    <radialGradient id="globeBase" cx="40%" cy="30%" r="70%">
+                      <stop offset="0%" stopColor="#2A4A7F" stopOpacity="0.9" />
+                      <stop offset="50%" stopColor="#0B1D3A" stopOpacity="0.8" />
+                      <stop offset="100%" stopColor="#081326" stopOpacity="0.9" />
+                    </radialGradient>
+                    <linearGradient id="goldContinent" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stopColor="#D4AF37" stopOpacity="0.6" />
+                      <stop offset="50%" stopColor="#F3E5AB" stopOpacity="0.8" />
+                      <stop offset="100%" stopColor="#D4AF37" stopOpacity="0.6" />
+                    </linearGradient>
+                    <radialGradient id="glowGlobe" cx="50%" cy="50%" r="50%">
+                      <stop offset="0%" stopColor="#D4AF37" stopOpacity="0.2" />
+                      <stop offset="100%" stopColor="#D4AF37" stopOpacity="0" />
+                    </radialGradient>
+                    <filter id="goldGlow">
+                      <feGaussianBlur stdDeviation="2" result="blur" />
+                      <feMerge>
+                        <feMergeNode in="blur" />
+                        <feMergeNode in="SourceGraphic" />
+                      </feMerge>
+                    </filter>
+                  </defs>
+                  
+                  {/* Sphere background */}
+                  <circle cx="200" cy="200" r="190" fill="url(#globeBase)" />
+                  <circle cx="200" cy="200" r="190" fill="url(#glowGlobe)" />
+                  
+                  {/* Latitude/Longitude grid (gold) */}
+                  <g stroke="#D4AF37" strokeWidth="0.7" fill="none" opacity="0.25">
+                    {[40, 80, 120, 160, 200, 240, 280, 320].map(lon => (
+                      <path key={lon} d={`M ${lon},30 A 160,160 0 0,1 ${lon+20},30`} />
+                    ))}
+                    {[30, 60, 90, 120, 150].map(lat => (
+                      <circle key={lat} cx="200" cy="200" r={lat} />
+                    ))}
+                  </g>
+                  
+                  {/* Detailed continents with gold outlines and soft fill */}
+                  <g fill="rgba(212,175,55,0.12)" stroke="url(#goldContinent)" strokeWidth="1.8" filter="url(#goldGlow)">
+                    {/* North America - more detailed */}
+                    <path d="M 60,80 L 100,70 L 130,85 L 140,110 L 125,140 L 110,155 L 95,145 L 85,160 L 75,145 L 60,155 L 50,140 L 40,115 L 35,95 Z" />
+                    {/* South America */}
+                    <path d="M 95,175 L 120,165 L 140,175 L 150,200 L 140,230 L 120,245 L 105,230 L 85,205 L 75,185 Z" />
+                    {/* Europe */}
+                    <path d="M 155,80 L 185,70 L 205,80 L 215,105 L 200,125 L 185,115 L 170,110 L 155,100 Z" />
+                    {/* Africa */}
+                    <path d="M 155,135 L 190,125 L 215,135 L 225,165 L 215,200 L 190,215 L 170,200 L 150,175 L 145,155 Z" />
+                    {/* Asia */}
+                    <path d="M 230,75 L 270,65 L 300,80 L 310,110 L 295,145 L 260,155 L 235,140 L 220,120 L 210,100 Z" />
+                    {/* Australia */}
+                    <path d="M 280,210 L 310,200 L 335,210 L 345,235 L 325,250 L 295,245 L 275,230 Z" />
+                    {/* Additional islands (Japan, UK, etc.) - small */}
+                    <circle cx="330" cy="95" r="8" />
+                    <circle cx="120" cy="60" r="6" />
+                    <circle cx="280" cy="170" r="5" />
+                  </g>
+                  
+                  {/* Gold ring outline on the globe edge */}
+                  <circle cx="200" cy="200" r="188" fill="none" stroke="#D4AF37" strokeWidth="2" opacity="0.4" />
+                  
+                  {/* Shine effect (top-left highlight) */}
+                  <ellipse cx="140" cy="140" rx="60" ry="40" fill="rgba(255,255,255,0.04)" transform="rotate(-30, 140, 140)" />
+                </svg>
+              </div>
+              
+              {/* Pulsing golden spots (depth) */}
+              <div className="absolute w-20 h-20 rounded-full bg-[#D4AF37]/20 blur-2xl top-10 right-10 animate-pulse" />
+              <div className="absolute w-12 h-12 rounded-full bg-[#D4AF37]/10 blur-xl bottom-10 left-10 animate-pulse" style={{ animationDelay: '1.5s' }} />
+            </div>
           </div>
 
           {/* Floating Destination Cards */}
@@ -194,11 +223,11 @@ const Hero = () => {
             Global Destinations
           </div>
         </div>
-        {/* =========== END RIGHT SIDE =========== */}
+        {/* =========== END UPGRADED GLOBE =========== */}
 
       </div>
 
-      {/* Institutional Statistics Bar */}
+      {/* Institutional Statistics Bar (unchanged) */}
       <div className="relative max-w-7xl mx-auto w-full px-6 lg:px-8 z-20 mt-16 lg:mt-24">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 lg:gap-8">
           {[
@@ -233,6 +262,13 @@ const Hero = () => {
         @keyframes spinSlow {
           from { transform: rotate(0deg); }
           to { transform: rotate(360deg); }
+        }
+        @keyframes spin-globe {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
+        }
+        .animate-spin-globe {
+          animation: spin-globe 30s linear infinite;
         }
         /* Position utilities for floating cards */
         .top-5 { top: 5%; }
