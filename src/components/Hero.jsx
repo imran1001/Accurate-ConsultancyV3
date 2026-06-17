@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Play } from 'lucide-react';
 
 // Optimized Counter Hook
 const useCounter = (end, duration = 2000, start = 0) => {
@@ -20,6 +19,16 @@ const useCounter = (end, duration = 2000, start = 0) => {
   return count;
 };
 
+// Strategic Core Markets perfectly spaced at 60-degree intervals
+const countriesData = [
+  { flag: '🇺🇸', name: 'United States', angle: 0 },
+  { flag: '🇬🇧', name: 'United Kingdom', angle: 60 },
+  { flag: '🇨🇦', name: 'Canada', angle: 120 },
+  { flag: '🇦🇺', name: 'Australia', angle: 180 },
+  { flag: '🇪🇺', name: 'Europe', angle: 240 },
+  { flag: '🇳🇿', name: 'New Zealand', angle: 300 },
+];
+
 const ContinentsMap = () => (
   <svg viewBox="0 0 960 600" className="w-full h-full opacity-60">
     <defs>
@@ -38,10 +47,12 @@ const ContinentsMap = () => (
 );
 
 const Hero = () => {
-  const yearsCount = useCounter(20, 2000); // Adjusted dynamically for 2006 base
+  const yearsCount = useCounter(20, 2000); 
   const successCount = useCounter(98, 2000);
   const casesCount = useCounter(2500, 2500);
   const countriesCount = useCounter(50, 2000); 
+
+  const [hoveredCountry, setHoveredCountry] = useState(null);
 
   return (
     <section className="relative min-h-screen pt-28 pb-16 px-4 sm:px-6 lg:px-8 overflow-hidden flex items-center bg-[#020916]">
@@ -53,14 +64,14 @@ const Hero = () => {
         
         {/* Left Content Column */}
         <div className="text-left w-full">
-          {/* Updated Corporate Badge */}
+          {/* Corporate Badge */}
           <div className="inline-flex items-center space-x-3 mb-6 px-5 py-2.5 rounded-sm border-l-4 border-[#c9a55a] bg-[#c9a55a]/10 backdrop-blur-md animate-fadeInUp">
             <span className="text-xs font-bold text-white uppercase tracking-widest">
               Trusted Since 2006 • Visa & Immigration Experts
             </span>
           </div>
 
-          {/* Updated Heading */}
+          {/* Heading */}
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-black leading-tight mb-6 text-white tracking-tight">
             Visa, Immigration & <br />
             <span className="bg-gradient-to-r from-[#c9a55a] via-[#f0c040] to-[#c9a55a] bg-[length:200%_auto] bg-clip-text text-transparent animate-textShimmer">
@@ -69,7 +80,7 @@ const Hero = () => {
             <br /> Worldwide
           </h1>
 
-          {/* Updated Subheading */}
+          {/* Subheading */}
           <p className="text-base sm:text-lg text-gray-300 leading-relaxed mb-8 max-w-xl font-light">
             Helping students, professionals and families achieve their international goals through trusted visa, immigration, study abroad and travel solutions.
           </p>
@@ -96,23 +107,54 @@ const Hero = () => {
           </div>
         </div>
 
-        {/* Right Column - Clean Corporate Globe (Hidden on mobile) */}
+        {/* Right Column - Corporate Globe with Flag Orbits (Hidden on mobile) */}
         <div className="hidden lg:flex w-full items-center justify-center py-8 lg:py-0">
-          <div className="relative w-[450px] h-[450px] flex items-center justify-center">
+          <div className="relative w-[500px] h-[500px] flex items-center justify-center">
             
             {/* Elegant Minimalist Orbit Rings */}
-            <div className="absolute w-[100%] h-[100%] rounded-full border border-[#c9a55a]/20 pointer-events-none animate-[spin_60s_linear_infinite] shadow-[inset_0_0_50px_rgba(201,165,90,0.05)]" />
-            <div className="absolute w-[80%] h-[80%] rounded-full border border-dashed border-[#c9a55a]/30 pointer-events-none animate-[spin_40s_linear_infinite_reverse]" />
-            <div className="absolute w-[60%] h-[60%] rounded-full border border-white/5 pointer-events-none" />
+            <div className="absolute w-[85%] h-[85%] rounded-full border border-[#c9a55a]/20 pointer-events-none animate-[spin_60s_linear_infinite] shadow-[inset_0_0_50px_rgba(201,165,90,0.05)]" />
+            <div className="absolute w-[65%] h-[65%] rounded-full border border-dashed border-[#c9a55a]/30 pointer-events-none animate-[spin_40s_linear_infinite_reverse]" />
+            <div className="absolute w-[50%] h-[50%] rounded-full border border-white/5 pointer-events-none" />
 
             {/* Core Rotating Central Globe */}
-            <div className="relative w-72 h-72 rounded-full overflow-hidden bg-gradient-to-br from-[#0a1628] to-[#020916] shadow-[0_0_80px_rgba(201,165,90,0.15)] border border-[#c9a55a]/40 backdrop-blur-xl">
+            <div className="relative w-64 h-64 rounded-full overflow-hidden bg-gradient-to-br from-[#0a1628] to-[#020916] shadow-[0_0_80px_rgba(201,165,90,0.15)] border border-[#c9a55a]/40 backdrop-blur-xl z-10">
               <div className="w-full h-full animate-[panGlobalMap_35s_linear_infinite]">
                 <ContinentsMap />
               </div>
-              {/* Inner globe shadow for 3D sphere effect */}
               <div className="absolute inset-0 rounded-full shadow-[inset_-20px_-20px_50px_rgba(0,0,0,0.8)] pointer-events-none" />
             </div>
+
+            {/* Market Flags Orbiting the Globe */}
+            {countriesData.map((country, index) => {
+              const orbitStyles = {
+                '--start-angle': `${country.angle}deg`,
+                '--end-angle': `${country.angle + 360}deg`,
+                animation: 'orbitSmooth 40s linear infinite',
+              };
+
+              return (
+                <div 
+                  key={index} 
+                  className="absolute left-[50%] top-[50%] -ml-6 -mt-6 z-20"
+                  style={orbitStyles}
+                >
+                  <div 
+                    className="relative flex items-center justify-center w-12 h-12 rounded-full border border-[#c9a55a]/40 bg-[#0a1628]/95 text-xl shadow-xl hover:scale-110 hover:border-[#f0c040] hover:shadow-[#c9a55a]/40 transition-all duration-300 cursor-pointer backdrop-blur-md select-none animate-[counterRotate_40s_linear_infinite]"
+                    onMouseEnter={() => setHoveredCountry(index)}
+                    onMouseLeave={() => setHoveredCountry(null)}
+                  >
+                    <span>{country.flag}</span>
+                    
+                    {/* Tooltip on Hover */}
+                    {hoveredCountry === index && (
+                      <div className="absolute bottom-full mb-3 left-1/2 -translate-x-1/2 whitespace-nowrap bg-[#1a2b4c] text-white border border-[#c9a55a]/30 font-semibold text-[11px] py-1.5 px-3 rounded-sm shadow-lg pointer-events-none tracking-wide">
+                        {country.name}
+                      </div>
+                    )}
+                  </div>
+                </div>
+              );
+            })}
 
           </div>
         </div>
@@ -132,6 +174,14 @@ const Hero = () => {
         @keyframes panGlobalMap {
           from { transform: translateX(0); }
           to { transform: translateX(-150px); }
+        }
+        @keyframes orbitSmooth {
+          from { transform: rotate(var(--start-angle)) translateX(215px) rotate(calc(-1 * var(--start-angle))); }
+          to { transform: rotate(var(--end-angle)) translateX(215px) rotate(calc(-1 * var(--end-angle))); }
+        }
+        @keyframes counterRotate {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(-360deg); }
         }
         .animate-fadeInUp {
           animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
