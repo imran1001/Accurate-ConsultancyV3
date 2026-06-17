@@ -124,7 +124,7 @@ const Hero = () => {
               <div className="absolute inset-0 rounded-full shadow-[inset_-20px_-20px_50px_rgba(0,0,0,0.8)] pointer-events-none" />
             </div>
 
-            {/* Market Flags Orbiting the Globe */}
+            {/* Market Flags Orbiting the Globe (Increased Size) */}
             {countriesData.map((country, index) => {
               const orbitStyles = {
                 '--start-angle': `${country.angle}deg`,
@@ -135,11 +135,13 @@ const Hero = () => {
               return (
                 <div 
                   key={index} 
-                  className="absolute left-[50%] top-[50%] -ml-6 -mt-6 z-20"
+                  // Updated margins (-ml-8 -mt-8) to properly center the larger 64x64px badge
+                  className="absolute left-[50%] top-[50%] -ml-8 -mt-8 z-20"
                   style={orbitStyles}
                 >
                   <div 
-                    className="relative flex items-center justify-center w-12 h-12 rounded-full border border-[#c9a55a]/40 bg-[#0a1628]/95 text-xl shadow-xl hover:scale-110 hover:border-[#f0c040] hover:shadow-[#c9a55a]/40 transition-all duration-300 cursor-pointer backdrop-blur-md select-none animate-[counterRotate_40s_linear_infinite]"
+                    // Increased dimensions (w-16 h-16) and emoji text size (text-3xl)
+                    className="relative flex items-center justify-center w-16 h-16 rounded-full border border-[#c9a55a]/40 bg-[#0a1628]/95 text-3xl shadow-2xl hover:scale-110 hover:border-[#f0c040] hover:shadow-[#c9a55a]/50 transition-all duration-300 cursor-pointer backdrop-blur-md select-none animate-[counterRotate_40s_linear_infinite]"
                     onMouseEnter={() => setHoveredCountry(index)}
                     onMouseLeave={() => setHoveredCountry(null)}
                   >
@@ -147,7 +149,7 @@ const Hero = () => {
                     
                     {/* Tooltip on Hover */}
                     {hoveredCountry === index && (
-                      <div className="absolute bottom-full mb-3 left-1/2 -translate-x-1/2 whitespace-nowrap bg-[#1a2b4c] text-white border border-[#c9a55a]/30 font-semibold text-[11px] py-1.5 px-3 rounded-sm shadow-lg pointer-events-none tracking-wide">
+                      <div className="absolute bottom-full mb-3 left-1/2 -translate-x-1/2 whitespace-nowrap bg-[#1a2b4c] text-white border border-[#c9a55a]/30 font-semibold text-[12px] py-1.5 px-3 rounded-sm shadow-lg pointer-events-none tracking-wide z-50">
                         {country.name}
                       </div>
                     )}
