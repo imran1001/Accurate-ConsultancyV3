@@ -8,9 +8,9 @@ import {
 
 const serviceData = [
   {
-    icon: Plane,
+    icon: Passport,
     title: 'Visit Visa',
-    short: 'Tourism, family visits, and short-term travel visas processed with expert guidance from document preparation to embassy liaison.',
+    short: 'Tourism, family visits, and short-term travel visas processed with expert guidance from document preparation to embassy liaison for 50+ countries.',
     color: '#3b82f6',
     bg: 'from-blue-600 to-blue-500',
     gradient: 'rgba(59,130,246,0.1)',
@@ -35,7 +35,7 @@ const serviceData = [
     stats: { success: '88%', time: '2-6 months', cases: '300+' },
     features: ['Sponsorship coordination', 'Skills assessment', 'Job market guidance', 'Relocation help'],
     details: {
-      overview: 'We specialize in work permits across USA, UK, Canada, Australia, and UAE — managing employer sponsorship through to visa approval.',
+      overview: 'We specialize in work permits across USA, UK, Canada, Europe, and Middle East — managing employer sponsorship through to visa approval.',
       benefits: ['Employer sponsorship coordination', 'Skills assessment support', 'Job market guidance', 'Post-approval relocation help'],
       timeline: '2–6 months depending on country',
       requirements: 'Confirmed job offer, educational credentials, work experience records, professional certifications'
@@ -69,7 +69,7 @@ const serviceData = [
     stats: { success: '90%', time: '4-8 months', cases: '250+' },
     features: ['Points assessment', 'EOI management', 'Provincial guidance', 'Settlement support'],
     details: {
-      overview: 'Permanent residency pathways through Express Entry, points-based systems, and provincial nominee programs in Canada, Australia, and New Zealand.',
+      overview: 'Permanent residency pathways through Express Entry, points-based systems, and provincial nominee programs in Canada, Australia, Europe and New Zealand.',
       benefits: ['Comprehensive points assessment', 'EOI lodgement & management', 'Provincial sponsorship guidance', 'Settlement support services'],
       timeline: '4–8 months full process',
       requirements: 'Relevant work experience, educational credentials, English proficiency, skills assessment certificate'
@@ -93,7 +93,7 @@ const serviceData = [
     }
   },
   {
-    icon: Compass,
+    icon: Plane,
     title: 'Travel Management',
     short: 'Comprehensive travel coordination, corporate logistics, and relocation management for seamless global mobility.',
     color: '#ec4899',
@@ -103,7 +103,7 @@ const serviceData = [
     stats: { success: '97%', time: 'Flexible', cases: '200+' },
     features: ['Multi-visa processing', 'Flight & hotel booking', 'Insurance advisory', 'Settlement support'],
     details: {
-      overview: 'End-to-end travel and relocation management — from visa coordination and flight logistics to accommodation and on-ground settlement.',
+      overview: 'End-to-end travel, Tour Packages and relocation management — from visa coordination and flight logistics to accommodation and on-ground settlement.',
       benefits: ['Coordinated multi-visa processing', 'Flight & hotel arrangements', 'Travel insurance advisory', 'On-ground settlement support'],
       timeline: 'Flexible per your schedule',
       requirements: 'Immigration status confirmation, preferred travel dates, accommodation preferences'
@@ -111,7 +111,6 @@ const serviceData = [
   }
 ];
 
-// Enhanced Service Modal
 const ServiceModal = ({ service, onClose }) => {
   const [isVisible, setIsVisible] = useState(false);
 
@@ -143,11 +142,8 @@ const ServiceModal = ({ service, onClose }) => {
           transformOrigin: 'center bottom'
         }}
       >
-        {/* Modal Header - Enhanced */}
-        <div 
-          className={`bg-gradient-to-r ${service.bg} p-8 text-white rounded-t-3xl relative overflow-hidden`}
-        >
-          {/* Animated background pattern */}
+        {/* Modal Header */}
+        <div className={`bg-gradient-to-r ${service.bg} p-8 text-white rounded-t-3xl relative overflow-hidden`}>
           <div className="absolute inset-0 pointer-events-none opacity-10">
             <div className="absolute -top-20 -right-20 w-64 h-64 rounded-full blur-3xl" style={{ background: 'radial-gradient(circle, white, transparent)' }} />
             <div className="absolute bottom-0 left-0 w-48 h-48 rounded-full blur-2xl" style={{ background: 'radial-gradient(circle, white, transparent)' }} />
@@ -181,11 +177,11 @@ const ServiceModal = ({ service, onClose }) => {
           </div>
         </div>
 
-        {/* Modal Body - Enhanced */}
+        {/* Modal Body */}
         <div className="p-8 space-y-6">
           <p className="text-gray-600 leading-relaxed text-base">{service.details.overview}</p>
 
-          {/* Stats - Enhanced */}
+          {/* Stats */}
           <div className="grid grid-cols-3 gap-3 p-4 rounded-2xl" style={{
             background: `linear-gradient(135deg, ${service.gradient}, transparent)`,
             border: `1px solid ${service.color}20`
@@ -205,7 +201,7 @@ const ServiceModal = ({ service, onClose }) => {
             ))}
           </div>
 
-          {/* Features - New Section */}
+          {/* Features */}
           <div>
             <div className="flex items-center gap-2 mb-3">
               <Zap size={16} style={{ color: service.color }} />
@@ -258,7 +254,7 @@ const ServiceModal = ({ service, onClose }) => {
             </div>
           </div>
 
-          {/* Timeline & Requirements - Enhanced */}
+          {/* Timeline & Requirements */}
           <div className="grid grid-cols-2 gap-4">
             <div 
               className="p-4 rounded-xl transition-all duration-300 hover:shadow-lg"
@@ -288,7 +284,7 @@ const ServiceModal = ({ service, onClose }) => {
             </div>
           </div>
 
-          {/* CTA - Enhanced */}
+          {/* CTA */}
           <div className="flex flex-col sm:flex-row gap-3 pt-2">
             <button 
               onClick={onClose} 
@@ -320,53 +316,23 @@ const ServiceModal = ({ service, onClose }) => {
       </div>
 
       <style>{`
-        @keyframes fadeIn {
-          from { opacity: 0; }
-          to { opacity: 1; }
-        }
-        @keyframes fadeOut {
-          from { opacity: 1; }
-          to { opacity: 0; }
-        }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes fadeOut { from { opacity: 1; } to { opacity: 0; } }
         @keyframes modalSlideUp {
-          from { 
-            opacity: 0;
-            transform: translateY(40px) scale(0.95);
-          }
-          to { 
-            opacity: 1;
-            transform: translateY(0) scale(1);
-          }
+          from { opacity: 0; transform: translateY(40px) scale(0.95); }
+          to { opacity: 1; transform: translateY(0) scale(1); }
         }
         @keyframes modalSlideDown {
-          from { 
-            opacity: 1;
-            transform: translateY(0) scale(1);
-          }
-          to { 
-            opacity: 0;
-            transform: translateY(40px) scale(0.95);
-          }
+          from { opacity: 1; transform: translateY(0) scale(1); }
+          to { opacity: 0; transform: translateY(40px) scale(0.95); }
         }
         @keyframes featureSlideIn {
-          from { 
-            opacity: 0;
-            transform: translateX(-15px);
-          }
-          to { 
-            opacity: 1;
-            transform: translateX(0);
-          }
+          from { opacity: 0; transform: translateX(-15px); }
+          to { opacity: 1; transform: translateX(0); }
         }
         @keyframes benefitSlideIn {
-          from { 
-            opacity: 0;
-            transform: translateX(-20px);
-          }
-          to { 
-            opacity: 1;
-            transform: translateX(0);
-          }
+          from { opacity: 0; transform: translateX(-20px); }
+          to { opacity: 1; transform: translateX(0); }
         }
       `}</style>
     </div>
@@ -409,7 +375,7 @@ const Services = () => {
         background: 'linear-gradient(180deg, #f8fafc 0%, #ffffff 50%, #faf8f5 100%)' 
       }}
     >
-      {/* Enhanced Background Decorations */}
+      {/* Background Decorations */}
       <div className="absolute inset-0 pointer-events-none">
         <div 
           className="absolute top-20 left-20 w-96 h-96 rounded-full blur-3xl opacity-20"
@@ -439,12 +405,12 @@ const Services = () => {
       </div>
 
       <div className="max-w-7xl mx-auto relative z-10">
-        {/* Enhanced Header */}
+        {/* Header */}
         <div className={`text-center mb-16 transition-all duration-1000 transform ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
           <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full mb-4" style={{
             background: 'linear-gradient(135deg, rgba(201,165,90,0.12), rgba(201,165,90,0.05))',
             border: '1px solid rgba(201,165,90,0.2)',
-            boxShadow: '0 4px 20px rgba(201,165,90,0.05)'
+            shadow: '0 4px 20px rgba(201,165,90,0.05)'
           }}>
             <Sparkles size={16} style={{ color: '#c9a55a' }} />
             <span className="font-bold text-xs tracking-[0.3em] uppercase" style={{ color: '#c9a55a' }}>
@@ -468,7 +434,7 @@ const Services = () => {
           </p>
         </div>
 
-        {/* Enhanced Service Cards */}
+        {/* Service Cards */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
           {serviceData.map((service, index) => (
             <div
@@ -485,7 +451,7 @@ const Services = () => {
                 transition: `all 0.6s cubic-bezier(0.4, 0, 0.2, 1) ${index * 0.08}s`
               }}
             >
-              {/* Enhanced Hover Effects */}
+              {/* Hover Effects */}
               <div 
                 className="absolute inset-0 rounded-2xl transition-all duration-500"
                 style={{
@@ -503,7 +469,7 @@ const Services = () => {
                 }}
               />
 
-              {/* Tag - Enhanced */}
+              {/* Tag */}
               <div className="relative flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold mb-4 self-start transition-all duration-300"
                 style={{ 
                   background: `linear-gradient(135deg, ${service.color}20, ${service.color}08)`,
@@ -516,7 +482,7 @@ const Services = () => {
                 {service.tag}
               </div>
 
-              {/* Icon with Enhanced Animation */}
+              {/* Icon */}
               <div className="relative">
                 <div 
                   className="w-14 h-14 rounded-2xl flex items-center justify-center mb-5 transition-all duration-500"
@@ -528,7 +494,6 @@ const Services = () => {
                 >
                   <service.icon className="text-white" size={26} />
                 </div>
-                {/* Floating particle effect */}
                 {hoveredIndex === index && (
                   <div className="absolute -top-2 -right-2 w-3 h-3 rounded-full animate-ping" style={{ background: service.color }} />
                 )}
@@ -546,7 +511,7 @@ const Services = () => {
                 </p>
               </div>
 
-              {/* Stats mini - Enhanced */}
+              {/* Stats mini */}
               <div className="relative flex items-center justify-between mt-4 pt-4" style={{ borderTop: '1px solid rgba(0,0,0,0.05)' }}>
                 <div className="flex items-center gap-3">
                   <div className="flex items-center gap-1 text-xs font-medium" style={{ color: 'rgba(10,22,40,0.5)' }}>
@@ -568,7 +533,7 @@ const Services = () => {
           ))}
         </div>
 
-        {/* Enhanced CTA Banner */}
+        {/* CTA Banner */}
         <div className={`rounded-3xl p-10 md:p-12 text-center text-white relative overflow-hidden transition-all duration-1000 delay-600 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}
           style={{ background: 'linear-gradient(135deg, #010610 0%, #0a1628 40%, #1a1060 100%)' }}>
           
@@ -593,7 +558,6 @@ const Services = () => {
               backgroundSize: '30px 30px'
             }} />
             
-            {/* Animated dots */}
             <div className="absolute top-10 left-10 grid grid-cols-4 gap-4 opacity-10">
               {[...Array(8)].map((_, i) => (
                 <div key={i} className="w-1 h-1 rounded-full" style={{ background: '#c9a55a' }} />
@@ -627,8 +591,6 @@ const Services = () => {
               </a>
               <div className="flex items-center gap-3 text-sm text-gray-400">
                 <span>📞 +92 316 0285386</span>
-                <span className="w-px h-4 bg-gray-700" />
-                <span>📧 imran@accurate-consultancy.com</span>
               </div>
             </div>
           </div>
