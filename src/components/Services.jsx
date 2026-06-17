@@ -8,7 +8,7 @@ import {
 
 const serviceData = [
   {
-    icon: Passport,
+    icon: Compass,
     title: 'Visit Visa',
     short: 'Tourism, family visits, and short-term travel visas processed with expert guidance from document preparation to embassy liaison for 50+ countries.',
     color: '#3b82f6',
@@ -410,7 +410,7 @@ const Services = () => {
           <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full mb-4" style={{
             background: 'linear-gradient(135deg, rgba(201,165,90,0.12), rgba(201,165,90,0.05))',
             border: '1px solid rgba(201,165,90,0.2)',
-            shadow: '0 4px 20px rgba(201,165,90,0.05)'
+            boxShadow: '0 4px 20px rgba(201,165,90,0.05)'
           }}>
             <Sparkles size={16} style={{ color: '#c9a55a' }} />
             <span className="font-bold text-xs tracking-[0.3em] uppercase" style={{ color: '#c9a55a' }}>
