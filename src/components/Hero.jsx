@@ -49,13 +49,14 @@ const ContinentsMap = () => (
 const Hero = () => {
   const yearsCount = useCounter(20, 2000); 
   const successCount = useCounter(98, 2000);
-  const casesCount = useCounter(2000, 2000);
+  const casesCount = useCounter(2500, 2500);
   const countriesCount = useCounter(50, 2000); 
 
   const [hoveredCountry, setHoveredCountry] = useState(null);
 
   return (
-    <section className="relative min-h-screen pt-28 pb-16 px-4 sm:px-6 lg:px-8 overflow-hidden flex items-center bg-[#020916]">
+    /* Increased top padding (pt-36 up to lg:pt-48) so text never collapses under the navbar */
+    <section className="relative min-h-screen pt-36 sm:pt-40 md:pt-44 lg:pt-48 pb-16 px-4 sm:px-6 lg:px-8 overflow-hidden flex items-center bg-[#020916]">
       {/* Background Ambient Glow Elements */}
       <div className="absolute top-10 right-10 w-72 h-72 sm:w-96 sm:h-96 rounded-full blur-3xl opacity-20 pointer-events-none bg-gradient-to-r from-[#c9a55a] to-transparent animate-pulse" />
       <div className="absolute bottom-0 left-10 w-64 h-64 sm:w-80 sm:h-80 rounded-full blur-3xl opacity-10 pointer-events-none bg-gradient-to-r from-[#1a2b4c] to-transparent" />
@@ -107,7 +108,7 @@ const Hero = () => {
           </div>
         </div>
 
-        {/* Right Column - Corporate Globe with Flag Orbits (Hidden on mobile) */}
+        {/* Right Column - Corporate Globe with Flag Orbits */}
         <div className="hidden lg:flex w-full items-center justify-center py-8 lg:py-0">
           <div className="relative w-[500px] h-[500px] flex items-center justify-center">
             
@@ -124,7 +125,7 @@ const Hero = () => {
               <div className="absolute inset-0 rounded-full shadow-[inset_-20px_-20px_50px_rgba(0,0,0,0.8)] pointer-events-none" />
             </div>
 
-            {/* Market Flags Orbiting the Globe (Increased Size) */}
+            {/* Market Flags Orbiting the Globe */}
             {countriesData.map((country, index) => {
               const orbitStyles = {
                 '--start-angle': `${country.angle}deg`,
@@ -135,12 +136,10 @@ const Hero = () => {
               return (
                 <div 
                   key={index} 
-                  // Updated margins (-ml-8 -mt-8) to properly center the larger 64x64px badge
                   className="absolute left-[50%] top-[50%] -ml-8 -mt-8 z-20"
                   style={orbitStyles}
                 >
                   <div 
-                    // Increased dimensions (w-16 h-16) and emoji text size (text-3xl)
                     className="relative flex items-center justify-center w-16 h-16 rounded-full border border-[#c9a55a]/40 bg-[#0a1628]/95 text-3xl shadow-2xl hover:scale-110 hover:border-[#f0c040] hover:shadow-[#c9a55a]/50 transition-all duration-300 cursor-pointer backdrop-blur-md select-none animate-[counterRotate_40s_linear_infinite]"
                     onMouseEnter={() => setHoveredCountry(index)}
                     onMouseLeave={() => setHoveredCountry(null)}
