@@ -57,41 +57,32 @@ export default function Navbar() {
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20 md:h-24">
+        {/* Adjusted header height to accommodate the larger logo */}
+        <div className="flex items-center justify-between h-24 md:h-28 lg:h-32">
           
-          {/* ===== BRAND LOGO with SUPER GLOW ===== */}
+          {/* ===== BRAND LOGO with Glow ===== */}
           <div 
             className="flex-shrink-0 flex items-center cursor-pointer group"
             onClick={() => scrollTo('hero')}
           >
-            <div className="relative">
-              {/* Enhanced glow halo - larger and brighter */}
+            <div className="relative flex items-center">
+              {/* Animated glow halo behind logo */}
               <div 
-                className="absolute inset-0 blur-3xl opacity-80 group-hover:opacity-100 transition-opacity duration-700 animate-glow-pulse"
+                className="absolute inset-0 blur-2xl opacity-60 group-hover:opacity-100 transition-opacity duration-700"
                 style={{
-                  background: 'radial-gradient(circle, rgba(212,175,55,0.7), rgba(212,175,55,0.2) 50%, transparent 70%)',
-                  transform: 'scale(2.2)',
-                  filter: 'blur(30px)',
+                  background: 'radial-gradient(circle, rgba(212,175,55,0.5), transparent 70%)',
+                  transform: 'scale(1.8)',
+                  filter: 'blur(25px)',
                 }}
               />
               
-              {/* Second outer glow ring */}
-              <div 
-                className="absolute inset-0 blur-2xl opacity-50 group-hover:opacity-80 transition-opacity duration-700"
-                style={{
-                  background: 'radial-gradient(circle, rgba(212,175,55,0.3), transparent 60%)',
-                  transform: 'scale(2.8)',
-                  filter: 'blur(40px)',
-                }}
-              />
-
-              {/* Logo Image – significantly larger */}
+              {/* Increased Logo Image Sizes */}
               <img
                 src="/logo.webp"
                 alt="Accurate Consultancy"
-                className="relative h-16 sm:h-20 md:h-24 lg:h-28 xl:h-32 transition-all duration-500 group-hover:scale-110"
+                className="relative h-16 sm:h-20 md:h-24 lg:h-28 object-contain transition-all duration-500 group-hover:scale-105"
                 style={{
-                  filter: 'drop-shadow(0 0 30px rgba(212,175,55,0.5)) drop-shadow(0 0 60px rgba(212,175,55,0.3)) drop-shadow(0 0 90px rgba(212,175,55,0.15))',
+                  filter: 'drop-shadow(0 0 25px rgba(212,175,55,0.3)) drop-shadow(0 0 50px rgba(212,175,55,0.15))',
                 }}
               />
             </div>
@@ -231,20 +222,6 @@ export default function Navbar() {
             opacity: 1;
             transform: translateX(0);
           }
-        }
-
-        @keyframes glowPulse {
-          0%, 100% {
-            opacity: 0.6;
-            transform: scale(2.2);
-          }
-          50% {
-            opacity: 1;
-            transform: scale(2.5);
-          }
-        }
-        .animate-glow-pulse {
-          animation: glowPulse 3s ease-in-out infinite;
         }
       `}</style>
     </nav>
