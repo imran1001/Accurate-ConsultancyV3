@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Play, ArrowRight, Star, Users, Shield } from 'lucide-react';
+import { Play, ArrowRight, Star, Users, Shield, Globe } from 'lucide-react';
 
 // Optimized Counter Hook
 const useCounter = (end, duration = 2000, start = 0) => {
@@ -99,7 +99,7 @@ const Hero = () => {
           </div>
 
           {/* Headline – mobile‑friendly wrapping */}
-          <h1 className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl font-black leading-[1.1] mb-4 sm:mb-6 text-white tracking-tight">
+          <h1 className="text-3xl sm:text-5xl md:text-6xl font-black leading-[1.1] mb-4 sm:mb-6 text-white tracking-tight">
             <span className="block">Navigate Your Journey to</span>
             <span className="block text-transparent bg-clip-text bg-gradient-to-r from-[#c9a55a] via-[#f0c040] to-[#c9a55a] bg-[length:200%_auto] animate-textShimmer break-words">
               Global Success
@@ -111,13 +111,13 @@ const Hero = () => {
           </p>
 
           {/* CTAs – responsive stacking */}
-          <div className="flex flex-col xs:flex-row items-center justify-center lg:justify-start gap-3 sm:gap-4 mb-8 sm:mb-10">
-            <a href="#consultation" className="group w-full xs:w-auto inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3 sm:py-4 rounded-full font-bold text-sm sm:text-lg bg-gradient-to-r from-[#c9a55a] to-[#f0c040] text-[#0a1628] shadow-lg shadow-[#c9a55a]/20 hover:scale-105 hover:shadow-xl transition-all duration-300 no-underline">
+          <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3 sm:gap-4 mb-8 sm:mb-10">
+            <a href="#consultation" className="group w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3 sm:py-4 rounded-full font-bold text-sm sm:text-lg bg-gradient-to-r from-[#c9a55a] to-[#f0c040] text-[#0a1628] shadow-lg shadow-[#c9a55a]/20 hover:scale-105 hover:shadow-xl transition-all duration-300 no-underline">
               <Play size={18} fill="currentColor" className="group-hover:scale-110 transition-transform" />
               Get Started Today
               <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
             </a>
-            <a href="#services" className="w-full xs:w-auto inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3 sm:py-4 rounded-full font-bold text-sm sm:text-lg text-white border border-white/20 bg-white/5 backdrop-blur-sm hover:bg-white/10 hover:border-white/40 transition-all duration-300 no-underline">
+            <a href="#services" className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3 sm:py-4 rounded-full font-bold text-sm sm:text-lg text-white border border-white/20 bg-white/5 backdrop-blur-sm hover:bg-white/10 hover:border-white/40 transition-all duration-300 no-underline">
               Explore Services
               <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
             </a>
@@ -134,7 +134,7 @@ const Hero = () => {
               <span className="text-xs sm:text-sm font-bold text-white">4.9/5</span>
               <span className="text-[10px] sm:text-xs text-gray-400">(200+ Reviews)</span>
             </div>
-            <div className="w-px h-5 bg-white/10 hidden xs:block" />
+            <div className="w-px h-5 bg-white/10 hidden sm:block" />
             <div className="flex items-center gap-1.5">
               <Users size={14} className="text-[#c9a55a]" />
               <span className="text-xs sm:text-sm font-medium text-white">2,000+</span>
