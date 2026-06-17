@@ -67,7 +67,7 @@ const Hero = () => {
       <div className="max-w-7xl mx-auto w-full relative z-10 grid lg:grid-cols-2 gap-16 items-center">
         
         {/* Left Content Column */}
-        <div className="text-left order-2 lg:order-1">
+        <div className="text-left w-full">
           <div className="inline-flex items-center space-x-3 mb-6 px-4 py-2 rounded-full border border-[#c9a55a]/30 bg-[#c9a55a]/10 backdrop-blur-md animate-fadeInUp">
             <span className="text-xs font-bold text-white uppercase tracking-wider">Travel • Visa & Immigration • Business Consultancy</span>
           </div>
@@ -106,16 +106,16 @@ const Hero = () => {
           </div>
         </div>
 
-        {/* Right Animated Orbital Column */}
-        <div className="w-full flex items-center justify-center order-1 lg:order-2 py-8 lg:py-0">
-          <div className="relative w-[280px] h-[280px] sm:w-[400px] sm:h-[400px] flex items-center justify-center">
+        {/* Right Animated Orbital Column - Hidden on mobile/tablet, flexes on lg screens */}
+        <div className="hidden lg:flex w-full items-center justify-center py-8 lg:py-0">
+          <div className="relative w-[400px] h-[400px] flex items-center justify-center">
             
             {/* Visual Orbit Tracks */}
             <div className="absolute w-full h-full rounded-full border border-dashed border-[#c9a55a]/20 pointer-events-none animate-[spin_80s_linear_infinite]" />
             <div className="absolute w-[70%] h-[70%] rounded-full border border-double border-white/5 pointer-events-none" />
 
             {/* Core Rotating Central Globe */}
-            <div className="relative w-40 h-40 sm:w-56 sm:h-56 rounded-full overflow-hidden bg-gradient-to-br from-[#1a1060] to-[#0a1628] shadow-[0_0_50px_rgba(201,165,90,0.3)] border-2 border-[#c9a55a]/30">
+            <div className="relative w-56 h-56 rounded-full overflow-hidden bg-gradient-to-br from-[#1a1060] to-[#0a1628] shadow-[0_0_50px_rgba(201,165,90,0.3)] border-2 border-[#c9a55a]/30">
               <div className="w-full h-full animate-[panGlobalMap_25s_linear_infinite]">
                 <ContinentsMap />
               </div>
@@ -123,7 +123,6 @@ const Hero = () => {
 
             {/* Planetary Floating Countries Badges */}
             {countriesData.map((country, index) => {
-              // Custom inline styles ensure smooth, continuous, upright planetary travel paths
               const orbitStyles = {
                 '--start-angle': `${country.angle}deg`,
                 '--end-angle': `${country.angle + 360}deg`,
@@ -133,18 +132,18 @@ const Hero = () => {
               return (
                 <div 
                   key={index} 
-                  className="absolute left-[50%] top-[50%] -ml-6 -mt-6 sm:-ml-8 sm:-mt-8"
+                  className="absolute left-[50%] top-[50%] -ml-8 -mt-8"
                   style={orbitStyles}
                 >
                   <div 
-                    className="relative flex items-center justify-center w-12 h-12 sm:w-16 sm:h-16 rounded-full border border-[#c9a55a]/40 bg-[#0a1628]/90 text-2xl sm:text-3xl shadow-xl hover:scale-125 hover:border-[#f0c040] hover:shadow-[#c9a55a]/40 transition-all duration-300 cursor-pointer backdrop-blur-md select-none animate-[counterRotate_35s_linear_infinite]"
+                    className="relative flex items-center justify-center w-16 h-16 rounded-full border border-[#c9a55a]/40 bg-[#0a1628]/90 text-3xl shadow-xl hover:scale-125 hover:border-[#f0c040] hover:shadow-[#c9a55a]/40 transition-all duration-300 cursor-pointer backdrop-blur-md select-none animate-[counterRotate_35s_linear_infinite]"
                     onMouseEnter={() => setHoveredCountry(index)}
                     onMouseLeave={() => setHoveredCountry(null)}
                   >
                     <span>{country.flag}</span>
                     
                     {hoveredCountry === index && (
-                      <div className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 whitespace-nowrap bg-gradient-to-r from-[#c9a55a] to-[#f0c040] text-[#0a1628] font-bold text-[10px] sm:text-xs py-1 px-2.5 rounded-md shadow-lg pointer-events-none tracking-wide z-50">
+                      <div className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 whitespace-nowrap bg-gradient-to-r from-[#c9a55a] to-[#f0c040] text-[#0a1628] font-bold text-xs py-1 px-2.5 rounded-md shadow-lg pointer-events-none tracking-wide z-50">
                         {country.name}
                       </div>
                     )}
@@ -172,8 +171,8 @@ const Hero = () => {
           to { transform: translateX(-80px); }
         }
         @keyframes orbitSmooth {
-          from { transform: rotate(var(--start-angle)) translateX(min(180px, 42vw)) rotate(calc(-1 * var(--start-angle))); }
-          to { transform: rotate(var(--end-angle)) translateX(min(180px, 42vw)) rotate(calc(-1 * var(--end-angle))); }
+          from { transform: rotate(var(--start-angle)) translateX(180px) rotate(calc(-1 * var(--start-angle))); }
+          to { transform: rotate(var(--end-angle)) translateX(180px) rotate(calc(-1 * var(--end-angle))); }
         }
         @keyframes counterRotate {
           from { transform: rotate(0deg); }
