@@ -2,8 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { 
   Plane, Briefcase, GraduationCap, Users, Building2, Compass, 
   ChevronRight, X, Clock, FileText, Sparkles, Star, 
-  Shield, Award, TrendingUp, CheckCircle, Globe, Zap,
-  Mail, Phone, Calendar, ArrowRight
+  Award, TrendingUp, CheckCircle, Globe, Zap, Calendar, ArrowRight
 } from 'lucide-react';
 
 const serviceData = [
@@ -79,9 +78,9 @@ const serviceData = [
     icon: Building2,
     title: 'Business Immigration',
     short: 'Investor visas, entrepreneur programs, and corporate immigration for business expansion and global ventures.',
-    color: '#0d9488',
-    bg: 'from-teal-600 to-teal-500',
-    gradient: 'rgba(13,148,136,0.1)',
+    color: '#dc2626',
+    bg: 'from-red-600 to-red-500',
+    gradient: 'rgba(220,38,38,0.1)',
     tag: 'Investors',
     stats: { success: '95%', time: '3-6 months', cases: '150+' },
     features: ['Business planning', 'Investment structuring', 'Funds documentation', 'Corporate support'],
@@ -96,9 +95,9 @@ const serviceData = [
     icon: Plane,
     title: 'Travel Management',
     short: 'Comprehensive travel coordination, corporate logistics, and relocation management for seamless global mobility.',
-    color: '#ec4899',
-    bg: 'from-pink-600 to-pink-500',
-    gradient: 'rgba(236,72,153,0.1)',
+    color: '#78350f',
+    bg: 'from-[#78350f] to-[#92400e]',
+    gradient: 'rgba(120,53,15,0.1)',
     tag: 'Corporate',
     stats: { success: '97%', time: 'Flexible', cases: '200+' },
     features: ['Multi-visa processing', 'Flight & hotel booking', 'Insurance advisory', 'Settlement support'],
