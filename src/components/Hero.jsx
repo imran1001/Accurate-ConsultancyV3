@@ -30,7 +30,6 @@ const Hero = () => {
   const approvedCases = useCounter(2000, 2500);
   const corridors = useCounter(50, 1800);
 
-  // Only 4 key destination cards – cleaner, less crowded
   const cards = [
     { flag: '🇨🇦', name: 'Canada', subtitle: 'Study • Work • PR', delay: 0, desktopPos: 'top-[8%] left-0 lg:-left-[8%]' },
     { flag: '🇬🇧', name: 'United Kingdom', subtitle: 'Student • Visitor', delay: 1, desktopPos: 'top-[12%] right-0 lg:-right-[8%]' },
@@ -39,211 +38,162 @@ const Hero = () => {
   ];
 
   return (
-    <section className="relative min-h-screen bg-[#081326] text-white overflow-hidden flex flex-col justify-center pt-16 pb-12 sm:pt-24 sm:pb-16">
+    <section className="relative min-h-screen bg-[#081326] text-white overflow-hidden flex flex-col justify-center pt-24 pb-12 sm:pt-28 sm:pb-16">
       
-      {/* ===== BACKGROUND ===== */}
+      {/* ===== ENHANCED BACKGROUND INTERIOR ===== */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_50%,#0B1D3A_0%,#081326_70%)]" />
-        <div className="absolute right-[-10%] top-[10%] w-[600px] h-[600px] rounded-full bg-[#D4AF37]/5 blur-[120px] animate-float-slow" />
-        <div className="absolute left-[-5%] bottom-[20%] w-[400px] h-[400px] rounded-full bg-[#3b4fca]/5 blur-[100px] animate-float-slow" style={{ animationDelay: '2s' }} />
-        <div className="absolute inset-0 opacity-30" style={{
+        <div className="absolute right-[-10%] top-[10%] w-[300px] sm:w-[600px] h-[300px] sm:h-[600px] rounded-full bg-[#D4AF37]/5 blur-[80px] sm:blur-[120px] animate-float-slow" />
+        <div className="absolute left-[-5%] bottom-[20%] w-[250px] sm:w-[400px] h-[250px] sm:h-[400px] rounded-full bg-[#3b4fca]/5 blur-[70px] sm:blur-[100px] animate-float-slow" style={{ animationDelay: '2s' }} />
+        <div className="absolute inset-0 opacity-20 sm:opacity-30" style={{
           backgroundImage: 'radial-gradient(circle, rgba(212,175,55,0.03) 1px, transparent 1px)',
-          backgroundSize: '30px 30px'
+          backgroundSize: '24px 24px'
         }} />
         <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#D4AF37]/20 to-transparent animate-slide-line" />
       </div>
 
-      <div className="relative max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 z-10 grid lg:grid-cols-12 gap-6 lg:gap-16 items-center">
+      <div className="relative max-w-7xl mx-auto w-full px-4 xs:px-5 sm:px-6 lg:px-8 z-10 grid lg:grid-cols-12 gap-6 sm:gap-8 lg:gap-16 items-center">
         
-        {/* ===== LEFT COLUMN – mobile‑first typography ===== */}
-        <div className="lg:col-span-6 flex flex-col justify-center z-20 pt-2 lg:pt-0 text-center lg:text-left items-center lg:items-start">
+        {/* ===== LEFT COLUMN: HEADLINE & ACTIONS ===== */}
+        <div className="lg:col-span-6 flex flex-col justify-center z-20 text-center lg:text-left items-center lg:items-start max-w-2xl mx-auto lg:max-w-none">
           
-          {/* Badge – smaller text on mobile */}
-          <div className="inline-flex items-center space-x-2 w-max px-2.5 sm:px-4 py-1 sm:py-2 rounded-full border border-[#D4AF37]/30 bg-[#D4AF37]/10 backdrop-blur-md mb-3 sm:mb-6 animate-fade-in-up">
-            <span className="relative flex h-1.5 w-1.5">
+          {/* Badge: Prevented wrapping on ultra-small screens */}
+          <div className="inline-flex items-center space-x-2 px-3 py-1.5 rounded-full border border-[#D4AF37]/30 bg-[#D4AF37]/10 backdrop-blur-md mb-4 sm:mb-6 animate-fade-in-up max-w-full">
+            <span className="relative flex h-1.5 w-1.5 flex-shrink-0">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#D4AF37] opacity-75"></span>
               <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-[#D4AF37]"></span>
             </span>
-            <span className="text-[7px] xs:text-[9px] sm:text-[11px] font-bold text-[#D4AF37] uppercase tracking-widest">
+            <span className="text-[9px] xs:text-[10px] sm:text-[11px] font-bold text-[#D4AF37] uppercase tracking-wide xs:tracking-widest whitespace-nowrap overflow-hidden text-ellipsis">
               Visa & Immigration Experts
             </span>
-            <Sparkles size={12} className="text-[#D4AF37] hidden sm:block" />
+            <Sparkles size={11} className="text-[#D4AF37] hidden xs:block flex-shrink-0" />
           </div>
 
-          {/* Heading – responsive sizing to avoid wrapping */}
-          <h1 className="text-2xl xs:text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight leading-[1.1] mb-2 sm:mb-6 animate-fade-in-up delay-100 w-full">
-            <span className="block text-white whitespace-nowrap xs:whitespace-normal">Trusted Visa &</span>
-            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#D4AF37] bg-300% animate-gradient-shift break-words">
+          {/* Headline: Fluid sizing prevents "Immigration Consultants" from breaking ugly on mobile */}
+          <h1 className="text-2xl xs:text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight leading-[1.15] sm:leading-[1.1] mb-4 sm:mb-6 animate-fade-in-up delay-100 w-full break-words">
+            <span className="block text-white mb-1 xs:mb-0">Trusted Visa &</span>
+            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#D4AF37] bg-300% animate-gradient-shift py-1">
               Immigration Consultants
             </span>
           </h1>
 
-          {/* Subtitle – shorter on mobile */}
-          <p className="text-slate-300 text-xs xs:text-sm sm:text-lg font-normal leading-relaxed max-w-xl mb-4 sm:mb-8 px-2 lg:px-0 animate-fade-in-up delay-200">
-            Premium consultancy delivering seamless pathways to your dream destinations.
+          {/* Subtitle */}
+          <p className="text-slate-300 text-xs xs:text-sm sm:text-lg font-normal leading-relaxed max-w-xl mb-6 sm:mb-8 px-1 xs:px-2 lg:px-0 animate-fade-in-up delay-200">
+            Premium consultancy delivering seamless pathways to your dream destinations worldwide.
           </p>
 
-          {/* CTAs – full width on small screens */}
-          <div className="flex flex-col xs:flex-row flex-wrap items-center justify-center lg:justify-start gap-2 sm:gap-4 mb-5 sm:mb-10 w-full animate-fade-in-up delay-300">
+          {/* CTAs: Optimized stacked layout for micro screens, side-by-side on larger items */}
+          <div className="flex flex-col xs:flex-row items-center justify-center lg:justify-start gap-3 w-full sm:w-auto mb-8 sm:mb-12 animate-fade-in-up delay-300">
             <a 
               href="#consultation" 
-              className="group relative w-full xs:w-auto flex items-center justify-center gap-2 px-4 sm:px-8 py-2.5 sm:py-4 rounded-full font-bold text-xs sm:text-sm text-[#081326] bg-gradient-to-r from-[#D4AF37] to-[#F3E5AB] shadow-[0_4px_25px_rgba(212,175,55,0.3)] transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_8px_40px_rgba(212,175,55,0.4)] overflow-hidden"
+              className="group relative w-full xs:w-auto flex items-center justify-center gap-2 px-5 sm:px-8 py-3.5 sm:py-4 rounded-full font-bold text-xs sm:text-sm text-[#081326] bg-gradient-to-r from-[#D4AF37] to-[#F3E5AB] shadow-[0_4px_20px_rgba(212,175,55,0.25)] transition-all duration-300 hover:scale-[1.02] overflow-hidden whitespace-nowrap"
             >
               <span className="absolute inset-0 bg-white/20 -translate-x-full group-hover:translate-x-0 transition-transform duration-700" />
-              <span className="relative flex items-center gap-2 whitespace-nowrap">
+              <span className="relative flex items-center gap-1.5">
                 Get Started Today
-                <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+                <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
               </span>
             </a>
             <a 
               href="#services" 
-              className="group w-full xs:w-auto flex items-center justify-center gap-2 px-4 sm:px-8 py-2.5 sm:py-4 rounded-full font-bold text-xs sm:text-sm text-white border border-white/20 bg-white/5 backdrop-blur-md transition-all duration-300 hover:bg-white/10 hover:border-white/40 hover:scale-[1.02]"
+              className="group w-full xs:w-auto flex items-center justify-center gap-1.5 px-5 sm:px-8 py-3.5 sm:py-4 rounded-full font-bold text-xs sm:text-sm text-white border border-white/10 bg-white/5 backdrop-blur-md transition-all duration-300 hover:bg-white/10 hover:border-white/30 whitespace-nowrap"
             >
               Explore Services
-              <ChevronRight size={16} className="group-hover:translate-x-1 transition-transform" />
+              <ChevronRight size={14} className="group-hover:translate-x-1 transition-transform" />
             </a>
           </div>
 
-          {/* Trust Indicators – compact & grouped */}
-          <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2 sm:gap-4 pt-3 sm:pt-6 border-t border-white/10 w-full max-w-xl animate-fade-in-up delay-400">
-            <div className="flex items-center gap-1">
+          {/* Trust Indicators: Clean separation on mobile viewports */}
+          <div className="flex flex-col xs:flex-row items-center justify-center lg:justify-start gap-3 xs:gap-4 pt-4 sm:pt-6 border-t border-white/10 w-full max-w-xl animate-fade-in-up delay-400">
+            <div className="flex items-center gap-2">
               <div className="flex text-[#D4AF37]">
                 {[...Array(5)].map((_, i) => (
-                  <Star key={i} size={10} className="fill-current sm:w-4 sm:h-4" />
+                  <Star key={i} size={11} className="fill-current sm:w-3.5 sm:h-3.5" />
                 ))}
               </div>
-              <span className="text-[9px] sm:text-sm font-bold text-white">4.9/5</span>
-              <span className="text-[7px] sm:text-xs text-slate-400">(200+ Reviews)</span>
+              <span className="text-xs font-bold text-white">4.9/5</span>
+              <span className="text-[11px] text-slate-400">(200+ Reviews)</span>
             </div>
             
-            <div className="w-px h-3 bg-white/10 hidden xs:block" />
+            <div className="hidden xs:block w-px h-3.5 bg-white/20" />
             
-            <div className="flex items-center gap-1">
-              <Users size={10} className="text-[#D4AF37] sm:w-4 sm:h-4" />
-              <span className="text-[9px] sm:text-sm font-medium text-white">2,000+</span>
-              <span className="text-[7px] sm:text-xs text-slate-400">Happy Clients</span>
+            <div className="flex items-center gap-1.5">
+              <Users size={13} className="text-[#D4AF37] sm:w-3.5 sm:h-3.5" />
+              <span className="text-xs font-bold text-white">2,000+</span>
+              <span className="text-[11px] text-slate-400">Happy Clients</span>
             </div>
           </div>
         </div>
 
-        {/* ===== RIGHT COLUMN – GLOBE + CARDS ===== */}
+        {/* ===== RIGHT COLUMN: GLOBE INTERACTIVE ILLUSTRATION ===== */}
         <div className="lg:col-span-6 flex flex-col items-center justify-center mt-4 lg:mt-0 w-full">
           
-          <div className="relative flex items-center justify-center w-full min-h-[140px] xs:min-h-[180px] sm:min-h-[240px] lg:min-h-[500px]">
+          <div className="relative flex items-center justify-center w-full min-h-[160px] xs:min-h-[200px] sm:min-h-[260px] lg:min-h-[500px]">
             
-            {/* Desktop only decorations */}
-            <div className="hidden lg:block absolute w-[500px] h-[500px] rounded-full border border-[#D4AF37]/20 pointer-events-none animate-spin-slow" style={{ animationDuration: '35s' }} />
-            <div className="hidden lg:block absolute w-[400px] h-[400px] rounded-full border border-[#D4AF37]/10 pointer-events-none animate-spin-slow" style={{ animationDuration: '25s', animationDirection: 'reverse' }} />
-            <div className="hidden lg:block absolute w-[300px] h-[300px] rounded-full border border-[#D4AF37]/5 pointer-events-none animate-spin-slow" style={{ animationDuration: '18s' }} />
+            {/* Desktop ambient rings */}
+            <div className="hidden lg:block absolute w-[500px] h-[500px] rounded-full border border-[#D4AF37]/10 pointer-events-none animate-spin-slow" style={{ animationDuration: '40s' }} />
+            <div className="hidden lg:block absolute w-[380px] h-[380px] rounded-full border border-[#D4AF37]/5 pointer-events-none animate-spin-slow" style={{ animationDuration: '28s', animationDirection: 'reverse' }} />
 
-            {/* Desktop only: orbiting particles */}
-            <div className="hidden lg:block absolute w-[420px] h-[420px] pointer-events-none animate-spin-slow" style={{ animationDuration: '20s' }}>
-              {[...Array(12)].map((_, i) => {
-                const angle = (i / 12) * 360;
-                return (
-                  <div
-                    key={i}
-                    className="absolute w-1.5 h-1.5 rounded-full bg-[#D4AF37] opacity-60"
-                    style={{
-                      top: '50%',
-                      left: '50%',
-                      transform: `rotate(${angle}deg) translateX(210px)`,
-                      transformOrigin: '0 0',
-                    }}
-                  />
-                );
-              })}
-            </div>
-
-            {/* Globe Sphere – fully responsive */}
-            <div className="relative w-24 h-24 xs:w-32 xs:h-32 sm:w-44 sm:h-44 lg:w-72 lg:h-72 rounded-full shadow-[0_0_80px_rgba(212,175,55,0.3)] flex items-center justify-center group">
-              <div className="absolute -inset-1 sm:-inset-2 rounded-full border-2 border-[#D4AF37]/30 animate-pulse" style={{ animationDuration: '3s' }} />
-              <div className="absolute -inset-2 sm:-inset-4 rounded-full border border-[#D4AF37]/10 animate-pulse" style={{ animationDuration: '4s', animationDelay: '1s' }} />
+            {/* Globe Sphere Layout */}
+            <div className="relative w-28 h-28 xs:w-36 xs:h-36 sm:w-48 sm:h-48 lg:w-72 lg:h-72 rounded-full shadow-[0_0_60px_rgba(212,175,55,0.2)] flex items-center justify-center">
+              <div className="absolute -inset-1 rounded-full border border-[#D4AF37]/20 animate-pulse" style={{ animationDuration: '3s' }} />
               
               <div className="relative w-full h-full rounded-full overflow-hidden bg-gradient-to-br from-[#0B1D3A] via-[#1A2D50] to-[#081326]">
-                <div className="absolute inset-0 animate-spin-globe" style={{ animationDuration: '25s' }}>
-                  <svg viewBox="0 0 400 400" className="w-full h-full">
+                <div className="absolute inset-0 animate-spin-globe" style={{ animationDuration: '35s' }}>
+                  <svg viewBox="0 0 400 400" className="w-full h-full opacity-70">
                     <defs>
                       <radialGradient id="blueSphere" cx="45%" cy="35%" r="70%">
-                        <stop offset="0%" stopColor="#2A5A8F" stopOpacity="0.95" />
-                        <stop offset="40%" stopColor="#0F2B5C" stopOpacity="0.9" />
+                        <stop offset="0%" stopColor="#2A5A8F" stopOpacity="0.9" />
+                        <stop offset="50%" stopColor="#0F2B5C" stopOpacity="0.85" />
                         <stop offset="100%" stopColor="#081326" stopOpacity="0.95" />
-                      </radialGradient>
-                      <radialGradient id="sphereGlow" cx="50%" cy="50%" r="50%">
-                        <stop offset="0%" stopColor="#D4AF37" stopOpacity="0.12" />
-                        <stop offset="100%" stopColor="#D4AF37" stopOpacity="0" />
                       </radialGradient>
                     </defs>
                     <circle cx="200" cy="200" r="190" fill="url(#blueSphere)" />
-                    <circle cx="200" cy="200" r="190" fill="url(#sphereGlow)" />
-                    <g stroke="#D4AF37" strokeWidth="1.5" fill="none" opacity="0.6">
+                    <g stroke="#D4AF37" strokeWidth="1.2" fill="none" opacity="0.5">
                       <ellipse cx="200" cy="200" rx="160" ry="40" />
-                      <ellipse cx="200" cy="200" rx="138" ry="20" />
                       <ellipse cx="200" cy="200" rx="138" ry="60" />
-                      <ellipse cx="200" cy="200" rx="80" ry="10" />
-                      <ellipse cx="200" cy="200" rx="80" ry="70" />
-                      <circle cx="200" cy="80" r="5" />
-                      <circle cx="200" cy="320" r="5" />
+                      <ellipse cx="200" cy="200" rx="80" ry="80" />
                     </g>
-                    <g stroke="#D4AF37" strokeWidth="1.5" fill="none" opacity="0.6">
+                    <g stroke="#D4AF37" strokeWidth="1.2" fill="none" opacity="0.5">
                       <ellipse cx="200" cy="200" rx="40" ry="160" />
                       <ellipse cx="200" cy="200" rx="80" ry="160" />
                       <ellipse cx="200" cy="200" rx="120" ry="160" />
-                      <ellipse cx="200" cy="200" rx="160" ry="160" />
                     </g>
-                    <circle cx="200" cy="200" r="188" stroke="#D4AF37" strokeWidth="2.5" fill="none" opacity="0.4" />
-                    <g fill="#D4AF37" opacity="0.4">
-                      <circle cx="200" cy="160" r="2.5" />
-                      <circle cx="200" cy="240" r="2.5" />
-                      <circle cx="160" cy="200" r="2.5" />
-                      <circle cx="240" cy="200" r="2.5" />
-                    </g>
-                    <ellipse cx="150" cy="120" rx="70" ry="40" fill="rgba(255,255,255,0.05)" transform="rotate(-30, 150, 120)" />
+                    <circle cx="200" cy="200" r="188" stroke="#D4AF37" strokeWidth="2" fill="none" opacity="0.3" />
                   </svg>
                 </div>
-                <div className="hidden lg:block absolute w-16 h-16 rounded-full bg-[#D4AF37]/15 blur-2xl top-8 right-8 animate-pulse" />
-                <div className="hidden lg:block absolute w-10 h-10 rounded-full bg-[#D4AF37]/10 blur-xl bottom-8 left-8 animate-pulse" style={{ animationDelay: '1.5s' }} />
               </div>
             </div>
 
-            {/* Desktop only: floating cards */}
+            {/* Desktop Interactive Floating Cards */}
             <div className="hidden lg:block">
               {cards.map((card) => (
                 <div
                   key={card.name}
-                  className={`absolute ${card.desktopPos} p-3 rounded-xl bg-[#081326]/80 border border-white/10 backdrop-blur-xl shadow-2xl hover:shadow-[0_10px_40px_rgba(212,175,55,0.2)] hover:border-[#D4AF37]/40 transition-all duration-500 hover:scale-105 group animate-bounce-slow`}
+                  className={`absolute ${card.desktopPos} p-3 rounded-xl bg-[#081326]/85 border border-white/10 backdrop-blur-xl shadow-2xl hover:border-[#D4AF37]/40 transition-all duration-500 hover:scale-105 group animate-bounce-slow`}
                   style={{ animationDelay: `${card.delay}s` }}
                 >
                   <div className="flex items-center gap-3">
-                    <div className="text-3xl group-hover:scale-110 transition-transform duration-300">{card.flag}</div>
-                    <div>
-                      <h3 className="text-white font-bold text-sm leading-tight group-hover:text-[#D4AF37] transition-colors">
-                        {card.name}
-                      </h3>
-                      <p className="text-slate-400 text-[10px] mt-0.5">{card.subtitle}</p>
+                    <div className="text-2xl group-hover:scale-110 transition-transform">{card.flag}</div>
+                    <div className="text-left">
+                      <h3 className="text-white font-bold text-xs leading-tight group-hover:text-[#D4AF37] transition-colors">{card.name}</h3>
+                      <p className="text-slate-400 text-[10px] mt-0.5 whitespace-nowrap">{card.subtitle}</p>
                     </div>
                   </div>
                 </div>
               ))}
             </div>
-
-            <div className="hidden lg:block absolute bottom-[-10px] left-1/2 -translate-x-1/2 text-[10px] font-medium text-white/20 tracking-[0.4em] uppercase whitespace-nowrap">
-              Global Destinations
-            </div>
           </div>
 
-          {/* Mobile: Horizontal scroll strip */}
-          <div className="lg:hidden w-full overflow-x-auto pb-3 -mx-4 px-4 scrollbar-hide mt-3 sm:mt-6">
-            <div className="flex gap-2 w-max">
+          {/* Mobile horizontal destination strip */}
+          <div className="lg:hidden w-full overflow-x-auto pb-2 pt-2 -mx-4 px-4 scrollbar-hide mt-4">
+            <div className="flex gap-2.5 w-max">
               {cards.map((card) => (
-                <div
-                  key={card.name}
-                  className="flex-shrink-0 flex items-center gap-2 px-3 py-2 rounded-xl bg-[#081326]/80 border border-white/10 backdrop-blur-md shadow-lg"
-                >
+                <div key={card.name} className="flex-shrink-0 flex items-center gap-2 px-3 py-2 rounded-xl bg-[#0B1D3A]/60 border border-white/5 backdrop-blur-md shadow-md">
                   <span className="text-xl">{card.flag}</span>
-                  <div className="text-left whitespace-nowrap">
-                    <p className="text-white font-semibold text-[10px]">{card.name}</p>
-                    <p className="text-slate-400 text-[8px]">{card.subtitle}</p>
+                  <div className="text-left">
+                    <p className="text-white font-bold text-[11px] leading-tight">{card.name}</p>
+                    <p className="text-slate-400 text-[9px] mt-0.5">{card.subtitle}</p>
                   </div>
                 </div>
               ))}
@@ -252,9 +202,9 @@ const Hero = () => {
         </div>
       </div>
 
-      {/* ===== STATISTICS BAR ===== */}
-      <div className="relative max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 z-20 mt-8 sm:mt-16 lg:mt-20">
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-4 lg:gap-8">
+      {/* ===== STATISTICS BAR: Fixed word clipping/wrapping on narrow devices ===== */}
+      <div className="relative max-w-7xl mx-auto w-full px-4 xs:px-5 sm:px-6 lg:px-8 z-20 mt-10 sm:mt-16 lg:mt-24">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-8">
           {[
             { val: yearsExp, label: 'Years Experience', suffix: '+', icon: <Award size={14} className="text-[#D4AF37]" /> },
             { val: successRate, label: 'Success Rate', suffix: '%', icon: <TrendingUp size={14} className="text-[#D4AF37]" /> },
@@ -263,15 +213,16 @@ const Hero = () => {
           ].map((stat, idx) => (
             <div 
               key={idx} 
-              className="group p-2 sm:p-5 lg:p-6 rounded-2xl bg-[#0B1D3A]/50 border border-white/5 backdrop-blur-sm relative overflow-hidden hover:border-[#D4AF37]/30 transition-all duration-300 text-center lg:text-left hover:bg-[#0B1D3A]/70 hover:shadow-[0_8px_30px_rgba(212,175,55,0.08)]"
+              className="group p-3.5 xs:p-4 sm:p-5 lg:p-6 rounded-2xl bg-[#0B1D3A]/40 border border-white/5 backdrop-blur-sm relative overflow-hidden hover:border-[#D4AF37]/20 transition-all duration-300 text-center lg:text-left hover:bg-[#0B1D3A]/60"
             >
-              <div className="flex items-center justify-center lg:justify-start gap-1.5 lg:gap-3">
-                <div className="opacity-60 group-hover:opacity-100 transition-opacity">{stat.icon}</div>
-                <div className="text-lg sm:text-2xl lg:text-4xl font-black text-[#D4AF37] group-hover:scale-105 transition-transform origin-left">
+              <div className="flex flex-col xs:flex-row lg:flex-row items-center lg:justify-start gap-1 xs:gap-2.5">
+                <div className="opacity-70 group-hover:opacity-100 hidden xs:block">{stat.icon}</div>
+                <div className="text-lg xs:text-xl sm:text-2xl lg:text-4xl font-black text-[#D4AF37] tracking-tight">
                   {stat.val}{stat.suffix}
                 </div>
               </div>
-              <div className="text-[7px] sm:text-[10px] lg:text-sm font-medium text-slate-400 tracking-wide mt-0.5 sm:mt-1 lg:mt-2 uppercase group-hover:text-slate-300 transition-colors">
+              {/* Added dynamic leading and break tracking for long words like Experience/Corridors */}
+              <div className="text-[9px] xs:text-[10px] sm:text-xs lg:text-sm font-medium text-slate-400 tracking-wide mt-1.5 uppercase group-hover:text-slate-300 transition-colors max-w-full break-words leading-tight">
                 {stat.label}
               </div>
               <div className="absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-[#D4AF37] to-transparent transition-all duration-500 w-0 group-hover:w-full" />
@@ -280,20 +231,20 @@ const Hero = () => {
         </div>
       </div>
 
-      {/* ===== ANIMATIONS STYLES ===== */}
+      {/* ===== GLOBAL CSS STYLES FOR ANIMATIONS ===== */}
       <style>{`
         @keyframes fadeInUp {
-          from { opacity: 0; transform: translateY(16px); }
+          from { opacity: 0; transform: translateY(12px); }
           to { opacity: 1; transform: translateY(0); }
         }
         .animate-fade-in-up {
-          animation: fadeInUp 0.7s ease-out forwards;
+          animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
           opacity: 0;
         }
-        .delay-100 { animation-delay: 0.1s; }
-        .delay-200 { animation-delay: 0.2s; }
-        .delay-300 { animation-delay: 0.3s; }
-        .delay-400 { animation-delay: 0.4s; }
+        .delay-100 { animation-delay: 0.08s; }
+        .delay-200 { animation-delay: 0.16s; }
+        .delay-300 { animation-delay: 0.24s; }
+        .delay-400 { animation-delay: 0.32s; }
 
         @keyframes gradient-shift {
           0%, 100% { background-position: 0% 50%; }
@@ -301,15 +252,15 @@ const Hero = () => {
         }
         .bg-300% { background-size: 300% 100%; }
         .animate-gradient-shift {
-          animation: gradient-shift 4s ease-in-out infinite;
+          animation: gradient-shift 4.5s ease-in-out infinite;
         }
 
         @keyframes float-slow {
           0%, 100% { transform: translateY(0px) rotate(0deg); }
-          50% { transform: translateY(-30px) rotate(5deg); }
+          50% { transform: translateY(-15px) rotate(3deg); }
         }
         .animate-float-slow {
-          animation: float-slow 20s ease-in-out infinite;
+          animation: float-slow 16s ease-in-out infinite;
         }
 
         @keyframes slide-line {
@@ -317,15 +268,15 @@ const Hero = () => {
           100% { transform: translateX(100%); }
         }
         .animate-slide-line {
-          animation: slide-line 8s linear infinite;
+          animation: slide-line 10s linear infinite;
         }
 
         @keyframes bounceSlow {
           0%, 100% { transform: translateY(0); }
-          50% { transform: translateY(-8px); }
+          50% { transform: translateY(-6px); }
         }
         .animate-bounce-slow {
-          animation: bounceSlow 4.5s ease-in-out infinite;
+          animation: bounceSlow 4s ease-in-out infinite;
         }
 
         @keyframes spinSlow {
@@ -333,7 +284,7 @@ const Hero = () => {
           to { transform: rotate(360deg); }
         }
         .animate-spin-slow {
-          animation: spinSlow linear infinite;
+          animation: spinSlow 45s linear infinite;
         }
 
         @keyframes spin-globe {
@@ -341,7 +292,7 @@ const Hero = () => {
           to { transform: rotate(360deg); }
         }
         .animate-spin-globe {
-          animation: spin-globe 30s linear infinite;
+          animation: spin-globe 40s linear infinite;
         }
 
         .scrollbar-hide::-webkit-scrollbar {
@@ -350,12 +301,6 @@ const Hero = () => {
         .scrollbar-hide {
           -ms-overflow-style: none;
           scrollbar-width: none;
-        }
-
-        @media (min-width: 480px) {
-          .xs\\:block { display: block; }
-          .xs\\:text-3xl { font-size: 1.875rem; }
-          .xs\\:whitespace-normal { white-space: normal; }
         }
       `}</style>
     </section>
