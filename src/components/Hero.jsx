@@ -84,7 +84,7 @@ const Hero = () => {
 
           {/* Core Dynamic Heading */}
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-[1.1] mb-6 text-white tracking-tight">
-            Trusted Visa, Immigration <br className="hidden sm:inline" />
+            Visa, Immigration <br className="hidden sm:inline" />
             <span className="relative mt-1 inline-block bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#AA7C11] bg-[length:200%_auto] bg-clip-text text-transparent animate-textShimmer font-black">
               & Study Abroad
             </span>
