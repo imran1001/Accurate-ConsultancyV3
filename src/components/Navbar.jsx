@@ -57,8 +57,8 @@ export default function Navbar() {
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Adjusted header height to accommodate the larger logo */}
-        <div className="flex items-center justify-between h-24 md:h-28 lg:h-32">
+        {/* Perfectly balanced header heights */}
+        <div className="flex items-center justify-between h-16 sm:h-20 md:h-22 lg:h-24">
           
           {/* ===== BRAND LOGO with Glow ===== */}
           <div 
@@ -71,18 +71,18 @@ export default function Navbar() {
                 className="absolute inset-0 blur-2xl opacity-60 group-hover:opacity-100 transition-opacity duration-700"
                 style={{
                   background: 'radial-gradient(circle, rgba(212,175,55,0.5), transparent 70%)',
-                  transform: 'scale(1.8)',
-                  filter: 'blur(25px)',
+                  transform: 'scale(1.5)',
+                  filter: 'blur(20px)',
                 }}
               />
               
-              {/* Increased Logo Image Sizes */}
+              {/* Sleek, optimized logo proportions */}
               <img
                 src="/logo.webp"
                 alt="Accurate Consultancy"
-                className="relative h-16 sm:h-20 md:h-24 lg:h-28 object-contain transition-all duration-500 group-hover:scale-105"
+                className="relative h-11 sm:h-14 md:h-16 lg:h-18 object-contain transition-all duration-500 group-hover:scale-105"
                 style={{
-                  filter: 'drop-shadow(0 0 25px rgba(212,175,55,0.3)) drop-shadow(0 0 50px rgba(212,175,55,0.15))',
+                  filter: 'drop-shadow(0 0 20px rgba(212,175,55,0.25)) drop-shadow(0 0 40px rgba(212,175,55,0.12))',
                 }}
               />
             </div>
