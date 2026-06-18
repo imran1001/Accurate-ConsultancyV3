@@ -64,20 +64,21 @@ export default function Navbar() {
             onClick={() => scrollTo('hero')}
           >
             <div className="relative flex items-center">
-              {/* Dynamic Aura Halo */}
+              {/* Dynamic Aura Halo Adjusted for Larger Footprint */}
               <div 
-                className="absolute inset-0 blur-xl opacity-40 group-hover:opacity-75 transition-opacity duration-700 pointer-events-none"
+                className="absolute inset-0 blur-2xl opacity-50 group-hover:opacity-85 transition-opacity duration-700 pointer-events-none"
                 style={{
-                  background: 'radial-gradient(circle, rgba(214,175,55,0.4), transparent 70%)',
-                  transform: 'scale(1.6)',
+                  background: 'radial-gradient(circle, rgba(214,175,55,0.45), transparent 70%)',
+                  transform: 'scale(1.8)',
                 }}
               />
+              {/* Expanded Premium Sizing Architecture */}
               <img
                 src="/logo.webp"
                 alt="Accurate Consultancy"
-                className="relative h-10 sm:h-12 md:h-13 object-contain transition-all duration-500 group-hover:scale-[1.03]"
+                className="relative h-14 sm:h-17 md:h-20 object-contain transition-all duration-500 group-hover:scale-[1.02]"
                 style={{
-                  filter: 'drop-shadow(0 2px 10px rgba(214,175,55,0.15))',
+                  filter: 'drop-shadow(0 4px 12px rgba(214,175,55,0.18))',
                 }}
               />
             </div>
