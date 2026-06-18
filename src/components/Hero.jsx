@@ -84,12 +84,12 @@ const Hero = () => {
 
           {/* Core Dynamic Heading */}
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-[1.1] mb-6 text-white tracking-tight">
-            Premium Visa, Immigration <br className="hidden sm:inline" />
+            Trusted Visa, Immigration <br className="hidden sm:inline" />
             <span className="relative mt-1 inline-block bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#AA7C11] bg-[length:200%_auto] bg-clip-text text-transparent animate-textShimmer font-black">
-              & Study Solutions
+              & Study Abroad
             </span>
             <span className="block text-gray-400 text-3xl sm:text-4xl md:text-5xl font-medium mt-2 tracking-wide">
-              Globalized Accessibility.
+              Experts.
             </span>
           </h1>
 
@@ -107,7 +107,7 @@ const Hero = () => {
               <span>Schedule a Confidential Session</span>
               <svg className="w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-              </svg>
+               </svg>
             </a>
           </div>
 
@@ -173,7 +173,7 @@ const Hero = () => {
                     onMouseLeave={() => setHoveredCountry(null)}
                   >
                     <span className="drop-shadow-md transform scale-110">{country.flag}</span>
-                    
+                     
                     {/* Immersive Tooltip Matrix */}
                     {hoveredCountry === index && (
                       <div className="absolute bottom-full mb-3 left-1/2 -translate-x-1/2 bg-[#061833] text-white border border-[#D4AF37]/40 font-bold text-[11px] py-1.5 px-3 rounded shadow-[0_4px_20px_rgba(0,0,0,0.6)] pointer-events-none tracking-wider z-50 uppercase animate-fadeInUp">
