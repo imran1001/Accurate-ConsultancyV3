@@ -10,7 +10,7 @@ const faqs = [
   {
     id: 2,
     question: "What's your success rate and what makes it so high?",
-    answer: "We maintain a 98% approval rate — among the highest in Pakistan. This comes from: (1) Meticulous document verification before submission, (2) Custom strategies for each applicant's unique profile, (3) 19+ years of regulatory expertise across 50+ countries, (4) Real-time response to embassy/consulate requests, and (5) Early identification and mitigation of potential refusal triggers."
+    answer: "We maintain a 90% approval rate — among the highest in Pakistan. This comes from: (1) Meticulous document verification before submission, (2) Custom strategies for each applicant's unique profile, (3) 19+ years of regulatory expertise across 50+ countries, (4) Real-time response to embassy/consulate requests, and (5) Early identification and mitigation of potential refusal triggers."
   },
   {
     id: 3,
