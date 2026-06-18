@@ -40,7 +40,6 @@ const ContinentsMap = () => (
     </defs>
     <rect fill="transparent" width="960" height="600" />
     <g fill="url(#mapGrad)" stroke="#D4AF37" strokeWidth="1" strokeOpacity="0.5" strokeDasharray="1 1">
-      {/* Refined high-fidelity stylized grid paths for global mapping */}
       <path d="M 120,140 Q 180,110 220,150 T 190,240 Z" />
       <path d="M 280,220 Q 340,190 380,260 T 290,340 Z" />
       <path d="M 400,120 Q 480,95 520,180 T 420,260 Z" />
@@ -134,15 +133,15 @@ const Hero = () => {
 
         {/* ===== RIGHT COLUMN - CORE LUXURY GLOBE ARCHITECTURE ===== */}
         <div className="hidden lg:flex w-full lg:col-span-5 items-center justify-center relative py-8">
-          <div className="relative w-[460px] h-[460px] flex items-center justify-center group/globe animate-fadeIn">
+          <div className="relative w-[500px] h-[500px] flex items-center justify-center group/globe animate-fadeIn">
             
             {/* Ambient Shadow Backdroppers */}
             <div className="absolute inset-4 rounded-full bg-[#D4AF37]/5 blur-3xl opacity-50 pointer-events-none group-hover/globe:opacity-80 transition-opacity duration-1000" />
             
             {/* Elegant Celestial Orbit Vectors */}
-            <div className="absolute w-[95%] h-[95%] rounded-full border border-[#D4AF37]/15 pointer-events-none animate-[spin_80s_linear_infinite] shadow-[inset_0_0_60px_rgba(214,175,55,0.03)]" />
-            <div className="absolute w-[75%] h-[75%] rounded-full border border-dashed border-white/10 pointer-events-none animate-[spin_50s_linear_infinite_reverse]" />
-            <div className="absolute w-[55%] h-[55%] rounded-full border border-white/5 pointer-events-none" />
+            <div className="absolute w-[98%] h-[98%] rounded-full border border-[#D4AF37]/15 pointer-events-none animate-[spin_80s_linear_infinite] shadow-[inset_0_0_60px_rgba(214,175,55,0.03)]" />
+            <div className="absolute w-[78%] h-[78%] rounded-full border border-dashed border-white/10 pointer-events-none animate-[spin_50s_linear_infinite_reverse]" />
+            <div className="absolute w-[58%] h-[58%] rounded-full border border-white/5 pointer-events-none" />
 
             {/* Core Global Sphere Container */}
             <div className="relative w-64 h-64 rounded-full overflow-hidden bg-gradient-to-br from-[#041226] to-[#010610] shadow-[0_0_60px_rgba(214,175,55,0.1),inset_0_0_40px_rgba(0,0,0,0.9)] border border-[#D4AF37]/30 backdrop-blur-xl z-10 group-hover/globe:border-[#D4AF37]/60 transition-colors duration-500">
@@ -161,17 +160,19 @@ const Hero = () => {
               };
 
               return (
+                /* Perfectly balanced parent position with -ml-9 -mt-9 calculation adjustments */
                 <div 
                   key={index} 
-                  className="absolute left-[50%] top-[50%] -ml-7 -mt-7 z-20"
+                  className="absolute left-[50%] top-[50%] -ml-9 -mt-9 z-20"
                   style={orbitStyles}
                 >
+                  {/* Expanded high-visibility w-18 h-18 design framework */}
                   <div 
-                    className="relative flex items-center justify-center w-14 h-14 rounded-full border border-white/10 bg-[#030f20]/95 text-2xl shadow-2xl hover:scale-115 hover:border-[#D4AF37] hover:shadow-[#D4AF37]/30 transition-all duration-300 cursor-pointer backdrop-blur-md select-none animate-[counterRotate_45s_linear_infinite]"
+                    className="relative flex items-center justify-center w-18 h-18 rounded-full border border-white/10 bg-[#030f20]/95 text-3xl shadow-2xl hover:scale-115 hover:border-[#D4AF37] hover:shadow-[#D4AF37]/40 transition-all duration-300 cursor-pointer backdrop-blur-md select-none animate-[counterRotate_45s_linear_infinite]"
                     onMouseEnter={() => setHoveredCountry(index)}
                     onMouseLeave={() => setHoveredCountry(null)}
                   >
-                    <span className="drop-shadow-md">{country.flag}</span>
+                    <span className="drop-shadow-md transform scale-110">{country.flag}</span>
                     
                     {/* Immersive Tooltip Matrix */}
                     {hoveredCountry === index && (
@@ -210,9 +211,10 @@ const Hero = () => {
           from { transform: translateX(0); }
           to { transform: translateX(-200px); }
         }
+        /* Increased orbit radius parameter to 215px for safe structural clearance */
         @keyframes orbitSmooth {
-          from { transform: rotate(var(--start-angle)) translateX(195px) rotate(calc(-1 * var(--start-angle))); }
-          to { transform: rotate(var(--end-angle)) translateX(195px) rotate(calc(-1 * var(--end-angle))); }
+          from { transform: rotate(var(--start-angle)) translateX(215px) rotate(calc(-1 * var(--start-angle))); }
+          to { transform: rotate(var(--end-angle)) translateX(215px) rotate(calc(-1 * var(--end-angle))); }
         }
         @keyframes counterRotate {
           from { transform: rotate(0deg); }
