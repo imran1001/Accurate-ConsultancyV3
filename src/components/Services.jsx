@@ -31,7 +31,7 @@ const serviceData = [
     bg: 'from-amber-500 to-amber-400',
     gradient: 'rgba(245,158,11,0.1)',
     tag: 'High Demand',
-    stats: { success: '88%', time: '2-6 months', cases: '300+' },
+    stats: { success: '90%', time: '2-6 months', cases: '300+' },
     features: ['Sponsorship coordination', 'Skills assessment', 'Job market guidance', 'Relocation help'],
     details: {
       overview: 'We specialize in work permits across USA, UK, Canada, Europe, and Middle East — managing employer sponsorship through to visa approval.',
@@ -48,7 +48,7 @@ const serviceData = [
     bg: 'from-purple-600 to-purple-500',
     gradient: 'rgba(139,92,246,0.1)',
     tag: 'Students',
-    stats: { success: '92%', time: '3-4 months', cases: '400+' },
+    stats: { success: '90%', time: '3-4 months', cases: '400+' },
     features: ['University shortlisting', 'Application strategy', 'Scholarship guidance', 'Pre-departure support'],
     details: {
       overview: 'Complete study visa consultancy from university shortlisting to enrollment confirmation — covering UK, Canada, Australia, and USA.',
@@ -82,7 +82,7 @@ const serviceData = [
     bg: 'from-red-600 to-red-500',
     gradient: 'rgba(220,38,38,0.1)',
     tag: 'Investors',
-    stats: { success: '95%', time: '3-6 months', cases: '150+' },
+    stats: { success: '90%', time: '3-6 months', cases: '150+' },
     features: ['Business planning', 'Investment structuring', 'Funds documentation', 'Corporate support'],
     details: {
       overview: 'Tailored immigration solutions for entrepreneurs and investors — covering business visas, startup programs, and investment-based pathways.',
@@ -99,7 +99,7 @@ const serviceData = [
     bg: 'from-[#78350f] to-[#92400e]',
     gradient: 'rgba(120,53,15,0.1)',
     tag: 'Corporate',
-    stats: { success: '97%', time: 'Flexible', cases: '200+' },
+    stats: { success: '90%', time: 'Flexible', cases: '200+' },
     features: ['Multi-visa processing', 'Flight & hotel booking', 'Insurance advisory', 'Settlement support'],
     details: {
       overview: 'End-to-end travel, Tour Packages and relocation management — from visa coordination and flight logistics to accommodation and on-ground settlement.',
