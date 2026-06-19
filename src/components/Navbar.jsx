@@ -26,7 +26,7 @@ export default function Navbar() {
       }
     };
 
-    window.addEventListener('scroll', handleScroll, { passive: true }); // Optimized passive scrolling loop
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -72,7 +72,6 @@ export default function Navbar() {
                   transform: 'scale(1.8)',
                 }}
               />
-              {/* ⚡ Added explicit width/height dimensions to prevent layout shifts and lazy parsing updates */}
               <img
                 src="/logo.webp"
                 alt="Accurate Consultancy Logo"
@@ -97,7 +96,7 @@ export default function Navbar() {
                   className={`relative text-[11px] font-bold uppercase tracking-widest transition-all duration-300 ${
                     isActive 
                       ? 'text-[#D4AF37] drop-shadow-[0_0_8px_rgba(214,175,55,0.3)]' 
-                      : 'text-gray-300 hover:text-white' // ⚡ Upgraded from text-gray-400 to text-gray-300 for premium AA contrast passing
+                      : 'text-gray-300 hover:text-white'
                   }`}
                 >
                   <span className="relative z-10">{item.label}</span>
@@ -137,7 +136,7 @@ export default function Navbar() {
               type="button"
               className="relative inline-flex items-center justify-center p-2 rounded-md text-gray-300 hover:text-white hover:bg-white/[0.04] transition-all duration-300 focus:outline-none"
               aria-expanded={isOpen}
-              aria-label="Toggle main menu" // ⚡ Fixed "Buttons do not have an accessible name" error directly on the trigger selector
+              aria-label="Toggle main menu"
             >
               <div className="w-6 h-5 relative flex flex-col justify-between items-end">
                 <span className={`h-[2px] bg-current rounded-full transition-all duration-300 transform origin-right ${isOpen ? 'w-6 -rotate-45 translate-y-[1px]' : 'w-6'}`} />
@@ -220,4 +219,10 @@ export default function Navbar() {
             transform: translateY(0);
           }
         }
-        .animate-sh
+        .animate-shimmerSweep {
+          animation: shimmerSweep 2.5s cubic-bezier(0.25, 1, 0.5, 1) infinite;
+        }
+      `}</style>
+    </nav>
+  );
+}
