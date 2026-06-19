@@ -151,50 +151,55 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* ===== MOBILE GLASS-DRAWER SYSTEM ===== */}
+      {/* ===== MOBILE DRAWER - IMPROVED VISIBILITY ===== */}
       <div
         className={`md:hidden absolute top-full left-0 right-0 overflow-hidden transition-all duration-500 ease-in-out border-b border-white/[0.06] shadow-2xl ${
-          isOpen ? 'max-h-[480px] opacity-100 bg-[#020916]/98 backdrop-blur-2xl' : 'max-h-0 opacity-0 pointer-events-none'
+          isOpen 
+            ? 'max-h-[500px] opacity-100 bg-[#020916]backdrop-blur-2xl' // ensure solid bg on mobile for blur
+            : 'max-h-0 opacity-0 pointer-events-none'
         }`}
       >
-        <div className="px-5 pt-4 pb-8 space-y-2">
+        {/* Increased vertical padding and spacing */}
+        <div className="px-5 pt-6 pb-10 space-y-3">
           {navItems.map((item, index) => {
             const isActive = activeSection === item.id;
             return (
               <button
                 key={item.id}
                 onClick={() => scrollTo(item.id)}
-                className={`block w-full text-left px-4 py-3.5 rounded-md text-xs font-bold uppercase tracking-widest transition-all duration-200 ${
+                // IMPROVEMENTS: text-gray-100 (lighter), py-4 (larger tap area), active:bg (visible feedback)
+                className={`block w-full text-left px-4 py-4 rounded-md uppercase tracking-widest transition-all duration-200 ${
                   isActive
-                    ? 'text-[#D4AF37] bg-[#D4AF37]/10 border-l-2 border-[#D4AF37]'
-                    : 'text-gray-400 hover:text-white hover:bg-white/[0.02]'
+                    ? 'text-[#D4AF37] bg-[#D4AF37]/15 border-l-2 border-[#D4AF37]'
+                    : 'text-gray-100 hover:text-white active:bg-white/10' 
                 }`}
                 style={{
-                  animation: isOpen ? `mobileNavFadeSlide 0.4s cubic-bezier(0.16, 1, 0.3, 1) ${index * 0.04}s both` : 'none',
+                  animation: isOpen ? `mobileNavFadeSlide 0.4s cubic-bezier(0.16, 1, 0.3, 1) ${index * 0.05}s both` : 'none',
                 }}
               >
-                <div className="flex items-center justify-between">
+                {/* IMPROVEMENT: increased font size text-sm */}
+                <div className="flex items-center justify-between text-sm font-bold">
                   <span>{item.label}</span>
-                  {isActive && <span className="w-1 h-1 rounded-full bg-[#D4AF37] shadow-[0_0_6px_rgba(214,175,55,0.8)]" />}
+                  {isActive && <span className="w-1.5 h-1.5 rounded-full bg-[#D4AF37] shadow-[0_0_8px_rgba(214,175,55,0.8)]" />}
                 </div>
               </button>
             );
           })}
           
           {/* Mobile Interactive Panel Segment */}
-          <div className="pt-5 mt-4 border-t border-white/[0.05] space-y-4">
+          <div className="pt-6 mt-5 border-t border-white/[0.08] space-y-5">
             <button
               onClick={() => scrollTo('consultation')}
-              className="w-full py-4 bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#AA7C11] text-gray-950 font-black text-xs uppercase tracking-widest rounded-sm text-center shadow-lg"
+              className="w-full py-4.5 bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#AA7C11] text-gray-950 font-black text-xs uppercase tracking-widest rounded-sm text-center shadow-lg active:scale-[0.98] transition-transform"
             >
               Book Consultation
             </button>
             
-            {/* Real-time Validation Meta info */}
-            <div className="flex flex-col sm:flex-row items-center justify-between gap-2 pt-2 text-[10px] font-medium tracking-wider text-gray-500 text-center sm:text-left">
-              <div>📞 +92 316 0285386</div>
-              <div className="hidden sm:block w-1 h-1 rounded-full bg-gray-800" />
-              <div>✉️ imran@accurate-consultancy.com</div>
+            {/* Real-time Validation Meta info - IMPROVED VISIBILITY */}
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-2 text-xs font-medium tracking-wider text-gray-300 text-center sm:text-left">
+              <a href="tel:+923160285386" className="active:text-[#D4AF37]">📞 +92 316 0285386</a>
+              <div className="hidden sm:block w-1 h-1 rounded-full bg-gray-600" />
+              <a href="mailto:imran@accurate-consultancy.com" className="active:text-[#D4AF37]">✉️ imran@accurate-consultancy.com</a>
             </div>
           </div>
         </div>
@@ -209,7 +214,7 @@ export default function Navbar() {
         @keyframes mobileNavFadeSlide {
           from {
             opacity: 0;
-            transform: translateY(-8px);
+            transform: translateY(-10px);
           }
           to {
             opacity: 1;
