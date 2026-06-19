@@ -16,8 +16,8 @@ const destinations = {
     name: 'United Kingdom',
     flag: '🇬🇧',
     tagline: 'Gateway to Europe and beyond',
-    color: '#ef4444',
-    gradient: 'from-red-600 to-red-400',
+    color: '#4f46e5', // Shifting to a rich Royal Indigo/Blue
+    gradient: 'from-indigo-600 to-blue-600',
     highlights: ['Skilled Worker Visa', 'Student Route Visa', 'Innovator Founder', 'Standard Visitor Visa'],
     stats: { visas: '40+', success: '88%', time: '2-5 months' },
     image: '🏰'
@@ -26,7 +26,7 @@ const destinations = {
     name: 'Canada',
     flag: '🇨🇦',
     tagline: "World's most welcoming nation",
-    color: '#ef4444',
+    color: '#ef4444', // Classic Vibrant Canadian Red
     gradient: 'from-red-600 to-red-400',
     highlights: ['Skilled Migration', 'C11 Work Permit', 'Study Permit', 'Startup Visa'],
     stats: { visas: '45+', success: '94%', time: '4-8 months' },
@@ -76,7 +76,6 @@ const destinations = {
 
 const Destinations = () => {
   const [active, setActive] = useState('usa');
-  const [isHovered, setIsHovered] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef(null);
 
@@ -139,7 +138,7 @@ const Destinations = () => {
       </div>
 
       <div className="max-w-7xl mx-auto relative z-10">
-        {/* Enhanced Header */}
+        {/* Header */}
         <div className={`text-center mb-14 transition-all duration-1000 transform ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-4" style={{
             background: 'rgba(201,165,90,0.1)',
@@ -165,7 +164,7 @@ const Destinations = () => {
           </p>
         </div>
 
-        {/* Enhanced Country Tabs */}
+        {/* Country Tabs */}
         <div className={`flex flex-wrap justify-center gap-3 mb-10 transition-all duration-1000 delay-200 transform ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
           {Object.entries(destinations).map(([key, d], index) => {
             const isActive = active === key;
@@ -173,7 +172,9 @@ const Destinations = () => {
               <button
                 key={key}
                 onClick={() => handleTabChange(key)}
-                className="group relative flex items-center gap-2 px-5 py-3 rounded-full font-semibold text-sm transition-all duration-300 hover:scale-105"
+                className={`group relative flex items-center gap-2 px-5 py-3 rounded-full font-semibold text-sm transition-all duration-300 hover:scale-105 ${
+                  !isActive ? 'hover:border-[#c9a55a]/40 hover:shadow-[0_4px_15px_rgba(201,165,90,0.15)]' : ''
+                }`}
                 style={{
                   background: isActive 
                     ? 'linear-gradient(135deg, #c9a55a, #f0c040)' 
@@ -188,18 +189,6 @@ const Destinations = () => {
                   transform: isActive ? 'scale(1.05)' : 'scale(1)',
                   transitionDelay: `${index * 30}ms`
                 }}
-                onMouseEnter={(e) => {
-                  if (!isActive) {
-                    e.currentTarget.style.borderColor = 'rgba(201,165,90,0.4)';
-                    e.currentTarget.style.boxShadow = '0 4px 15px rgba(201,165,90,0.15)';
-                  }
-                }}
-                onMouseLeave={(e) => {
-                  if (!isActive) {
-                    e.currentTarget.style.borderColor = 'rgba(201,165,90,0.15)';
-                    e.currentTarget.style.boxShadow = '0 2px 8px rgba(0,0,0,0.04)';
-                  }
-                }}
               >
                 <span className="text-xl group-hover:scale-110 transition-transform duration-300">{d.flag}</span>
                 <span>{d.name}</span>
@@ -211,7 +200,7 @@ const Destinations = () => {
           })}
         </div>
 
-        {/* Enhanced Destination Card */}
+        {/* Destination Card */}
         <div 
           key={active}
           className="rounded-3xl overflow-hidden shadow-2xl transition-all duration-700 hover:shadow-[0_20px_80px_rgba(201,165,90,0.2)]"
@@ -223,14 +212,13 @@ const Destinations = () => {
             transition: 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)'
           }}
         >
-          {/* Card Header with Enhanced Design */}
+          {/* Card Header */}
           <div 
             className="p-8 md:p-10 text-white relative overflow-hidden"
             style={{ 
               background: `linear-gradient(135deg, #020818 0%, #0a1628 40%, ${dest.color} 100%)`,
             }}
           >
-            {/* Animated background elements */}
             <div className="absolute inset-0 pointer-events-none">
               <div 
                 className="absolute top-0 right-0 w-96 h-96 rounded-full blur-3xl opacity-20"
@@ -246,7 +234,6 @@ const Destinations = () => {
                   animation: 'float 15s ease-in-out infinite reverse'
                 }} 
               />
-              {/* Decorative dots */}
               <div className="absolute top-10 right-20 opacity-10">
                 <div className="grid grid-cols-3 gap-2">
                   {[...Array(9)].map((_, i) => (
@@ -294,7 +281,7 @@ const Destinations = () => {
             </div>
           </div>
 
-          {/* Highlights Grid with Enhanced Design */}
+          {/* Highlights Grid */}
           <div className="p-8 md:p-10">
             <div className="flex items-center gap-2 mb-6">
               <Sparkles size={18} style={{ color: '#c9a55a' }} />
@@ -307,22 +294,11 @@ const Destinations = () => {
               {dest.highlights.map((h, i) => (
                 <div 
                   key={i}
-                  className="group relative p-4 rounded-2xl transition-all duration-300 cursor-default overflow-hidden"
+                  className="group relative p-4 rounded-2xl transition-all duration-300 cursor-default overflow-hidden border border-[rgba(201,165,90,0.1)] hover:border-[#c9a55a]/40 hover:shadow-[0_10px_30px_rgba(201,165,90,0.12)] hover:scale-[1.03]"
                   style={{
                     background: 'linear-gradient(135deg, rgba(240,244,255,0.8), rgba(254,249,236,0.8))',
-                    border: '1px solid rgba(201,165,90,0.1)',
                     transform: isVisible ? 'translateX(0)' : 'translateX(-20px)',
-                    transition: `all 0.5s cubic-bezier(0.4, 0, 0.2, 1) ${i * 0.05}s`
-                  }}
-                  onMouseEnter={e => {
-                    e.currentTarget.style.borderColor = 'rgba(201,165,90,0.4)';
-                    e.currentTarget.style.boxShadow = '0 10px 30px rgba(201,165,90,0.12)';
-                    e.currentTarget.style.transform = 'scale(1.03)';
-                  }}
-                  onMouseLeave={e => {
-                    e.currentTarget.style.borderColor = 'rgba(201,165,90,0.1)';
-                    e.currentTarget.style.boxShadow = 'none';
-                    e.currentTarget.style.transform = 'scale(1)';
+                    transition: `all 0.5s cubic-bezier(0.4, 0, 0.2, 1) ${i * 0.05}s, border-color 0.3s, box-shadow 0.3s, transform 0.3s`
                   }}
                 >
                   <div className="flex items-center gap-3">
@@ -337,7 +313,6 @@ const Destinations = () => {
                     </div>
                     <span className="font-semibold text-sm" style={{ color: '#0a1628' }}>{h}</span>
                   </div>
-                  {/* Hover line */}
                   <div 
                     className="absolute bottom-0 left-0 h-0.5 rounded-full transition-all duration-300 group-hover:w-full"
                     style={{ 
@@ -371,7 +346,7 @@ const Destinations = () => {
               ))}
             </div>
 
-            {/* Enhanced CTA */}
+            {/* CTA Group */}
             <div 
               className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-6"
               style={{ borderTop: '1px solid rgba(201,165,90,0.1)' }}
