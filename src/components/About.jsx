@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Award, Globe, Users, CheckCircle, Mail, Phone, Star, Shield, TrendingUp, MapPin, Clock, Sparkles, Briefcase, GraduationCap, Building2, HeartHandshake } from 'lucide-react';
+import { Award, Globe, Users, Mail, Phone, Star, Shield, TrendingUp, MapPin, Clock, Sparkles, Briefcase, GraduationCap, Building2, HeartHandshake } from 'lucide-react';
 
 const expertise = [
   { icon: Briefcase, label: 'Visit & Tourist Visa Processing' },
@@ -49,7 +49,7 @@ const About = () => {
         background: 'linear-gradient(165deg, #f8fafc 0%, #f0f4ff 30%, #fef9ec 70%, #f8fafc 100%)'
       }}
     >
-      {/* Enhanced Background Decorations */}
+      {/* Background Decorations */}
       <div className="absolute inset-0 pointer-events-none">
         <div
           className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full blur-3xl opacity-30"
@@ -84,8 +84,8 @@ const About = () => {
       }} />
 
       <div className="max-w-7xl mx-auto relative z-10">
-        {/* Section Header - Enhanced */}
-        <div className="text-center mb-16">
+        {/* Section Header */}
+        <div className={`text-center mb-16 transition-all duration-1000 transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full mb-4" style={{
             background: 'rgba(201,165,90,0.1)',
             border: '1px solid rgba(201,165,90,0.2)'
@@ -111,9 +111,11 @@ const About = () => {
           </p>
         </div>
 
-        {/* Main Card - Enhanced */}
+        {/* Main Card Dynamic Visual Activation */}
         <div
-          className="rounded-3xl overflow-hidden shadow-2xl transform transition-all duration-1000 hover:shadow-[0_20px_80px_rgba(201,165,90,0.3)]"
+          className={`rounded-3xl overflow-hidden shadow-2xl transform transition-all duration-[1200ms] ease-out hover:shadow-[0_20px_80px_rgba(201,165,90,0.3)] ${
+            isVisible ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-16 scale-[0.98]'
+          }`}
           style={{
             border: '1px solid rgba(201,165,90,0.15)',
             background: 'rgba(255,255,255,0.1)',
@@ -121,7 +123,7 @@ const About = () => {
           }}
         >
           <div className="grid lg:grid-cols-2">
-            {/* LEFT - Enhanced Photo Section */}
+            {/* LEFT - Photo Showcase */}
             <div
               className="relative p-8 md:p-12 flex flex-col items-center justify-center text-center"
               style={{
@@ -148,7 +150,7 @@ const About = () => {
                 ))}
               </div>
 
-              {/* Gold orb behind photo - Enhanced */}
+              {/* Gold orb behind photo */}
               <div
                 className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 rounded-full blur-3xl opacity-30 pointer-events-none"
                 style={{
@@ -157,7 +159,7 @@ const About = () => {
                 }}
               />
 
-              {/* Photo with Enhanced Animation */}
+              {/* Photo Ring System */}
               <div className="relative mb-8">
                 <div
                   className="absolute inset-0 rounded-full animate-spin-slow"
@@ -184,7 +186,7 @@ const About = () => {
                 >
                   <img
                     src="/photo.webp"
-                    alt="Muhammad Imran Malik - FOUNDER & Managing Director"
+                    alt="Muhammad Imran Malik - Founder & Managing Director"
                     style={{
                       width: '210px',
                       height: '210px',
@@ -193,15 +195,13 @@ const About = () => {
                       display: 'block'
                     }}
                   />
-                  
-                  {/* Shine effect */}
                   <div className="absolute inset-0 pointer-events-none" style={{
                     background: 'linear-gradient(135deg, rgba(255,255,255,0.2) 0%, transparent 50%, transparent 100%)'
                   }} />
                 </div>
               </div>
 
-              {/* Name & Title - Enhanced */}
+              {/* Identity Matrix */}
               <div className="relative z-10">
                 <h3 className="text-3xl md:text-4xl font-black text-white mb-2 tracking-tight">
                   Muhammad Imran Malik
@@ -225,16 +225,16 @@ const About = () => {
                   </p>
                 </div>
 
-                {/* Star Rating - Enhanced */}
+                {/* Rating Array with Unified Styles */}
                 <div className="flex items-center justify-center space-x-1 mb-8">
                   {[1, 2, 3, 4, 5].map((i) => (
                     <Star
                       key={i}
                       size={20}
                       fill="#c9a55a"
-                      style={{ color: '#c9a55a' }}
                       className="animate-pulse-slow"
                       style={{
+                        color: '#c9a55a',
                         animationDelay: `${i * 0.2}s`
                       }}
                     />
@@ -247,7 +247,7 @@ const About = () => {
                   </span>
                 </div>
 
-                {/* Contact Buttons - Enhanced */}
+                {/* Engagement Infrastructure */}
                 <div className="flex items-center justify-center space-x-3 flex-wrap gap-3">
                   <a
                     href="mailto:imran@accurate-consultancy.com"
@@ -317,9 +317,8 @@ const About = () => {
               </div>
             </div>
 
-            {/* RIGHT - Enhanced Bio Section */}
+            {/* RIGHT - Narrative & Expertise Elements */}
             <div className="p-8 md:p-12 bg-white/80 backdrop-blur-sm flex flex-col justify-center">
-              {/* Bio - Enhanced */}
               <div className="mb-8">
                 <h4 className="text-2xl font-bold mb-4 flex items-center gap-2" style={{ color: '#0a1628' }}>
                   <span className="w-8 h-1 rounded-full" style={{ background: 'linear-gradient(90deg, #c9a55a, #f0c040)' }} />
@@ -345,13 +344,13 @@ const About = () => {
                 </div>
               </div>
 
-              {/* Expertise Grid - Enhanced */}
+              {/* Grid Array */}
               <div className="mb-8">
                 <h4 className="text-base font-bold mb-4 uppercase tracking-wider flex items-center gap-2" style={{ color: '#0a1628' }}>
                   <Briefcase size={18} style={{ color: '#c9a55a' }} />
                   Areas of Expertise
                 </h4>
-                <div className="grid grid-cols-2 gap-2">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                   {expertise.map((item, i) => (
                     <div
                       key={i}
@@ -379,7 +378,7 @@ const About = () => {
                 </div>
               </div>
 
-              {/* Stats Row - Enhanced with animation */}
+              {/* Metrics Grid dashboard */}
               <div
                 className="grid grid-cols-4 gap-3 p-6 rounded-2xl relative overflow-hidden"
                 style={{
@@ -388,7 +387,6 @@ const About = () => {
                   boxShadow: '0 10px 40px rgba(0,0,0,0.3)'
                 }}
               >
-                {/* Animated background bar */}
                 <div className="absolute inset-0 pointer-events-none" style={{
                   background: 'linear-gradient(90deg, transparent, rgba(201,165,90,0.05), transparent)',
                   animation: 'slideBar 4s ease-in-out infinite'
@@ -419,13 +417,12 @@ const About = () => {
                       {a.value}
                     </div>
                     <div
-                      className="text-xs leading-tight mt-1 font-medium"
+                      className="text-[10px] sm:text-xs leading-tight mt-1 font-medium"
                       style={{ color: 'rgba(255,255,255,0.5)' }}
                     >
                       {a.label}
                     </div>
                     
-                    {/* Animated indicator */}
                     {activeStat === i && (
                       <div
                         className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-6 h-0.5 rounded-full"
@@ -488,21 +485,6 @@ const About = () => {
         @keyframes spin {
           from { transform: translateX(-50%) rotate(0deg); }
           to { transform: translateX(-50%) rotate(360deg); }
-        }
-        
-        @keyframes scaleIn {
-          from {
-            opacity: 0;
-            transform: scale(0.95);
-          }
-          to {
-            opacity: 1;
-            transform: scale(1);
-          }
-        }
-        
-        .animate-scaleIn {
-          animation: scaleIn 0.8s ease-out forwards;
         }
       `}</style>
     </section>
