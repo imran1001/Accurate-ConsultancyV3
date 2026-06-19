@@ -26,7 +26,7 @@ export default function Navbar() {
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true }); // Optimized passive scrolling loop
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -72,11 +72,13 @@ export default function Navbar() {
                   transform: 'scale(1.8)',
                 }}
               />
-              {/* Expanded Premium Sizing Architecture */}
+              {/* ⚡ Added explicit width/height dimensions to prevent layout shifts and lazy parsing updates */}
               <img
                 src="/logo.webp"
-                alt="Accurate Consultancy"
-                className="relative h-14 sm:h-17 md:h-20 object-contain transition-all duration-500 group-hover:scale-[1.02]"
+                alt="Accurate Consultancy Logo"
+                width="240"
+                height="80"
+                className="relative h-14 sm:h-17 md:h-20 w-auto object-contain transition-all duration-500 group-hover:scale-[1.02]"
                 style={{
                   filter: 'drop-shadow(0 4px 12px rgba(214,175,55,0.18))',
                 }}
@@ -95,7 +97,7 @@ export default function Navbar() {
                   className={`relative text-[11px] font-bold uppercase tracking-widest transition-all duration-300 ${
                     isActive 
                       ? 'text-[#D4AF37] drop-shadow-[0_0_8px_rgba(214,175,55,0.3)]' 
-                      : 'text-gray-400 hover:text-white'
+                      : 'text-gray-300 hover:text-white' // ⚡ Upgraded from text-gray-400 to text-gray-300 for premium AA contrast passing
                   }`}
                 >
                   <span className="relative z-10">{item.label}</span>
@@ -133,10 +135,10 @@ export default function Navbar() {
             <button
               onClick={() => setIsOpen(!isOpen)}
               type="button"
-              className="relative inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-white/[0.04] transition-all duration-300 focus:outline-none"
+              className="relative inline-flex items-center justify-center p-2 rounded-md text-gray-300 hover:text-white hover:bg-white/[0.04] transition-all duration-300 focus:outline-none"
               aria-expanded={isOpen}
+              aria-label="Toggle main menu" // ⚡ Fixed "Buttons do not have an accessible name" error directly on the trigger selector
             >
-              <span className="sr-only">Toggle Main Menu</span>
               <div className="w-6 h-5 relative flex flex-col justify-between items-end">
                 <span className={`h-[2px] bg-current rounded-full transition-all duration-300 transform origin-right ${isOpen ? 'w-6 -rotate-45 translate-y-[1px]' : 'w-6'}`} />
                 <span className={`h-[2px] bg-current rounded-full transition-all duration-200 ${isOpen ? 'w-0 opacity-0' : 'w-4'}`} />
@@ -187,7 +189,7 @@ export default function Navbar() {
           <div className="pt-6 mt-5 border-t border-white/[0.08] space-y-5 bg-[#020916]">
             <button
               onClick={() => scrollTo('consultation')}
-              className="w-full py-4.5 bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#AA7C11] text-gray-950 font-black text-xs uppercase tracking-widest rounded-sm text-center shadow-lg active:scale-[0.98] transition-transform"
+              className="w-full py-4 bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#AA7C11] text-gray-950 font-black text-xs uppercase tracking-widest rounded-sm text-center shadow-lg active:scale-[0.98] transition-transform"
             >
               Book Consultation
             </button>
@@ -218,10 +220,4 @@ export default function Navbar() {
             transform: translateY(0);
           }
         }
-        .animate-shimmerSweep {
-          animation: shimmerSweep 2.5s cubic-bezier(0.25, 1, 0.5, 1) infinite;
-        }
-      `}</style>
-    </nav>
-  );
-}
+        .animate-sh
