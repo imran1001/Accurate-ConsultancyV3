@@ -196,7 +196,7 @@ export default function Navbar() {
             <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-2 text-xs font-medium tracking-wider text-gray-300 text-center sm:text-left">
               <a href="tel:+923160285386" className="active:text-[#D4AF37] py-1 block">📞 +92 316 0285386</a>
               <div className="hidden sm:block w-1 h-1 rounded-full bg-gray-600" />
-              <a href="mailto:imran@accurate-consultancy.com" className="active:text-[#D4AF37] py-1 block">✉️ imran@accurate-consultancy.com</a>
+              <a href="mailto:info@accurate-consultancy.com" className="active:text-[#D4AF37] py-1 block">✉️ imran@accurate-consultancy.com</a>
             </div>
           </div>
         </div>
