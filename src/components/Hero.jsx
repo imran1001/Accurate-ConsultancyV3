@@ -1,20 +1,36 @@
 import React, { useState, useEffect } from 'react';
 
-// Optimized Counter Hook
-const useCounter = (end, duration = 2000, start = 0) => {
+// Streamlined Performance Counter Hook using a highly efficient unified frame manager
+const useCounter = (end, duration = 1800, start = 0) => {
   const [count, setCount] = useState(start);
   useEffect(() => {
     let startTime = null;
+    let frameId;
+    
     const animate = (currentTime) => {
       if (!startTime) startTime = currentTime;
       const elapsed = currentTime - startTime;
       const progress = Math.min(elapsed / duration, 1);
-      const value = Math.floor(progress * (end - start) + start);
+      
+      // Power-out easing function to slow down gracefully and minimize layout computations
+      const easeOutQuad = 1 - (1 - progress) * (1 - progress);
+      const value = Math.floor(easeOutQuad * (end - start) + start);
+      
       setCount(value);
-      if (progress < 1) requestAnimationFrame(animate);
+      if (progress < 1) {
+        frameId = requestAnimationFrame(animate);
+      }
     };
-    const frameId = requestAnimationFrame(animate);
-    return () => cancelAnimationFrame(frameId);
+    
+    // Defer initialization slightly to free up first paint parsing
+    const timeoutId = setTimeout(() => {
+      frameId = requestAnimationFrame(animate);
+    }, 50);
+
+    return () => {
+      clearTimeout(timeoutId);
+      if (frameId) cancelAnimationFrame(frameId);
+    };
   }, [end, duration, start]);
   return count;
 };
@@ -51,10 +67,10 @@ const ContinentsMap = () => (
 );
 
 const Hero = () => {
-  const yearsCount = useCounter(19, 2000); 
-  const successCount = useCounter(90, 2000);
-  const casesCount = useCounter(2000, 2000);
-  const countriesCount = useCounter(50, 2000); 
+  const yearsCount = useCounter(19); 
+  const successCount = useCounter(90);
+  const casesCount = useCounter(2000);
+  const countriesCount = useCounter(50); 
 
   const [hoveredCountry, setHoveredCountry] = useState(null);
 
@@ -145,7 +161,7 @@ const Hero = () => {
 
             {/* Core Global Sphere Container */}
             <div className="relative w-64 h-64 rounded-full overflow-hidden bg-gradient-to-br from-[#041226] to-[#010610] shadow-[0_0_60px_rgba(214,175,55,0.1),inset_0_0_40px_rgba(0,0,0,0.9)] border border-[#D4AF37]/30 backdrop-blur-xl z-10 group-hover/globe:border-[#D4AF37]/60 transition-colors duration-500">
-              <div className="w-full h-full animate-[panGlobalMap_40s_linear_infinite]">
+              <div className="w-full h-full animate-[panGlobalMap_40s_linear_infinite] will-change-transform">
                 <ContinentsMap />
               </div>
               <div className="absolute inset-0 rounded-full shadow-[inset_-25px_-25px_60px_rgba(0,0,0,0.95),inset_10px_10px_30px_rgba(214,175,55,0.1)] pointer-events-none" />
@@ -157,22 +173,25 @@ const Hero = () => {
                 '--start-angle': `${country.angle}deg`,
                 '--end-angle': `${country.angle + 360}deg`,
                 animation: 'orbitSmooth 45s linear infinite',
+                willChange: 'transform', // ⚡ Forces GPU acceleration, fixing non-composited animations audit
               };
 
               return (
-                /* Perfectly balanced parent position with -ml-9 -mt-9 calculation adjustments */
                 <div 
                   key={index} 
                   className="absolute left-[50%] top-[50%] -ml-9 -mt-9 z-20"
                   style={orbitStyles}
                 >
-                  {/* Expanded high-visibility w-18 h-18 design framework */}
                   <div 
-                    className="relative flex items-center justify-center w-18 h-18 rounded-full border border-white/10 bg-[#030f20]/95 text-3xl shadow-2xl hover:scale-115 hover:border-[#D4AF37] hover:shadow-[#D4AF37]/40 transition-all duration-300 cursor-pointer backdrop-blur-md select-none animate-[counterRotate_45s_linear_infinite]"
+                    role="button" // ♿ Explicit interactive accessibility role
+                    tabIndex={0} // ♿ Enables full keyboard navigation support
+                    aria-label={`Explore Visa options for ${country.name}`} // ♿ Provides name fallback for screen readers
+                    className="relative flex items-center justify-center w-18 h-18 rounded-full border border-white/10 bg-[#030f20]/95 text-3xl shadow-2xl hover:scale-115 hover:border-[#D4AF37] hover:shadow-[#D4AF37]/40 transition-all duration-300 cursor-pointer backdrop-blur-md select-none animate-[counterRotate_45s_linear_infinite] will-change-transform"
                     onMouseEnter={() => setHoveredCountry(index)}
                     onMouseLeave={() => setHoveredCountry(null)}
+                    onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') setHoveredCountry(index); }}
                   >
-                    <span className="drop-shadow-md transform scale-110">{country.flag}</span>
+                    <span role="img" aria-label={country.name} className="drop-shadow-md transform scale-110">{country.flag}</span>
                      
                     {/* Immersive Tooltip Matrix */}
                     {hoveredCountry === index && (
@@ -211,7 +230,6 @@ const Hero = () => {
           from { transform: translateX(0); }
           to { transform: translateX(-200px); }
         }
-        /* Increased orbit radius parameter to 215px for safe structural clearance */
         @keyframes orbitSmooth {
           from { transform: rotate(var(--start-angle)) translateX(215px) rotate(calc(-1 * var(--start-angle))); }
           to { transform: rotate(var(--end-angle)) translateX(215px) rotate(calc(-1 * var(--end-angle))); }
