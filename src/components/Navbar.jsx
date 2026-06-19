@@ -138,7 +138,7 @@ export default function Navbar() {
             >
               <span className="sr-only">Toggle Main Menu</span>
               <div className="w-6 h-5 relative flex flex-col justify-between items-end">
-                <span className={`h-[2px] bg-current rounded-full transition-all duration-300 transform origin-right ${isOpen ? 'w-6 -rotate-45 translate-y-[-1px]' : 'w-6'}`} />
+                <span className={`h-[2px] bg-current rounded-full transition-all duration-300 transform origin-right ${isOpen ? 'w-6 -rotate-45 translate-y-[1px]' : 'w-6'}`} />
                 <span className={`h-[2px] bg-current rounded-full transition-all duration-200 ${isOpen ? 'w-0 opacity-0' : 'w-4'}`} />
                 <span className={`h-[2px] bg-current rounded-full transition-all duration-300 transform origin-right ${isOpen ? 'w-6 rotate-45 translate-y-[1px]' : 'w-5'}`} />
               </div>
@@ -151,23 +151,21 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* ===== MOBILE DRAWER - IMPROVED VISIBILITY ===== */}
+      {/* ===== MOBILE DRAWER - FIXED SOLID VISIBILITY ===== */}
       <div
-        className={`md:hidden absolute top-full left-0 right-0 overflow-hidden transition-all duration-500 ease-in-out border-b border-white/[0.06] shadow-2xl ${
+        className={`md:hidden absolute top-full left-0 right-0 overflow-hidden transition-all duration-500 ease-in-out border-b border-[#D4AF37]/20 shadow-[0_15px_30px_rgba(0,0,0,0.8)] ${
           isOpen 
-            ? 'max-h-[500px] opacity-100 bg-[#020916]backdrop-blur-2xl' // ensure solid bg on mobile for blur
-            : 'max-h-0 opacity-0 pointer-events-none'
+            ? 'max-h-[520px] opacity-100 bg-[#020916] visible' 
+            : 'max-h-0 opacity-0 pointer-events-none invisible'
         }`}
       >
-        {/* Increased vertical padding and spacing */}
-        <div className="px-5 pt-6 pb-10 space-y-3">
+        <div className="px-5 pt-6 pb-10 space-y-3 bg-[#020916]">
           {navItems.map((item, index) => {
             const isActive = activeSection === item.id;
             return (
               <button
                 key={item.id}
                 onClick={() => scrollTo(item.id)}
-                // IMPROVEMENTS: text-gray-100 (lighter), py-4 (larger tap area), active:bg (visible feedback)
                 className={`block w-full text-left px-4 py-4 rounded-md uppercase tracking-widest transition-all duration-200 ${
                   isActive
                     ? 'text-[#D4AF37] bg-[#D4AF37]/15 border-l-2 border-[#D4AF37]'
@@ -177,7 +175,6 @@ export default function Navbar() {
                   animation: isOpen ? `mobileNavFadeSlide 0.4s cubic-bezier(0.16, 1, 0.3, 1) ${index * 0.05}s both` : 'none',
                 }}
               >
-                {/* IMPROVEMENT: increased font size text-sm */}
                 <div className="flex items-center justify-between text-sm font-bold">
                   <span>{item.label}</span>
                   {isActive && <span className="w-1.5 h-1.5 rounded-full bg-[#D4AF37] shadow-[0_0_8px_rgba(214,175,55,0.8)]" />}
@@ -187,7 +184,7 @@ export default function Navbar() {
           })}
           
           {/* Mobile Interactive Panel Segment */}
-          <div className="pt-6 mt-5 border-t border-white/[0.08] space-y-5">
+          <div className="pt-6 mt-5 border-t border-white/[0.08] space-y-5 bg-[#020916]">
             <button
               onClick={() => scrollTo('consultation')}
               className="w-full py-4.5 bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#AA7C11] text-gray-950 font-black text-xs uppercase tracking-widest rounded-sm text-center shadow-lg active:scale-[0.98] transition-transform"
@@ -195,11 +192,11 @@ export default function Navbar() {
               Book Consultation
             </button>
             
-            {/* Real-time Validation Meta info - IMPROVED VISIBILITY */}
+            {/* Real-time Validation Meta info */}
             <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-2 text-xs font-medium tracking-wider text-gray-300 text-center sm:text-left">
-              <a href="tel:+923160285386" className="active:text-[#D4AF37]">📞 +92 316 0285386</a>
+              <a href="tel:+923160285386" className="active:text-[#D4AF37] py-1 block">📞 +92 316 0285386</a>
               <div className="hidden sm:block w-1 h-1 rounded-full bg-gray-600" />
-              <a href="mailto:imran@accurate-consultancy.com" className="active:text-[#D4AF37]">✉️ imran@accurate-consultancy.com</a>
+              <a href="mailto:imran@accurate-consultancy.com" className="active:text-[#D4AF37] py-1 block">✉️ imran@accurate-consultancy.com</a>
             </div>
           </div>
         </div>
