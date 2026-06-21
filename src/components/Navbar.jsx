@@ -1,66 +1,33 @@
-import { useState, useEffect } from 'react';
-
-export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-  const [activeSection, setActiveSection] = useState('hero');
-
-  // Scroll detection for background and tracking state transformations
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
-
-      // Detect active structural viewport target
-      const sections = ['hero', 'services', 'destinations', 'about', 'consultation'];
-      const scrollPosition = window.scrollY + 140;
-
-      for (const section of sections) {
-        const element = document.getElementById(section);
-        if (element) {
-          const { offsetTop, offsetHeight } = element;
-          if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
-            setActiveSection(section);
-            break;
-          }
-        }
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  // Smooth operational scroll architecture
-  const scrollTo = (id) => {
-    const el = document.getElementById(id);
-    if (el) {
-      const top = el.getBoundingClientRect().top + window.pageYOffset - 90;
-      window.scrollTo({ top, behavior: 'smooth' });
-    }
-    setIsOpen(false);
-  };
-
-  const navItems = [
-    { label: 'Services', id: 'services' },
-    { label: 'Destinations', id: 'destinations' },
-    { label: 'About', id: 'about' },
-    { label: 'Contact', id: 'consultation' },
-  ];
-
-  return (
-    <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        scrolled
-          ? 'bg-[#020916]/85 backdrop-blur-xl border-b border-white/[0.07] shadow-[0_10px_40px_rgba(0,0,0,0.6)] py-3 sm:py-4'
-          : 'bg-[#020916]/40 backdrop-blur-md border-b border-white/[0.03] py-5 sm:py-6'
-      }`}
-    >
-      <div className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between">
+<div className="flex items-center justify-between">
           
-          {/* ===== BRAND LOGO CONTEXT ===== */}
+          {/* ===== LEFT: DESKTOP LINKS (Now on the left) ===== */}
+          <div className="hidden md:flex items-center gap-10 lg:gap-12">
+            {navItems.map((item) => {
+              const isActive = activeSection === item.id;
+              return (
+                <button
+                  key={item.id}
+                  onClick={() => scrollTo(item.id)}
+                  className={`relative text-[11px] font-bold uppercase tracking-widest transition-all duration-300 ${
+                    isActive 
+                      ? 'text-[#D4AF37] drop-shadow-[0_0_8px_rgba(214,175,55,0.3)]' 
+                      : 'text-gray-300 hover:text-white'
+                  }`}
+                >
+                  <span className="relative z-10">{item.label}</span>
+                  <span
+                    className={`absolute -bottom-2 left-1/2 -translate-x-1/2 h-[2px] bg-gradient-to-r from-[#D4AF37] to-[#F3E5AB] rounded-full transition-all duration-300 ${
+                      isActive ? 'w-full opacity-100' : 'w-0 opacity-0 group-hover:w-1/2 group-hover:opacity-50'
+                    }`}
+                  />
+                </button>
+              );
+            })}
+          </div>
+
+          {/* ===== RIGHT: BRAND LOGO (Now on the right) ===== */}
           <div 
-            className="flex-shrink-0 flex items-center cursor-pointer group relative"
+            className="flex-shrink-0 flex items-center cursor-pointer group relative ml-auto"
             onClick={() => scrollTo('hero')}
           >
             <div className="relative flex items-center">
@@ -83,140 +50,7 @@ export default function Navbar() {
               />
             </div>
           </div>
-
-          {/* ===== DESKTOP HORIZONTAL LINKS ===== */}
-          <div className="hidden md:flex items-center gap-10 lg:gap-12">
-            {navItems.map((item) => {
-              const isActive = activeSection === item.id;
-              return (
-                <button
-                  key={item.id}
-                  onClick={() => scrollTo(item.id)}
-                  className={`relative text-[11px] font-bold uppercase tracking-widest transition-all duration-300 ${
-                    isActive 
-                      ? 'text-[#D4AF37] drop-shadow-[0_0_8px_rgba(214,175,55,0.3)]' 
-                      : 'text-gray-300 hover:text-white'
-                  }`}
-                >
-                  <span className="relative z-10">{item.label}</span>
-                  
-                  <span
-                    className={`absolute -bottom-2 left-1/2 -translate-x-1/2 h-[2px] bg-gradient-to-r from-[#D4AF37] to-[#F3E5AB] rounded-full transition-all duration-300 ${
-                      isActive ? 'w-full opacity-100' : 'w-0 opacity-0 group-hover:w-1/2 group-hover:opacity-50'
-                    }`}
-                  />
-                </button>
-              );
-            })}
-          </div>
-
-          {/* ===== DESKTOP PRESTIGE ACTION BUTTON ===== */}
-          <div className="hidden md:block">
-            <button
-              onClick={() => scrollTo('consultation')}
-              className="group relative px-6 py-3 bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#AA7C11] text-gray-950 font-black text-[10px] uppercase tracking-widest rounded-sm shadow-[0_4px_25px_rgba(214,175,55,0.15)] hover:shadow-[0_4px_35px_rgba(214,175,55,0.35)] hover:-translate-y-0.5 transition-all duration-300 overflow-hidden"
-            >
-              <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover:animate-shimmerSweep block" />
-              <span className="relative flex items-center gap-2">
-                Book Consultation
-                <svg className="w-3 h-3 transform group-hover:translate-x-0.5 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="3">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-                </svg>
-              </span>
-            </button>
-          </div>
-
-          {/* ===== MOBILE TRIGGER SYSTEM ===== */}
-          <div className="md:hidden flex items-center">
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              type="button"
-              className="relative inline-flex items-center justify-center p-2 rounded-md text-gray-300 hover:text-white hover:bg-white/[0.04] transition-all duration-300 focus:outline-none"
-              aria-expanded={isOpen}
-              aria-label="Toggle main menu"
-            >
-              <div className="w-6 h-5 relative flex flex-col justify-between items-end">
-                <span className={`h-[2px] bg-current rounded-full transition-all duration-300 transform origin-right ${isOpen ? 'w-6 -rotate-45 translate-y-[1px]' : 'w-6'}`} />
-                <span className={`h-[2px] bg-current rounded-full transition-all duration-200 ${isOpen ? 'w-0 opacity-0' : 'w-4'}`} />
-                <span className={`h-[2px] bg-current rounded-full transition-all duration-300 transform origin-right ${isOpen ? 'w-6 rotate-45 translate-y-[1px]' : 'w-5'}`} />
-              </div>
-              
-              {!isOpen && (
-                <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-[#D4AF37] shadow-[0_0_8px_rgba(214,175,55,0.6)] animate-pulse" />
-              )}
-            </button>
-          </div>
-        </div>
-      </div>
-
-      {/* ===== MOBILE DRAWER ===== */}
-      <div
-        className={`md:hidden absolute top-full left-0 right-0 overflow-hidden transition-all duration-500 ease-in-out border-b border-[#D4AF37]/20 shadow-[0_15px_30px_rgba(0,0,0,0.8)] ${
-          isOpen 
-            ? 'max-h-[520px] opacity-100 bg-[#020916] visible' 
-            : 'max-h-0 opacity-0 pointer-events-none invisible'
-        }`}
-      >
-        <div className="px-5 pt-6 pb-10 space-y-3 bg-[#020916]">
-          {navItems.map((item, index) => {
-            const isActive = activeSection === item.id;
-            return (
-              <button
-                key={item.id}
-                onClick={() => scrollTo(item.id)}
-                className={`block w-full text-left px-4 py-4 rounded-md uppercase tracking-widest transition-all duration-200 ${
-                  isActive
-                    ? 'text-[#D4AF37] bg-[#D4AF37]/15 border-l-2 border-[#D4AF37]'
-                    : 'text-gray-100 hover:text-white active:bg-white/10' 
-                }`}
-                style={{
-                  animation: isOpen ? `mobileNavFadeSlide 0.4s cubic-bezier(0.16, 1, 0.3, 1) ${index * 0.05}s both` : 'none',
-                }}
-              >
-                <div className="flex items-center justify-between text-sm font-bold">
-                  <span>{item.label}</span>
-                  {isActive && <span className="w-1.5 h-1.5 rounded-full bg-[#D4AF37] shadow-[0_0_8px_rgba(214,175,55,0.8)]" />}
-                </div>
-              </button>
-            );
-          })}
           
-          <div className="pt-6 mt-5 border-t border-white/[0.08] space-y-5 bg-[#020916]">
-            <button
-              onClick={() => scrollTo('consultation')}
-              className="w-full py-4 bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#AA7C11] text-gray-950 font-black text-xs uppercase tracking-widest rounded-sm text-center shadow-lg active:scale-[0.98] transition-transform"
-            >
-              Book Consultation
-            </button>
-            
-            <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-2 text-xs font-medium tracking-wider text-gray-300 text-center sm:text-left">
-              <a href="tel:+923160285386" className="active:text-[#D4AF37] py-1 block">📞 +92 316 0285386</a>
-              <div className="hidden sm:block w-1 h-1 rounded-full bg-gray-600" />
-              <a href="mailto:info@accurate-consultancy.com" className="active:text-[#D4AF37] py-1 block">✉️ info@accurate-consultancy.com</a>
-            </div>
-          </div>
+          {/* Note: You may want to move the "Book Consultation" button to the far left or adjust spacing 
+              since the logo is now occupying the right-hand visual weight. */}
         </div>
-      </div>
-
-      <style>{`
-        @keyframes shimmerSweep {
-          0% { transform: translateX(-100%); }
-          100% { transform: translateX(100%); }
-        }
-        @keyframes mobileNavFadeSlide {
-          from {
-            opacity: 0;
-            transform: translateY(-10px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-        .animate-shimmerSweep {
-          animation: shimmerSweep 2.5s cubic-bezier(0.25, 1, 0.5, 1) infinite;
-        }
-      `}</style>
-    </nav>
-  );
-}
