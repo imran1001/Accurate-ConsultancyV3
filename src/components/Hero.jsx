@@ -229,16 +229,16 @@ const Hero = () => {
         {/* ===== RIGHT CONTENT COLUMN – Dynamic Globe + Cards ===== */}
         <div className="w-full lg:col-span-6 flex flex-col items-center justify-center relative py-6 lg:py-8 z-10">
           
-          {/* Globe Container */}
-          <div className="relative w-full max-w-[480px] aspect-square flex items-center justify-center">
+          {/* Globe Container – slightly smaller */}
+          <div className="relative w-full max-w-[420px] aspect-square flex items-center justify-center">
             
             {/* Rotating decorative rings */}
             <div className="absolute inset-0 rounded-full border border-[#D4AF37]/10 pointer-events-none animate-spin-slow" style={{ animationDuration: '50s' }} />
             <div className="absolute inset-[10%] rounded-full border border-[#D4AF37]/5 pointer-events-none animate-spin-slow" style={{ animationDuration: '30s', animationDirection: 'reverse' }} />
             <div className="absolute inset-[25%] rounded-full border border-dashed border-[#D4AF37]/5 pointer-events-none animate-spin-slow" style={{ animationDuration: '20s' }} />
 
-            {/* Core Globe with gold wireframe */}
-            <div className="relative w-[75%] max-w-[320px] aspect-square rounded-full shadow-[0_0_80px_rgba(212,175,55,0.2)]">
+            {/* Core Globe – smaller */}
+            <div className="relative w-[70%] max-w-[260px] aspect-square rounded-full shadow-[0_0_80px_rgba(212,175,55,0.2)]">
               <div className="absolute -inset-3 rounded-full border-2 border-[#D4AF37]/20 animate-pulse" style={{ animationDuration: '3s' }} />
               <div className="absolute -inset-6 rounded-full border border-[#D4AF37]/10 animate-pulse" style={{ animationDuration: '4s', animationDelay: '1s' }} />
               
@@ -253,11 +253,12 @@ const Hero = () => {
               </div>
             </div>
 
-            {/* Floating destination cards */}
+            {/* Floating destination cards – closer and larger */}
             <div className="absolute inset-0 pointer-events-none">
               {destinations.map((dest, i) => {
+                // Reduced radius to bring cards closer (was 78 → now 60)
+                const radius = 60;
                 const angle = (i / destinations.length) * 360 - 60;
-                const radius = 78;
                 const x = 50 + radius * Math.cos((angle * Math.PI) / 180);
                 const y = 50 + radius * Math.sin((angle * Math.PI) / 180);
                 
@@ -274,14 +275,16 @@ const Hero = () => {
                     onMouseLeave={() => setHoveredDest(null)}
                   >
                     <div
-                      className={`flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#020916]/90 border backdrop-blur-md transition-all duration-300 ${
+                      className={`flex items-center gap-2 px-3 py-2 rounded-full bg-[#020916]/90 border backdrop-blur-md transition-all duration-300 ${
                         hoveredDest === i
                           ? 'border-[#D4AF37]/60 shadow-[0_0_30px_rgba(212,175,55,0.2)] scale-110'
                           : 'border-white/10 hover:border-[#D4AF37]/30 hover:scale-105'
                       }`}
                     >
-                      <span className="text-lg">{dest.flag}</span>
-                      <span className="text-[10px] font-medium text-white whitespace-nowrap hidden sm:inline">
+                      {/* Larger flag */}
+                      <span className="text-xl">{dest.flag}</span>
+                      {/* Slightly larger country name */}
+                      <span className="text-[11px] font-medium text-white whitespace-nowrap hidden sm:inline">
                         {dest.name}
                       </span>
                     </div>
@@ -303,16 +306,16 @@ const Hero = () => {
             </div>
           </div>
 
-          {/* Mobile destination strip */}
+          {/* Mobile destination strip – updated to match new sizes */}
           <div className="lg:hidden w-full overflow-x-auto pb-3 -mx-4 px-4 scrollbar-hide mt-4">
             <div className="flex gap-2 w-max">
               {destinations.map((dest, i) => (
                 <div
                   key={i}
-                  className="flex-shrink-0 flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#020916]/90 border border-white/10 backdrop-blur-md"
+                  className="flex-shrink-0 flex items-center gap-2 px-3 py-2 rounded-full bg-[#020916]/90 border border-white/10 backdrop-blur-md"
                 >
-                  <span className="text-base">{dest.flag}</span>
-                  <span className="text-[9px] font-medium text-white whitespace-nowrap">{dest.name}</span>
+                  <span className="text-xl">{dest.flag}</span>
+                  <span className="text-[10px] font-medium text-white whitespace-nowrap">{dest.name}</span>
                 </div>
               ))}
             </div>
