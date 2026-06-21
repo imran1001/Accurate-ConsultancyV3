@@ -24,14 +24,14 @@ const useCounter = (end, duration = 2000, start = 0) => {
   return count;
 };
 
-// Destination data for floating cards
+// Destination data – only flag and name (for tooltip)
 const destinations = [
-  { flag: '🇺🇸', name: 'United States', color: '#FF6B6B' },
-  { flag: '🇬🇧', name: 'United Kingdom', color: '#4ECDC4' },
-  { flag: '🇨🇦', name: 'Canada', color: '#FFD93D' },
-  { flag: '🇦🇺', name: 'Australia', color: '#6BCB77' },
-  { flag: '🇪🇺', name: 'Europe', color: '#4D96FF' },
-  { flag: '🇦🇪', name: 'UAE', color: '#FF6B6B' },
+  { flag: '🇺🇸', name: 'United States' },
+  { flag: '🇬🇧', name: 'United Kingdom' },
+  { flag: '🇨🇦', name: 'Canada' },
+  { flag: '🇦🇺', name: 'Australia' },
+  { flag: '🇪🇺', name: 'Europe' },
+  { flag: '🇦🇪', name: 'UAE' },
 ];
 
 // Enhanced Globe SVG with gold wireframe
@@ -226,13 +226,12 @@ const Hero = () => {
           </div>
         </div>
 
-        {/* ===== RIGHT CONTENT COLUMN – Dynamic Globe + Cards ===== */}
+        {/* ===== RIGHT COLUMN – ROTATING GLOBE WITH FLAGS ===== */}
         <div className="w-full lg:col-span-6 flex flex-col items-center justify-center relative py-6 lg:py-8 z-10">
           
-          {/* Globe Container – slightly smaller */}
           <div className="relative w-full max-w-[420px] aspect-square flex items-center justify-center">
             
-            {/* Rotating decorative rings */}
+            {/* Decorative rings */}
             <div className="absolute inset-0 rounded-full border border-[#D4AF37]/10 pointer-events-none animate-spin-slow" style={{ animationDuration: '50s' }} />
             <div className="absolute inset-[10%] rounded-full border border-[#D4AF37]/5 pointer-events-none animate-spin-slow" style={{ animationDuration: '30s', animationDirection: 'reverse' }} />
             <div className="absolute inset-[25%] rounded-full border border-dashed border-[#D4AF37]/5 pointer-events-none animate-spin-slow" style={{ animationDuration: '20s' }} />
@@ -246,51 +245,50 @@ const Hero = () => {
                 <div className="absolute inset-0 animate-spin-globe" style={{ animationDuration: '30s' }}>
                   <GlobeWireframe />
                 </div>
-                {/* Depth overlay */}
                 <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-black/40 via-transparent to-white/5" />
                 <div className="absolute w-16 h-16 rounded-full bg-[#D4AF37]/10 blur-2xl top-8 right-8 animate-pulse" />
                 <div className="absolute w-10 h-10 rounded-full bg-[#D4AF37]/5 blur-xl bottom-8 left-8 animate-pulse" style={{ animationDelay: '1.5s' }} />
               </div>
             </div>
 
-            {/* Floating destination cards – closer and larger */}
+            {/* ===== ROTATING FLAGS ===== */}
             <div className="absolute inset-0 pointer-events-none">
-              {destinations.map((dest, i) => {
-                // Reduced radius to bring cards closer (was 78 → now 60)
-                const radius = 60;
-                const angle = (i / destinations.length) * 360 - 60;
-                const x = 50 + radius * Math.cos((angle * Math.PI) / 180);
-                const y = 50 + radius * Math.sin((angle * Math.PI) / 180);
-                
-                return (
-                  <div
-                    key={i}
-                    className="absolute pointer-events-auto"
-                    style={{
-                      left: `${x}%`,
-                      top: `${y}%`,
-                      transform: 'translate(-50%, -50%)',
-                    }}
-                    onMouseEnter={() => setHoveredDest(i)}
-                    onMouseLeave={() => setHoveredDest(null)}
-                  >
+              <div 
+                className="absolute inset-0 animate-spin-slow" 
+                style={{ animationDuration: '25s' }}
+              >
+                {destinations.map((dest, i) => {
+                  const angle = (i / destinations.length) * 360;
+                  return (
                     <div
-                      className={`flex items-center gap-2 px-3 py-2 rounded-full bg-[#020916]/90 border backdrop-blur-md transition-all duration-300 ${
-                        hoveredDest === i
-                          ? 'border-[#D4AF37]/60 shadow-[0_0_30px_rgba(212,175,55,0.2)] scale-110'
-                          : 'border-white/10 hover:border-[#D4AF37]/30 hover:scale-105'
-                      }`}
+                      key={i}
+                      className="absolute left-1/2 top-1/2 pointer-events-auto"
+                      style={{
+                        transform: `rotate(${angle}deg) translateX(95px)`,
+                        transformOrigin: '0 0',
+                      }}
                     >
-                      {/* Larger flag */}
-                      <span className="text-xl">{dest.flag}</span>
-                      {/* Slightly larger country name */}
-                      <span className="text-[11px] font-medium text-white whitespace-nowrap hidden sm:inline">
-                        {dest.name}
-                      </span>
+                      <div
+                        className="flex items-center justify-center w-12 h-12 rounded-full bg-[#020916]/90 border border-white/10 backdrop-blur-md shadow-lg hover:border-[#D4AF37]/60 hover:shadow-[0_0_30px_rgba(212,175,55,0.2)] transition-all duration-300 cursor-pointer"
+                        style={{
+                          transform: `rotate(-${angle}deg)`,
+                        }}
+                        onMouseEnter={() => setHoveredDest(i)}
+                        onMouseLeave={() => setHoveredDest(null)}
+                      >
+                        <span className="text-2xl">{dest.flag}</span>
+                        
+                        {/* Tooltip on hover */}
+                        {hoveredDest === i && (
+                          <div className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 whitespace-nowrap bg-gradient-to-r from-[#D4AF37] to-[#F3E5AB] text-[#020916] font-bold text-xs py-1 px-2.5 rounded-md shadow-lg pointer-events-none z-50">
+                            {dest.name}
+                          </div>
+                        )}
+                      </div>
                     </div>
-                  </div>
-                );
-              })}
+                  );
+                })}
+              </div>
             </div>
 
             {/* Center label */}
@@ -306,16 +304,15 @@ const Hero = () => {
             </div>
           </div>
 
-          {/* Mobile destination strip – updated to match new sizes */}
+          {/* Mobile destination strip – flags only */}
           <div className="lg:hidden w-full overflow-x-auto pb-3 -mx-4 px-4 scrollbar-hide mt-4">
             <div className="flex gap-2 w-max">
               {destinations.map((dest, i) => (
                 <div
                   key={i}
-                  className="flex-shrink-0 flex items-center gap-2 px-3 py-2 rounded-full bg-[#020916]/90 border border-white/10 backdrop-blur-md"
+                  className="flex-shrink-0 flex items-center gap-1 px-3 py-2 rounded-full bg-[#020916]/90 border border-white/10 backdrop-blur-md"
                 >
                   <span className="text-xl">{dest.flag}</span>
-                  <span className="text-[10px] font-medium text-white whitespace-nowrap">{dest.name}</span>
                 </div>
               ))}
             </div>
