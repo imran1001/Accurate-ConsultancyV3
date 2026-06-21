@@ -100,19 +100,19 @@ const Hero = () => {
           </div>
         </div>
 
-        {/* ===== RIGHT COLUMN - HERO IMAGE PORTRAIT ===== */}
-        <div className="w-full lg:col-span-5 flex items-center justify-center relative py-8">
-          <div className="relative w-full max-w-lg aspect-[4/3] sm:aspect-[16/10] lg:aspect-[4/5] rounded-2xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.8)] border border-[#D4AF37]/30 group hover:border-[#D4AF37]/60 transition-all duration-500">
-            {/* Subtle glow behind the image */}
+        {/* ===== RIGHT COLUMN - FULL HERO IMAGE VIEW ===== */}
+        <div className="w-full lg:col-span-5 flex items-center justify-center relative py-8 z-10">
+          {/* Switched to aspect-video (16:9) and max-w-xl to display the uncropped image */}
+          <div className="relative w-full max-w-xl aspect-video rounded-2xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.8)] border border-[#D4AF37]/30 group hover:border-[#D4AF37]/60 transition-all duration-500">
             <div className="absolute inset-0 bg-gradient-to-tr from-[#D4AF37]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10 pointer-events-none" />
             
+            {/* Added object-contain to guarantee 100% of the image renders inside the box */}
             <img 
               src="/imageshero-1.webp" 
               alt="Accurate Consultancy Managing Director Consultation" 
-              className="w-full h-full object-cover object-center transform group-hover:scale-105 transition-transform duration-700 ease-out"
+              className="w-full h-full object-contain bg-[#020916] transform group-hover:scale-105 transition-transform duration-700 ease-out"
             />
 
-            {/* Premium Gold Accent Bar at the bottom of the portrait */}
             <div className="absolute bottom-0 left-0 right-0 h-1.5 bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#AA7C11] z-20" />
           </div>
         </div>
