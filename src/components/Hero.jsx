@@ -37,9 +37,12 @@ const Hero = () => {
       <div className="absolute -bottom-20 -left-20 w-[400px] h-[400px] rounded-full blur-[120px] opacity-15 pointer-events-none bg-gradient-to-tr from-[#1a2b4c] to-transparent" />
       <div className="absolute inset-0 bg-[radial-gradient(rgba(255,255,255,0.015)_1px,transparent_1px)] [background-size:32px_32px] pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto w-full relative z-10 grid lg:grid-cols-12 gap-12 lg:gap-8 items-center">
-        {/* ===== LEFT CONTENT COLUMN ===== */}
-        <div className="text-left w-full lg:col-span-7 z-20">
+      {/* Upgraded Grid: Now a perfectly balanced 6-col / 6-col split */}
+      <div className="max-w-7xl mx-auto w-full relative z-10 grid lg:grid-cols-12 gap-8 items-center">
+        
+        {/* ===== LEFT CONTENT COLUMN (6 Cols) ===== */}
+        <div className="text-left w-full lg:col-span-6 z-20">
+          
           {/* Corporate Badge */}
           <div className="inline-flex items-center gap-2 mb-6 px-4 py-2 rounded-full border border-[#D4AF37]/30 bg-[#04152d]/80 backdrop-blur-md shadow-[0_4px_20px_rgba(214,175,55,0.05)] animate-fadeInUp">
             <span className="flex h-2 w-2 relative">
@@ -54,7 +57,7 @@ const Hero = () => {
           {/* Core Dynamic Heading */}
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-[1.1] mb-6 text-white tracking-tight">
             Visa, Immigration <br className="hidden sm:inline" />
-            <span className="relative mt-1 inline-block bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#AA7C11] bg-[length:200%_auto] bg-clip-text text-transparent animate-textShimmer font-black">
+            <span className="relative mt-1 inline-block bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#AA7C11] bg-[length:200%_auto] bg-clip-text text-transparent font-black">
               & Study Abroad
             </span>
             <span className="block text-gray-400 text-3xl sm:text-4xl md:text-5xl font-medium mt-2 tracking-wide">
@@ -67,7 +70,7 @@ const Hero = () => {
             Empowering students, ambitious professionals, and families to transcend borders through impeccably tailored consultancy, corporate relocation, and international academic access paths.
           </p>
 
-          {/* Action Button Set */}
+          {/* Action Button */}
           <div className="flex flex-col sm:flex-row items-center gap-4 mb-12 w-full sm:w-auto">
             <a
               href="#consultation"
@@ -80,7 +83,7 @@ const Hero = () => {
             </a>
           </div>
 
-          {/* High-Fidelity Metrics Counter Grid */}
+          {/* Metrics Grid */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 border-t border-white/5 pt-8">
             {[
               { value: yearsCount, label: 'Years Track Record', suffix: '+' },
@@ -100,33 +103,38 @@ const Hero = () => {
           </div>
         </div>
 
-        {/* ===== RIGHT COLUMN - FULL HERO IMAGE VIEW ===== */}
-        <div className="w-full lg:col-span-5 flex items-center justify-center relative py-8 z-10">
-          {/* Switched to aspect-video (16:9) and max-w-xl to display the uncropped image */}
-          <div className="relative w-full max-w-xl aspect-video rounded-2xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.8)] border border-[#D4AF37]/30 group hover:border-[#D4AF37]/60 transition-all duration-500">
+        {/* ===== RIGHT CONTENT COLUMN (6 Cols - Full Width View) ===== */}
+        <div className="w-full lg:col-span-6 flex items-center justify-center relative py-8 z-10">
+          
+          {/* Sizing Fix: Removed max-w constraint, let it fill 100% of the 6-column space */}
+          <div className="relative w-full aspect-video rounded-2xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.8)] border border-[#D4AF37]/30 group hover:border-[#D4AF37]/60 transition-all duration-500">
+            
             <div className="absolute inset-0 bg-gradient-to-tr from-[#D4AF37]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10 pointer-events-none" />
             
-            {/* Added object-contain to guarantee 100% of the image renders inside the box */}
+            {/* THE WATERMARK ASSASSIN:
+               scale-[1.03] origin-top-left forces the bottom-right corner out of the frame.
+            */}
             <img 
               src="/imageshero-1.webp" 
-              alt="Accurate Consultancy Managing Director Consultation" 
-              className="w-full h-full object-contain bg-[#020916] transform group-hover:scale-105 transition-transform duration-700 ease-out"
+              alt="Muhammad Imran Malik Consulting Client - Accurate Consultancy" 
+              className="w-full h-full object-cover transform scale-[1.03] origin-top-left group-hover:scale-[1.05] transition-transform duration-700 ease-out"
             />
 
+            {/* The "Vignette Patch": A soft dark blur sitting directly over the bottom-right corner */}
+            <div className="absolute -bottom-4 -right-4 w-20 h-20 bg-[#020916] blur-md pointer-events-none z-10 opacity-95" />
+
+            {/* Premium Gold Accent Bar */}
             <div className="absolute bottom-0 left-0 right-0 h-1.5 bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#AA7C11] z-20" />
           </div>
+
         </div>
+
       </div>
 
-      {/* ===== EMBEDDED DYNAMIC ANIMATION LAYERS ===== */}
       <style>{`
         @keyframes fadeInUp {
           from { opacity: 0; transform: translateY(16px); }
           to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes textShimmer {
-          0%, 100% { background-position: 0% 50%; }
-          50% { background-position: 100% 50%; }
         }
         .animate-fadeInUp {
           animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
