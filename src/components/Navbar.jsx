@@ -80,7 +80,6 @@ export default function Navbar() {
             : 'bg-[#020916]/55 backdrop-blur-md border-b border-white/[0.04] py-4 sm:py-5'
         }`}
       >
-        {/* Upgraded container width pushes items to absolute left/right corners */}
         <div className="max-w-[1720px] mx-auto w-full px-4 sm:px-8 lg:px-12">
           <div className="flex items-center justify-between">
 
@@ -99,8 +98,7 @@ export default function Navbar() {
                   alt="Accurate Consultancy Logo"
                   width="240"
                   height="80"
-                  // origin-left ensures hover-scale expands into the page, not out of the viewport
-                  className="relative h-11 sm:h-13 md:h-15 lg:h-16 w-auto object-contain transition-transform duration-500 group-hover:scale-[1.02.5] origin-left"
+                  className="relative h-11 sm:h-13 md:h-15 lg:h-16 w-auto object-contain transition-transform duration-500 group-hover:scale-[1.03] origin-left"
                   style={{ filter: 'drop-shadow(0 4px 12px rgba(214,175,55,0.18))' }}
                 />
               </div>
@@ -132,17 +130,14 @@ export default function Navbar() {
               })}
             </div>
 
-            {/* ===== DESKTOP CTA ===== */}
+            {/* ===== DESKTOP "GHOST" CTA ===== */}
             <div className="hidden md:block">
               <button
                 onClick={() => scrollTo('consultation')}
-                className="group relative px-6 py-3.5 bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#AA7C11] text-gray-950 font-black text-[10px] uppercase tracking-widest rounded-sm shadow-[0_4px_25px_rgba(214,175,55,0.15)] hover:shadow-[0_4px_35px_rgba(214,175,55,0.35)] hover:-translate-y-0.5 transition-all duration-300 overflow-hidden"
+                className="group relative px-6 py-3 border border-[#D4AF37]/50 hover:border-[#D4AF37] text-[#D4AF37] hover:text-white bg-transparent hover:bg-[#D4AF37]/10 font-black text-[10px] uppercase tracking-widest rounded-sm transition-all duration-300 flex items-center gap-2 shadow-[0_0_15px_rgba(214,175,55,0.05)] hover:shadow-[0_0_25px_rgba(214,175,55,0.2)] hover:-translate-y-0.5"
               >
-                <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover:animate-shimmerSweep block" />
-                <span className="relative flex items-center gap-2">
-                  Book Consultation
-                  <ChevronRight size={13} className="transform group-hover:translate-x-0.5 transition-transform duration-300" />
-                </span>
+                <span>Book Consultation</span>
+                <ChevronRight size={13} className="transform group-hover:translate-x-0.5 transition-transform duration-300" />
               </button>
             </div>
 
@@ -196,6 +191,7 @@ export default function Navbar() {
             })}
 
             <div className="pt-6 mt-5 border-t border-white/[0.08] space-y-5 bg-[#020916]">
+              {/* Mobile keeps the solid gold button since there's no visual competition inside the menu */}
               <button
                 onClick={() => scrollTo('consultation')}
                 className="w-full py-4 bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#AA7C11] text-gray-950 font-black text-xs uppercase tracking-widest rounded-sm text-center shadow-lg active:scale-[0.98] transition-transform"
@@ -218,16 +214,9 @@ export default function Navbar() {
       </nav>
 
       <style>{`
-        @keyframes shimmerSweep {
-          0% { transform: translateX(-100%); }
-          100% { transform: translateX(100%); }
-        }
         @keyframes mobileNavFadeSlide {
           from { opacity: 0; transform: translateY(-10px); }
           to { opacity: 1; transform: translateY(0); }
-        }
-        .animate-shimmerSweep {
-          animation: shimmerSweep 2.5s cubic-bezier(0.25, 1, 0.5, 1) infinite;
         }
       `}</style>
     </header>
