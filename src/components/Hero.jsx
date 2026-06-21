@@ -31,18 +31,21 @@ const Hero = () => {
   const countriesCount = useCounter(50, 2000);
 
   return (
-    <section className="relative min-h-screen pt-32 sm:pt-40 lg:pt-44 pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden flex items-center bg-[#020916]">
+    <section
+      id="hero"
+      className="relative min-h-screen pt-32 sm:pt-40 lg:pt-44 pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden flex items-center bg-[#020916]"
+    >
       {/* ===== BACKGROUND AMBIENT GLOWS ===== */}
       <div className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full blur-[140px] opacity-25 pointer-events-none bg-gradient-to-br from-[#D4AF37] to-transparent mix-blend-screen" />
       <div className="absolute -bottom-20 -left-20 w-[400px] h-[400px] rounded-full blur-[120px] opacity-15 pointer-events-none bg-gradient-to-tr from-[#1a2b4c] to-transparent" />
       <div className="absolute inset-0 bg-[radial-gradient(rgba(255,255,255,0.015)_1px,transparent_1px)] [background-size:32px_32px] pointer-events-none" />
 
-      {/* Upgraded Grid: Now a perfectly balanced 6-col / 6-col split */}
+      {/* Balanced 6-col / 6-col split */}
       <div className="max-w-7xl mx-auto w-full relative z-10 grid lg:grid-cols-12 gap-8 items-center">
-        
+
         {/* ===== LEFT CONTENT COLUMN (6 Cols) ===== */}
         <div className="text-left w-full lg:col-span-6 z-20">
-          
+
           {/* Corporate Badge */}
           <div className="inline-flex items-center gap-2 mb-6 px-4 py-2 rounded-full border border-[#D4AF37]/30 bg-[#04152d]/80 backdrop-blur-md shadow-[0_4px_20px_rgba(214,175,55,0.05)] animate-fadeInUp">
             <span className="flex h-2 w-2 relative">
@@ -72,7 +75,7 @@ const Hero = () => {
 
           {/* Action Button */}
           <div className="flex flex-col sm:flex-row items-center gap-4 mb-12 w-full sm:w-auto">
-            <a
+            
               href="#consultation"
               className="group relative w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 bg-gradient-to-r from-[#D4AF37] to-[#AA7C11] text-gray-950 font-bold text-sm rounded-md shadow-[0_4px_30px_rgba(214,175,55,0.2)] hover:shadow-[0_4px_40px_rgba(214,175,55,0.4)] hover:-translate-y-0.5 transition-all duration-300 no-underline tracking-wide uppercase"
             >
@@ -103,24 +106,23 @@ const Hero = () => {
           </div>
         </div>
 
-        {/* ===== RIGHT CONTENT COLUMN (6 Cols - Full Width View) ===== */}
+        {/* ===== RIGHT CONTENT COLUMN (6 Cols - Elongated Image) ===== */}
         <div className="w-full lg:col-span-6 flex items-center justify-center relative py-8 z-10">
-          
-          {/* Sizing Fix: Removed max-w constraint, let it fill 100% of the 6-column space */}
-          <div className="relative w-full aspect-video rounded-2xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.8)] border border-[#D4AF37]/30 group hover:border-[#D4AF37]/60 transition-all duration-500">
-            
+
+          <div className="relative w-full h-[360px] sm:h-[440px] md:h-[520px] lg:h-[640px] rounded-2xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.8)] border border-[#D4AF37]/30 group hover:border-[#D4AF37]/60 transition-all duration-500">
+
             <div className="absolute inset-0 bg-gradient-to-tr from-[#D4AF37]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10 pointer-events-none" />
-            
+
             {/* THE WATERMARK ASSASSIN:
-               scale-[1.03] origin-top-left forces the bottom-right corner out of the frame.
+               object-position biased toward the subject so the taller crop keeps him in frame.
             */}
-            <img 
-              src="/imageshero-1.webp" 
-              alt="Muhammad Imran Malik Consulting Client - Accurate Consultancy" 
-              className="w-full h-full object-cover transform scale-[1.03] origin-top-left group-hover:scale-[1.05] transition-transform duration-700 ease-out"
+            <img
+              src="/imageshero-1.webp"
+              alt="Muhammad Imran Malik Consulting Client - Accurate Consultancy"
+              className="w-full h-full object-cover object-[75%_30%] transform scale-[1.05] group-hover:scale-[1.08] transition-transform duration-700 ease-out"
             />
 
-            {/* The "Vignette Patch": A soft dark blur sitting directly over the bottom-right corner */}
+            {/* The "Vignette Patch": soft dark blur sitting directly over the bottom-right corner */}
             <div className="absolute -bottom-4 -right-4 w-20 h-20 bg-[#020916] blur-md pointer-events-none z-10 opacity-95" />
 
             {/* Premium Gold Accent Bar */}
