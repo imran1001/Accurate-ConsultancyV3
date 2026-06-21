@@ -47,19 +47,17 @@ export default function Navbar() {
 
   return (
     <header
-      // Inline position + zIndex as a hard guarantee — survives Tailwind purge issues
-      // AND survives any ancestor accidentally creating a containing block via transform/filter.
       style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 9999 }}
       className="transition-all duration-500"
     >
-      {/* ===== SLIM UTILITY STRIP — corporate-standard touch ===== */}
+      {/* ===== SLIM UTILITY STRIP ===== */}
       <div
         className={`hidden sm:block border-b border-white/[0.06] transition-all duration-500 overflow-hidden ${
           scrolled ? 'max-h-0 opacity-0' : 'max-h-10 opacity-100'
         }`}
         style={{ background: '#01040a' }}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-end gap-6 py-2 text-[11px] font-medium text-gray-400">
+        <div className="max-w-[1720px] mx-auto px-4 sm:px-8 lg:px-12 flex items-center justify-end gap-6 py-2 text-[11px] font-medium text-gray-400">
           <a href="tel:+923160285386" className="flex items-center gap-1.5 hover:text-[#D4AF37] transition-colors">
             <Phone size={12} />
             +92 316 0285386
@@ -78,21 +76,22 @@ export default function Navbar() {
         aria-label="Main navigation"
         className={`transition-all duration-500 ${
           scrolled
-            ? 'bg-[#020916]/95 backdrop-blur-xl border-b border-white/[0.08] shadow-[0_10px_40px_rgba(0,0,0,0.6)] py-2.5 sm:py-3'
+            ? 'bg-[#020916]/85 backdrop-blur-2xl border-b border-white/[0.08] shadow-[0_10px_40px_rgba(0,0,0,0.6)] py-2.5 sm:py-3'
             : 'bg-[#020916]/55 backdrop-blur-md border-b border-white/[0.04] py-4 sm:py-5'
         }`}
       >
-        <div className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8">
+        {/* Upgraded container width pushes items to absolute left/right corners */}
+        <div className="max-w-[1720px] mx-auto w-full px-4 sm:px-8 lg:px-12">
           <div className="flex items-center justify-between">
 
-            {/* ===== BRAND LOGO ===== */}
+            {/* ===== BRAND LOGO (Corner Anchored) ===== */}
             <div
-              className="flex-shrink-0 flex items-center cursor-pointer group relative"
+              className="flex-shrink-0 flex items-center cursor-pointer group relative py-1"
               onClick={() => scrollTo('hero')}
             >
               <div className="relative flex items-center">
                 <div
-                  className="absolute inset-0 blur-2xl opacity-50 group-hover:opacity-85 transition-opacity duration-700 pointer-events-none"
+                  className="absolute inset-0 blur-2xl opacity-40 group-hover:opacity-80 transition-opacity duration-700 pointer-events-none"
                   style={{ background: 'radial-gradient(circle, rgba(214,175,55,0.45), transparent 70%)', transform: 'scale(1.8)' }}
                 />
                 <img
@@ -100,14 +99,15 @@ export default function Navbar() {
                   alt="Accurate Consultancy Logo"
                   width="240"
                   height="80"
-                  className="relative h-12 sm:h-14 md:h-16 w-auto object-contain transition-all duration-500 group-hover:scale-[1.02]"
+                  // origin-left ensures hover-scale expands into the page, not out of the viewport
+                  className="relative h-11 sm:h-13 md:h-15 lg:h-16 w-auto object-contain transition-transform duration-500 group-hover:scale-[1.02.5] origin-left"
                   style={{ filter: 'drop-shadow(0 4px 12px rgba(214,175,55,0.18))' }}
                 />
               </div>
             </div>
 
             {/* ===== DESKTOP LINKS ===== */}
-            <div className="hidden md:flex items-center gap-1.5 lg:gap-2">
+            <div className="hidden md:flex items-center gap-2 lg:gap-5">
               {navItems.map((item) => {
                 const isActive = activeSection === item.id;
                 return (
@@ -136,7 +136,7 @@ export default function Navbar() {
             <div className="hidden md:block">
               <button
                 onClick={() => scrollTo('consultation')}
-                className="group relative px-6 py-3 bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#AA7C11] text-gray-950 font-black text-[10px] uppercase tracking-widest rounded-sm shadow-[0_4px_25px_rgba(214,175,55,0.15)] hover:shadow-[0_4px_35px_rgba(214,175,55,0.35)] hover:-translate-y-0.5 transition-all duration-300 overflow-hidden"
+                className="group relative px-6 py-3.5 bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#AA7C11] text-gray-950 font-black text-[10px] uppercase tracking-widest rounded-sm shadow-[0_4px_25px_rgba(214,175,55,0.15)] hover:shadow-[0_4px_35px_rgba(214,175,55,0.35)] hover:-translate-y-0.5 transition-all duration-300 overflow-hidden"
               >
                 <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover:animate-shimmerSweep block" />
                 <span className="relative flex items-center gap-2">
@@ -172,7 +172,7 @@ export default function Navbar() {
         <div
           style={{ zIndex: 9999 }}
           className={`md:hidden absolute top-full left-0 right-0 overflow-hidden transition-all duration-500 ease-in-out border-b border-[#D4AF37]/20 shadow-[0_15px_30px_rgba(0,0,0,0.8)] ${
-            isOpen ? 'max-h-[520px] opacity-100 bg-[#020916] visible' : 'max-h-0 opacity-0 pointer-events-none invisible'
+            isOpen ? 'max-h-[580px] opacity-100 bg-[#020916] visible' : 'max-h-0 opacity-0 pointer-events-none invisible'
           }`}
         >
           <div className="px-5 pt-6 pb-10 space-y-3 bg-[#020916]">
