@@ -116,7 +116,7 @@ const Hero = () => {
             
             {/* Cinematic Reverse-Zoom: Starts slightly zoomed in (scale-[1.06]) and smoothly pulls out to true size (scale-100) on hover */}
             <img
-              src="/imageshero-1.webp"
+              src="/imageshero-1.webp.webp"
               alt="Muhammad Imran Malik Consulting Client"
               className="w-full h-full object-cover object-[72%_15%] transform scale-[1.06] group-hover:scale-100 transition-transform duration-700 ease-out"
             />
