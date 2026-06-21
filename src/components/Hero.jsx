@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { ChevronRight, ArrowRight, Globe, CheckCircle, Award, Users, TrendingUp } from 'lucide-react';
 
-// ─── Animated Counter ───────────────────────────────────────────────
+// ─── Animated Counter Hook ───────────────────────────────────────────
 function useCounter(end, duration = 1800, start = 0) {
   const [count, setCount] = useState(start);
   const prefersReducedMotion = usePrefersReducedMotion();
@@ -97,298 +97,164 @@ export default function Hero() {
     }
   }, []);
 
-  // ── Fade-in styles ──
-  const fadeIn = (delay = 0) => ({
-    opacity: visible ? 1 : 0,
-    transform: visible ? 'translateY(0)' : 'translateY(18px)',
-    transition: `opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1) ${delay}s, transform 0.7s cubic-bezier(0.16, 1, 0.3, 1) ${delay}s`,
-  });
+  // Tailwind dynamic class values for timing/fades
+  const getFadeClass = (delayClass) => {
+    return `transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${delayClass} ${
+      visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-[18px]'
+    }`;
+  };
 
   return (
     <section
       id="hero"
-      style={{
-        minHeight: '100vh',
-        background: 'linear-gradient(150deg, #010610 0%, #060f20 40%, #0b1830 70%, #08102a 100%)',
-        display: 'flex',
-        alignItems: 'center',
-        position: 'relative',
-        overflow: 'hidden',
-        paddingTop: '96px',
-      }}
+      className="relative min-h-screen flex items-center overflow-hidden pt-24 bg-gradient-to-br from-[#010610] via-[#060f20] via-[#0b1830] to-[#08102a]"
     >
       {/* ─── Background Effects ──────────────────────────────────── */}
-      <div style={{
-        position: 'absolute', inset: 0, pointerEvents: 'none',
-        backgroundImage: 'radial-gradient(rgba(201,165,90,0.05) 1px, transparent 1px)',
-        backgroundSize: '40px 40px',
-      }} />
-      <div style={{
-        position: 'absolute', top: 0, right: 0, width: '600px', height: '600px',
-        borderRadius: '50%', background: 'radial-gradient(circle, rgba(201,165,90,0.08), transparent 65%)',
-        pointerEvents: 'none', animation: prefersReducedMotion ? 'none' : 'pulseGlow 6s ease-in-out infinite',
-      }} />
-      <div style={{
-        position: 'absolute', bottom: 0, left: 0, width: '500px', height: '500px',
-        borderRadius: '50%', background: 'radial-gradient(circle, rgba(59,79,202,0.06), transparent 65%)',
-        pointerEvents: 'none', animation: prefersReducedMotion ? 'none' : 'pulseGlow 8s ease-in-out infinite reverse',
-      }} />
+      <div 
+        className="absolute inset-0 pointer-events-none bg-[radial-gradient(rgba(201,165,90,0.05)_1px,transparent_1px)]" 
+        style={{ backgroundSize: '40px 40px' }} 
+      />
+      <div 
+        className={`absolute top-0 right-0 w-[600px] height-[600px] rounded-full bg-[radial-gradient(circle,rgba(201,165,90,0.08),transparent_65%)] pointer-events-none ${
+          prefersReducedMotion ? '' : 'animate-[pulseGlow_6s_ease-in-out_infinite]'
+        }`} 
+      />
+      <div 
+        className={`absolute bottom-0 left-0 w-[500px] height-[500px] rounded-full bg-[radial-gradient(circle,rgba(59,79,202,0.06),transparent_65%)] pointer-events-none ${
+          prefersReducedMotion ? '' : 'animate-[pulseGlow_8s_ease-in-out_infinite_reverse]'
+        }`} 
+      />
 
       {/* ─── Main Container ────────────────────────────────────────── */}
-      <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '4rem 2rem', width: '100%', position: 'relative', zIndex: 1 }}>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '64px', alignItems: 'center' }} className="hero-grid">
+      <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-8 py-16 w-full">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
 
-          {/* ─── LEFT COLUMN ──────────────────────────────────────── */}
-          <div>
-
+          {/* ─── LEFT COLUMN: Brand Messaging ─────────────────────── */}
+          <div className="flex flex-col justify-center text-left">
+            
             {/* Eyebrow */}
-            <div style={{
-              display: 'inline-flex', alignItems: 'center', gap: '10px',
-              padding: '8px 18px', borderRadius: '9999px',
-              background: 'rgba(201,165,90,0.08)',
-              border: '1px solid rgba(201,165,90,0.22)',
-              marginBottom: '28px',
-              ...fadeIn(0),
-            }}>
-              <span style={{
-                width: '7px', height: '7px', borderRadius: '50%',
-                background: '#c9a55a', display: 'inline-block',
-                animation: prefersReducedMotion ? 'none' : 'pulse 2s ease-in-out infinite',
-              }} />
-              <span style={{ color: '#c9a55a', fontSize: '11px', fontWeight: 700, letterSpacing: '0.18em', textTransform: 'uppercase' }}>
+            <div className={`inline-flex items-center gap-2.5 self-start px-4 py-2 rounded-full bg-[rgba(201,165,90,0.08)] border border-[rgba(201,165,90,0.22)] mb-7 ${getFadeClass('delay-0')}`}>
+              <span className={`w-1.5 height-1.5 rounded-full bg-[#c9a55a] inline-block ${
+                prefersReducedMotion ? '' : 'animate-[pulse_2s_ease-in-out_infinite]'
+              }`} />
+              <span className="color-[#c9a55a] text-[11px] font-bold tracking-[0.18em] uppercase">
                 Trusted Since 2006 · Lahore, Pakistan
               </span>
             </div>
 
             {/* Headline */}
-            <div style={fadeIn(0.1)}>
-              <h1 style={{
-                fontSize: 'clamp(2.4rem, 4.5vw, 4rem)',
-                fontWeight: 900,
-                color: 'white',
-                lineHeight: 1.1,
-                letterSpacing: '-0.03em',
-                marginBottom: '4px',
-              }}>
+            <div className={getFadeClass('delay-100')}>
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-white leading-tight tracking-tight mb-1">
                 Your Trusted
               </h1>
-              <h1 style={{
-                fontSize: 'clamp(2.4rem, 4.5vw, 4rem)',
-                fontWeight: 900,
-                lineHeight: 1.1,
-                letterSpacing: '-0.03em',
-                marginBottom: '4px',
-                background: 'linear-gradient(90deg, #b8872a, #f0d060, #c9a55a)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                backgroundClip: 'text',
-              }}>
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black leading-tight tracking-tight mb-2 bg-gradient-to-r from-[#b8872a] via-[#f0d060] to-[#c9a55a] bg-clip-text text-transparent">
                 Immigration Partner
               </h1>
-              <h2 style={{
-                fontSize: 'clamp(1.4rem, 2.5vw, 2.2rem)',
-                fontWeight: 600,
-                color: 'rgba(255,255,255,0.45)',
-                lineHeight: 1.2,
-                letterSpacing: '-0.02em',
-              }}>
+              <h2 className="text-xl sm:text-2xl font-semibold color-[rgba(255,255,255,0.45)] tracking-wide">
                 USA · UK · Canada · UAE · Australia
               </h2>
             </div>
 
             {/* Divider */}
-            <div style={{
-              width: '60px', height: '2px',
-              background: 'linear-gradient(90deg, #c9a55a, transparent)',
-              margin: '28px 0',
-              borderRadius: '2px',
-              ...fadeIn(0.2),
-            }} />
+            <div className={`w-16 height-[2px] bg-gradient-to-r from-[#c9a55a] to-transparent my-7 rounded-sm ${getFadeClass('delay-200')}`} />
 
             {/* Description */}
-            <p style={{
-              fontSize: '1.05rem',
-              color: 'rgba(255,255,255,0.6)',
-              lineHeight: 1.85,
-              maxWidth: '440px',
-              marginBottom: '36px',
-              ...fadeIn(0.25),
-            }}>
+            <p className={`text-base sm:text-lg color-[rgba(255,255,255,0.6)] leading-relaxed max-w-lg mb-9 ${getFadeClass('delay-300')}`}>
               19 years of expert guidance navigating visa approvals, corporate relocations,
               and immigration pathways for professionals and families across 50+ countries.
             </p>
 
-            {/* CTAs */}
-            <div style={{
-              display: 'flex', gap: '14px', flexWrap: 'wrap', marginBottom: '48px',
-              ...fadeIn(0.35),
-            }}>
+            {/* Action Buttons */}
+            <div className={`flex flex-wrap gap-4 mb-12 ${getFadeClass('delay-[400s]')}`}>
               <button
                 onClick={() => scrollTo('consultation')}
-                style={{
-                  display: 'inline-flex', alignItems: 'center', gap: '8px',
-                  padding: '14px 28px', borderRadius: '8px',
-                  background: 'linear-gradient(135deg, #c9a55a, #f0c040)',
-                  color: '#0a1628', fontWeight: 800, fontSize: '14px',
-                  border: 'none', cursor: 'pointer', letterSpacing: '0.04em',
-                  boxShadow: '0 8px 32px rgba(201,165,90,0.3)',
-                  transition: 'transform 0.2s, box-shadow 0.2s',
-                }}
-                onMouseEnter={e => {
-                  e.currentTarget.style.transform = 'translateY(-2px)';
-                  e.currentTarget.style.boxShadow = '0 14px 40px rgba(201,165,90,0.45)';
-                }}
-                onMouseLeave={e => {
-                  e.currentTarget.style.transform = 'translateY(0)';
-                  e.currentTarget.style.boxShadow = '0 8px 32px rgba(201,165,90,0.3)';
-                }}
+                className="inline-flex items-center gap-2 px-7 py-3.5 rounded-lg bg-gradient-to-br from-[#c9a55a] to-[#f0c040] text-[#0a1628] font-extrabold text-sm tracking-wider uppercase transition-all duration-300 hover:-translate-y-0.5 shadow-[0_8px_32px_rgba(201,165,90,0.3)] hover:shadow-[0_14px_40px_rgba(201,165,90,0.45)]"
               >
                 Book Free Consultation <ChevronRight size={17} />
               </button>
+              
               <button
                 onClick={() => scrollTo('services')}
-                style={{
-                  display: 'inline-flex', alignItems: 'center', gap: '8px',
-                  padding: '14px 24px', borderRadius: '8px',
-                  background: 'transparent',
-                  color: 'rgba(255,255,255,0.7)',
-                  fontWeight: 600, fontSize: '14px',
-                  border: '1.5px solid rgba(255,255,255,0.12)',
-                  cursor: 'pointer', letterSpacing: '0.02em',
-                  transition: 'border-color 0.2s, color 0.2s',
-                }}
-                onMouseEnter={e => {
-                  e.currentTarget.style.borderColor = 'rgba(201,165,90,0.4)';
-                  e.currentTarget.style.color = '#c9a55a';
-                }}
-                onMouseLeave={e => {
-                  e.currentTarget.style.borderColor = 'rgba(255,255,255,0.12)';
-                  e.currentTarget.style.color = 'rgba(255,255,255,0.7)';
-                }}
+                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-lg bg-transparent border border-[rgba(255,255,255,0.12)] text-[rgba(255,255,255,0.7)] font-semibold text-sm tracking-wide transition-all duration-300 hover:border-[rgba(201,165,90,0.4)] hover:text-[#c9a55a]"
               >
                 Our Services <ArrowRight size={16} />
               </button>
             </div>
 
-            {/* Stats */}
-            <div style={{
-              display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)',
-              background: 'rgba(201,165,90,0.04)',
-              border: '1px solid rgba(201,165,90,0.1)',
-              borderRadius: '12px',
-              overflow: 'hidden',
-              ...fadeIn(0.45),
-            }}>
+            {/* Stats Dashboard Row */}
+            <div className={`grid grid-cols-2 sm:grid-cols-4 bg-[rgba(201,165,90,0.04)] border border-[rgba(201,165,90,0.1)] rounded-xl overflow-hidden ${getFadeClass('delay-[500s]')}`}>
               {STATS.map((s, i) => (
                 <div
                   key={i}
-                  style={{
-                    padding: '18px 12px',
-                    textAlign: 'center',
-                    borderRight: i < STATS.length - 1 ? '1px solid rgba(201,165,90,0.08)' : 'none',
-                    background: 'rgba(6,15,32,0.6)',
-                  }}
+                  className={`p-4 text-center bg-[rgba(6,15,32,0.6)] ${
+                    i < STATS.length - 1 ? 'border-b sm:border-b-0 sm:border-r border-[rgba(201,165,90,0.08)]' : ''
+                  }`}
                 >
-                  <s.icon size={16} style={{ color: '#c9a55a', margin: '0 auto 6px', display: 'block', opacity: 0.7 }} />
-                  <div style={{ color: '#c9a55a', fontWeight: 900, fontSize: 'clamp(1.2rem, 2vw, 1.6rem)', lineHeight: 1, marginBottom: '5px' }}>
+                  <s.icon size={16} className="color-[#c9a55a] mx-auto mb-1.5 opacity-70 block" />
+                  <div className="color-[#c9a55a] font-black text-xl sm:text-2xl mb-1">
                     {counts[i]}{s.suffix}
                   </div>
-                  <div style={{ color: 'rgba(255,255,255,0.38)', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.09em', fontWeight: 600 }}>
+                  <div className="color-[rgba(255,255,255,0.38)] text-[10px] uppercase tracking-wider font-semibold">
                     {s.label}
                   </div>
                 </div>
               ))}
             </div>
 
-            {/* Trust strip */}
-            <div style={{
-              display: 'flex', alignItems: 'center', gap: '20px', marginTop: '22px',
-              ...fadeIn(0.55),
-            }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+            {/* Licensing & Trust Strips */}
+            <div className={`flex flex-wrap items-center gap-5 mt-6 ${getFadeClass('delay-[600s]')}`}>
+              <div className="flex items-center gap-1">
                 {[...Array(5)].map((_, i) => (
                   <svg key={i} width="13" height="13" viewBox="0 0 24 24" fill="#c9a55a">
                     <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
                   </svg>
                 ))}
-                <span style={{ color: 'rgba(255,255,255,0.45)', fontSize: '12px', fontWeight: 600, marginLeft: '6px' }}>4.9/5 Client Rating</span>
+                <span className="color-[rgba(255,255,255,0.45)] text-xs font-semibold ml-1.5">4.9/5 Client Rating</span>
               </div>
-              <div style={{ width: '1px', height: '14px', background: 'rgba(255,255,255,0.1)' }} />
-              <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                <CheckCircle size={13} style={{ color: '#4ECDC4' }} />
-                <span style={{ color: 'rgba(255,255,255,0.38)', fontSize: '12px', fontWeight: 600 }}>Licensed & Certified</span>
+              <div className="hidden sm:block w-[1px] height-3.5 bg-[rgba(255,255,255,0.1)]" />
+              <div className="flex items-center gap-1.5">
+                <CheckCircle size={13} className="text-[#4ECDC4]" />
+                <span className="color-[rgba(255,255,255,0.38)] text-xs font-semibold">Licensed & Certified</span>
               </div>
             </div>
           </div>
 
-          {/* ─── RIGHT COLUMN – Map ──────────────────────────────── */}
+          {/* ─── RIGHT COLUMN: Interactive Interactive Map Block ─────── */}
           <div
-            className="hero-map-col"
-            style={{
-              position: 'relative',
-              opacity: visible ? 1 : 0,
-              transform: visible ? 'translateX(0)' : 'translateX(32px)',
-              transition: 'opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.2s, transform 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.2s',
-            }}
+            className={`relative transition-all duration-900 ease-[cubic-bezier(0.16,1,0.3,1)] delay-200 hidden lg:block ${
+              visible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8'
+            }`}
           >
-            <div style={{
-              position: 'relative',
-              borderRadius: '20px',
-              overflow: 'hidden',
-              border: '1px solid rgba(201,165,90,0.15)',
-              background: 'linear-gradient(145deg, rgba(15,25,55,0.9), rgba(6,12,28,0.97))',
-              boxShadow: '0 40px 80px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.04)',
-              height: '480px',
-            }}>
+            <div className="relative rounded-2xl overflow-hidden border border-[rgba(201,165,90,0.15)] bg-gradient-to-br from-[rgba(15,25,55,0.9)] to-[rgba(6,12,28,0.97)] shadow-[0_40px_80px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.04)] h-[480px]">
 
-              {/* Card header */}
-              <div style={{
-                display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-                padding: '16px 20px',
-                borderBottom: '1px solid rgba(201,165,90,0.08)',
-                background: 'rgba(201,165,90,0.03)',
-              }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                  <div style={{
-                    width: '30px', height: '30px', borderRadius: '8px',
-                    background: 'rgba(201,165,90,0.1)',
-                    border: '1px solid rgba(201,165,90,0.2)',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  }}>
-                    <Globe size={14} style={{ color: '#c9a55a' }} />
+              {/* Map Container Top Header */}
+              <div className="flex items-center justify-between px-5 py-4 border-b border-[rgba(201,165,90,0.08)] bg-[rgba(201,165,90,0.03)]">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-[30px] height-[30px] rounded-lg bg-[rgba(201,165,90,0.1)] border border-[rgba(201,165,90,0.2)] flex items-center justify-center">
+                    <Globe size={14} className="color-[#c9a55a]" />
                   </div>
                   <div>
-                    <div style={{ color: '#c9a55a', fontWeight: 700, fontSize: '12px', letterSpacing: '0.1em', textTransform: 'uppercase' }}>Global Network</div>
-                    <div style={{ color: 'rgba(255,255,255,0.3)', fontSize: '11px' }}>50+ countries covered</div>
+                    <div className="color-[#c9a55a] font-bold text-xs tracking-wider uppercase">Global Network</div>
+                    <div className="color-[rgba(255,255,255,0.3)] text-[11px]">50+ countries covered</div>
                   </div>
                 </div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                  <span style={{
-                    width: '7px', height: '7px', borderRadius: '50%',
-                    background: '#4ade80', display: 'inline-block',
-                    animation: prefersReducedMotion ? 'none' : 'pulse 2s ease-in-out infinite',
-                  }} />
-                  <span style={{ color: 'rgba(255,255,255,0.35)', fontSize: '11px', fontWeight: 600 }}>Active</span>
+                <div className="flex items-center gap-1.5">
+                  <span className={`w-1.5 height-1.5 rounded-full bg-[#4ade80] inline-block ${
+                    prefersReducedMotion ? '' : 'animate-[pulse_2s_ease-in-out_infinite]'
+                  }`} />
+                  <span className="color-[rgba(255,255,255,0.35)] text-[11px] font-semibold">Active</span>
                 </div>
               </div>
 
-              {/* Map area */}
-              <div style={{ position: 'relative', height: '340px', padding: '12px' }}>
-                {/* SVG world map – cleaned up with more realistic shapes */}
-                <svg viewBox="0 0 1000 500" style={{ width: '100%', height: '100%', opacity: 0.2 }} preserveAspectRatio="xMidYMid meet">
-                  {/* North America */}
+              {/* Map Canvas Vector Area */}
+              <div className="relative h-[340px] p-3">
+                <svg viewBox="0 0 1000 500" className="w-full h-full opacity-20" preserveAspectRatio="xMidYMid meet">
                   <path d="M85,80 L160,55 L230,70 L255,110 L240,170 L200,195 L170,180 L150,210 L125,190 L95,165 L75,125 Z" fill="#c9a55a" />
-                  {/* South America */}
                   <path d="M185,220 L235,205 L285,225 L305,280 L285,340 L245,365 L220,340 L200,295 L180,255 Z" fill="#c9a55a" />
-                  {/* Europe */}
                   <path d="M430,80 L505,62 L535,100 L540,160 L500,185 L465,165 L440,145 L420,120 Z" fill="#c9a55a" />
-                  {/* Africa */}
                   <path d="M440,200 L490,185 L535,198 L550,255 L530,325 L490,355 L458,325 L440,280 Z" fill="#c9a55a" />
-                  {/* Asia */}
                   <path d="M555,65 L660,48 L740,72 L775,115 L745,175 L680,198 L615,178 L575,155 L555,130 Z" fill="#c9a55a" />
-                  {/* Australia */}
                   <path d="M760,320 L835,300 L880,325 L895,375 L855,400 L785,378 Z" fill="#c9a55a" />
-                  {/* Grid lines */}
                   <line x1="0" y1="250" x2="1000" y2="250" stroke="#c9a55a" strokeWidth="0.5" opacity="0.15" />
                   <line x1="500" y1="0" x2="500" y2="500" stroke="#c9a55a" strokeWidth="0.5" opacity="0.15" />
                   <line x1="250" y1="0" x2="250" y2="500" stroke="#c9a55a" strokeWidth="0.5" opacity="0.08" />
@@ -397,47 +263,28 @@ export default function Hero() {
                   <line x1="0" y1="375" x2="1000" y2="375" stroke="#c9a55a" strokeWidth="0.5" opacity="0.08" />
                 </svg>
 
-                {/* Destination dots with hover */}
+                {/* Pinpoint Destinations */}
                 {DESTINATIONS.map((d, i) => (
                   <div
                     key={i}
-                    style={{ position: 'absolute', top: d.top, left: d.left, zIndex: 10 }}
+                    className="absolute z-10 w-[34px] h-[34px]"
+                    style={{ top: d.top, left: d.left }}
                     onMouseEnter={() => setHoveredDot(i)}
                     onMouseLeave={() => setHoveredDot(null)}
                   >
-                    <div style={{ position: 'relative', width: '34px', height: '34px' }}>
-                      {/* Ping ring */}
-                      <span style={{
-                        position: 'absolute', inset: 0, borderRadius: '50%',
-                        background: 'rgba(201,165,90,0.2)',
-                        animation: prefersReducedMotion ? 'none' : `mapPing 2.5s ease-in-out infinite ${i * 0.15}s`,
-                      }} />
-                      {/* Dot */}
-                      <div style={{
-                        position: 'relative', zIndex: 1,
-                        width: '34px', height: '34px', borderRadius: '50%',
-                        background: 'rgba(8,18,40,0.9)',
-                        border: `1.5px solid ${hoveredDot === i ? 'rgba(201,165,90,0.8)' : 'rgba(201,165,90,0.45)'}`,
-                        display: 'flex', alignItems: 'center', justifyContent: 'center',
-                        fontSize: '16px', cursor: 'default',
-                        backdropFilter: 'blur(8px)',
-                        transition: 'border-color 0.2s, transform 0.2s',
-                        transform: hoveredDot === i ? 'scale(1.1)' : 'scale(1)',
-                      }}>
+                    <div className="relative w-full h-full">
+                      <span className={`absolute inset-0 rounded-full bg-[rgba(201,165,90,0.2)] ${
+                        prefersReducedMotion ? '' : 'animate-[mapPing_2.5s_ease-in-out_infinite]'
+                      }`} style={{ animationDelay: `${i * 0.15}s` }} />
+                      
+                      <div className={`relative z-10 w-full h-full rounded-full bg-[rgba(8,18,40,0.9)] flex items-center justify-center text-base cursor-default backdrop-blur-md transition-all duration-200 border ${
+                        hoveredDot === i ? 'border-[rgba(201,165,90,0.8)] scale-110' : 'border-[rgba(201,165,90,0.45)] scale-100'
+                      }`}>
                         {d.flag}
                       </div>
-                      {/* Tooltip */}
+
                       {hoveredDot === i && (
-                        <div style={{
-                          position: 'absolute', bottom: '100%', left: '50%',
-                          transform: 'translateX(-50%)', marginBottom: '8px',
-                          padding: '5px 12px', borderRadius: '8px',
-                          background: 'rgba(6,18,40,0.96)',
-                          border: '1px solid rgba(201,165,90,0.3)',
-                          color: '#c9a55a', fontSize: '12px', fontWeight: 700,
-                          whiteSpace: 'nowrap', pointerEvents: 'none', zIndex: 50,
-                          boxShadow: '0 8px 24px rgba(0,0,0,0.5)',
-                        }}>
+                        <div className="absolute bottom-[105%] left-1/2 -translate-x-1/2 mb-2 px-3 py-1 rounded-lg bg-[rgba(6,18,40,0.96)] border border-[rgba(201,165,90,0.3)] color-[#c9a55a] text-xs font-bold whitespace-nowrap pointer-events-none z-50 shadow-[0_8px_24px_rgba(0,0,0,0.5)]">
                           {d.name}
                         </div>
                       )}
@@ -446,69 +293,34 @@ export default function Hero() {
                 ))}
               </div>
 
-              {/* Bottom destination pills */}
-              <div style={{
-                padding: '12px 16px',
-                borderTop: '1px solid rgba(201,165,90,0.07)',
-                display: 'flex', justifyContent: 'space-around', alignItems: 'center',
-              }}>
+              {/* Quick Look Destination Timelines Footer */}
+              <div className="px-4 py-3 border-t border-[rgba(201,165,90,0.07)] flex justify-around items-center">
                 {QUICK_DESTINATIONS.map((item, i) => (
-                  <div key={i} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '3px' }}>
-                    <div style={{
-                      width: '34px', height: '34px', borderRadius: '10px',
-                      background: 'rgba(201,165,90,0.07)',
-                      border: '1px solid rgba(201,165,90,0.14)',
-                      display: 'flex', alignItems: 'center', justifyContent: 'center',
-                      fontSize: '17px',
-                      transition: 'transform 0.2s, border-color 0.2s',
-                    }}
-                    onMouseEnter={e => { e.currentTarget.style.transform = 'scale(1.08)'; e.currentTarget.style.borderColor = 'rgba(201,165,90,0.4)'; }}
-                    onMouseLeave={e => { e.currentTarget.style.transform = 'scale(1)'; e.currentTarget.style.borderColor = 'rgba(201,165,90,0.14)'; }}
-                    >
+                  <div key={i} className="flex flex-col items-center gap-0.5">
+                    <div className="group w-[34px] h-[34px] rounded-xl bg-[rgba(201,165,90,0.07)] border border-[rgba(201,165,90,0.14)] flex items-center justify-center text-lg transition-all duration-300 hover:scale-110 hover:border-[rgba(201,165,90,0.4)]">
                       {item.flag}
                     </div>
-                    <span style={{ color: 'rgba(255,255,255,0.55)', fontSize: '10px', fontWeight: 600 }}>{item.label}</span>
-                    <span style={{ color: 'rgba(201,165,90,0.6)', fontSize: '9px' }}>{item.time}</span>
+                    <span className="color-[rgba(255,255,255,0.55)] text-[10px] font-semibold">{item.label}</span>
+                    <span className="color-[rgba(201,165,90,0.6)] text-[9px]">{item.time}</span>
                   </div>
                 ))}
               </div>
             </div>
 
-            {/* Floating approval badge */}
-            <div style={{
-              position: 'absolute', top: '-14px', right: '-14px',
-              padding: '10px 16px', borderRadius: '12px',
-              background: 'rgba(6,18,40,0.97)',
-              border: '1px solid rgba(78,205,196,0.3)',
-              backdropFilter: 'blur(16px)',
-              boxShadow: '0 12px 40px rgba(0,0,0,0.4)',
-              textAlign: 'center',
-            }}>
-              <div style={{ color: '#4ECDC4', fontWeight: 800, fontSize: '14px' }}>90% Approval</div>
-              <div style={{ color: 'rgba(255,255,255,0.35)', fontSize: '10px', marginTop: '2px' }}>Industry Leading</div>
+            {/* Floating Top Indicator Card */}
+            <div className="absolute -top-3.5 -right-3.5 px-4 py-2.5 rounded-xl bg-[rgba(6,18,40,0.97)] border border-[rgba(78,205,196,0.3)] backdrop-blur-xl shadow-[0_12px_40px_rgba(0,0,0,0.4)] text-center">
+              <div className="text-[#4ECDC4] font-black text-sm">90% Approval</div>
+              <div className="color-[rgba(255,255,255,0.35)] text-[10px] mt-0.5">Industry Leading</div>
             </div>
 
-            {/* Floating office badge */}
-            <div style={{
-              position: 'absolute', bottom: '-16px', left: '-16px',
-              display: 'flex', alignItems: 'center', gap: '12px',
-              padding: '12px 16px', borderRadius: '14px',
-              background: 'rgba(6,18,40,0.97)',
-              border: '1px solid rgba(201,165,90,0.18)',
-              backdropFilter: 'blur(16px)',
-              boxShadow: '0 16px 50px rgba(0,0,0,0.45)',
-            }}>
-              <div style={{
-                width: '36px', height: '36px', borderRadius: '10px',
-                background: 'linear-gradient(135deg, #c9a55a, #f0c040)',
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                flexShrink: 0,
-              }}>
-                <span style={{ fontSize: '18px' }}>📍</span>
+            {/* Floating Office Hours/Location Card */}
+            <div className="absolute -bottom-4 -left-4 flex items-center gap-3 px-4 py-3 rounded-xl bg-[rgba(6,18,40,0.97)] border border-[rgba(201,165,90,0.18)] backdrop-blur-xl shadow-[0_16px_50px_rgba(0,0,0,0.45)]">
+              <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-[#c9a55a] to-[#f0c040] flex items-center justify-center flex-shrink-0 text-lg">
+                📍
               </div>
               <div>
-                <div style={{ color: 'white', fontWeight: 700, fontSize: '13px' }}>Lahore Office</div>
-                <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: '11px' }}>Mon–Sat · 9AM–6PM PKT</div>
+                <div className="text-white font-bold text-sm">Lahore Office</div>
+                <div className="color-[rgba(255,255,255,0.4)] text-[11px]">Mon–Sat · 9AM–6PM PKT</div>
               </div>
             </div>
           </div>
@@ -516,27 +328,18 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* ─── Bottom wave ────────────────────────────────────────────── */}
-      <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, lineHeight: 0, pointerEvents: 'none' }}>
-        <svg viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style={{ width: '100%', height: '60px', display: 'block' }}>
+      {/* ─── Bottom Soft Wave Divider ─────────────────────────────── */}
+      <div className="absolute bottom-0 left-0 right-0 line-height-0 pointer-events-none">
+        <svg viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" className="w-full h-[60px] block">
           <path d="M0,40 C360,80 1080,0 1440,40 L1440,60 L0,60 Z" fill="white" />
         </svg>
       </div>
 
-      {/* ─── Global styles ──────────────────────────────────────────── */}
+      {/* ─── Tailwind Keyframe Animation Injections ───────────────── */}
       <style>{`
         @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
         @keyframes mapPing { 0%{transform:scale(1);opacity:0.6} 100%{transform:scale(2.5);opacity:0} }
         @keyframes pulseGlow { 0%,100%{transform:scale(1);opacity:0.08} 50%{transform:scale(1.1);opacity:0.2} }
-
-        @media (max-width: 1023px) {
-          .hero-grid { grid-template-columns: 1fr !important; }
-          .hero-map-col { display: none !important; }
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-          * { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
-        }
       `}</style>
     </section>
   );
