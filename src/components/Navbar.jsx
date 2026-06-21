@@ -64,7 +64,6 @@ export default function Navbar() {
             onClick={() => scrollTo('hero')}
           >
             <div className="relative flex items-center">
-              {/* Dynamic Aura Halo Adjusted for Larger Footprint */}
               <div 
                 className="absolute inset-0 blur-2xl opacity-50 group-hover:opacity-85 transition-opacity duration-700 pointer-events-none"
                 style={{
@@ -101,7 +100,6 @@ export default function Navbar() {
                 >
                   <span className="relative z-10">{item.label}</span>
                   
-                  {/* Premium Micro Underline Mechanics */}
                   <span
                     className={`absolute -bottom-2 left-1/2 -translate-x-1/2 h-[2px] bg-gradient-to-r from-[#D4AF37] to-[#F3E5AB] rounded-full transition-all duration-300 ${
                       isActive ? 'w-full opacity-100' : 'w-0 opacity-0 group-hover:w-1/2 group-hover:opacity-50'
@@ -118,7 +116,6 @@ export default function Navbar() {
               onClick={() => scrollTo('consultation')}
               className="group relative px-6 py-3 bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#AA7C11] text-gray-950 font-black text-[10px] uppercase tracking-widest rounded-sm shadow-[0_4px_25px_rgba(214,175,55,0.15)] hover:shadow-[0_4px_35px_rgba(214,175,55,0.35)] hover:-translate-y-0.5 transition-all duration-300 overflow-hidden"
             >
-              {/* Shimmer Light Reflection Sweep */}
               <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover:animate-shimmerSweep block" />
               <span className="relative flex items-center gap-2">
                 Book Consultation
@@ -152,7 +149,7 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* ===== MOBILE DRAWER - FIXED SOLID VISIBILITY ===== */}
+      {/* ===== MOBILE DRAWER ===== */}
       <div
         className={`md:hidden absolute top-full left-0 right-0 overflow-hidden transition-all duration-500 ease-in-out border-b border-[#D4AF37]/20 shadow-[0_15px_30px_rgba(0,0,0,0.8)] ${
           isOpen 
@@ -184,7 +181,6 @@ export default function Navbar() {
             );
           })}
           
-          {/* Mobile Interactive Panel Segment */}
           <div className="pt-6 mt-5 border-t border-white/[0.08] space-y-5 bg-[#020916]">
             <button
               onClick={() => scrollTo('consultation')}
@@ -193,7 +189,6 @@ export default function Navbar() {
               Book Consultation
             </button>
             
-            {/* Real-time Validation Meta info */}
             <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-2 text-xs font-medium tracking-wider text-gray-300 text-center sm:text-left">
               <a href="tel:+923160285386" className="active:text-[#D4AF37] py-1 block">📞 +92 316 0285386</a>
               <div className="hidden sm:block w-1 h-1 rounded-full bg-gray-600" />
@@ -203,7 +198,6 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* ===== EMBEDDED PRESTIGE KEYFRAMES ===== */}
       <style>{`
         @keyframes shimmerSweep {
           0% { transform: translateX(-100%); }
