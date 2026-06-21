@@ -33,7 +33,7 @@ const Hero = () => {
   return (
     <section
       id="hero"
-      // Upgraded pt-36 (144px) to pt-48 safely pushes content below the floating header
+      // pt-36 (144px) to pt-48 safely pushes content below the floating header
       className="relative min-h-screen pt-36 sm:pt-44 lg:pt-48 pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden flex items-center bg-[#020916]"
     >
       {/* ===== BACKGROUND AMBIENT GLOWS ===== */}
@@ -68,7 +68,7 @@ const Hero = () => {
             </span>
           </h1>
 
-          {/* Upgraded text-gray-300 for high-contrast accessibility */}
+          {/* High-contrast accessibility text */}
           <p className="text-base sm:text-lg text-gray-300 leading-relaxed mb-8 max-w-xl font-normal">
             Empowering students, ambitious professionals, and families to transcend borders through impeccably tailored consultancy, corporate relocation, and international academic access paths.
           </p>
@@ -114,11 +114,11 @@ const Hero = () => {
           <div className="relative w-full h-[360px] sm:h-[440px] md:h-[520px] lg:h-[640px] rounded-2xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.8)] border border-[#D4AF37]/30 group hover:border-[#D4AF37]/60 transition-all duration-500">
             <div className="absolute inset-0 bg-gradient-to-tr from-[#D4AF37]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10 pointer-events-none" />
             
-            {/* Scale-100 true size + 72% 15% focal shift upward */}
+            {/* Cinematic Reverse-Zoom: Starts slightly zoomed in (scale-[1.06]) and smoothly pulls out to true size (scale-100) on hover */}
             <img
               src="/imageshero-1.webp"
               alt="Muhammad Imran Malik Consulting Client"
-              className="w-full h-full object-cover object-[72%_15%] transform scale-100 group-hover:scale-[1.03] transition-transform duration-700 ease-out"
+              className="w-full h-full object-cover object-[72%_15%] transform scale-[1.06] group-hover:scale-100 transition-transform duration-700 ease-out"
             />
 
             <div className="absolute -bottom-4 -right-4 w-20 h-20 bg-[#020916] blur-md pointer-events-none z-10 opacity-95" />
