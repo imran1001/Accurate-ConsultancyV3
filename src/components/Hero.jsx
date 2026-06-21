@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { 
   ArrowRight, Globe, Star, Users, Shield, Award, 
-  TrendingUp, CheckCircle, Sparkles, MapPin 
+  TrendingUp, CheckCircle, Sparkles, ChevronRight
 } from 'lucide-react';
 
 // Optimized Counter Hook
@@ -140,12 +140,12 @@ const Hero = () => {
           </div>
 
           {/* Core Dynamic Heading – Enhanced */}
-          <h1 className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-[1.05] mb-4 sm:mb-6 text-white tracking-tight animate-fadeInUp delay-100">
+          <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-[1.05] mb-4 sm:mb-6 text-white tracking-tight animate-fadeInUp delay-100">
             <span className="block">Visa, Immigration</span>
             <span className="relative inline-block bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#AA7C11] bg-[length:200%_auto] bg-clip-text text-transparent font-black animate-gradient-shift">
               & Study Abroad
             </span>
-            <span className="block text-gray-400 text-2xl xs:text-3xl sm:text-4xl md:text-5xl font-medium mt-1 sm:mt-2 tracking-wide">
+            <span className="block text-gray-400 text-2xl sm:text-4xl md:text-5xl font-medium mt-1 sm:mt-2 tracking-wide">
               Experts.
             </span>
           </h1>
@@ -156,10 +156,10 @@ const Hero = () => {
           </p>
 
           {/* Action Buttons – Enhanced */}
-          <div className="flex flex-col xs:flex-row items-center justify-center lg:justify-start gap-3 sm:gap-4 mb-8 sm:mb-10 w-full animate-fadeInUp delay-300">
+          <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3 sm:gap-4 mb-8 sm:mb-10 w-full animate-fadeInUp delay-300">
             <a
               href="#consultation"
-              className="group relative w-full xs:w-auto inline-flex items-center justify-center gap-2.5 px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-[#D4AF37] to-[#AA7C11] text-gray-950 font-bold text-xs sm:text-sm rounded-full shadow-[0_4px_30px_rgba(214,175,55,0.25)] hover:shadow-[0_8px_50px_rgba(214,175,55,0.4)] hover:-translate-y-0.5 transition-all duration-300 no-underline tracking-wide uppercase overflow-hidden"
+              className="group relative w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-[#D4AF37] to-[#AA7C11] text-gray-950 font-bold text-xs sm:text-sm rounded-full shadow-[0_4px_30px_rgba(214,175,55,0.25)] hover:shadow-[0_8px_50px_rgba(214,175,55,0.4)] hover:-translate-y-0.5 transition-all duration-300 no-underline tracking-wide uppercase overflow-hidden"
             >
               <span className="absolute inset-0 bg-white/20 -translate-x-full group-hover:translate-x-0 transition-transform duration-700" />
               <span className="relative flex items-center gap-2">
@@ -169,7 +169,7 @@ const Hero = () => {
             </a>
             <a
               href="#services"
-              className="group w-full xs:w-auto inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3 sm:py-4 rounded-full font-bold text-xs sm:text-sm text-white border border-white/20 bg-white/5 backdrop-blur-sm hover:bg-white/10 hover:border-white/40 hover:-translate-y-0.5 transition-all duration-300 no-underline"
+              className="group w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3 sm:py-4 rounded-full font-bold text-xs sm:text-sm text-white border border-white/20 bg-white/5 backdrop-blur-sm hover:bg-white/10 hover:border-white/40 hover:-translate-y-0.5 transition-all duration-300 no-underline"
             >
               <span>Explore Services</span>
               <ChevronRight size={16} className="group-hover:translate-x-1 transition-transform" />
@@ -187,7 +187,7 @@ const Hero = () => {
               <span className="text-xs sm:text-sm font-bold text-white">4.9/5</span>
               <span className="text-[9px] sm:text-xs text-gray-400">(200+ Reviews)</span>
             </div>
-            <div className="w-px h-4 bg-white/10 hidden xs:block" />
+            <div className="w-px h-4 bg-white/10 hidden sm:block" />
             <div className="flex items-center gap-1.5">
               <Users size={14} className="text-[#D4AF37]" />
               <span className="text-xs sm:text-sm font-medium text-white">2,000+</span>
