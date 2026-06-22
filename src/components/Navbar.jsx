@@ -50,21 +50,27 @@ export default function Navbar() {
       style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 9999 }}
       className="transition-all duration-500"
     >
-      {/* ===== SLIM UTILITY STRIP ===== */}
+      {/* ===== HIGH-CONTRAST SLIM UTILITY STRIP ===== */}
       <div
-        className={`hidden sm:block border-b border-white/[0.06] transition-all duration-500 overflow-hidden ${
+        className={`hidden sm:block border-b border-white/[0.08] transition-all duration-500 overflow-hidden ${
           scrolled ? 'max-h-0 opacity-0' : 'max-h-10 opacity-100'
         }`}
         style={{ background: '#01040a' }}
       >
-        <div className="max-w-[1720px] mx-auto px-4 sm:px-8 lg:px-12 flex items-center justify-end gap-6 py-2 text-[11px] font-medium text-gray-400">
-          <a href="tel:+923160285386" className="flex items-center gap-1.5 hover:text-[#D4AF37] transition-colors">
-            <Phone size={12} />
+        <div className="max-w-[1720px] mx-auto px-4 sm:px-8 lg:px-12 flex items-center justify-end gap-6 py-2 text-[11px] font-bold text-white tracking-wider">
+          <a 
+            href="tel:+923160285386" 
+            className="flex items-center gap-2 text-white hover:text-[#D4AF37] transition-colors group/utility"
+          >
+            <Phone size={12} className="text-[#D4AF37] group-hover/utility:text-white transition-colors" />
             +92 316 0285386
           </a>
-          <span className="w-px h-3 bg-white/10" />
-          <a href="mailto:info@accurate-consultancy.com" className="flex items-center gap-1.5 hover:text-[#D4AF37] transition-colors">
-            <Mail size={12} />
+          <span className="w-px h-3 bg-white/20" />
+          <a 
+            href="mailto:info@accurate-consultancy.com" 
+            className="flex items-center gap-2 text-white hover:text-[#D4AF37] transition-colors group/utility"
+          >
+            <Mail size={12} className="text-[#D4AF37] group-hover/utility:text-white transition-colors" />
             info@accurate-consultancy.com
           </a>
         </div>
@@ -191,7 +197,6 @@ export default function Navbar() {
             })}
 
             <div className="pt-6 mt-5 border-t border-white/[0.08] space-y-5 bg-[#020916]">
-              {/* Mobile keeps the solid gold button since there's no visual competition inside the menu */}
               <button
                 onClick={() => scrollTo('consultation')}
                 className="w-full py-4 bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#AA7C11] text-gray-950 font-black text-xs uppercase tracking-widest rounded-sm text-center shadow-lg active:scale-[0.98] transition-transform"
@@ -199,13 +204,22 @@ export default function Navbar() {
                 Book Consultation
               </button>
 
-              <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-2 text-xs font-medium tracking-wider text-gray-300 text-center sm:text-left">
-                <a href="tel:+923160285386" className="active:text-[#D4AF37] py-1 flex items-center gap-1.5 justify-center sm:justify-start">
-                  <Phone size={13} /> +92 316 0285386
+              {/* HIGH-VISIBILITY MOBILE DETAILS */}
+              <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-2 text-xs font-bold tracking-wider text-white text-center sm:text-left">
+                <a 
+                  href="tel:+923160285386" 
+                  className="hover:text-[#D4AF37] active:text-[#D4AF37] py-1 flex items-center gap-2 justify-center sm:justify-start group/mob"
+                >
+                  <Phone size={13} className="text-[#D4AF37] group-hover/mob:text-white transition-colors" /> 
+                  +92 316 0285386
                 </a>
-                <div className="hidden sm:block w-1 h-1 rounded-full bg-gray-600" />
-                <a href="mailto:info@accurate-consultancy.com" className="active:text-[#D4AF37] py-1 flex items-center gap-1.5 justify-center sm:justify-start">
-                  <Mail size={13} /> info@accurate-consultancy.com
+                <div className="hidden sm:block w-1 h-1 rounded-full bg-[#D4AF37]" />
+                <a 
+                  href="mailto:info@accurate-consultancy.com" 
+                  className="hover:text-[#D4AF37] active:text-[#D4AF37] py-1 flex items-center gap-2 justify-center sm:justify-start group/mob"
+                >
+                  <Mail size={13} className="text-[#D4AF37] group-hover/mob:text-white transition-colors" /> 
+                  info@accurate-consultancy.com
                 </a>
               </div>
             </div>
