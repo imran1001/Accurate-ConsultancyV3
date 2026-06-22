@@ -33,7 +33,6 @@ const Hero = () => {
   return (
     <section
       id="hero"
-      // pt-36 (144px) to pt-48 safely pushes content below the floating header
       className="relative min-h-screen pt-36 sm:pt-44 lg:pt-48 pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden flex items-center bg-[#020916]"
     >
       {/* ===== BACKGROUND AMBIENT GLOWS ===== */}
@@ -43,8 +42,8 @@ const Hero = () => {
 
       <div className="max-w-7xl mx-auto w-full relative z-10 grid lg:grid-cols-12 gap-8 items-center">
         
-        {/* ===== LEFT CONTENT COLUMN ===== */}
-        <div className="text-left w-full lg:col-span-6 z-20">
+        {/* ===== LEFT CONTENT COLUMN (Slightly compressed to feed the image) ===== */}
+        <div className="text-left w-full lg:col-span-5 z-20">
           
           {/* Corporate Badge */}
           <div className="inline-flex items-center gap-2 mb-6 px-4 py-2 rounded-full border border-[#D4AF37]/30 bg-[#04152d]/80 backdrop-blur-md shadow-[0_4px_20px_rgba(214,175,55,0.05)] animate-fadeInUp">
@@ -73,7 +72,7 @@ const Hero = () => {
             Empowering students, ambitious professionals, and families to transcend borders through impeccably tailored consultancy, corporate relocation, and international academic access paths.
           </p>
 
-          {/* Primary Action Button (The "Hero King") */}
+          {/* Primary Action Button */}
           <div className="flex flex-col sm:flex-row items-center gap-4 mb-12 w-full sm:w-auto">
             <a
               href="#consultation"
@@ -109,14 +108,14 @@ const Hero = () => {
           </div>
         </div>
 
-        {/* ===== RIGHT CONTENT COLUMN (Image Card) ===== */}
-        <div className="w-full lg:col-span-6 flex items-center justify-center relative py-8 z-10">
-          <div className="relative w-full h-[360px] sm:h-[440px] md:h-[520px] lg:h-[640px] rounded-2xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.8)] border border-[#D4AF37]/30 group hover:border-[#D4AF37]/60 transition-all duration-500">
+        {/* ===== RIGHT CONTENT COLUMN (Expanded 10-15% Larger Canvas) ===== */}
+        <div className="w-full lg:col-span-7 flex items-center justify-center relative py-8 z-10">
+          <div className="relative w-full h-[400px] sm:h-[500px] md:h-[580px] lg:h-[720px] rounded-2xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.8)] border border-[#D4AF37]/30 group hover:border-[#D4AF37]/60 transition-all duration-500">
             <div className="absolute inset-0 bg-gradient-to-tr from-[#D4AF37]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10 pointer-events-none" />
             
-            {/* Cinematic Reverse-Zoom: Starts slightly zoomed in (scale-[1.06]) and smoothly pulls out to true size (scale-100) on hover */}
+            {/* Cinematic Reverse-Zoom */}
             <img
-              src="/imageshero-1.webp.webp"
+              src="/imageshero-1.webp"
               alt="Muhammad Imran Malik Consulting Client"
               className="w-full h-full object-cover object-[72%_15%] transform scale-[1.06] group-hover:scale-100 transition-transform duration-700 ease-out"
             />
