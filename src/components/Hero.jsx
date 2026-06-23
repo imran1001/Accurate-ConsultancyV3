@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import mdPortrait from "../assets/managing-director-visa-portrait.jpg";
 
 // Optimized Counter Hook
 const useCounter = (end, duration = 2000, start = 0) => {
@@ -121,9 +120,9 @@ export default function Hero() {
           <div className="relative w-full h-[400px] sm:h-[500px] md:h-[580px] lg:h-[720px] rounded-2xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.8)] border border-[#D4AF37]/30 group hover:border-[#D4AF37]/60 transition-all duration-500">
             <div className="absolute inset-0 bg-gradient-to-tr from-[#D4AF37]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10 pointer-events-none" />
             
-            {/* Cinematic Portrait Asset */}
+            {/* Safe Absolute Path String reference */}
             <img
-              src={mdPortrait}
+              src="/managing-director-visa-portrait.jpg"
               alt="Accurate Consultancy Leadership Overview"
               className="w-full h-full object-cover object-[72%_15%] hover-zoom"
             />
