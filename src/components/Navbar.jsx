@@ -71,7 +71,7 @@ export default function Navbar() {
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex items-center justify-between h-20">
             <button type="button" onClick={() => scrollTo("hero")} className="flex items-center group">
-              <img src="/logo.png" alt="Accurate Consultancy" className="h-10 sm:h-12 w-auto object-contain" width={204} height={48} />
+              <img src="/logo.webp" alt="Accurate Consultancy" className="h-10 sm:h-12 w-auto object-contain" width={204} height={48} />
             </button>
 
             <div className="hidden lg:flex items-center gap-1">
