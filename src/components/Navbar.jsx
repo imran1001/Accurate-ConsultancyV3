@@ -6,14 +6,14 @@ const NAV_ITEMS = [
   { label: "B2B Partnerships", id: "partnerships" },
   { label: "Insights", id: "insights" },
   { label: "Contact", id: "consultation" },
-] as const;
+];
 
 const SECTION_IDS = ["hero", ...NAV_ITEMS.map((i) => i.id)];
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [activeSection, setActiveSection] = useState<string>("hero");
+  const [activeSection, setActiveSection] = useState("hero");
 
   useEffect(() => {
     const handleScroll = () => {
