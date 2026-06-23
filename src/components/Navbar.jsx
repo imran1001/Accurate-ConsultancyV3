@@ -42,7 +42,7 @@ export default function Navbar() {
     };
   }, [isOpen]);
 
-  const scrollTo = (id: string) => {
+  const scrollTo = (id) => {
     const el = document.getElementById(id);
     if (el) {
       const top = el.getBoundingClientRect().top + window.scrollY - 90;
@@ -160,7 +160,7 @@ export default function Navbar() {
           </div>
         </div>
 
-        {/* Mobile drawer — smooth grid-rows trick for height + opacity */}
+        {/* Mobile drawer */}
         <div
           className={`lg:hidden grid transition-[grid-template-rows,opacity] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
             isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
