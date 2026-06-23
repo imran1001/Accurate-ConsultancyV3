@@ -2,13 +2,13 @@ import React, { useState, useEffect } from 'react';
 import mdPortrait from "../assets/managing-director-visa-portrait.jpg";
 
 // Optimized Counter Hook
-const useCounter = (end: number, duration: number = 2000, start: number = 0) => {
+const useCounter = (end, duration = 2000, start = 0) => {
   const [count, setCount] = useState(start);
 
   useEffect(() => {
-    let startTime: number | null = null;
+    let startTime = null;
 
-    const animate = (currentTime: number) => {
+    const animate = (currentTime) => {
       if (!startTime) startTime = currentTime;
       const elapsed = currentTime - startTime;
       const progress = Math.min(elapsed / duration, 1);
@@ -25,14 +25,7 @@ const useCounter = (end: number, duration: number = 2000, start: number = 0) => 
   return count;
 };
 
-interface CounterStatProps {
-  value: number;
-  suffix: string;
-  label: string;
-  delay: number;
-}
-
-function CounterStat({ value, suffix, label, delay }: CounterStatProps) {
+function CounterStat({ value, suffix, label, delay }) {
   const count = useCounter(value, 2000);
   return (
     <div 
@@ -132,7 +125,7 @@ export default function Hero() {
             <img
               src={mdPortrait}
               alt="Accurate Consultancy Leadership Overview"
-              className="w-full h-full object-cover object-[72%_15.] hover-zoom"
+              className="w-full h-full object-cover object-[72%_15%] hover-zoom"
             />
 
             {/* Floating Live Approvals Badge */}
