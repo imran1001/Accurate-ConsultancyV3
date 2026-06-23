@@ -1,16 +1,20 @@
 import { useState, useEffect } from "react";
 import { Phone, Mail, ChevronRight, Menu, X } from "lucide-react";
+
 const NAV_ITEMS = [
-  { label: "Practice Areas", id: "practice-areas" },
-  { label: "Industries", id: "industries" },
+  { label: "Visa Tracks", id: "visa-tracks" },
+  { label: "B2B Partnerships", id: "partnerships" },
   { label: "Insights", id: "insights" },
   { label: "Contact", id: "consultation" },
 ] as const;
+
 const SECTION_IDS = ["hero", ...NAV_ITEMS.map((i) => i.id)];
+
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState<string>("hero");
+
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
@@ -29,6 +33,7 @@ export default function Navbar() {
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
   // Lock body scroll when mobile drawer is open
   useEffect(() => {
     document.body.style.overflow = isOpen ? "hidden" : "";
@@ -36,6 +41,7 @@ export default function Navbar() {
       document.body.style.overflow = "";
     };
   }, [isOpen]);
+
   const scrollTo = (id: string) => {
     const el = document.getElementById(id);
     if (el) {
@@ -44,6 +50,7 @@ export default function Navbar() {
     }
     setIsOpen(false);
   };
+
   return (
     <header className="fixed top-0 inset-x-0 z-50">
       {/* Utility strip */}
@@ -65,6 +72,7 @@ export default function Navbar() {
           </a>
         </div>
       </div>
+
       {/* Main nav */}
       <nav
         className={`transition-all duration-300 ${
@@ -75,7 +83,7 @@ export default function Navbar() {
       >
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex items-center justify-between h-20">
-            {/* Brand */}
+            {/* Brand Identity */}
             <button
               type="button"
               onClick={() => scrollTo("hero")}
@@ -84,10 +92,11 @@ export default function Navbar() {
               <span className="text-[#D4AF37] font-black text-xl tracking-tight">
                 Accurate
               </span>
-              <span className="text-white/80 text-xs uppercase tracking-[0.25em] hidden sm:inline">
-                Legal Consultancy
+              <span className="text-white/80 text-xs uppercase tracking-[0.25em] hidden sm:inline border-l border-white/20 pl-3">
+                Consultancy
               </span>
             </button>
+
             {/* Desktop links */}
             <div className="hidden lg:flex items-center gap-1">
               {NAV_ITEMS.map((item) => {
@@ -109,6 +118,7 @@ export default function Navbar() {
                 );
               })}
             </div>
+
             {/* Desktop CTA */}
             <div className="hidden lg:block">
               <button
@@ -123,6 +133,7 @@ export default function Navbar() {
                 />
               </button>
             </div>
+
             {/* Mobile trigger */}
             <button
               type="button"
@@ -148,6 +159,7 @@ export default function Navbar() {
             </button>
           </div>
         </div>
+
         {/* Mobile drawer — smooth grid-rows trick for height + opacity */}
         <div
           className={`lg:hidden grid transition-[grid-template-rows,opacity] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
@@ -183,6 +195,7 @@ export default function Navbar() {
                   </button>
                 );
               })}
+
               <div className="pt-4">
                 <button
                   type="button"
@@ -191,6 +204,7 @@ export default function Navbar() {
                 >
                   Book Consultation
                 </button>
+
                 <div className="mt-5 space-y-2 text-xs text-gray-300 text-center sm:text-left">
                   <a
                     href="tel:+923160285386"
