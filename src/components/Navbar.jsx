@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { Phone, Mail, ChevronRight, Menu, X } from "lucide-react";
-import logo from "../assets/logo.webp"; 
 
 const NAV_ITEMS = [
   { label: "Services", id: "services" },
@@ -74,7 +73,7 @@ export default function Navbar() {
             {/* Brand Logo Container */}
             <button type="button" onClick={() => scrollTo("hero")} className="flex items-center group py-1">
               <img 
-                src={logo} 
+                src="/logo.webp" 
                 alt="Accurate Consultancy" 
                 className="h-12 sm:h-14 md:h-16 w-auto object-contain transition-transform duration-300 group-hover:scale-[1.02]" 
                 width={204} 
