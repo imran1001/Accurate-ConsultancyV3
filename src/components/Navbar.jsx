@@ -69,13 +69,14 @@ export default function Navbar() {
       {/* Main nav */}
       <nav className={`transition-all duration-300 ${scrolled ? "bg-gray-950/95 backdrop-blur-md shadow-lg shadow-black/20" : "bg-gray-950/80 backdrop-blur-sm"}`}>
         <div className="max-w-7xl mx-auto px-6">
-          <div className="flex items-center justify-between h-20">
+          {/* Height expanded to h-20 on mobile and md:h-24 on desktop */}
+          <div className="flex items-center justify-between h-20 md:h-24 transition-all duration-300">
             {/* Brand Logo Container */}
             <button type="button" onClick={() => scrollTo("hero")} className="flex items-center group py-1">
               <img 
                 src="/logo.webp" 
                 alt="Accurate Consultancy" 
-                className="h-12 sm:h-14 md:h-16 w-auto object-contain transition-transform duration-300 group-hover:scale-[1.02]" 
+                className="h-14 sm:h-16 md:h-[72px] w-auto object-contain transition-transform duration-300 group-hover:scale-[1.02]" 
                 width={204} 
                 height={48} 
               />
