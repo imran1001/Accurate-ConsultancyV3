@@ -45,7 +45,6 @@ const stats = [
   { value: 50, label: "Global Accessways", suffix: "+" },
 ];
 
-// Changed to default export to perfectly match App.jsx line 3
 export default function Hero() {
   return (
     <section className="relative overflow-hidden bg-background">
@@ -55,44 +54,9 @@ export default function Hero() {
 
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         
-        {/* ========================================================================= */}
-        {/* NAVBAR AREA (NAVIGATION BAR COPY & PASTE LAYOUT)                          */}
-        {/* ========================================================================= */}
-        <nav className="flex animate-fade-in-up items-center justify-between py-6 pt-6 pb-2">
-          <div className="flex items-center gap-3">
-            <img 
-              src="/logo.webp" 
-              alt="Accurate Consultancy Logo" 
-              className="h-10 w-auto object-contain"
-            />
-          </div>
-
-          <div className="hidden items-center gap-8 text-sm font-medium text-muted-foreground md:flex">
-            <a href="#services" className="transition-colors hover:text-foreground uppercase tracking-wider text-xs font-bold no-underline">
-              Services
-            </a>
-            <a href="#destinations" className="transition-colors hover:text-foreground uppercase tracking-wider text-xs font-bold no-underline">
-              Destinations
-            </a>
-            <a href="#about" className="transition-colors hover:text-foreground uppercase tracking-wider text-xs font-bold no-underline">
-              About
-            </a>
-            <a href="#contact" className="transition-colors hover:text-foreground uppercase tracking-wider text-xs font-bold no-underline">
-              Contact
-            </a>
-          </div>
-
-          <a
-            href="#contact"
-            className="hidden md:inline-flex items-center justify-center px-4 py-2 rounded-lg border border-primary text-primary hover:bg-primary/10 transition-colors duration-300 animate-shimmer uppercase tracking-wider text-xs font-bold no-underline"
-          >
-            Book Consultation
-          </a>
-        </nav>
-        {/* ========================================================================= */}
-
-        {/* Hero content grid */}
-        <div className="grid items-center gap-12 pb-20 pt-2 lg:grid-cols-[1fr_1.12fr] lg:gap-16 lg:pb-28 lg:pt-4">
+        {/* Hero content grid (Duplicate navbar completely removed. Tightened top spacing via pt-4 lg:pt-6) */}
+        <div className="grid items-center gap-12 pb-20 pt-4 lg:grid-cols-[1fr_1.12fr] lg:gap-16 lg:pb-28 lg:pt-6">
+          
           {/* Left column text inputs */}
           <div className="max-w-xl">
             <div className="animate-fade-in-up inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-primary-foreground">
@@ -179,6 +143,7 @@ export default function Hero() {
               </div>
             </div>
           </div>
+
         </div>
       </div>
     </section>
