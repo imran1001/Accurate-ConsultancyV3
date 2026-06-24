@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { CheckCircle2, Phone, Award, Users, Briefcase, Globe } from "lucide-react";
+import { CheckCircle2, Phone, Award, Users, Briefcase } from "lucide-react";
 
 function useCounter(end, duration = 2000, start = 0) {
   const [count, setCount] = useState(start);
@@ -45,7 +45,8 @@ const stats = [
   { value: 50, label: "Global Accessways", suffix: "+" },
 ];
 
-export function Hero() {
+// Changed to default export to perfectly match App.jsx line 3
+export default function Hero() {
   return (
     <section className="relative overflow-hidden bg-background">
       {/* Ambient background glows */}
