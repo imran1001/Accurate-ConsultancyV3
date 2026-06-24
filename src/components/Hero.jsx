@@ -54,8 +54,8 @@ export default function Hero() {
 
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         
-        {/* Main Hero Grid — engineered with high top-clearance to sit safely below the global Navbar */}
-        <div className="grid items-center gap-12 pb-20 pt-28 lg:grid-cols-[1fr_1.12fr] lg:gap-16 lg:pb-28 lg:pt-36">
+        {/* Main Hero Grid — 1.28fr expands image width slightly while keeping text beautifully balanced */}
+        <div className="grid items-center gap-10 pb-20 pt-28 lg:grid-cols-[1fr_1.28fr] lg:gap-14 lg:pb-28 lg:pt-36">
           
           {/* Left column text */}
           <div className="max-w-xl">
@@ -79,73 +79,4 @@ export default function Hero() {
             <div className="animate-fade-in-up animation-delay-300 mt-8 flex flex-wrap items-center gap-4">
               <a 
                 href="#contact"
-                className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-primary text-primary-foreground hover:bg-primary/95 rounded-xl shadow-md transition-all duration-300 animate-shimmer uppercase tracking-wider text-xs font-black no-underline"
-              >
-                <Phone className="h-4 w-4" />
-                Schedule a Confidential Session
-              </a>
-              <a 
-                href="#services"
-                className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl border border-primary text-primary hover:bg-primary/10 transition-all duration-300 uppercase tracking-wider text-xs font-black no-underline"
-              >
-                <Briefcase className="h-4 w-4" />
-                Explore Services
-              </a>
-            </div>
-
-            {/* Live Counter Metrics Box */}
-            <div className="animate-fade-in-up animation-delay-400 mt-10 grid grid-cols-2 gap-8 rounded-2xl border border-border bg-card/60 p-6 backdrop-blur-sm sm:grid-cols-4">
-              {stats.map((stat) => (
-                <CounterStat key={stat.label} value={stat.value} suffix={stat.suffix} label={stat.label} />
-              ))}
-            </div>
-          </div>
-
-          {/* Right column imagery canvas */}
-          <div className="relative mx-auto w-full max-w-lg animate-scale-in animation-delay-200 lg:max-w-none">
-            <div className="group relative overflow-hidden rounded-2xl border border-border shadow-2xl shadow-foreground/5">
-              <img
-                src="/managing-director-visa-portrait.jpg"
-                alt="Accurate Consultancy Executive Workspace Overview"
-                width={1024}
-                height={1365}
-                className="hover-zoom aspect-[3/4] w-full object-cover"
-                loading="eager"
-              />
-              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-navy/20 via-transparent to-transparent" />
-            </div>
-
-            {/* Frame accentuation element */}
-            <div className="pointer-events-none absolute -right-5 -top-5 -z-10 h-full w-full rounded-2xl border-2 border-primary/30" />
-
-            {/* Dynamic visual verification tags */}
-            <div className="animate-fade-in-up animation-delay-500 absolute -left-4 top-1/4 hidden rounded-xl border border-border bg-card p-4 shadow-xl shadow-foreground/5 sm:block">
-              <div className="flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10">
-                  <CheckCircle2 className="h-5 w-5 text-primary" />
-                </div>
-                <div>
-                  <p className="text-xs font-medium text-muted-foreground">Visa Status</p>
-                  <p className="font-serif text-lg font-semibold text-foreground">Approved</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="animate-fade-in-up animation-delay-600 absolute -right-4 bottom-16 hidden rounded-xl border border-border bg-card p-4 shadow-xl shadow-foreground/5 sm:block">
-              <div className="flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10">
-                  <Users className="h-5 w-5 text-primary" />
-                </div>
-                <div>
-                  <p className="text-xs font-medium text-muted-foreground">Global Reach</p>
-                  <p className="font-serif text-lg font-semibold text-foreground">50+ Countries</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </section>
-  );
-}
+                className="inline-flex
