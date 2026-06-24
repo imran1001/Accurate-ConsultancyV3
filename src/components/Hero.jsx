@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
-import { Button } from "@/components/ui/button";
-import { CheckCircle2, Phone, Award, Users, Briefcase } from "lucide-react";
+import { CheckCircle2, Phone, Award, Users, Briefcase, Globe } from "lucide-react";
 
 function useCounter(end, duration = 2000, start = 0) {
   const [count, setCount] = useState(start);
@@ -55,8 +54,10 @@ export function Hero() {
 
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         
-        {/* Navigation Bar Layout (Reduced bottom padding via pb-2) */}
-        <nav className="flex animate-fade-in-up items-center justify-between pt-6 pb-2">
+        {/* ========================================================================= */}
+        {/* NAVBAR AREA (NAVIGATION BAR COPY & PASTE LAYOUT)                          */}
+        {/* ========================================================================= */}
+        <nav className="flex animate-fade-in-up items-center justify-between py-6 pt-6 pb-2">
           <div className="flex items-center gap-3">
             <img 
               src="/logo.webp" 
@@ -66,30 +67,30 @@ export function Hero() {
           </div>
 
           <div className="hidden items-center gap-8 text-sm font-medium text-muted-foreground md:flex">
-            <a href="#services" className="transition-colors hover:text-foreground uppercase tracking-wider text-xs font-bold">
+            <a href="#services" className="transition-colors hover:text-foreground uppercase tracking-wider text-xs font-bold no-underline">
               Services
             </a>
-            <a href="#destinations" className="transition-colors hover:text-foreground uppercase tracking-wider text-xs font-bold">
+            <a href="#destinations" className="transition-colors hover:text-foreground uppercase tracking-wider text-xs font-bold no-underline">
               Destinations
             </a>
-            <a href="#about" className="transition-colors hover:text-foreground uppercase tracking-wider text-xs font-bold">
+            <a href="#about" className="transition-colors hover:text-foreground uppercase tracking-wider text-xs font-bold no-underline">
               About
             </a>
-            <a href="#contact" className="transition-colors hover:text-foreground uppercase tracking-wider text-xs font-bold">
+            <a href="#contact" className="transition-colors hover:text-foreground uppercase tracking-wider text-xs font-bold no-underline">
               Contact
             </a>
           </div>
 
-          <Button
-            variant="outline-gold"
-            size="sm"
-            className="hidden md:inline-flex animate-shimmer uppercase tracking-wider text-xs font-bold"
+          <a
+            href="#contact"
+            className="hidden md:inline-flex items-center justify-center px-4 py-2 rounded-lg border border-primary text-primary hover:bg-primary/10 transition-colors duration-300 animate-shimmer uppercase tracking-wider text-xs font-bold no-underline"
           >
             Book Consultation
-          </Button>
+          </a>
         </nav>
+        {/* ========================================================================= */}
 
-        {/* Hero content grid (Reduced top padding to pt-2 and lg:pt-4) */}
+        {/* Hero content grid */}
         <div className="grid items-center gap-12 pb-20 pt-2 lg:grid-cols-[1fr_1.12fr] lg:gap-16 lg:pb-28 lg:pt-4">
           {/* Left column text inputs */}
           <div className="max-w-xl">
@@ -111,14 +112,20 @@ export function Hero() {
             </p>
 
             <div className="animate-fade-in-up animation-delay-300 mt-8 flex flex-wrap items-center gap-4">
-              <Button variant="premium" size="lg" className="animate-shimmer uppercase tracking-wider text-xs font-black">
+              <a 
+                href="#contact"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-primary text-primary-foreground hover:bg-primary/95 rounded-xl shadow-md transition-all duration-300 animate-shimmer uppercase tracking-wider text-xs font-black no-underline"
+              >
                 <Phone className="h-4 w-4" />
                 Schedule a Confidential Session
-              </Button>
-              <Button variant="outline-gold" size="lg" className="uppercase tracking-wider text-xs font-black">
+              </a>
+              <a 
+                href="#services"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl border border-primary text-primary hover:bg-primary/10 transition-all duration-300 uppercase tracking-wider text-xs font-black no-underline"
+              >
                 <Briefcase className="h-4 w-4" />
                 Explore Services
-              </Button>
+              </a>
             </div>
 
             {/* Live Counter Metrics Box */}
