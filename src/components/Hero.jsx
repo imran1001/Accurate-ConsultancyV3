@@ -54,10 +54,10 @@ export default function Hero() {
 
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         
-        {/* Hero content grid (Duplicate navbar completely removed. Tightened top spacing via pt-4 lg:pt-6) */}
-        <div className="grid items-center gap-12 pb-20 pt-4 lg:grid-cols-[1fr_1.12fr] lg:gap-16 lg:pb-28 lg:pt-6">
+        {/* Main Hero Grid — engineered with high top-clearance to sit safely below the global Navbar */}
+        <div className="grid items-center gap-12 pb-20 pt-28 lg:grid-cols-[1fr_1.12fr] lg:gap-16 lg:pb-28 lg:pt-36">
           
-          {/* Left column text inputs */}
+          {/* Left column text */}
           <div className="max-w-xl">
             <div className="animate-fade-in-up inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-primary-foreground">
               <Award className="h-4 w-4 text-primary" />
